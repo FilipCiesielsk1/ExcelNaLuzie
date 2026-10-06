@@ -4,7 +4,7 @@ title: "Jak pobrać tekst po znaku w Excelu?"
 description: "Najprostsze sposoby na wyciągnięcie tekstu znajdującego się po myślniku, przecinku lub innym znaku w Excelu."
 slug: "tekst-po-znaku"
 category: "Formuły tekstowe"
-categorySlug: "formuly"
+categorySlug: "formuly/tekst"
 date: "2026-10-06"
 updated: "2026-10-06"
 author: "Filip Ciesielski"
@@ -12,18 +12,21 @@ readingTime: "4 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
-  - "Excel 2021+"
+  - "Excel 2024"
 verified: false
 related:
-  - title: "Jak usunąć pierwsze znaki w Excelu?"
-    url: "/poradniki/usun-pierwsze-znaki/"
+  - title: "Jak pobrać tekst przed znakiem w Excelu?"
+    url: "/poradniki/tekst-przed-znakiem/"
     category: "Tekst"
-  - title: "Formuły Excel"
-    url: "/formuly/"
-    category: "Baza wiedzy"
+  - title: "Jak podzielić tekst po przecinku w Excelu?"
+    url: "/poradniki/podziel-tekst-po-przecinku/"
+    category: "Tekst"
+  - title: "Formuły tekstowe w Excelu"
+    url: "/formuly/tekst/"
+    category: "Hub"
 ---
 
-<div class="answer"><strong>Najprościej:</strong> jeśli masz Microsoft 365 lub nowszą wersję Excela, użyj funkcji <strong>TEKST.PO</strong>.</div>
+<div class="answer"><strong>Najprościej:</strong> jeśli masz Microsoft 365 lub Excel 2024, użyj funkcji <strong>TEKST.PO</strong>.</div>
 
 <div class="formula">=TEKST.PO(A1;"-")</div>
 

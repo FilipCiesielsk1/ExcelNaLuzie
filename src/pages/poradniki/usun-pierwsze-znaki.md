@@ -4,7 +4,7 @@ title: "Jak usunąć pierwsze znaki w Excelu?"
 description: "Usuń pierwsze 1, 2, 3 lub dowolną liczbę znaków z komórki w Excelu za pomocą prostej formuły."
 slug: "usun-pierwsze-znaki"
 category: "Formuły tekstowe"
-categorySlug: "formuly"
+categorySlug: "formuly/tekst"
 date: "2026-10-06"
 updated: "2026-10-06"
 author: "Filip Ciesielski"
@@ -15,12 +15,15 @@ excelVersions:
   - "Starsze wersje"
 verified: false
 related:
+  - title: "Jak usunąć ostatnie znaki w Excelu?"
+    url: "/poradniki/usun-ostatnie-znaki/"
+    category: "Tekst"
   - title: "Jak pobrać tekst po znaku w Excelu?"
     url: "/poradniki/tekst-po-znaku/"
     category: "Tekst"
-  - title: "Formuły Excel"
-    url: "/formuly/"
-    category: "Baza wiedzy"
+  - title: "Formuły tekstowe w Excelu"
+    url: "/formuly/tekst/"
+    category: "Hub"
 ---
 
 <div class="answer"><strong>Aby usunąć pierwsze 3 znaki</strong> z tekstu w komórce A1, użyj poniższej formuły.</div>

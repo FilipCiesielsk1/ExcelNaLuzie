@@ -14,17 +14,17 @@
 
 - [x] Jak pobrać tekst po znaku w Excelu?
 - [x] Jak usunąć pierwsze znaki w Excelu?
-- [ ] Jak usunąć ostatnie znaki w Excelu?
-- [ ] Jak pobrać tekst przed znakiem w Excelu?
-- [ ] Jak pobrać tekst między dwoma znakami w Excelu?
-- [ ] Jak podzielić tekst po przecinku w Excelu?
-- [ ] Jak połączyć tekst z kilku komórek?
-- [ ] Jak sprawdzić, czy komórka zawiera tekst?
-- [ ] Jak policzyć wystąpienia tekstu?
-- [ ] Jak zamienić fragment tekstu?
+- [x] Jak usunąć ostatnie znaki w Excelu?
+- [x] Jak pobrać tekst przed znakiem w Excelu?
+- [x] Jak pobrać tekst między dwoma znakami w Excelu?
+- [x] Jak podzielić tekst po przecinku w Excelu?
+- [x] Jak połączyć tekst z kilku komórek?
+- [x] Jak sprawdzić, czy komórka zawiera tekst?
+- [x] Jak policzyć wystąpienia tekstu?
+- [x] Jak zamienić fragment tekstu?
 
 Docelowy hub:
-- [ ] Formuły tekstowe w Excelu
+- [x] Formuły tekstowe w Excelu
 
 Powiązane funkcje:
 - [ ] TEKST.PO
