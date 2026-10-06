@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+
+const articles = [
+  ['xwyszukaj-podstawy','X.WYSZUKAJ — prosty przykład','X.WYSZUKAJ'],
+  ['xwyszukaj-dwa-warunki','X.WYSZUKAJ z dwoma warunkami','2 warunki'],
+  ['xwyszukaj-kilka-warunkow','X.WYSZUKAJ z kilkoma warunkami','3+ warunki'],
+  ['xwyszukaj-w-lewo','X.WYSZUKAJ w lewo','w lewo'],
+  ['xwyszukaj-kilka-wynikow','X.WYSZUKAJ i kilka wyników','FILTRUJ'],
+  ['xwyszukaj-najblizsza-wartosc','X.WYSZUKAJ — najbliższa wartość','-1 / 1'],
+  ['xwyszukaj-brak-wyniku','X.WYSZUKAJ — brak wyniku','#N/D'],
+  ['wyszukaj-pionowo-dwa-warunki','WYSZUKAJ.PIONOWO z dwoma warunkami','WYSZUKAJ.PIONOWO'],
+  ['indeks-podaj-pozycje','INDEKS + PODAJ.POZYCJĘ','INDEKS'],
+  ['jak-znalezc-wartosc-w-tabeli','Jak znaleźć wartość w tabeli?','wybór metody']
+];
+---
+
+<BaseLayout
+  title="Wyszukiwanie danych w Excelu — 10 praktycznych poradników | ExcelNaLuzie"
+  description="Wyszukiwanie danych w Excelu: X.WYSZUKAJ, FILTRUJ, WYSZUKAJ.PIONOWO, INDEKS + PODAJ.POZYCJĘ oraz wiele warunków."
+>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><a href={link("/formuly/")}>Formuły</a><span>›</span><strong>Wyszukiwanie</strong></nav>
+        <span class="hub-kicker">Klaster: Wyszukiwanie</span>
+        <h1>Znajdź właściwy rekord.<br/><em>Bez walki z tabelą.</em></h1>
+        <p>Od prostego X.WYSZUKAJ po wiele warunków, wszystkie wyniki, wyszukiwanie w lewo i rozwiązania dla starszego Excela.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Podstawy</span><code>=X.WYSZUKAJ(F2;A:A;C:C)</code></div>
+        <div class="formula-stack-card two"><span>Warunki</span><code>=X.WYSZUKAJ(1;(...)*(...);...)</code></div>
+        <div class="formula-stack-card three"><span>Wiele wyników</span><code>=FILTRUJ(A:C;A:A=F2)</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">10 poradników</span><h2>Jakiego wyszukiwania potrzebujesz?</h2></div>
+        <p>Wybierz problem zamiast zgadywać nazwę funkcji. Każda strona prowadzi od gotowej formuły do wyjaśnienia.</p>
+      </div>
+      <div class="hub-article-list">
+        {articles.map((item,index) => (
+          <a href={link('/poradniki/' + item[0] + '/')}>
+            <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
+            <div><small>Wyszukiwanie danych</small><strong>{item[1]}</strong></div>
+            <code>{item[2]}</code>
+            <b>→</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Szybki wybór</span><h2>Jedna funkcja nie pasuje do wszystkiego</h2></div>
+        <p>X.WYSZUKAJ jest świetnym domyślnym wyborem, ale wiele rekordów lepiej zwróci FILTRUJ, a starszy Excel nadal może wymagać INDEKS + PODAJ.POZYCJĘ.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Jeden wynik</strong><p>Zacznij od X.WYSZUKAJ. Działa także w lewo i ma własną obsługę braku wyniku.</p></div>
+        <div><span>02</span><strong>Wiele wyników</strong><p>Użyj FILTRUJ, gdy potrzebujesz wszystkich rekordów spełniających warunek.</p></div>
+        <div><span>03</span><strong>Starszy Excel</strong><p>Sięgnij po INDEKS + PODAJ.POZYCJĘ albo istniejące WYSZUKAJ.PIONOWO.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
