@@ -1,0 +1,146 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Numer kolumny ↔ litera kolumny w Excelu"
+  description="Przelicz numer kolumny Excela na literę albo literę kolumny na numer. Obsługa pełnego zakresu od A do XFD, czyli od 1 do 16384."
+  slug="kolumna-numer-litera"
+  functionName="Adresowanie kolumn"
+  functionHref="/formuly/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Konwerter</span>
+    <h2>Kolumna ↔ numer</h2>
+    <p>Wpisz numer albo oznaczenie kolumny. Drugie pole uzupełni się automatycznie.</p>
+  </div>
+
+  <div class="column-converter" data-column-converter>
+    <div class="column-converter-grid">
+      <div class="column-converter-card">
+        <span class="column-converter-label">Numer kolumny</span>
+        <input data-column-number type="number" min="1" max="16384" value="28" inputmode="numeric"/>
+        <small>Zakres Excela: 1–16384</small>
+        <div class="column-converter-result">
+          <span>Litera</span>
+          <strong data-letter-result>AB</strong>
+          <button type="button" data-copy-letter>Kopiuj</button>
+        </div>
+      </div>
+
+      <div class="column-converter-swap" aria-hidden="true">↔</div>
+
+      <div class="column-converter-card">
+        <span class="column-converter-label">Litera kolumny</span>
+        <input data-column-letter type="text" value="AB" maxlength="3" spellcheck="false" autocomplete="off"/>
+        <small>Zakres Excela: A–XFD</small>
+        <div class="column-converter-result">
+          <span>Numer</span>
+          <strong data-number-result>28</strong>
+          <button type="button" data-copy-number>Kopiuj</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="column-converter-message" data-message>
+      Excel ma 16 384 kolumny. Ostatnia kolumna to XFD.
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Przykłady</h2>
+    <p>A = 1, Z = 26, AA = 27, AB = 28, XFD = 16384.</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-column-converter]');
+    const numberInput = root.querySelector('[data-column-number]');
+    const letterInput = root.querySelector('[data-column-letter]');
+    const letterResult = root.querySelector('[data-letter-result]');
+    const numberResult = root.querySelector('[data-number-result]');
+    const message = root.querySelector('[data-message]');
+
+    const MAX_COLUMN = 16384;
+
+    const numberToLetters = (value) => {
+      let number = Number(value);
+      if (!Number.isInteger(number) || number < 1 || number > MAX_COLUMN) return null;
+
+      let result = '';
+      while (number > 0) {
+        number -= 1;
+        result = String.fromCharCode(65 + (number % 26)) + result;
+        number = Math.floor(number / 26);
+      }
+      return result;
+    };
+
+    const lettersToNumber = (value) => {
+      const letters = value.trim().toUpperCase();
+      if (!/^[A-Z]{1,3}$/.test(letters)) return null;
+
+      let result = 0;
+      for (const char of letters) {
+        result = result * 26 + char.charCodeAt(0) - 64;
+      }
+      return result >= 1 && result <= MAX_COLUMN ? result : null;
+    };
+
+    const setMessage = (text, error = false) => {
+      message.textContent = text;
+      message.classList.toggle('error', error);
+    };
+
+    const updateFromNumber = () => {
+      const letters = numberToLetters(numberInput.value);
+      if (!letters) {
+        letterResult.textContent = '—';
+        setMessage('Wpisz liczbę od 1 do 16384.', true);
+        return;
+      }
+      letterInput.value = letters;
+      letterResult.textContent = letters;
+      numberResult.textContent = String(Number(numberInput.value));
+      setMessage('Excel ma 16 384 kolumny. Ostatnia kolumna to XFD.');
+    };
+
+    const updateFromLetters = () => {
+      const normalized = letterInput.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3);
+      letterInput.value = normalized;
+      const number = lettersToNumber(normalized);
+      if (!number) {
+        numberResult.textContent = '—';
+        setMessage('Wpisz oznaczenie kolumny od A do XFD.', true);
+        return;
+      }
+      numberInput.value = String(number);
+      numberResult.textContent = String(number);
+      letterResult.textContent = normalized;
+      setMessage('Excel ma 16 384 kolumny. Ostatnia kolumna to XFD.');
+    };
+
+    const copy = async (value, button) => {
+      if (!value || value === '—') return;
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = 'Skopiowano ✓';
+        setTimeout(() => button.textContent = 'Kopiuj', 1500);
+      } catch {
+        button.textContent = 'Zaznacz ręcznie';
+      }
+    };
+
+    numberInput.addEventListener('input', updateFromNumber);
+    letterInput.addEventListener('input', updateFromLetters);
+
+    root.querySelector('[data-copy-letter]').addEventListener('click', (event) => {
+      copy(letterResult.textContent, event.currentTarget);
+    });
+
+    root.querySelector('[data-copy-number]').addEventListener('click', (event) => {
+      copy(numberResult.textContent, event.currentTarget);
+    });
+
+    updateFromNumber();
+  </script>
+</ToolLayout>

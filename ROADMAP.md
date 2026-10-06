@@ -100,7 +100,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] Generator X.WYSZUKAJ
 - [x] Generator SUMA.WARUNKÓW
 - [x] Generator LICZ.WARUNKI
-- [ ] numer kolumny ↔ litera kolumny
+- [x] numer kolumny ↔ litera kolumny
 - [ ] kalkulator dat Excel
 - [ ] generator formatów niestandardowych
 

@@ -227,8 +227,8 @@ Powiązane funkcje:
 - [x] Generator X.WYSZUKAJ
 - [x] Generator SUMA.WARUNKÓW
 - [x] Generator LICZ.WARUNKI
-- [ ] Numer kolumny → litera
-- [ ] Litera kolumny → numer
+- [x] Numer kolumny → litera
+- [x] Litera kolumny → numer
 - [ ] Kalkulator dat Excel
 - [ ] Generator formatów niestandardowych
 
