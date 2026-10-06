@@ -1,5 +1,5 @@
 ---
-layout: ../src/layouts/ArticleLayout.astro
+layout: ../../layouts/ArticleLayout.astro
 title: "[GŁÓWNY TYTUŁ / INTENCJA WYSZUKIWANIA]"
 description: "[140–160 znaków: problem + rozwiązanie + konkret]"
 slug: "[slug-bez-polskich-znakow]"
