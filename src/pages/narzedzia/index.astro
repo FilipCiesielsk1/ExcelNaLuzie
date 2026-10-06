@@ -1,4 +1,102 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
 ---
-<BaseLayout title="Narzędzia Excel | ExcelNaLuzie" description="Darmowe generatory i narzędzia do Excela."><section class="section"><div class="wrap"><h1>Narzędzia Excel</h1><p>Tu pojawią się generatory formuł, konwertery i kalkulatory działające bezpośrednio w przeglądarce.</p></div></section></BaseLayout>
+
+<BaseLayout
+  title="Narzędzia Excel — generatory i kalkulatory | ExcelNaLuzie"
+  description="Darmowe narzędzia do Excela działające w przeglądarce: generatory formuł, konwertery i kalkulatory."
+>
+  <section class="hub-hero hub-tools">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Narzędzia</strong></nav>
+        <span class="hub-kicker">Narzędzia online</span>
+        <h1>Nie pamiętasz składni?<br/><em>Nie musisz.</em></h1>
+        <p>Wybierasz, co chcesz osiągnąć, a narzędzie układa formułę za Ciebie. Bez instalacji i bez wysyłania plików na serwer.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#narzedzia">Zobacz narzędzia <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Przeglądaj formuły</a>
+        </div>
+      </div>
+
+      <div class="tool-builder" aria-hidden="true">
+        <div class="tool-builder-head"><span>Generator JEŻELI</span><i>Podgląd</i></div>
+        <label>Jeśli komórka <strong>A1</strong></label>
+        <div class="tool-fake-select">jest większa niż <span>⌄</span></div>
+        <div class="tool-fake-input">0</div>
+        <div class="tool-result"><span>Gotowa formuła</span><code>=JEŻELI(A1&gt;0;"TAK";"NIE")</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="narzedzia">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Mini-aplikacje</span><h2>Narzędzia, które zrobimy</h2></div>
+        <p>Całość będzie działać lokalnie w przeglądarce, więc GitHub Pages nadal wystarczy jako darmowy hosting.</p>
+      </div>
+
+      <div class="tools-grid">
+        <article class="tool-card priority">
+          <div class="tool-card-top"><span class="tool-icon">IF</span><span class="tool-status">Pierwsze w kolejce</span></div>
+          <h3>Generator JEŻELI</h3>
+          <p>Zbuduj formułę JEŻELI z prostego formularza bez pamiętania kolejności argumentów.</p>
+          <div class="tool-tags"><span>JEŻELI</span><span>ORAZ</span><span>LUB</span></div>
+        </article>
+        <article class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">⌕</span><span class="tool-status">Planowane</span></div>
+          <h3>Generator X.WYSZUKAJ</h3>
+          <p>Wskaż kolumnę wyszukiwania, wynik i opcjonalne warunki, a dostaniesz gotową formułę.</p>
+          <div class="tool-tags"><span>X.WYSZUKAJ</span><span>2 warunki</span></div>
+        </article>
+        <article class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">A↔1</span><span class="tool-status">Planowane</span></div>
+          <h3>Kolumna ↔ numer</h3>
+          <p>Szybki konwerter: numer kolumny na literę i litera kolumny na numer.</p>
+          <div class="tool-tags"><span>AB → 28</span><span>28 → AB</span></div>
+        </article>
+        <article class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">Σ</span><span class="tool-status">Planowane</span></div>
+          <h3>Generator SUMA.WARUNKÓW</h3>
+          <p>Dodawaj kolejne kryteria i otrzymuj poprawną składnię bez ręcznego liczenia argumentów.</p>
+          <div class="tool-tags"><span>SUMA.WARUNKÓW</span></div>
+        </article>
+        <article class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">31</span><span class="tool-status">Planowane</span></div>
+          <h3>Kalkulator dat Excel</h3>
+          <p>Dobierz formułę do różnicy dat, dni roboczych, miesięcy i przesuwania terminów.</p>
+          <div class="tool-tags"><span>daty</span><span>dni robocze</span></div>
+        </article>
+        <article class="tool-card">
+          <div class="tool-card-top"><span class="tool-icon">0.00</span><span class="tool-status">Planowane</span></div>
+          <h3>Generator formatów</h3>
+          <p>Zbuduj niestandardowy format liczby, daty, procentu lub jednostki i zobacz podgląd.</p>
+          <div class="tool-tags"><span>formaty</span><span>daty</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Założenie</span><h2>Zero zbędnej komplikacji</h2></div>
+        <p>Narzędzia mają skracać drogę od problemu do rozwiązania, a nie być kolejną aplikacją do nauczenia.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Wybierasz cel</strong><p>Opisujesz problem przez kilka prostych pól zamiast pisać formułę.</p></div>
+        <div><span>02</span><strong>Dostajesz wynik</strong><p>Gotowa składnia pojawia się natychmiast wraz z podglądem.</p></div>
+        <div><span>03</span><strong>Kopiujesz do Excela</strong><p>Jedno kliknięcie i możesz wracać do swojego arkusza.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-cta-section">
+    <div class="wrap hub-cta">
+      <div><span class="section-kicker light">Do czasu uruchomienia generatorów</span><h2>Gotowe formuły już są.</h2><p>Zobacz poradniki i skopiuj rozwiązanie bezpośrednio do arkusza.</p></div>
+      <a href={link("/formuly/")}>Przejdź do formuł <span>→</span></a>
+    </div>
+  </section>
+</BaseLayout>
