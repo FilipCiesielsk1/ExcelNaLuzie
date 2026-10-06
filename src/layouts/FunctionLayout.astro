@@ -1,0 +1,170 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { withBase as link } from '../utils/paths.js';
+import { functionBySlug } from '../data/functionCatalog.js';
+
+const { frontmatter } = Astro.props;
+const fn = functionBySlug[frontmatter.slug];
+
+if (!fn) throw new Error(`Unknown Excel function slug: ${frontmatter.slug}`);
+
+const canonical = `/funkcje/${fn.slug}/`;
+const absoluteUrl = `https://excelnaluzie.pl${canonical}`;
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'TechArticle',
+      headline:`Funkcja ${fn.name} w Excelu`,
+      description:fn.description,
+      inLanguage:'pl-PL',
+      mainEntityOfPage:{'@type':'WebPage','@id':absoluteUrl},
+      author:{'@type':'Person',name:'Filip Ciesielski'},
+      publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'}
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Funkcje Excel',item:'https://excelnaluzie.pl/funkcje/'},
+        {'@type':'ListItem',position:3,name:fn.name,item:absoluteUrl}
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  navSection="funkcje"
+  title={`${fn.name} — funkcja Excel, składnia i przykłady | ExcelNaLuzie`}
+  description={fn.description}
+  canonical={canonical}
+  ogType="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
+  <div class="function-page">
+    <div class="function-detail-layout">
+      <article class="function-detail" data-pagefind-body>
+        <nav class="breadcrumbs" aria-label="Okruszki">
+          <a href={link("/")}>ExcelNaLuzie</a>
+          <span>›</span>
+          <a href={link("/funkcje/")}>Funkcje</a>
+          <span>›</span>
+          <strong>{fn.name}</strong>
+        </nav>
+
+        <header class="function-detail-header">
+          <span class="article-category">{fn.category}</span>
+          <h1 data-pagefind-meta="title">Funkcja {fn.name} w Excelu</h1>
+          <p>{fn.description}</p>
+          <div class="function-version-row">
+            {fn.versions.map((version) => <span>{version}</span>)}
+          </div>
+        </header>
+
+        <section class="function-syntax-card" aria-label="Składnia funkcji">
+          <div class="function-syntax-label"><span>fx</span><strong>Składnia</strong></div>
+          <div class="function-syntax-code" data-copy-source>{fn.syntax}</div>
+          <button class="function-copy" type="button" data-copy-button>Kopiuj</button>
+        </section>
+
+        <section class="function-args-section">
+          <div class="function-section-title">
+            <span class="section-kicker">Argumenty</span>
+            <h2>Jak czytać funkcję?</h2>
+          </div>
+          <div class="function-args-table">
+            {fn.arguments.map((argument, index) => (
+              <div>
+                <b>{String(index + 1).padStart(2,'0')}</b>
+                <code>{argument[0]}</code>
+                <p>{argument[1]}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="function-example">
+          <span class="section-kicker">Szybki przykład</span>
+          <h2>Najprostsze użycie</h2>
+          <div class="formula">{fn.example}</div>
+        </section>
+
+        <div class="article-content function-content">
+          <slot/>
+        </div>
+
+        <section class="related related-seo">
+          <div class="related-head">
+            <span class="section-kicker">Powiązane</span>
+            <h2>Co dalej?</h2>
+          </div>
+          <div class="related-grid">
+            {fn.related.map((item) => (
+              <a href={link(item[1])}>
+                <small>ExcelNaLuzie</small>
+                <strong>{item[0]}</strong>
+                <span>→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </article>
+
+      <aside class="function-detail-sidebar">
+        <div class="function-side-card">
+          <span>Funkcja</span>
+          <strong>{fn.name}</strong>
+          <small>{fn.category}</small>
+        </div>
+        <div class="function-side-card">
+          <span>Dostępność</span>
+          {fn.versions.map((version) => <small>✓ {version}</small>)}
+        </div>
+        <a class="function-doc-link" href={fn.docs} target="_blank" rel="noopener noreferrer">
+          Dokumentacja Microsoft <span>↗</span>
+        </a>
+        <a class="sidebar-search" href={link("/funkcje/")}>
+          <span>Pełna baza</span>
+          <strong>Wszystkie funkcje →</strong>
+        </a>
+      </aside>
+    </div>
+  </div>
+
+  <script is:inline>
+    const copyButton = document.querySelector('[data-copy-button]');
+    const copySource = document.querySelector('[data-copy-source]');
+
+    copyButton?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(copySource?.textContent?.trim() || '');
+        copyButton.textContent = 'Skopiowano ✓';
+        setTimeout(() => copyButton.textContent = 'Kopiuj', 1500);
+      } catch {
+        copyButton.textContent = 'Zaznacz ręcznie';
+      }
+    });
+
+    document.querySelectorAll('.function-content .formula').forEach((box) => {
+      if (box.querySelector('.formula-copy')) return;
+      const formula = box.textContent.trim();
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'formula-copy';
+      button.textContent = 'Kopiuj';
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(formula);
+          button.textContent = 'Skopiowano ✓';
+          setTimeout(() => button.textContent = 'Kopiuj', 1500);
+        } catch {
+          button.textContent = 'Zaznacz ręcznie';
+        }
+      });
+      box.appendChild(button);
+    });
+  </script>
+</BaseLayout>
