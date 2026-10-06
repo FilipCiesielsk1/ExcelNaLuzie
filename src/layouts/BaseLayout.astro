@@ -7,12 +7,16 @@ import '../styles/global.css';
 const {
   title='ExcelNaLuzie — rozwiązania do Excela bez zbędnego gadania',
   description='Praktyczne formuły, VBA, poradniki, narzędzia i gotowe rozwiązania problemów z Excelem.',
-  canonical=Astro.url.pathname
+  canonical=Astro.url.pathname,
+  ogType='website',
+  image=null,
+  noindex=false
 } = Astro.props;
 
 const canonicalPath = canonical.replace(/^\/ExcelNaLuzie\/?/, '/');
 const url=new URL(canonicalPath, 'https://excelnaluzie.pl');
 const favicon = withBase('/favicon.svg');
+const ogImage = image ? new URL(image, 'https://excelnaluzie.pl') : null;
 ---
 
 <!doctype html>
@@ -22,15 +26,25 @@ const favicon = withBase('/favicon.svg');
     <meta name="viewport" content="width=device-width"/>
     <meta name="theme-color" content="#107c41"/>
     <meta name="color-scheme" content="light"/>
+    <meta name="robots" content={noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}/>
     <title>{title}</title>
     <meta name="description" content={description}/>
     <link rel="canonical" href={url}/>
     <link rel="icon" type="image/svg+xml" href={favicon}/>
-    <meta property="og:type" content="website"/>
+
+    <meta property="og:locale" content="pl_PL"/>
+    <meta property="og:site_name" content="ExcelNaLuzie.pl"/>
+    <meta property="og:type" content={ogType}/>
     <meta property="og:title" content={title}/>
     <meta property="og:description" content={description}/>
     <meta property="og:url" content={url}/>
-    <meta name="twitter:card" content="summary"/>
+    {ogImage && <meta property="og:image" content={ogImage}/>}
+
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'}/>
+    <meta name="twitter:title" content={title}/>
+    <meta name="twitter:description" content={description}/>
+    {ogImage && <meta name="twitter:image" content={ogImage}/>}
+
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context':'https://schema.org',
       '@type':'WebSite',
