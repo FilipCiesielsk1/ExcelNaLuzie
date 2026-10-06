@@ -9,7 +9,9 @@ const {
   canonical=Astro.url.pathname
 } = Astro.props;
 
-const url=new URL(canonical, Astro.site ?? 'https://excelnaluzie.pl');
+const base = import.meta.env.BASE_URL;
+const url=new URL(canonical, 'https://excelnaluzie.pl');
+const favicon = `${base}favicon.svg`;
 ---
 
 <!doctype html>
@@ -22,7 +24,7 @@ const url=new URL(canonical, Astro.site ?? 'https://excelnaluzie.pl');
     <title>{title}</title>
     <meta name="description" content={description}/>
     <link rel="canonical" href={url}/>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <link rel="icon" type="image/svg+xml" href={favicon}/>
     <meta property="og:type" content="website"/>
     <meta property="og:title" content={title}/>
     <meta property="og:description" content={description}/>
