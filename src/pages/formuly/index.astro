@@ -23,7 +23,7 @@ import { withBase as link } from '../../utils/paths.js';
       <div class="formula-stack" aria-hidden="true">
         <div class="formula-stack-card one"><span>Tekst</span><code>=TEKST.PO(A1;"-")</code></div>
         <div class="formula-stack-card two"><span>Wyszukiwanie</span><code>=X.WYSZUKAJ(...)</code></div>
-        <div class="formula-stack-card three"><span>Warunki</span><code>=JEŻELI(A1&gt;0;"TAK";"NIE")</code></div>
+        <div class="formula-stack-card three"><span>Daty</span><code>=DNI.ROBOCZE(A2;B2)</code></div>
       </div>
     </div>
   </section>
@@ -48,12 +48,12 @@ import { withBase as link } from '../../utils/paths.js';
           <p>X.WYSZUKAJ, WYSZUKAJ.PIONOWO, INDEKS + PODAJ.POZYCJĘ i wyszukiwanie po wielu warunkach.</p>
           <span class="hub-topic-link">10 poradników →</span>
         </a>
-        <div class="hub-topic-card">
+        <a class="hub-topic-card active" href={link("/formuly/daty/")}>
           <span class="hub-topic-icon">31</span><span class="hub-topic-count">Daty</span>
           <h3>Daty i czas</h3>
-          <p>Różnice między datami, dni robocze, miesiące, tygodnie i przeliczanie czasu.</p>
-          <span class="hub-coming">Rozbudowujemy</span>
-        </div>
+          <p>Różnice między datami, dni robocze, miesiące, tygodnie i przesuwanie terminów.</p>
+          <span class="hub-topic-link">10 poradników →</span>
+        </a>
         <div class="hub-topic-card">
           <span class="hub-topic-icon">✓</span><span class="hub-topic-count">Logika</span>
           <h3>Warunki i logika</h3>
@@ -86,9 +86,10 @@ import { withBase as link } from '../../utils/paths.js';
       <div class="hub-article-list">
         <a href={link("/formuly/tekst/")}><span class="hub-list-num">01</span><div><small>Klaster</small><strong>Formuły tekstowe — 10 praktycznych poradników</strong></div><code>TEKST</code><b>→</b></a>
         <a href={link("/formuly/wyszukiwanie/")}><span class="hub-list-num">02</span><div><small>Klaster</small><strong>Wyszukiwanie danych — 10 praktycznych poradników</strong></div><code>X.WYSZUKAJ</code><b>→</b></a>
-        <a href={link("/poradniki/tekst-po-znaku/")}><span class="hub-list-num">03</span><div><small>Tekst</small><strong>Jak pobrać tekst po znaku?</strong></div><code>=TEKST.PO(...)</code><b>→</b></a>
+        <a href={link("/formuly/daty/")}><span class="hub-list-num">03</span><div><small>Klaster</small><strong>Daty i czas — 10 praktycznych poradników</strong></div><code>DATA</code><b>→</b></a>
+        <a href={link("/poradniki/tekst-po-znaku/")}><span class="hub-list-num">05</span><div><small>Tekst</small><strong>Jak pobrać tekst po znaku?</strong></div><code>=TEKST.PO(...)</code><b>→</b></a>
         <a href={link("/poradniki/tekst-przed-znakiem/")}><span class="hub-list-num">04</span><div><small>Tekst</small><strong>Jak pobrać tekst przed znakiem?</strong></div><code>=TEKST.PRZED(...)</code><b>→</b></a>
-        <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}><span class="hub-list-num">05</span><div><small>Wyszukiwanie</small><strong>X.WYSZUKAJ z dwoma warunkami</strong></div><code>=X.WYSZUKAJ(...)</code><b>→</b></a>
+        <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}><span class="hub-list-num">06</span><div><small>Wyszukiwanie</small><strong>X.WYSZUKAJ z dwoma warunkami</strong></div><code>=X.WYSZUKAJ(...)</code><b>→</b></a>
       </div>
     </div>
   </section>

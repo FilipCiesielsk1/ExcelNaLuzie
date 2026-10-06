@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+
+const articles = [
+  ['roznica-miedzy-datami','Różnica między datami','dni / miesiące / lata'],
+  ['liczba-dni-miedzy-datami','Liczba dni między datami','odejmowanie dat'],
+  ['liczba-miesiecy-miedzy-datami','Liczba miesięcy między datami','DATA.RÓŻNICA'],
+  ['data-na-nazwe-miesiaca','Data na nazwę miesiąca','TEKST'],
+  ['numer-tygodnia-w-excelu','Numer tygodnia w Excelu','NUM.TYG'],
+  ['poniedzialek-z-numeru-tygodnia','Poniedziałek z numeru tygodnia','DATA + DZIEŃ.TYG'],
+  ['pierwszy-dzien-miesiaca','Pierwszy dzień miesiąca','DATA'],
+  ['ostatni-dzien-miesiaca','Ostatni dzień miesiąca','NR.SER.OST.DN.MIES'],
+  ['dodawanie-miesiecy-do-daty','Dodawanie miesięcy do daty','NR.SER.DATY'],
+  ['liczba-dni-roboczych','Liczba dni roboczych','DNI.ROBOCZE']
+];
+---
+
+<BaseLayout
+  title="Daty i czas w Excelu — 10 praktycznych poradników | ExcelNaLuzie"
+  description="Daty w Excelu bez zgadywania: różnice między datami, miesiące, tygodnie, pierwszy i ostatni dzień miesiąca oraz dni robocze."
+>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><a href={link("/formuly/")}>Formuły</a><span>›</span><strong>Daty i czas</strong></nav>
+        <span class="hub-kicker">Klaster: Daty i czas</span>
+        <h1>Daty bez kombinowania.<br/><em>Od dni do tygodni.</em></h1>
+        <p>Obliczaj różnice, dni robocze, miesiące, numery tygodni i granice okresów za pomocą gotowych formuł.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Różnica</span><code>=B2-A2</code></div>
+        <div class="formula-stack-card two"><span>Tydzień ISO</span><code>=NUM.TYG(A2;21)</code></div>
+        <div class="formula-stack-card three"><span>Dni robocze</span><code>=DNI.ROBOCZE(A2;B2)</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">10 poradników</span><h2>Co chcesz policzyć?</h2></div>
+        <p>Wybierz rezultat: liczbę dni, pełne miesiące, tydzień, początek okresu albo termin po przesunięciu daty.</p>
+      </div>
+      <div class="hub-article-list">
+        {articles.map((item,index) => (
+          <a href={link('/poradniki/' + item[0] + '/')}>
+            <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
+            <div><small>Daty i czas</small><strong>{item[1]}</strong></div>
+            <code>{item[2]}</code>
+            <b>→</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Najważniejsza zasada</span><h2>Excel przechowuje daty jako liczby</h2></div>
+        <p>Dlatego daty można odejmować i przesuwać. Specjalne funkcje przydają się wtedy, gdy znaczenie ma kalendarz: miesiące, tygodnie, weekendy lub święta.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Dni</strong><p>Do prostych różnic często wystarczy zwykłe odejmowanie dwóch dat.</p></div>
+        <div><span>02</span><strong>Miesiące i tygodnie</strong><p>Używaj funkcji kalendarzowych zamiast przyjmować, że każdy miesiąc ma 30 dni.</p></div>
+        <div><span>03</span><strong>Dni robocze</strong><p>DNI.ROBOCZE potrafi wykluczyć weekendy oraz wskazaną listę świąt.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

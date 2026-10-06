@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ArticleLayout.astro
 title: "Jak wyznaczyć ostatni dzień miesiąca w Excelu?"
-description: "Jak znaleźć ostatni dzień miesiąca dla dowolnej daty w Excelu. Gotowa formuła KONIEC.MIESIĄCA i praktyczne warianty."
+description: "Jak znaleźć ostatni dzień miesiąca dla dowolnej daty w Excelu. Gotowa formuła NR.SER.OST.DN.MIES i praktyczne warianty."
 slug: "ostatni-dzien-miesiaca"
 category: "Daty i czas"
 categorySlug: "formuly/daty"
@@ -28,21 +28,21 @@ related:
     category: "Hub"
 ---
 
-<div class="answer"><strong>Aby wyznaczyć ostatni dzień miesiąca</strong> dla daty w A2, użyj funkcji KONIEC.MIESIĄCA.</div>
+<div class="answer"><strong>Aby wyznaczyć ostatni dzień miesiąca</strong> dla daty w A2, użyj funkcji NR.SER.OST.DN.MIES.</div>
 
-<div class="formula">=KONIEC.MIESIĄCA(A2;0)</div>
+<div class="formula">=NR.SER.OST.DN.MIES(A2;0)</div>
 
 Argument 0 oznacza miesiąc, w którym znajduje się data z A2.
 
 ## Ostatni dzień następnego miesiąca
 
-<div class="formula">=KONIEC.MIESIĄCA(A2;1)</div>
+<div class="formula">=NR.SER.OST.DN.MIES(A2;1)</div>
 
 Argument 1 przesuwa wynik o jeden miesiąc do przodu.
 
 ## Ostatni dzień poprzedniego miesiąca
 
-<div class="formula">=KONIEC.MIESIĄCA(A2;-1)</div>
+<div class="formula">=NR.SER.OST.DN.MIES(A2;-1)</div>
 
 Ujemny argument przesuwa datę wstecz.
 
@@ -50,8 +50,8 @@ Ujemny argument przesuwa datę wstecz.
 
 | Data wejściowa | Formuła z 0 | Wynik |
 |---|---|---|
-| 06.10.2026 | KONIEC.MIESIĄCA(A2;0) | 31.10.2026 |
-| 10.02.2026 | KONIEC.MIESIĄCA(A3;0) | 28.02.2026 |
+| 06.10.2026 | NR.SER.OST.DN.MIES(A2;0) | 31.10.2026 |
+| 10.02.2026 | NR.SER.OST.DN.MIES(A3;0) | 28.02.2026 |
 
 Excel sam uwzględnia różną liczbę dni w miesiącach oraz lata przestępne.
 

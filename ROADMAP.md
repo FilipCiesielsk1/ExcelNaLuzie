@@ -78,7 +78,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 
 ### Etap 1 — pierwsza baza treści
 - [x] ukończyć pierwszy klaster: operacje na tekście (10 poradników + hub)
-- [ ] ukończyć klaster: daty i czas
+- [x] ukończyć klaster: daty i czas (10 poradników + hub)
 - [x] ukończyć klaster: wyszukiwanie danych (10 poradników + hub)
 - [ ] rozbudować linkowanie wewnętrzne między artykułami
 - [ ] uzupełnić hub Formuły o wszystkie aktywne poradniki

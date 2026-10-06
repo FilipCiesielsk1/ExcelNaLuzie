@@ -44,26 +44,27 @@ Powiązane funkcje:
 
 ## Priorytet: wysoki
 
-- [ ] Różnica między datami w Excelu
-- [ ] Liczba dni między datami
-- [ ] Liczba miesięcy między datami
-- [ ] Data na nazwę miesiąca
-- [ ] Numer tygodnia w Excelu
-- [ ] Poniedziałek z numeru tygodnia
-- [ ] Pierwszy dzień miesiąca
-- [ ] Ostatni dzień miesiąca
-- [ ] Dodawanie miesięcy do daty
-- [ ] Liczba dni roboczych
+- [x] Różnica między datami w Excelu
+- [x] Liczba dni między datami
+- [x] Liczba miesięcy między datami
+- [x] Data na nazwę miesiąca
+- [x] Numer tygodnia w Excelu
+- [x] Poniedziałek z numeru tygodnia
+- [x] Pierwszy dzień miesiąca
+- [x] Ostatni dzień miesiąca
+- [x] Dodawanie miesięcy do daty
+- [x] Liczba dni roboczych
 
 Docelowy hub:
-- [ ] Daty i czas w Excelu
+- [x] Daty i czas w Excelu
 
 Powiązane funkcje:
 - [ ] DATA
 - [ ] DZIŚ
 - [ ] TERAZ
-- [ ] NR.TYG
-- [ ] KONIEC.MIESIĄCA
+- [ ] NUM.TYG
+- [ ] NR.SER.OST.DN.MIES
+- [ ] NR.SER.DATY
 - [ ] DATA.RÓŻNICA
 - [ ] DNI.ROBOCZE
 
