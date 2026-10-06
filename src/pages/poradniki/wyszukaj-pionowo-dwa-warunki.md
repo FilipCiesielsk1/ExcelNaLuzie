@@ -40,9 +40,9 @@ W kolumnie A utwórz wcześniej klucz z produktu i miasta:
 
 | Klucz | Produkt | Miasto | Cena |
 |---|---|---|---:|
-| Laptop|Warszawa | Laptop | Warszawa | 4200 |
-| Laptop|Gdańsk | Laptop | Gdańsk | 4350 |
-| Monitor|Warszawa | Monitor | Warszawa | 1200 |
+| Laptop&#124;Warszawa | Laptop | Warszawa | 4200 |
+| Laptop&#124;Gdańsk | Laptop | Gdańsk | 4350 |
+| Monitor&#124;Warszawa | Monitor | Warszawa | 1200 |
 
 W F2 wpisujesz produkt, a w G2 miasto. WYSZUKAJ.PIONOWO łączy oba warunki dokładnie w taki sam sposób jak kolumna pomocnicza.
 
