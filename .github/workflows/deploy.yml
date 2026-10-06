@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -20,18 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Normalize XLSX templates for desktop Excel
+      - name: Validate XLSX templates for desktop Excel
         run: python scripts/repair-xlsx-compat.py
-
-      - name: Persist repaired XLSX templates
-        run: |
-          if ! git diff --quiet -- public/downloads/szablony; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add public/downloads/szablony/*.xlsx
-            git commit -m "Repair XLSX template compatibility [skip ci]"
-            git push
-          fi
 
       - uses: actions/setup-node@v4
         with:
@@ -41,6 +31,7 @@ jobs:
       - run: npm run build
 
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
