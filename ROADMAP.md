@@ -101,7 +101,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] Generator SUMA.WARUNKÓW
 - [x] Generator LICZ.WARUNKI
 - [x] numer kolumny ↔ litera kolumny
-- [ ] kalkulator dat Excel
+- [x] kalkulator dat Excel
 - [ ] generator formatów niestandardowych
 
 ### Etap 4 — sekcja VBA

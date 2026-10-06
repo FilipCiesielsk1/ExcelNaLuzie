@@ -229,7 +229,7 @@ Powiązane funkcje:
 - [x] Generator LICZ.WARUNKI
 - [x] Numer kolumny → litera
 - [x] Litera kolumny → numer
-- [ ] Kalkulator dat Excel
+- [x] Kalkulator dat Excel
 - [ ] Generator formatów niestandardowych
 
 ---

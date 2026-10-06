@@ -1,0 +1,282 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Kalkulator dat Excel"
+  description="Policz różnicę między datami, pełne miesiące, dni robocze, dodawaj miesiące i wyznaczaj granice miesiąca. Od razu dostaniesz też odpowiadającą formułę Excela."
+  slug="kalkulator-dat"
+  functionName="Daty i czas"
+  functionHref="/formuly/daty/"
+  resourceLabel="Powiązany klaster"
+  resourceAction="Zobacz poradniki o datach →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Kalkulator</span>
+    <h2>Wybierz operację na dacie</h2>
+    <p>Kalkulator pokazuje wynik oraz gotową formułę, którą możesz zastosować w swoim arkuszu.</p>
+  </div>
+
+  <div class="date-calculator" data-date-calculator>
+    <div class="generator-field">
+      <label for="date-operation">Co chcesz policzyć?</label>
+      <select id="date-operation" data-operation>
+        <option value="days">Liczba dni między datami</option>
+        <option value="months">Pełne miesiące między datami</option>
+        <option value="workdays">Dni robocze między datami</option>
+        <option value="addmonths">Dodaj / odejmij miesiące</option>
+        <option value="firstday">Pierwszy dzień miesiąca</option>
+        <option value="lastday">Ostatni dzień miesiąca</option>
+        <option value="week">Numer tygodnia ISO</option>
+      </select>
+    </div>
+
+    <div class="date-fields" data-two-date-fields>
+      <div class="generator-field">
+        <label for="date-start">Data początkowa</label>
+        <input id="date-start" data-start type="date" value="2026-10-01"/>
+      </div>
+      <div class="generator-field">
+        <label for="date-end">Data końcowa</label>
+        <input id="date-end" data-end type="date" value="2026-10-06"/>
+      </div>
+    </div>
+
+    <div class="date-fields hidden" data-one-date-fields>
+      <div class="generator-field">
+        <label for="date-single">Data</label>
+        <input id="date-single" data-single type="date" value="2026-10-06"/>
+      </div>
+      <div class="generator-field hidden" data-months-field>
+        <label for="date-months">Liczba miesięcy</label>
+        <input id="date-months" data-months type="number" value="3" step="1"/>
+      </div>
+    </div>
+
+    <div class="date-holidays hidden" data-holidays-section>
+      <div class="generator-field">
+        <label for="date-holidays">Święta / dodatkowe dni wolne</label>
+        <textarea id="date-holidays" data-holidays rows="4" placeholder="2026-11-11&#10;2026-12-25"></textarea>
+        <small>Jedna data w wierszu, format RRRR-MM-DD. W formule Excel zakładamy listę świąt w E2:E20.</small>
+      </div>
+    </div>
+
+    <div class="date-result-card">
+      <div>
+        <span>Wynik</span>
+        <strong data-result>5 dni</strong>
+        <small data-result-note>Różnica B2-A2.</small>
+      </div>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Formuła Excel</span><small data-formula-note>Zakładamy datę początkową w A2 i końcową w B2.</small></div>
+      <code data-formula>=B2-A2</code>
+      <button type="button" data-copy>Kopiuj formułę</button>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Jak czytać wynik?</h2>
+    <p>Dni robocze liczone są razem z datą początkową i końcową, jeśli przypadają od poniedziałku do piątku. Pełne miesiące odpowiadają logice funkcji DATA.RÓŻNICA z argumentem "m".</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-date-calculator]');
+    const operation = root.querySelector('[data-operation]');
+    const startInput = root.querySelector('[data-start]');
+    const endInput = root.querySelector('[data-end]');
+    const singleInput = root.querySelector('[data-single]');
+    const monthsInput = root.querySelector('[data-months]');
+    const holidaysInput = root.querySelector('[data-holidays]');
+    const twoDateFields = root.querySelector('[data-two-date-fields]');
+    const oneDateFields = root.querySelector('[data-one-date-fields]');
+    const monthsField = root.querySelector('[data-months-field]');
+    const holidaysSection = root.querySelector('[data-holidays-section]');
+    const result = root.querySelector('[data-result]');
+    const resultNote = root.querySelector('[data-result-note]');
+    const formula = root.querySelector('[data-formula]');
+    const formulaNote = root.querySelector('[data-formula-note]');
+
+    const DAY = 86400000;
+
+    const parseDate = (value) => {
+      if (!value) return null;
+      const [year, month, day] = value.split('-').map(Number);
+      return new Date(Date.UTC(year, month - 1, day));
+    };
+
+    const formatDate = (date) => {
+      const day = String(date.getUTCDate()).padStart(2, '0');
+      const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+      return `${day}.${month}.${date.getUTCFullYear()}`;
+    };
+
+    const daysBetween = (start, end) => Math.round((end - start) / DAY);
+
+    const fullMonthsBetween = (start, end) => {
+      if (end < start) return null;
+      let months = (end.getUTCFullYear() - start.getUTCFullYear()) * 12
+        + end.getUTCMonth() - start.getUTCMonth();
+
+      const anchor = addMonths(start, months);
+      if (anchor > end) months -= 1;
+      return months;
+    };
+
+    const addMonths = (date, months) => {
+      const sourceDay = date.getUTCDate();
+      const target = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months, 1));
+      const lastDay = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0)).getUTCDate();
+      target.setUTCDate(Math.min(sourceDay, lastDay));
+      return target;
+    };
+
+    const parseHolidays = () => {
+      const values = holidaysInput.value
+        .split(/[\n,;]+/)
+        .map((value) => value.trim())
+        .filter(Boolean);
+
+      return new Set(values.filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(value)));
+    };
+
+    const isoDate = (date) => {
+      const y = date.getUTCFullYear();
+      const m = String(date.getUTCMonth() + 1).padStart(2, '0');
+      const d = String(date.getUTCDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    };
+
+    const workdaysBetween = (start, end) => {
+      const holidays = parseHolidays();
+      const direction = end >= start ? 1 : -1;
+      let current = new Date(start);
+      let count = 0;
+
+      while ((direction === 1 && current <= end) || (direction === -1 && current >= end)) {
+        const day = current.getUTCDay();
+        const working = day !== 0 && day !== 6 && !holidays.has(isoDate(current));
+        if (working) count += direction;
+        current = new Date(current.getTime() + direction * DAY);
+      }
+
+      return count;
+    };
+
+    const isoWeek = (date) => {
+      const target = new Date(date);
+      const day = (target.getUTCDay() + 6) % 7;
+      target.setUTCDate(target.getUTCDate() - day + 3);
+      const firstThursday = new Date(Date.UTC(target.getUTCFullYear(), 0, 4));
+      const firstDay = (firstThursday.getUTCDay() + 6) % 7;
+      firstThursday.setUTCDate(firstThursday.getUTCDate() - firstDay + 3);
+      return 1 + Math.round((target - firstThursday) / (7 * DAY));
+    };
+
+    const show = (element, visible) => element.classList.toggle('hidden', !visible);
+
+    const update = () => {
+      const mode = operation.value;
+      const needsTwoDates = ['days','months','workdays'].includes(mode);
+      const needsMonths = mode === 'addmonths';
+      const needsHolidays = mode === 'workdays';
+
+      show(twoDateFields, needsTwoDates);
+      show(oneDateFields, !needsTwoDates);
+      show(monthsField, needsMonths);
+      show(holidaysSection, needsHolidays);
+
+      const start = parseDate(startInput.value);
+      const end = parseDate(endInput.value);
+      const single = parseDate(singleInput.value);
+
+      if (mode === 'days') {
+        if (!start || !end) return;
+        const value = daysBetween(start, end);
+        result.textContent = `${value} ${Math.abs(value) === 1 ? 'dzień' : 'dni'}`;
+        resultNote.textContent = 'Wynik dodatni oznacza późniejszą datę końcową.';
+        formula.textContent = '=B2-A2';
+        formulaNote.textContent = 'A2 = data początkowa, B2 = data końcowa.';
+      }
+
+      if (mode === 'months') {
+        if (!start || !end) return;
+        const value = fullMonthsBetween(start, end);
+        result.textContent = value === null ? 'Błąd kolejności dat' : `${value} pełnych miesięcy`;
+        resultNote.textContent = value === null
+          ? 'DATA.RÓŻNICA wymaga, aby data początkowa nie była późniejsza od końcowej.'
+          : 'Liczone są tylko zakończone pełne miesiące.';
+        formula.textContent = '=DATA.RÓŻNICA(A2;B2;"m")';
+        formulaNote.textContent = 'A2 = data początkowa, B2 = data końcowa.';
+      }
+
+      if (mode === 'workdays') {
+        if (!start || !end) return;
+        const value = workdaysBetween(start, end);
+        result.textContent = `${value} dni roboczych`;
+        resultNote.textContent = 'Weekend = sobota i niedziela. Wpisane dni wolne są pomijane.';
+        formula.textContent = holidaysInput.value.trim()
+          ? '=DNI.ROBOCZE(A2;B2;E2:E20)'
+          : '=DNI.ROBOCZE(A2;B2)';
+        formulaNote.textContent = holidaysInput.value.trim()
+          ? 'A2/B2 = daty, E2:E20 = lista świąt.'
+          : 'A2 = data początkowa, B2 = data końcowa.';
+      }
+
+      if (mode === 'addmonths') {
+        if (!single) return;
+        const months = Number.parseInt(monthsInput.value || '0', 10);
+        const calculated = addMonths(single, Number.isFinite(months) ? months : 0);
+        result.textContent = formatDate(calculated);
+        resultNote.textContent = months >= 0
+          ? `Data przesunięta o ${months} mies.`
+          : `Data cofnięta o ${Math.abs(months)} mies.`;
+        formula.textContent = '=NR.SER.DATY(A2;B2)';
+        formulaNote.textContent = 'A2 = data, B2 = liczba miesięcy. Liczba ujemna cofa datę.';
+      }
+
+      if (mode === 'firstday') {
+        if (!single) return;
+        const calculated = new Date(Date.UTC(single.getUTCFullYear(), single.getUTCMonth(), 1));
+        result.textContent = formatDate(calculated);
+        resultNote.textContent = 'Pierwszy dzień miesiąca wskazanej daty.';
+        formula.textContent = '=DATA(ROK(A2);MIESIĄC(A2);1)';
+        formulaNote.textContent = 'A2 = dowolna data z wybranego miesiąca.';
+      }
+
+      if (mode === 'lastday') {
+        if (!single) return;
+        const calculated = new Date(Date.UTC(single.getUTCFullYear(), single.getUTCMonth() + 1, 0));
+        result.textContent = formatDate(calculated);
+        resultNote.textContent = 'Excel uwzględnia długość miesiąca i lata przestępne.';
+        formula.textContent = '=NR.SER.OST.DN.MIES(A2;0)';
+        formulaNote.textContent = 'A2 = dowolna data z wybranego miesiąca.';
+      }
+
+      if (mode === 'week') {
+        if (!single) return;
+        const week = isoWeek(single);
+        result.textContent = `Tydzień ${week}`;
+        resultNote.textContent = 'Numeracja zgodna z ISO 8601 — tydzień zaczyna się w poniedziałek.';
+        formula.textContent = '=NUM.TYG(A2;21)';
+        formulaNote.textContent = 'A2 = data, 21 = system numeracji ISO.';
+      }
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+
+    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(formula.textContent || '');
+        event.currentTarget.textContent = 'Skopiowano ✓';
+        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+      } catch {
+        event.currentTarget.textContent = 'Zaznacz ręcznie';
+      }
+    });
+
+    update();
+  </script>
+</ToolLayout>

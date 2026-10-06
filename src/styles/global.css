@@ -2522,3 +2522,62 @@ a.hub-topic-card:hover{
   .column-converter-grid{grid-template-columns:1fr}
   .column-converter-swap{transform:rotate(90deg)}
 }
+
+
+/* Date calculator */
+.date-calculator{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 16px 42px rgba(22,54,36,.06);
+}
+.date-fields{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:14px;
+}
+.date-holidays{margin-top:14px}
+.date-holidays textarea{
+  width:100%;
+  resize:vertical;
+  min-height:96px;
+  padding:10px 12px;
+  border:1px solid var(--line-strong);
+  border-radius:9px;
+  outline:0;
+  background:#fbfcfb;
+  color:#26362c;
+  font:650 .76rem ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.date-holidays textarea:focus{
+  border-color:rgba(16,124,65,.55);
+  box-shadow:0 0 0 3px rgba(16,124,65,.07);
+}
+.date-result-card{
+  margin-top:18px;
+  padding:18px;
+  border:1px solid #c9ded0;
+  border-radius:14px;
+  background:linear-gradient(145deg,#f4faf6,#edf7f0);
+}
+.date-result-card>div{display:grid;gap:5px}
+.date-result-card span{
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.57rem;
+  font-weight:850;
+}
+.date-result-card strong{
+  color:var(--green-deep);
+  font-size:1.5rem;
+  line-height:1.15;
+  letter-spacing:-.03em;
+}
+.date-result-card small{color:#6b786f;font-size:.68rem}
+.hidden{display:none!important}
+@media(max-width:760px){
+  .date-fields{grid-template-columns:1fr}
+}

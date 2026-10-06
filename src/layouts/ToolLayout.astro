@@ -7,7 +7,9 @@ const {
   description,
   slug,
   functionName,
-  functionHref
+  functionHref,
+  resourceLabel = 'Powiązana funkcja',
+  resourceAction = 'Zobacz składnię i przykłady →'
 } = Astro.props;
 
 const canonical = `/narzedzia/${slug}/`;
@@ -48,9 +50,9 @@ const canonical = `/narzedzia/${slug}/`;
           </div>
 
           <div class="tool-side-card">
-            <span>Powiązana funkcja</span>
+            <span>{resourceLabel}</span>
             <strong>{functionName}</strong>
-            <a href={link(functionHref)}>Zobacz składnię i przykłady →</a>
+            <a href={link(functionHref)}>{resourceAction}</a>
           </div>
 
           <a class="sidebar-search" href={link("/narzedzia/")}>
