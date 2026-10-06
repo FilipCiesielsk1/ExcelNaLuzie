@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+
+const articles = [
+  ['tekst-po-znaku','Jak pobrać tekst po znaku w Excelu?','TEKST.PO'],
+  ['tekst-przed-znakiem','Jak pobrać tekst przed znakiem w Excelu?','TEKST.PRZED'],
+  ['tekst-miedzy-znakami','Jak pobrać tekst między dwoma znakami?','FRAGMENT.TEKSTU'],
+  ['usun-pierwsze-znaki','Jak usunąć pierwsze znaki?','PRAWY + DŁ'],
+  ['usun-ostatnie-znaki','Jak usunąć ostatnie znaki?','LEWY + DŁ'],
+  ['podziel-tekst-po-przecinku','Jak podzielić tekst po przecinku?','TEKST.PRZED / PO'],
+  ['polacz-tekst-z-komorek','Jak połączyć tekst z kilku komórek?','&'],
+  ['czy-komorka-zawiera-tekst','Jak sprawdzić, czy komórka zawiera tekst?','SZUKAJ.TEKST'],
+  ['policz-wystapienia-tekstu','Jak policzyć wystąpienia tekstu?','DŁ + PODSTAW'],
+  ['zamien-fragment-tekstu','Jak zamienić fragment tekstu?','PODSTAW / ZASTĄP']
+];
+---
+
+<BaseLayout title="Formuły tekstowe w Excelu — 10 praktycznych rozwiązań | ExcelNaLuzie" description="Formuły tekstowe w Excelu z gotowymi przykładami: wycinanie tekstu, dzielenie, łączenie, wyszukiwanie, liczenie i zamiana fragmentów.">
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><a href={link("/formuly/")}>Formuły</a><span>›</span><strong>Tekst</strong></nav>
+        <span class="hub-kicker">Klaster: Tekst</span>
+        <h1>Formuły tekstowe.<br/><em>10 konkretnych problemów.</em></h1>
+        <p>Wycinaj, dziel, łącz, wyszukuj i zamieniaj tekst w komórkach. Każdy poradnik zaczyna się od gotowej formuły.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Wycinanie</span><code>=TEKST.PO(A1;"-")</code></div>
+        <div class="formula-stack-card two"><span>Sprawdzenie</span><code>=CZY.LICZBA(SZUKAJ.TEKST(...))</code></div>
+        <div class="formula-stack-card three"><span>Zamiana</span><code>=PODSTAW(A1;"-";"/")</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">10 poradników</span><h2>Wybierz problem</h2></div>
+        <p>Nie musisz znać nazwy funkcji. Znajdź efekt, który chcesz osiągnąć, i przejdź do gotowego rozwiązania.</p>
+      </div>
+      <div class="hub-article-list">
+        {articles.map((item,index) => (
+          <a href={link(`/poradniki/${item[0]}/`)}>
+            <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
+            <div><small>Formuły tekstowe</small><strong>{item[1]}</strong></div>
+            <code>{item[2]}</code>
+            <b>→</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Jak korzystać</span><h2>Zacznij od problemu, nie od funkcji</h2></div>
+        <p>Jeżeli nie wiesz, czy potrzebujesz LEWY, PRAWY, FRAGMENT.TEKSTU czy TEKST.PO — to normalne. Te strony są ułożone według rezultatu.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Znajdź efekt</strong><p>Wybierz np. „tekst przed znakiem” albo „usuń ostatnie znaki”.</p></div>
+        <div><span>02</span><strong>Skopiuj formułę</strong><p>Na początku poradnika dostajesz gotowe rozwiązanie i przykład.</p></div>
+        <div><span>03</span><strong>Dopasuj wariant</strong><p>Niżej znajdziesz starsze wersje Excela i najczęstsze przypadki brzegowe.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
