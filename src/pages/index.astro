@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Search from '../components/Search.astro';
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
 ---
 
 <BaseLayout>
@@ -14,9 +16,9 @@ import Search from '../components/Search.astro';
 
         <div class="hero-links" aria-label="Popularne tematy">
           <span>Popularne:</span>
-          <a href="/poradniki/tekst-po-znaku/">tekst po znaku</a>
-          <a href="/poradniki/xwyszukaj-dwa-warunki/">X.WYSZUKAJ</a>
-          <a href="/vba/">VBA</a>
+          <a href={link("/poradniki/tekst-po-znaku/")}>tekst po znaku</a>
+          <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}>X.WYSZUKAJ</a>
+          <a href={link("/vba/")}>VBA</a>
         </div>
       </div>
 
@@ -47,10 +49,10 @@ import Search from '../components/Search.astro';
 
   <section class="quick-strip">
     <div class="wrap quick-grid">
-      <a href="/formuly/"><span class="quick-icon">ƒx</span><div><strong>Formuły</strong><small>Gotowe rozwiązania</small></div><b>→</b></a>
-      <a href="/funkcje/"><span class="quick-icon">Σ</span><div><strong>Funkcje</strong><small>Składnia i przykłady</small></div><b>→</b></a>
-      <a href="/vba/"><span class="quick-icon">&lt;/&gt;</span><div><strong>VBA</strong><small>Makra bez magii</small></div><b>→</b></a>
-      <a href="/narzedzia/"><span class="quick-icon">⚙</span><div><strong>Narzędzia</strong><small>Generatory i kalkulatory</small></div><b>→</b></a>
+      <a href={link("/formuly/")}><span class="quick-icon">ƒx</span><div><strong>Formuły</strong><small>Gotowe rozwiązania</small></div><b>→</b></a>
+      <a href={link("/funkcje/")}><span class="quick-icon">Σ</span><div><strong>Funkcje</strong><small>Składnia i przykłady</small></div><b>→</b></a>
+      <a href={link("/vba/")}><span class="quick-icon">&lt;/&gt;</span><div><strong>VBA</strong><small>Makra bez magii</small></div><b>→</b></a>
+      <a href={link("/narzedzia/")}><span class="quick-icon">⚙</span><div><strong>Narzędzia</strong><small>Generatory i kalkulatory</small></div><b>→</b></a>
     </div>
   </section>
 
@@ -61,11 +63,11 @@ import Search from '../components/Search.astro';
           <span class="section-kicker">Najczęściej szukane</span>
           <h2>Rozwiąż konkretny problem</h2>
         </div>
-        <a class="section-link" href="/formuly/">Zobacz wszystkie poradniki <span>→</span></a>
+        <a class="section-link" href={link("/formuly/")}>Zobacz wszystkie poradniki <span>→</span></a>
       </div>
 
       <div class="problem-grid">
-        <a class="problem-card featured" href="/poradniki/tekst-po-znaku/">
+        <a class="problem-card featured" href={link("/poradniki/tekst-po-znaku/")}>
           <span class="card-tag">Tekst</span>
           <div class="card-code">=TEKST.PO(A1;"-")</div>
           <h3>Jak pobrać tekst po znaku?</h3>
@@ -73,7 +75,7 @@ import Search from '../components/Search.astro';
           <span class="card-arrow">Czytaj poradnik →</span>
         </a>
 
-        <a class="problem-card" href="/poradniki/usun-pierwsze-znaki/">
+        <a class="problem-card" href={link("/poradniki/usun-pierwsze-znaki/")}>
           <span class="card-tag">Tekst</span>
           <div class="mini-sheet">
             <span>ABC12345</span>
@@ -85,7 +87,7 @@ import Search from '../components/Search.astro';
           <span class="card-arrow">Czytaj poradnik →</span>
         </a>
 
-        <a class="problem-card" href="/poradniki/xwyszukaj-dwa-warunki/">
+        <a class="problem-card" href={link("/poradniki/xwyszukaj-dwa-warunki/")}>
           <span class="card-tag">Wyszukiwanie</span>
           <div class="mini-lookup"><span>Produkt</span><b>+</b><span>Miasto</span><i>→</i><strong>Cena</strong></div>
           <h3>X.WYSZUKAJ — dwa warunki</h3>
@@ -106,28 +108,28 @@ import Search from '../components/Search.astro';
       </div>
 
       <div class="category-grid">
-        <a href="/formuly/" class="category-card">
+        <a href={link("/formuly/")} class="category-card">
           <span class="category-number">01</span>
           <div class="category-symbol">ƒx</div>
           <h3>Formuły</h3>
           <p>Tekst, daty, logika, wyszukiwanie, liczenie i formuły dynamiczne.</p>
           <span>Przeglądaj →</span>
         </a>
-        <a href="/funkcje/" class="category-card">
+        <a href={link("/funkcje/")} class="category-card">
           <span class="category-number">02</span>
           <div class="category-symbol">Σ</div>
           <h3>Funkcje</h3>
           <p>Składnia funkcji Excela wyjaśniona po polsku i bez akademickiego tonu.</p>
           <span>Przeglądaj →</span>
         </a>
-        <a href="/vba/" class="category-card">
+        <a href={link("/vba/")} class="category-card">
           <span class="category-number">03</span>
           <div class="category-symbol">&lt;/&gt;</div>
           <h3>VBA</h3>
           <p>Gotowe makra, automatyzacje plików, arkuszy, Outlooka i raportów.</p>
           <span>Przeglądaj →</span>
         </a>
-        <a href="/narzedzia/" class="category-card">
+        <a href={link("/narzedzia/")} class="category-card">
           <span class="category-number">04</span>
           <div class="category-symbol">⚙</div>
           <h3>Narzędzia</h3>
