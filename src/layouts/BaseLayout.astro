@@ -10,13 +10,17 @@ const {
   canonical=Astro.url.pathname,
   ogType='website',
   image=null,
-  noindex=false
+  noindex=false,
+  navSection=null
 } = Astro.props;
 
 const canonicalPath = canonical.replace(/^\/ExcelNaLuzie\/?/, '/');
 const url=new URL(canonicalPath, 'https://excelnaluzie.pl');
 const favicon = withBase('/favicon.svg');
 const ogImage = image ? new URL(image, 'https://excelnaluzie.pl') : null;
+
+const currentPath = canonicalPath.replace(/^\/+|\/+$/g, '');
+const inferredNavSection = navSection || currentPath.split('/')[0] || null;
 ---
 
 <!doctype html>
@@ -53,7 +57,7 @@ const ogImage = image ? new URL(image, 'https://excelnaluzie.pl') : null;
     })}></script>
   </head>
   <body>
-    <Header/>
+    <Header activeSection={inferredNavSection}/>
     <main><slot/></main>
     <Footer/>
   </body>
