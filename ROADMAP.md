@@ -77,7 +77,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 ## Kolejne etapy
 
 ### Etap 1 — pierwsza baza treści
-- [x] ukończyć pierwszy klaster: operacje na tekście
+- [x] ukończyć pierwszy klaster: operacje na tekście (10 poradników + hub)
 - [ ] ukończyć klaster: daty i czas
 - [ ] ukończyć klaster: wyszukiwanie danych
 - [ ] rozbudować linkowanie wewnętrzne między artykułami
