@@ -1,3 +1,6 @@
+---
+const base = import.meta.env.BASE_URL;
+---
 <div class="search-shell" id="szukaj">
   <div class="search-box">
     <span class="search-icon" aria-hidden="true">⌕</span>
@@ -7,7 +10,7 @@
   <div id="search-results" class="search-results"></div>
 </div>
 
-<script is:inline>
+<script is:inline define:vars={{ base }}>
 const input=document.querySelector('#site-search');
 const box=document.querySelector('#search-results');
 let pf;
@@ -15,11 +18,11 @@ input?.addEventListener('input',async()=>{
   const q=input.value.trim();
   if(q.length<2){box.innerHTML='';return;}
   try{
-    pf??=await import('/pagefind/pagefind.js');
+    pf??=await import(`${base}pagefind/pagefind.js`);
     await pf.init();
     const s=await pf.search(q);
     const rows=await Promise.all(s.results.slice(0,6).map(r=>r.data()));
-    box.innerHTML=rows.map(r=>`<a class="search-result" href="${r.url}"><span><strong>${r.meta.title||r.url}</strong><small>${r.excerpt||''}</small></span><b aria-hidden="true">→</b></a>`).join('')||'<p class="search-empty">Nie znaleziono jeszcze pasującego poradnika.</p>';
+    box.innerHTML=rows.map(r=>`<a class="search-result" href="${r.url.startsWith(base) ? r.url : `${base}${r.url.replace(/^\//,'')}`}"><span><strong>${r.meta.title||r.url}</strong><small>${r.excerpt||''}</small></span><b aria-hidden="true">→</b></a>`).join('')||'<p class="search-empty">Nie znaleziono jeszcze pasującego poradnika.</p>';
   }catch(e){
     box.innerHTML='<p class="search-empty">Wyszukiwarka będzie aktywna po wdrożeniu strony.</p>';
   }
