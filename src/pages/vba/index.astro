@@ -1,4 +1,78 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
 ---
-<BaseLayout title="VBA w Excelu | ExcelNaLuzie" description="Gotowe makra i praktyczne przykłady VBA do Excela."><section class="section"><div class="wrap"><h1>VBA w Excelu</h1><p>Gotowe makra, automatyzacje i wyjaśnienia kodu krok po kroku.</p></div></section></BaseLayout>
+
+<BaseLayout
+  title="VBA Excel — gotowe makra i automatyzacje | ExcelNaLuzie"
+  description="Praktyczne przykłady VBA do Excela: zakresy, arkusze, pliki, Outlook, automatyzacja raportów i gotowe makra."
+>
+  <section class="hub-hero hub-vba">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>VBA</strong></nav>
+        <span class="hub-kicker">VBA w Excelu</span>
+        <h1>Makra, które robią<br/><em>konkretną robotę.</em></h1>
+        <p>Gotowe fragmenty kodu, praktyczne automatyzacje i wyjaśnienia bez niepotrzebnej teorii.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#obszary">Zobacz obszary <span>↓</span></a>
+          <a class="hub-secondary" href={link("/#szukaj")}>Szukaj rozwiązania</a>
+        </div>
+      </div>
+
+      <div class="code-window" aria-hidden="true">
+        <div class="code-window-top"><i></i><i></i><i></i><span>Module1.bas</span></div>
+        <pre><code><span class="code-key">Sub</span> OstatniWiersz()
+  <span class="code-key">Dim</span> lastRow <span class="code-key">As Long</span>
+
+  lastRow = Cells(Rows.Count, <span class="code-str">"A"</span>) _
+    .End(xlUp).Row
+
+  MsgBox <span class="code-str">"Ostatni wiersz: "</span> & lastRow
+<span class="code-key">End Sub</span></code></pre>
+        <div class="code-status"><span>●</span> Gotowe do wklejenia</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="obszary">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Automatyzacja</span><h2>Co chcesz zautomatyzować?</h2></div>
+        <p>VBA najlepiej uczyć się na konkretnym zadaniu, dlatego baza będzie podzielona według zastosowania.</p>
+      </div>
+
+      <div class="hub-topic-grid">
+        <div class="hub-topic-card"><span class="hub-topic-icon">▦</span><span class="hub-topic-count">Zakresy</span><h3>Komórki i zakresy</h3><p>Ostatni wiersz, ostatnia kolumna, kopiowanie, czyszczenie i pętle po danych.</p><span class="hub-coming">Rozbudowujemy</span></div>
+        <div class="hub-topic-card"><span class="hub-topic-icon">▤</span><span class="hub-topic-count">Arkusze</span><h3>Arkusze i skoroszyty</h3><p>Tworzenie, usuwanie, zmiana nazw, pętle po arkuszach i przenoszenie danych.</p><span class="hub-coming">Rozbudowujemy</span></div>
+        <div class="hub-topic-card"><span class="hub-topic-icon">⌁</span><span class="hub-topic-count">Pliki</span><h3>Pliki i foldery</h3><p>Otwieranie, zapisywanie, wybór pliku, eksport PDF i praca z folderami.</p><span class="hub-coming">Rozbudowujemy</span></div>
+        <div class="hub-topic-card"><span class="hub-topic-icon">@</span><span class="hub-topic-count">Outlook</span><h3>E-mail i Outlook</h3><p>Tworzenie wiadomości, załączniki, odbiorcy, treść HTML i automatyczna wysyłka.</p><span class="hub-coming">Rozbudowujemy</span></div>
+        <div class="hub-topic-card"><span class="hub-topic-icon">⚡</span><span class="hub-topic-count">Wydajność</span><h3>Przyspieszanie makr</h3><p>ScreenUpdating, Calculation, praca na tablicach i ograniczanie dostępu do arkusza.</p><span class="hub-coming">Rozbudowujemy</span></div>
+        <div class="hub-topic-card"><span class="hub-topic-icon">↻</span><span class="hub-topic-count">Procesy</span><h3>Automatyzacja raportów</h3><p>Łączenie wielu kroków w jedno makro: import, obróbka, raport i wysyłka.</p><span class="hub-coming">Rozbudowujemy</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Standard poradników</span><h2>Kod ma być użyteczny od razu</h2></div>
+        <p>Każdy przykład VBA będzie zawierał nie tylko kod, ale też miejsce wklejenia, sposób uruchomienia i typowe błędy.</p>
+      </div>
+
+      <div class="reference-steps">
+        <div><span>01</span><strong>Gotowy kod</strong><p>Kompletny fragment do skopiowania, bez brakujących elementów.</p></div>
+        <div><span>02</span><strong>Co zmienić</strong><p>Wyraźnie zaznaczone nazwy arkuszy, zakresy i parametry do dostosowania.</p></div>
+        <div><span>03</span><strong>Dlaczego działa</strong><p>Krótkie wyjaśnienie najważniejszych linii zamiast wykładu z programowania.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-cta-section">
+    <div class="wrap hub-cta">
+      <div><span class="section-kicker light">VBA krok po kroku</span><h2>Budujemy bibliotekę makr.</h2><p>Zaczniemy od najczęstszych zadań, które realnie oszczędzają czas w Excelu.</p></div>
+      <a href={link("/#szukaj")}>Szukaj na stronie <span>→</span></a>
+    </div>
+  </section>
+</BaseLayout>
