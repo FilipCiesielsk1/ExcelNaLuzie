@@ -1,0 +1,176 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { withBase as link } from '../utils/paths.js';
+import { vbaCatalog } from '../data/vbaCatalog.js';
+
+const { article } = Astro.props;
+const index = vbaCatalog.findIndex((item) => item.slug === article.slug);
+const previous = index > 0 ? vbaCatalog[index - 1] : null;
+const next = index >= 0 && index < vbaCatalog.length - 1 ? vbaCatalog[index + 1] : null;
+
+const canonical = '/vba/' + article.slug + '/';
+const absoluteUrl = 'https://excelnaluzie.pl' + canonical;
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'TechArticle',
+      headline:article.title,
+      description:article.description,
+      inLanguage:'pl-PL',
+      mainEntityOfPage:{'@type':'WebPage','@id':absoluteUrl},
+      author:{'@type':'Person',name:'Filip Ciesielski'},
+      publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'}
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'VBA',item:'https://excelnaluzie.pl/vba/'},
+        {'@type':'ListItem',position:3,name:article.shortTitle,item:absoluteUrl}
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  navSection="vba"
+  title={article.title + ' | ExcelNaLuzie'}
+  description={article.description}
+  canonical={canonical}
+  ogType="article"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
+  <div class="vba-article-page">
+    <div class="vba-article-layout">
+      <article class="vba-article-main" data-pagefind-body>
+        <nav class="breadcrumbs" aria-label="Okruszki">
+          <a href={link("/")}>ExcelNaLuzie</a>
+          <span>›</span>
+          <a href={link("/vba/")}>VBA</a>
+          <span>›</span>
+          <strong>{article.shortTitle}</strong>
+        </nav>
+
+        <header class="vba-article-header">
+          <span class="article-category">{article.category}</span>
+          <h1 data-pagefind-meta="title">{article.title}</h1>
+          <p>{article.description}</p>
+          <div class="article-meta">
+            <span><strong>Filip Ciesielski</strong></span>
+            <span>{article.readingTime} czytania</span>
+            <span>Poziom: {article.difficulty}</span>
+            <span>Excel VBA</span>
+          </div>
+        </header>
+
+        <div class="vba-answer">
+          <strong>Najkrócej:</strong>
+          <p>{article.intro}</p>
+        </div>
+
+        {article.note && (
+          <div class="vba-warning">
+            <strong>Ważne</strong>
+            <p>{article.note}</p>
+          </div>
+        )}
+
+        <section id="kod" class="vba-content-section">
+          <span class="section-kicker">Gotowy kod</span>
+          <h2>Skopiuj makro</h2>
+          <div class="vba-code-block">
+            <div class="vba-code-top"><span>VBA</span><button type="button" data-copy-vba>Kopiuj kod</button></div>
+            <pre><code data-vba-code>{article.code}</code></pre>
+          </div>
+        </section>
+
+        <section id="co-zmienic" class="vba-content-section">
+          <span class="section-kicker">Dostosowanie</span>
+          <h2>Co zmienić w kodzie?</h2>
+          <div class="vba-points">
+            {article.customize.map((item, i) => (
+              <div><span>{String(i + 1).padStart(2,'0')}</span><p>{item}</p></div>
+            ))}
+          </div>
+        </section>
+
+        <section id="jak-dziala" class="vba-content-section">
+          <span class="section-kicker">Wyjaśnienie</span>
+          <h2>Jak działa ten kod?</h2>
+          <div class="vba-explanation">
+            {article.explanation.map((item) => <p>{item}</p>)}
+          </div>
+        </section>
+
+        <section id="bledy" class="vba-content-section">
+          <span class="section-kicker">Uważaj na</span>
+          <h2>Najczęstsze błędy</h2>
+          <div class="vba-mistakes">
+            {article.mistakes.map((item) => <p>{item}</p>)}
+          </div>
+        </section>
+
+        <nav class="cluster-nav" aria-label="Nawigacja po poradnikach VBA">
+          <div class="cluster-nav-side">
+            {previous ? (
+              <a href={link('/vba/' + previous.slug + '/')}>
+                <small>← Poprzedni poradnik</small>
+                <strong>{previous.shortTitle}</strong>
+              </a>
+            ) : <span aria-hidden="true"></span>}
+          </div>
+
+          <a class="cluster-nav-hub" href={link("/vba/")}>
+            <small>Biblioteka VBA</small>
+            <strong>10 poradników</strong>
+            <span>{index + 1} / {vbaCatalog.length}</span>
+          </a>
+
+          <div class="cluster-nav-side cluster-nav-next">
+            {next ? (
+              <a href={link('/vba/' + next.slug + '/')}>
+                <small>Następny poradnik →</small>
+                <strong>{next.shortTitle}</strong>
+              </a>
+            ) : <span aria-hidden="true"></span>}
+          </div>
+        </nav>
+      </article>
+
+      <aside class="vba-article-sidebar">
+        <div class="toc-card">
+          <span class="toc-label">W tym poradniku</span>
+          <nav>
+            <a href="#kod">Gotowy kod</a>
+            <a href="#co-zmienic">Co zmienić?</a>
+            <a href="#jak-dziala">Jak działa?</a>
+            <a href="#bledy">Najczęstsze błędy</a>
+          </nav>
+        </div>
+        <a class="sidebar-search" href={link("/#szukaj")}>
+          <span>Masz inny problem?</span>
+          <strong>Przeszukaj ExcelNaLuzie →</strong>
+        </a>
+      </aside>
+    </div>
+  </div>
+
+  <script is:inline>
+    const button = document.querySelector('[data-copy-vba]');
+    const code = document.querySelector('[data-vba-code]');
+
+    button?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code?.textContent || '');
+        button.textContent = 'Skopiowano ✓';
+        setTimeout(() => button.textContent = 'Kopiuj kod', 1500);
+      } catch {
+        button.textContent = 'Zaznacz ręcznie';
+      }
+    });
+  </script>
+</BaseLayout>

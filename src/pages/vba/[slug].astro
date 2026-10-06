@@ -1,0 +1,15 @@
+---
+import VbaArticleLayout from '../../layouts/VbaArticleLayout.astro';
+import { vbaCatalog } from '../../data/vbaCatalog.js';
+
+export function getStaticPaths() {
+  return vbaCatalog.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+---
+
+<VbaArticleLayout article={article} />

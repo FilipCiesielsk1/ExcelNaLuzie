@@ -174,16 +174,16 @@ Powiązane funkcje:
 
 # Klaster 9 — VBA
 
-- [ ] VBA — ostatni wiersz
-- [ ] VBA — ostatnia kolumna
-- [ ] VBA — pętla po wierszach
-- [ ] VBA — pętla po arkuszach
-- [ ] VBA — kopiowanie danych
-- [ ] VBA — kopiowanie między arkuszami
-- [ ] VBA — otwieranie pliku
-- [ ] VBA — wybór pliku
-- [ ] VBA — zapis pliku
-- [ ] VBA — eksport do PDF
+- [x] VBA — ostatni wiersz
+- [x] VBA — ostatnia kolumna
+- [x] VBA — pętla po wierszach
+- [x] VBA — pętla po arkuszach
+- [x] VBA — kopiowanie danych
+- [x] VBA — kopiowanie między arkuszami
+- [x] VBA — otwieranie pliku
+- [x] VBA — wybór pliku
+- [x] VBA — zapis pliku
+- [x] VBA — eksport do PDF
 - [ ] VBA — tworzenie arkusza
 - [ ] VBA — usuwanie arkusza
 - [ ] VBA — sprawdzenie, czy arkusz istnieje
@@ -191,9 +191,9 @@ Powiązane funkcje:
 - [ ] VBA — filtrowanie tabeli
 - [ ] VBA — sortowanie danych
 - [ ] VBA — usuwanie pustych wierszy
-- [ ] VBA — wysyłanie maila przez Outlook
+- [x] VBA — wysyłanie maila przez Outlook
 - [ ] VBA — załącznik w Outlook
-- [ ] VBA — przyspieszanie makra
+- [x] VBA — przyspieszanie makra
 
 ---
 

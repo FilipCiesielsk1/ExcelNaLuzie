@@ -105,16 +105,16 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] generator formatów niestandardowych
 
 ### Etap 4 — sekcja VBA
-- [ ] ostatni wiersz
-- [ ] ostatnia kolumna
-- [ ] pętla po wierszach
-- [ ] pętla po arkuszach
-- [ ] kopiowanie danych
-- [ ] otwieranie i wybór plików
-- [ ] zapis pliku
-- [ ] eksport do PDF
-- [ ] wysyłanie maila przez Outlook
-- [ ] przyspieszanie makr
+- [x] ostatni wiersz
+- [x] ostatnia kolumna
+- [x] pętla po wierszach
+- [x] pętla po arkuszach
+- [x] kopiowanie danych
+- [x] otwieranie i wybór plików
+- [x] zapis pliku
+- [x] eksport do PDF
+- [x] wysyłanie maila przez Outlook
+- [x] przyspieszanie makr
 
 ### Etap 5 — szablony
 - [ ] pierwsze pliki XLSX do poradników
