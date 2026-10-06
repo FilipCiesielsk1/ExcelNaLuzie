@@ -73,19 +73,19 @@ Powiązane funkcje:
 
 ## Priorytet: bardzo wysoki
 
-- [ ] X.WYSZUKAJ — podstawowy przykład
+- [x] X.WYSZUKAJ — podstawowy przykład
 - [x] X.WYSZUKAJ z dwoma warunkami
-- [ ] X.WYSZUKAJ z kilkoma warunkami
-- [ ] X.WYSZUKAJ w lewo
-- [ ] X.WYSZUKAJ — kilka wyników
-- [ ] X.WYSZUKAJ — najbliższa wartość
-- [ ] X.WYSZUKAJ — co zrobić przy braku wyniku
-- [ ] WYSZUKAJ.PIONOWO z dwoma warunkami
-- [ ] INDEKS + PODAJ.POZYCJĘ
-- [ ] Jak znaleźć wartość w tabeli?
+- [x] X.WYSZUKAJ z kilkoma warunkami
+- [x] X.WYSZUKAJ w lewo
+- [x] X.WYSZUKAJ — kilka wyników
+- [x] X.WYSZUKAJ — najbliższa wartość
+- [x] X.WYSZUKAJ — co zrobić przy braku wyniku
+- [x] WYSZUKAJ.PIONOWO z dwoma warunkami
+- [x] INDEKS + PODAJ.POZYCJĘ
+- [x] Jak znaleźć wartość w tabeli?
 
 Docelowy hub:
-- [ ] Wyszukiwanie danych w Excelu
+- [x] Wyszukiwanie danych w Excelu
 
 Powiązane funkcje:
 - [ ] X.WYSZUKAJ
