@@ -117,11 +117,11 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] przyspieszanie makr
 
 ### Etap 5 — szablony
-- [ ] pierwsze pliki XLSX do poradników
-- [ ] biblioteka darmowych szablonów
-- [ ] podgląd pliku przed pobraniem
-- [ ] oznaczenie wymaganej wersji Excela
-- [ ] instrukcja użycia przy każdym pliku
+- [x] pierwsze pliki XLSX do poradników (3 pliki startowe)
+- [x] biblioteka darmowych szablonów (3 szablony)
+- [x] podgląd pliku przed pobraniem
+- [x] oznaczenie wymaganej wersji Excela
+- [x] instrukcja użycia przy każdym pliku
 
 ### Etap 6 — produkcyjne SEO
 - [ ] podpiąć domenę ExcelNaLuzie.pl

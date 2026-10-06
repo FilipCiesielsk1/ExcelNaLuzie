@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../utils/paths.js';
+import { templateCatalog } from '../../data/templateCatalog.js';
+
+export function getStaticPaths() {
+  return templateCatalog.map((template) => ({
+    params: { slug: template.slug },
+    props: { template }
+  }));
+}
+
+const { template } = Astro.props;
+const canonical = '/szablony/' + template.slug + '/';
+---
+
+<BaseLayout
+  navSection="szablony"
+  title={template.title + ' — darmowy szablon Excel XLSX | ExcelNaLuzie'}
+  description={template.description}
+  canonical={canonical}
+>
+  <div class="template-detail-page">
+    <div class="template-detail-wrap">
+      <nav class="breadcrumbs" aria-label="Okruszki">
+        <a href={link("/")}>ExcelNaLuzie</a>
+        <span>›</span>
+        <a href={link("/szablony/")}>Szablony</a>
+        <span>›</span>
+        <strong>{template.title}</strong>
+      </nav>
+
+      <header class="template-detail-hero">
+        <div class="template-detail-copy">
+          <div class="template-badges">
+            <span>XLSX</span>
+            <span>Darmowy</span>
+            <span>{template.version}</span>
+          </div>
+          <h1>{template.title}</h1>
+          <p>{template.description}</p>
+          <div class="template-detail-actions">
+            <a class="template-download-primary" href={link(template.file)} download>
+              Pobierz XLSX <span>↓</span>
+            </a>
+            <a class="template-detail-secondary" href="#instrukcja">Jak użyć?</a>
+          </div>
+        </div>
+
+        <div class="xlsx-preview" aria-label={'Podgląd szablonu ' + template.title}>
+          <div class="xlsx-preview-top">
+            <div><i></i><i></i><i></i></div>
+            <strong>{template.title}.xlsx</strong>
+            <span>Podgląd</span>
+          </div>
+          <div class="xlsx-preview-bar"><b>fx</b><span>=PODSUMOWANIE()</span></div>
+          <div class="xlsx-preview-body">
+            <div class="xlsx-preview-title">{template.title}</div>
+            <div class="xlsx-kpis">
+              <div><small>{template.preview.label1}</small><strong>{template.preview.value1}</strong></div>
+              <div><small>{template.preview.label2}</small><strong>{template.preview.value2}</strong></div>
+              <div><small>{template.preview.label3}</small><strong>{template.preview.value3}</strong></div>
+            </div>
+            <div class="xlsx-preview-table">
+              <div class="xlsx-preview-row head"><span>Pozycja</span><span>Wynik</span></div>
+              {template.preview.rows.map((row) => (
+                <div class="xlsx-preview-row"><span>{row[0]}</span><b>{row[1]}</b></div>
+              ))}
+            </div>
+          </div>
+          <div class="xlsx-preview-tabs">
+            {template.sheets.map((sheet, index) => <span class:list={{active:index===0}}>{sheet}</span>)}
+          </div>
+        </div>
+      </header>
+
+      <section class="template-detail-section">
+        <div class="template-detail-heading">
+          <span class="section-kicker">W środku</span>
+          <h2>Co dostajesz?</h2>
+        </div>
+        <div class="template-feature-grid">
+          {template.features.map((feature, index) => (
+            <div>
+              <span>{String(index + 1).padStart(2,'0')}</span>
+              <p>{feature}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="template-detail-section template-use-section" id="instrukcja">
+        <div class="template-detail-heading">
+          <span class="section-kicker">Instrukcja</span>
+          <h2>Jak użyć szablonu?</h2>
+        </div>
+        <div class="template-use-grid">
+          {template.steps.map((step, index) => (
+            <div>
+              <span>{index + 1}</span>
+              <p>{step}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="template-requirements">
+        <div>
+          <span>Wymagana wersja</span>
+          <strong>{template.version}</strong>
+          <p>Plik nie używa makr. Otwierasz zwykły format .xlsx.</p>
+        </div>
+        <div>
+          <span>Arkusze w pliku</span>
+          <strong>{template.sheets.length}</strong>
+          <p>{template.sheets.join(' · ')}</p>
+        </div>
+        <div>
+          <span>Dane przykładowe</span>
+          <strong>Tak</strong>
+          <p>Możesz je usunąć i od razu wprowadzić własne dane.</p>
+        </div>
+      </section>
+
+      <section class="template-bottom-download">
+        <div>
+          <span class="section-kicker light">Gotowe do użycia</span>
+          <h2>{template.title}</h2>
+          <p>Pobierz plik, otwórz instrukcję w skoroszycie i zastąp przykładowe dane własnymi.</p>
+        </div>
+        <a href={link(template.file)} download>Pobierz XLSX <span>↓</span></a>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

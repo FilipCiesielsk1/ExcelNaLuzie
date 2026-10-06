@@ -234,6 +234,16 @@ Powiązane funkcje:
 
 ---
 
+# Szablony — pierwszy etap
+
+- [x] Budżet domowy XLSX
+- [x] Lista zadań XLSX
+- [x] Ewidencja czasu pracy XLSX
+- [x] Strony z podglądem przed pobraniem
+- [x] Instrukcja i informacja o wersji Excela
+
+---
+
 # Zasada priorytetyzacji
 
 Przed uruchomieniem Search Console:
