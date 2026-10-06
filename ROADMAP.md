@@ -96,10 +96,10 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [ ] pozostałe funkcje według ruchu i zapytań
 
 ### Etap 3 — pierwsze narzędzia online
-- [ ] Generator JEŻELI
-- [ ] Generator X.WYSZUKAJ
-- [ ] Generator SUMA.WARUNKÓW
-- [ ] Generator LICZ.WARUNKI
+- [x] Generator JEŻELI
+- [x] Generator X.WYSZUKAJ
+- [x] Generator SUMA.WARUNKÓW
+- [x] Generator LICZ.WARUNKI
 - [ ] numer kolumny ↔ litera kolumny
 - [ ] kalkulator dat Excel
 - [ ] generator formatów niestandardowych

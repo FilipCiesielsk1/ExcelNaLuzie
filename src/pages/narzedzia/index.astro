@@ -4,6 +4,7 @@ import { withBase as link } from '../../utils/paths.js';
 ---
 
 <BaseLayout
+  navSection="narzedzia"
   title="Narzędzia Excel — generatory i kalkulatory | ExcelNaLuzie"
   description="Darmowe narzędzia do Excela działające w przeglądarce: generatory formuł, konwertery i kalkulatory."
 >
@@ -21,7 +22,7 @@ import { withBase as link } from '../../utils/paths.js';
       </div>
 
       <div class="tool-builder" aria-hidden="true">
-        <div class="tool-builder-head"><span>Generator JEŻELI</span><i>Podgląd</i></div>
+        <div class="tool-builder-head"><span>Generator JEŻELI</span><i>Gotowe</i></div>
         <label>Jeśli komórka <strong>A1</strong></label>
         <div class="tool-fake-select">jest większa niż <span>⌄</span></div>
         <div class="tool-fake-input">0</div>
@@ -33,41 +34,53 @@ import { withBase as link } from '../../utils/paths.js';
   <section class="hub-section" id="narzedzia">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Mini-aplikacje</span><h2>Narzędzia, które zrobimy</h2></div>
-        <p>Całość będzie działać lokalnie w przeglądarce, więc GitHub Pages nadal wystarczy jako darmowy hosting.</p>
+        <div><span class="section-kicker">Mini-aplikacje</span><h2>4 generatory już działają</h2></div>
+        <p>Wszystko liczy się lokalnie w przeglądarce. Możesz zbudować formułę, skopiować ją jednym kliknięciem i wkleić do Excela.</p>
       </div>
 
       <div class="tools-grid">
-        <article class="tool-card priority">
-          <div class="tool-card-top"><span class="tool-icon">IF</span><span class="tool-status">Pierwsze w kolejce</span></div>
+        <a class="tool-card priority live" href={link("/narzedzia/generator-jezeli/")}>
+          <div class="tool-card-top"><span class="tool-icon">IF</span><span class="tool-status">Gotowe</span></div>
           <h3>Generator JEŻELI</h3>
-          <p>Zbuduj formułę JEŻELI z prostego formularza bez pamiętania kolejności argumentów.</p>
-          <div class="tool-tags"><span>JEŻELI</span><span>ORAZ</span><span>LUB</span></div>
-        </article>
-        <article class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">⌕</span><span class="tool-status">Planowane</span></div>
+          <p>Zbuduj warunek oraz wyniki dla PRAWDA i FAŁSZ bez ręcznego pilnowania cudzysłowów.</p>
+          <div class="tool-tags"><span>JEŻELI</span><span>PRAWDA / FAŁSZ</span></div>
+        </a>
+
+        <a class="tool-card priority live" href={link("/narzedzia/generator-xwyszukaj/")}>
+          <div class="tool-card-top"><span class="tool-icon">⌕</span><span class="tool-status">Gotowe</span></div>
           <h3>Generator X.WYSZUKAJ</h3>
-          <p>Wskaż kolumnę wyszukiwania, wynik i opcjonalne warunki, a dostaniesz gotową formułę.</p>
-          <div class="tool-tags"><span>X.WYSZUKAJ</span><span>2 warunki</span></div>
-        </article>
+          <p>Wskaż wartość, zakres wyszukiwania, zakres wyniku oraz sposób dopasowania.</p>
+          <div class="tool-tags"><span>X.WYSZUKAJ</span><span>tryby dopasowania</span></div>
+        </a>
+
+        <a class="tool-card priority live" href={link("/narzedzia/generator-suma-warunkow/")}>
+          <div class="tool-card-top"><span class="tool-icon">Σ</span><span class="tool-status">Gotowe</span></div>
+          <h3>Generator SUMA.WARUNKÓW</h3>
+          <p>Dodaj do pięciu kryteriów i wygeneruj poprawną formułę w odpowiedniej kolejności.</p>
+          <div class="tool-tags"><span>SUMA.WARUNKÓW</span><span>do 5 warunków</span></div>
+        </a>
+
+        <a class="tool-card priority live" href={link("/narzedzia/generator-licz-warunki/")}>
+          <div class="tool-card-top"><span class="tool-icon">#</span><span class="tool-status">Gotowe</span></div>
+          <h3>Generator LICZ.WARUNKI</h3>
+          <p>Dodaj zakresy, operatory i wartości, a generator złoży wszystkie kryteria za Ciebie.</p>
+          <div class="tool-tags"><span>LICZ.WARUNKI</span><span>do 5 warunków</span></div>
+        </a>
+
         <article class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">A↔1</span><span class="tool-status">Planowane</span></div>
+          <div class="tool-card-top"><span class="tool-icon">A↔1</span><span class="tool-status">Następne</span></div>
           <h3>Kolumna ↔ numer</h3>
           <p>Szybki konwerter: numer kolumny na literę i litera kolumny na numer.</p>
           <div class="tool-tags"><span>AB → 28</span><span>28 → AB</span></div>
         </article>
-        <article class="tool-card">
-          <div class="tool-card-top"><span class="tool-icon">Σ</span><span class="tool-status">Planowane</span></div>
-          <h3>Generator SUMA.WARUNKÓW</h3>
-          <p>Dodawaj kolejne kryteria i otrzymuj poprawną składnię bez ręcznego liczenia argumentów.</p>
-          <div class="tool-tags"><span>SUMA.WARUNKÓW</span></div>
-        </article>
+
         <article class="tool-card">
           <div class="tool-card-top"><span class="tool-icon">31</span><span class="tool-status">Planowane</span></div>
           <h3>Kalkulator dat Excel</h3>
           <p>Dobierz formułę do różnicy dat, dni roboczych, miesięcy i przesuwania terminów.</p>
           <div class="tool-tags"><span>daty</span><span>dni robocze</span></div>
         </article>
+
         <article class="tool-card">
           <div class="tool-card-top"><span class="tool-icon">0.00</span><span class="tool-status">Planowane</span></div>
           <h3>Generator formatów</h3>
@@ -81,21 +94,21 @@ import { withBase as link } from '../../utils/paths.js';
   <section class="hub-section hub-section-alt">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Założenie</span><h2>Zero zbędnej komplikacji</h2></div>
-        <p>Narzędzia mają skracać drogę od problemu do rozwiązania, a nie być kolejną aplikacją do nauczenia.</p>
+        <div><span class="section-kicker">Jak to działa</span><h2>Od pól do gotowej formuły</h2></div>
+        <p>Generatory mają skracać drogę od problemu do rozwiązania. Nie wymagają konta, instalacji ani przesyłania skoroszytu.</p>
       </div>
       <div class="reference-steps">
-        <div><span>01</span><strong>Wybierasz cel</strong><p>Opisujesz problem przez kilka prostych pól zamiast pisać formułę.</p></div>
-        <div><span>02</span><strong>Dostajesz wynik</strong><p>Gotowa składnia pojawia się natychmiast wraz z podglądem.</p></div>
-        <div><span>03</span><strong>Kopiujesz do Excela</strong><p>Jedno kliknięcie i możesz wracać do swojego arkusza.</p></div>
+        <div><span>01</span><strong>Ustawiasz parametry</strong><p>Wpisujesz zakresy, warunki i wartości w prostym formularzu.</p></div>
+        <div><span>02</span><strong>Formuła powstaje na żywo</strong><p>Wynik aktualizuje się natychmiast po każdej zmianie pola.</p></div>
+        <div><span>03</span><strong>Kopiujesz do Excela</strong><p>Jedno kliknięcie kopiuje gotową polską składnię ze średnikami.</p></div>
       </div>
     </div>
   </section>
 
   <section class="hub-cta-section">
     <div class="wrap hub-cta">
-      <div><span class="section-kicker light">Do czasu uruchomienia generatorów</span><h2>Gotowe formuły już są.</h2><p>Zobacz poradniki i skopiuj rozwiązanie bezpośrednio do arkusza.</p></div>
-      <a href={link("/formuly/")}>Przejdź do formuł <span>→</span></a>
+      <div><span class="section-kicker light">Wolisz zrozumieć formułę?</span><h2>Każdy generator ma stronę funkcji.</h2><p>Sprawdź składnię, argumenty i praktyczne przykłady przed użyciem.</p></div>
+      <a href={link("/funkcje/")}>Przejdź do bazy funkcji <span>→</span></a>
     </div>
   </section>
 </BaseLayout>

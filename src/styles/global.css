@@ -2413,3 +2413,10 @@ a.hub-topic-card:hover{
   .generator-output{grid-template-columns:1fr}
   .generator-output button{justify-self:start}
 }
+
+.tool-card.live{cursor:pointer;transition:.18s ease}
+.tool-card.live:hover{
+  border-color:#b8d2c0;
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-soft);
+}

@@ -14,9 +14,9 @@ export const functionCatalog = [
     ],
     docs: 'https://support.microsoft.com/pl-pl/excel/if-function-nested-formulas-and-avoiding-pitfalls',
     related: [
+      ['Generator JEŻELI','/narzedzia/generator-jezeli/'],
       ['LICZ.WARUNKI','/funkcje/licz-warunki/'],
-      ['SUMA.WARUNKÓW','/funkcje/suma-warunkow/'],
-      ['Formuły Excel','/formuly/']
+      ['SUMA.WARUNKÓW','/funkcje/suma-warunkow/']
     ]
   },
   {
@@ -37,9 +37,9 @@ export const functionCatalog = [
     ],
     docs: 'https://support.microsoft.com/pl-pl/excel/functions/xlookup-function',
     related: [
+      ['Generator X.WYSZUKAJ','/narzedzia/generator-xwyszukaj/'],
       ['X.WYSZUKAJ — prosty przykład','/poradniki/xwyszukaj-podstawy/'],
-      ['Wyszukiwanie danych','/formuly/wyszukiwanie/'],
-      ['FILTRUJ','/funkcje/filtruj/']
+      ['Wyszukiwanie danych','/formuly/wyszukiwanie/']
     ]
   },
   {
@@ -124,9 +124,9 @@ export const functionCatalog = [
     ],
     docs: 'https://support.microsoft.com/pl-pl/excel/functions/sumifs-function',
     related: [
+      ['Generator SUMA.WARUNKÓW','/narzedzia/generator-suma-warunkow/'],
       ['LICZ.WARUNKI','/funkcje/licz-warunki/'],
-      ['JEŻELI','/funkcje/jezeli/'],
-      ['Formuły Excel','/formuly/']
+      ['JEŻELI','/funkcje/jezeli/']
     ]
   },
   {
@@ -144,9 +144,9 @@ export const functionCatalog = [
     ],
     docs: 'https://support.microsoft.com/pl-pl/excel/functions/countifs-function',
     related: [
+      ['Generator LICZ.WARUNKI','/narzedzia/generator-licz-warunki/'],
       ['SUMA.WARUNKÓW','/funkcje/suma-warunkow/'],
-      ['JEŻELI','/funkcje/jezeli/'],
-      ['Formuły Excel','/formuly/']
+      ['JEŻELI','/funkcje/jezeli/']
     ]
   },
   {

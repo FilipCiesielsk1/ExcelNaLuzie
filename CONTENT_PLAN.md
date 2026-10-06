@@ -223,10 +223,10 @@ Powiązane funkcje:
 
 # Narzędzia — backlog treści/funkcji
 
-- [ ] Generator JEŻELI
-- [ ] Generator X.WYSZUKAJ
-- [ ] Generator SUMA.WARUNKÓW
-- [ ] Generator LICZ.WARUNKI
+- [x] Generator JEŻELI
+- [x] Generator X.WYSZUKAJ
+- [x] Generator SUMA.WARUNKÓW
+- [x] Generator LICZ.WARUNKI
 - [ ] Numer kolumny → litera
 - [ ] Litera kolumny → numer
 - [ ] Kalkulator dat Excel
