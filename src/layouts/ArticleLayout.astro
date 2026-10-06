@@ -1,0 +1,6 @@
+---
+import BaseLayout from './BaseLayout.astro';
+const {frontmatter}=Astro.props;const canonical=`/poradniki/${frontmatter.slug}/`;
+const schema={'@context':'https://schema.org','@type':'Article',headline:frontmatter.title,description:frontmatter.description,datePublished:frontmatter.date,dateModified:frontmatter.updated||frontmatter.date,author:{'@type':'Person',name:'Filip Ciesielski'},publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl'},mainEntityOfPage:`https://excelnaluzie.pl${canonical}`};
+---
+<BaseLayout title={`${frontmatter.title} | ExcelNaLuzie`} description={frontmatter.description} canonical={canonical}><script type="application/ld+json" set:html={JSON.stringify(schema)}></script><article class="article" data-pagefind-body><p><a href="/">ExcelNaLuzie</a> → {frontmatter.category}</p><h1 data-pagefind-meta="title">{frontmatter.title}</h1><div class="meta">Autor: Filip Ciesielski · Aktualizacja: {frontmatter.updated || frontmatter.date}</div><slot/><div class="related"><strong>Powiązane:</strong> <a href="/formuly/">Formuły Excel</a> · <a href="/funkcje/">Baza funkcji</a> · <a href="/narzedzia/">Narzędzia</a></div></article></BaseLayout>
