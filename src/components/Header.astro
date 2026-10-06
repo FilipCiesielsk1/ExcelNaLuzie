@@ -1,5 +1,15 @@
 ---
 import { withBase as link } from '../utils/paths.js';
+
+const { activeSection = null } = Astro.props;
+
+const items = [
+  { key: 'formuly', label: 'Formuły', href: '/formuly/' },
+  { key: 'funkcje', label: 'Funkcje', href: '/funkcje/' },
+  { key: 'vba', label: 'VBA', href: '/vba/' },
+  { key: 'narzedzia', label: 'Narzędzia', href: '/narzedzia/' },
+  { key: 'szablony', label: 'Szablony', href: '/szablony/' }
+];
 ---
 <header class="site-header">
   <div class="wrap nav">
@@ -11,11 +21,15 @@ import { withBase as link } from '../utils/paths.js';
     </a>
 
     <nav class="menu" aria-label="Główna nawigacja">
-      <a href={link("/formuly/")}>Formuły</a>
-      <a href={link("/funkcje/")}>Funkcje</a>
-      <a href={link("/vba/")}>VBA</a>
-      <a href={link("/narzedzia/")}>Narzędzia</a>
-      <a href={link("/szablony/")}>Szablony</a>
+      {items.map((item) => (
+        <a
+          href={link(item.href)}
+          class:list={{ active: activeSection === item.key }}
+          aria-current={activeSection === item.key ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
     </nav>
 
     <a class="header-search" href={link("/#szukaj")} aria-label="Przejdź do wyszukiwarki">
