@@ -1,0 +1,108 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Generator X.WYSZUKAJ w Excelu"
+  description="Wpisz szukaną wartość, zakres wyszukiwania i zakres wyniku. Generator zbuduje poprawną formułę X.WYSZUKAJ z obsługą braku wyniku."
+  slug="generator-xwyszukaj"
+  functionName="X.WYSZUKAJ"
+  functionHref="/funkcje/xwyszukaj/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formuły</span>
+    <h2>Zbuduj X.WYSZUKAJ</h2>
+    <p>Zakres wyszukiwania i zakres wyniku mogą znajdować się w dowolnej kolejności w arkuszu.</p>
+  </div>
+
+  <div class="formula-generator" data-xlookup-generator>
+    <div class="generator-grid">
+      <div class="generator-field">
+        <label for="xl-value">Szukana wartość</label>
+        <input id="xl-value" data-value value="F2" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="xl-value-type">Typ</label>
+        <select id="xl-value-type" data-value-type>
+          <option value="cell">Komórka</option>
+          <option value="text">Tekst</option>
+          <option value="number">Liczba</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label for="xl-lookup">Zakres wyszukiwania</label>
+        <input id="xl-lookup" data-lookup value="A2:A100" spellcheck="false"/>
+      </div>
+      <div class="generator-field">
+        <label for="xl-return">Zakres wyniku</label>
+        <input id="xl-return" data-return value="C2:C100" spellcheck="false"/>
+      </div>
+    </div>
+
+    <div class="generator-grid">
+      <div class="generator-field">
+        <label for="xl-not-found">Gdy brak wyniku</label>
+        <input id="xl-not-found" data-not-found value="Brak wyniku" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="xl-match">Dopasowanie</label>
+        <select id="xl-match" data-match>
+          <option value="0">Dokładne</option>
+          <option value="-1">Dokładne / mniejsze</option>
+          <option value="1">Dokładne / większe</option>
+          <option value="2">Symbole wieloznaczne</option>
+        </select>
+      </div>
+      <div class="generator-field compact">
+        <label for="xl-search">Kierunek</label>
+        <select id="xl-search" data-search>
+          <option value="1">Od początku</option>
+          <option value="-1">Od końca</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Gotowa formuła</span><small>Domyślne dopasowanie jest dokładne.</small></div>
+      <code data-output></code>
+      <button type="button" data-copy>Kopiuj formułę</button>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Jak korzystać?</h2>
+    <p>Jeżeli chcesz tylko klasycznego wyszukania, zostaw „Dokładne” i „Od początku”. Tryby przybliżone przydają się np. przy tabelach progowych.</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-xlookup-generator]');
+    const escapeExcel = (value) => value.replaceAll('"', '""');
+    const typedValue = (value, type) => type === 'text' ? `"${escapeExcel(value.trim())}"` : value.trim();
+
+    const update = () => {
+      const value = typedValue(root.querySelector('[data-value]').value, root.querySelector('[data-value-type]').value) || 'F2';
+      const lookup = root.querySelector('[data-lookup]').value.trim() || 'A2:A100';
+      const returned = root.querySelector('[data-return]').value.trim() || 'C2:C100';
+      const notFound = `"${escapeExcel(root.querySelector('[data-not-found]').value.trim())}"`;
+      const match = root.querySelector('[data-match]').value;
+      const search = root.querySelector('[data-search]').value;
+
+      const base = [value, lookup, returned, notFound];
+      if (match !== '0' || search !== '1') base.push(match, search);
+      root.querySelector('[data-output]').textContent = '=X.WYSZUKAJ(' + base.join(';') + ')';
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(root.querySelector('[data-output]').textContent);
+        event.currentTarget.textContent = 'Skopiowano ✓';
+        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+      } catch {
+        event.currentTarget.textContent = 'Zaznacz ręcznie';
+      }
+    });
+    update();
+  </script>
+</ToolLayout>

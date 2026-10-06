@@ -1,0 +1,174 @@
+---
+const { mode = 'SUMA.WARUNKÓW' } = Astro.props;
+const isSum = mode === 'SUMA.WARUNKÓW';
+---
+
+<div class="criteria-generator" data-criteria-generator data-mode={mode}>
+  {isSum && (
+    <div class="generator-field">
+      <label for="sum-range">Zakres sumowania</label>
+      <input id="sum-range" data-sum-range type="text" value="C2:C100" spellcheck="false"/>
+      <small>Zakres z wartościami, które Excel ma sumować.</small>
+    </div>
+  )}
+
+  <div class="criteria-toolbar">
+    <div>
+      <span>Kryteria</span>
+      <small>Dodaj maksymalnie 5 warunków.</small>
+    </div>
+    <button type="button" class="generator-add" data-add-criterion>+ Dodaj warunek</button>
+  </div>
+
+  <div class="criteria-list" data-criteria-list>
+    <div class="criteria-row" data-criterion-row>
+      <div class="generator-field">
+        <label>Zakres kryterium</label>
+        <input data-range type="text" value="A2:A100" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label>Operator</label>
+        <select data-operator>
+          <option value="=">=</option>
+          <option value=">">&gt;</option>
+          <option value=">=">&gt;=</option>
+          <option value="<">&lt;</option>
+          <option value="<=">&lt;=</option>
+          <option value="<>">&lt;&gt;</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label>Wartość</label>
+        <input data-value type="text" value="F2" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label>Typ</label>
+        <select data-type>
+          <option value="cell">Komórka</option>
+          <option value="text">Tekst</option>
+          <option value="number">Liczba</option>
+        </select>
+      </div>
+      <button type="button" class="criteria-remove" data-remove-criterion aria-label="Usuń warunek">×</button>
+    </div>
+  </div>
+
+  <template data-criterion-template>
+    <div class="criteria-row" data-criterion-row>
+      <div class="generator-field">
+        <label>Zakres kryterium</label>
+        <input data-range type="text" value="B2:B100" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label>Operator</label>
+        <select data-operator>
+          <option value="=">=</option>
+          <option value=">">&gt;</option>
+          <option value=">=">&gt;=</option>
+          <option value="<">&lt;</option>
+          <option value="<=">&lt;=</option>
+          <option value="<>">&lt;&gt;</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label>Wartość</label>
+        <input data-value type="text" value="G2" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label>Typ</label>
+        <select data-type>
+          <option value="cell">Komórka</option>
+          <option value="text">Tekst</option>
+          <option value="number">Liczba</option>
+        </select>
+      </div>
+      <button type="button" class="criteria-remove" data-remove-criterion aria-label="Usuń warunek">×</button>
+    </div>
+  </template>
+
+  <div class="generator-output">
+    <div>
+      <span>Gotowa formuła</span>
+      <small>Aktualizuje się automatycznie.</small>
+    </div>
+    <code data-formula-output></code>
+    <button type="button" data-copy-formula>Kopiuj formułę</button>
+  </div>
+</div>
+
+<script>
+  const escapeExcel = (value) => value.replaceAll('"', '""');
+
+  const criterionValue = (value, type, operator) => {
+    const clean = value.trim();
+    if (type === 'cell') {
+      return operator === '=' ? clean : `"${operator}"&${clean}`;
+    }
+    if (type === 'number') {
+      return operator === '=' ? clean : `"${operator}${clean}"`;
+    }
+    return `"${operator === '=' ? '' : operator}${escapeExcel(clean)}"`;
+  };
+
+  document.querySelectorAll('[data-criteria-generator]').forEach((root) => {
+    const mode = root.dataset.mode;
+    const list = root.querySelector('[data-criteria-list]');
+    const template = root.querySelector('[data-criterion-template]');
+    const addButton = root.querySelector('[data-add-criterion]');
+    const output = root.querySelector('[data-formula-output]');
+    const copyButton = root.querySelector('[data-copy-formula]');
+
+    const update = () => {
+      const parts = [];
+      if (mode === 'SUMA.WARUNKÓW') {
+        const sumRange = root.querySelector('[data-sum-range]')?.value.trim() || 'C2:C100';
+        parts.push(sumRange);
+      }
+
+      root.querySelectorAll('[data-criterion-row]').forEach((row) => {
+        const range = row.querySelector('[data-range]')?.value.trim();
+        const operator = row.querySelector('[data-operator]')?.value || '=';
+        const value = row.querySelector('[data-value]')?.value || '';
+        const type = row.querySelector('[data-type]')?.value || 'cell';
+        if (range) {
+          parts.push(range, criterionValue(value, type, operator));
+        }
+      });
+
+      output.textContent = '=' + mode + '(' + parts.join(';') + ')';
+      root.querySelectorAll('[data-remove-criterion]').forEach((button) => {
+        button.disabled = root.querySelectorAll('[data-criterion-row]').length <= 1;
+      });
+      addButton.disabled = root.querySelectorAll('[data-criterion-row]').length >= 5;
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+
+    addButton?.addEventListener('click', () => {
+      if (root.querySelectorAll('[data-criterion-row]').length >= 5) return;
+      const fragment = template.content.cloneNode(true);
+      list.appendChild(fragment);
+      update();
+    });
+
+    root.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-remove-criterion]');
+      if (!button || root.querySelectorAll('[data-criterion-row]').length <= 1) return;
+      button.closest('[data-criterion-row]')?.remove();
+      update();
+    });
+
+    copyButton?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(output.textContent || '');
+        copyButton.textContent = 'Skopiowano ✓';
+        setTimeout(() => copyButton.textContent = 'Kopiuj formułę', 1500);
+      } catch {
+        copyButton.textContent = 'Zaznacz ręcznie';
+      }
+    });
+
+    update();
+  });
+</script>

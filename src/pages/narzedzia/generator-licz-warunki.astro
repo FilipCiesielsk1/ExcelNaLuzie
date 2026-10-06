@@ -1,0 +1,25 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CriteriaGenerator from '../../components/CriteriaGenerator.astro';
+---
+
+<ToolLayout
+  title="Generator LICZ.WARUNKI w Excelu"
+  description="Dodaj zakresy i kryteria, a generator przygotuje formułę LICZ.WARUNKI. Obsługuje do pięciu warunków i różne typy wartości."
+  slug="generator-licz-warunki"
+  functionName="LICZ.WARUNKI"
+  functionHref="/funkcje/licz-warunki/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formuły</span>
+    <h2>Zbuduj LICZ.WARUNKI</h2>
+    <p>Policz rekordy spełniające jeden albo kilka warunków bez ręcznego składania par argumentów.</p>
+  </div>
+
+  <CriteriaGenerator mode="LICZ.WARUNKI"/>
+
+  <div class="generator-help">
+    <h2>Ważne</h2>
+    <p>Zakresy kryteriów powinny mieć zgodne wymiary. Jeśli jeden obejmuje A2:A100, pozostałe najlepiej prowadzić po tych samych wierszach.</p>
+  </div>
+</ToolLayout>

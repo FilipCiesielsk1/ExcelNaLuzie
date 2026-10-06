@@ -1,0 +1,64 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { withBase as link } from '../utils/paths.js';
+
+const {
+  title,
+  description,
+  slug,
+  functionName,
+  functionHref
+} = Astro.props;
+
+const canonical = `/narzedzia/${slug}/`;
+---
+
+<BaseLayout
+  navSection="narzedzia"
+  title={`${title} | ExcelNaLuzie`}
+  description={description}
+  canonical={canonical}
+>
+  <div class="tool-page">
+    <div class="tool-page-wrap">
+      <nav class="breadcrumbs" aria-label="Okruszki">
+        <a href={link("/")}>ExcelNaLuzie</a>
+        <span>›</span>
+        <a href={link("/narzedzia/")}>Narzędzia</a>
+        <span>›</span>
+        <strong>{title}</strong>
+      </nav>
+
+      <header class="tool-page-header">
+        <span class="article-category">Narzędzie online</span>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </header>
+
+      <div class="tool-page-layout">
+        <main class="tool-generator-panel">
+          <slot/>
+        </main>
+
+        <aside class="tool-page-sidebar">
+          <div class="tool-side-card">
+            <span>Prywatność</span>
+            <strong>Wszystko działa lokalnie</strong>
+            <p>Dane wpisane do generatora nie są wysyłane na serwer.</p>
+          </div>
+
+          <div class="tool-side-card">
+            <span>Powiązana funkcja</span>
+            <strong>{functionName}</strong>
+            <a href={link(functionHref)}>Zobacz składnię i przykłady →</a>
+          </div>
+
+          <a class="sidebar-search" href={link("/narzedzia/")}>
+            <span>Więcej narzędzi</span>
+            <strong>Wszystkie generatory →</strong>
+          </a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

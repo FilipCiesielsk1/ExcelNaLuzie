@@ -1,0 +1,126 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Generator JEŻELI w Excelu"
+  description="Zbuduj poprawną formułę JEŻELI z prostego formularza. Wybierz warunek oraz wynik dla PRAWDA i FAŁSZ, a generator przygotuje składnię."
+  slug="generator-jezeli"
+  functionName="JEŻELI"
+  functionHref="/funkcje/jezeli/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formuły</span>
+    <h2>Zbuduj JEŻELI krok po kroku</h2>
+    <p>Nie musisz pamiętać kolejności argumentów ani cudzysłowów dla tekstu.</p>
+  </div>
+
+  <div class="formula-generator" data-if-generator>
+    <div class="generator-grid generator-grid-condition">
+      <div class="generator-field">
+        <label for="if-left">Komórka lub wyrażenie</label>
+        <input id="if-left" data-left value="A1" spellcheck="false"/>
+      </div>
+
+      <div class="generator-field compact">
+        <label for="if-op">Warunek</label>
+        <select id="if-op" data-operator>
+          <option value=">">&gt;</option>
+          <option value=">=">&gt;=</option>
+          <option value="=">=</option>
+          <option value="<>">&lt;&gt;</option>
+          <option value="<=">&lt;=</option>
+          <option value="<">&lt;</option>
+        </select>
+      </div>
+
+      <div class="generator-field">
+        <label for="if-right">Wartość porównania</label>
+        <input id="if-right" data-right value="0" spellcheck="false"/>
+      </div>
+
+      <div class="generator-field compact">
+        <label for="if-right-type">Typ</label>
+        <select id="if-right-type" data-right-type>
+          <option value="number">Liczba</option>
+          <option value="text">Tekst</option>
+          <option value="cell">Komórka</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="generator-grid generator-grid-results">
+      <div class="generator-field">
+        <label for="if-true">Jeżeli PRAWDA</label>
+        <input id="if-true" data-true value="TAK" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="if-true-type">Typ</label>
+        <select id="if-true-type" data-true-type>
+          <option value="text">Tekst</option>
+          <option value="number">Liczba</option>
+          <option value="cell">Komórka</option>
+          <option value="formula">Formuła</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label for="if-false">Jeżeli FAŁSZ</label>
+        <input id="if-false" data-false value="NIE" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="if-false-type">Typ</label>
+        <select id="if-false-type" data-false-type>
+          <option value="text">Tekst</option>
+          <option value="number">Liczba</option>
+          <option value="cell">Komórka</option>
+          <option value="formula">Formuła</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Gotowa formuła</span><small>Skopiuj i wklej do Excela.</small></div>
+      <code data-output></code>
+      <button type="button" data-copy>Kopiuj formułę</button>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Przykład</h2>
+    <p>Dla ustawień domyślnych generator utworzy warunek sprawdzający, czy A1 jest większe od zera i zwróci tekst TAK albo NIE.</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-if-generator]');
+    const escapeExcel = (value) => value.replaceAll('"', '""');
+
+    const excelValue = (value, type) => {
+      const clean = value.trim();
+      if (type === 'text') return `"${escapeExcel(clean)}"`;
+      if (type === 'formula') return clean.replace(/^=/, '');
+      return clean;
+    };
+
+    const update = () => {
+      const left = root.querySelector('[data-left]').value.trim() || 'A1';
+      const operator = root.querySelector('[data-operator]').value;
+      const right = excelValue(root.querySelector('[data-right]').value, root.querySelector('[data-right-type]').value);
+      const yes = excelValue(root.querySelector('[data-true]').value, root.querySelector('[data-true-type]').value);
+      const no = excelValue(root.querySelector('[data-false]').value, root.querySelector('[data-false-type]').value);
+      root.querySelector('[data-output]').textContent = `=JEŻELI(${left}${operator}${right};${yes};${no})`;
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(root.querySelector('[data-output]').textContent);
+        event.currentTarget.textContent = 'Skopiowano ✓';
+        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+      } catch {
+        event.currentTarget.textContent = 'Zaznacz ręcznie';
+      }
+    });
+    update();
+  </script>
+</ToolLayout>

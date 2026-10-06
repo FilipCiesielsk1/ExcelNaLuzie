@@ -2213,3 +2213,203 @@ a.hub-topic-card:hover{
   .function-args-table>div{grid-template-columns:28px 1fr}
   .function-args-table p{grid-column:2}
 }
+
+
+/* Interactive formula generators */
+.tool-page{padding:54px 0 50px}
+.tool-page-wrap{width:min(calc(100% - 40px),var(--max));margin-inline:auto}
+.tool-page-header{
+  max-width:820px;
+  margin:0 0 30px;
+  padding-bottom:25px;
+  border-bottom:1px solid var(--line);
+}
+.tool-page-header h1{
+  margin:15px 0 14px;
+  font-size:clamp(2.55rem,5vw,4.2rem);
+  line-height:1.02;
+  letter-spacing:-.055em;
+}
+.tool-page-header>p{
+  margin:0;
+  color:var(--muted);
+  font-size:1.06rem;
+  line-height:1.75;
+}
+.tool-page-layout{
+  display:grid;
+  grid-template-columns:minmax(0,820px) minmax(220px,280px);
+  gap:58px;
+  align-items:start;
+}
+.tool-generator-panel{min-width:0}
+.tool-page-sidebar{
+  position:sticky;
+  top:102px;
+  display:grid;
+  gap:12px;
+}
+.tool-side-card{
+  display:grid;
+  gap:6px;
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(22,54,36,.04);
+}
+.tool-side-card>span{
+  color:#8b978f;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.55rem;
+  font-weight:850;
+}
+.tool-side-card>strong{color:var(--green-dark);font-size:.92rem}
+.tool-side-card>p{margin:0;color:var(--muted);font-size:.7rem}
+.tool-side-card>a{margin-top:4px;color:var(--green);font-size:.7rem;font-weight:800}
+.generator-intro{margin-bottom:20px}
+.generator-intro h2{margin:5px 0 8px;font-size:1.6rem;letter-spacing:-.03em}
+.generator-intro p{margin:0;color:var(--muted)}
+.formula-generator,
+.criteria-generator{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 16px 42px rgba(22,54,36,.06);
+}
+.generator-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(120px,.55fr) minmax(0,1.1fr) minmax(120px,.55fr);
+  gap:12px;
+  margin-bottom:14px;
+}
+.generator-grid-results{margin-top:6px}
+.generator-field{display:grid;align-content:start;gap:6px}
+.generator-field label{
+  color:#59675e;
+  font-size:.68rem;
+  font-weight:800;
+}
+.generator-field input,
+.generator-field select{
+  width:100%;
+  min-height:43px;
+  border:1px solid var(--line-strong);
+  border-radius:9px;
+  outline:0;
+  background:#fbfcfb;
+  color:#26362c;
+  padding:9px 10px;
+  font-size:.78rem;
+}
+.generator-field input:focus,
+.generator-field select:focus{
+  border-color:rgba(16,124,65,.55);
+  box-shadow:0 0 0 3px rgba(16,124,65,.07);
+}
+.generator-field small{color:#89958d;font-size:.62rem}
+.generator-output{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:12px;
+  align-items:center;
+  margin-top:20px;
+  padding:16px;
+  border-radius:13px;
+  background:linear-gradient(135deg,#0b2417,#0d301e);
+}
+.generator-output>div{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.generator-output span{
+  color:#a8ceb5;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-size:.58rem;
+  font-weight:850;
+}
+.generator-output small{color:#89a995;font-size:.6rem}
+.generator-output code{
+  min-width:0;
+  overflow:auto;
+  color:#effff4;
+  white-space:nowrap;
+  font:650 .82rem ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+.generator-output button,
+.generator-add{
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:800;
+}
+.generator-output button{
+  padding:8px 10px;
+  background:rgba(255,255,255,.09);
+  color:#e9f8ee;
+  font-size:.66rem;
+}
+.generator-output button:hover{background:rgba(255,255,255,.15)}
+.generator-help{
+  margin-top:28px;
+  padding:20px 22px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#f8faf8;
+}
+.generator-help h2{margin:0 0 7px;font-size:1.05rem}
+.generator-help p{margin:0;color:var(--muted);font-size:.78rem}
+.criteria-toolbar{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:center;
+  margin:18px 0 10px;
+}
+.criteria-toolbar>div{display:grid}
+.criteria-toolbar span{font-size:.78rem;font-weight:850}
+.criteria-toolbar small{color:#89958d;font-size:.62rem}
+.generator-add{
+  padding:8px 10px;
+  border-color:#c5d9cb;
+  background:#eef7f1;
+  color:var(--green-dark);
+  font-size:.65rem;
+}
+.generator-add:disabled{opacity:.45;cursor:not-allowed}
+.criteria-list{display:grid;gap:9px}
+.criteria-row{
+  display:grid;
+  grid-template-columns:minmax(130px,1fr) 100px minmax(110px,.8fr) 110px 32px;
+  gap:8px;
+  align-items:end;
+  padding:12px;
+  border:1px solid #e7ece8;
+  border-radius:11px;
+  background:#fafcfa;
+}
+.criteria-remove{
+  width:32px;height:43px;
+  border:1px solid #e0e7e2;
+  border-radius:8px;
+  background:#fff;
+  color:#8d9991;
+  cursor:pointer;
+  font-size:1.05rem;
+}
+.criteria-remove:hover:not(:disabled){border-color:#d9bcbc;color:#8a3838;background:#fff7f7}
+.criteria-remove:disabled{opacity:.35;cursor:not-allowed}
+@media(max-width:980px){
+  .tool-page-layout{grid-template-columns:minmax(0,820px);justify-content:center}
+  .tool-page-sidebar{display:none}
+}
+@media(max-width:760px){
+  .tool-page{padding-top:34px}
+  .tool-page-wrap{width:min(calc(100% - 28px),var(--max))}
+  .tool-page-header h1{font-size:clamp(2.3rem,11vw,3.45rem)}
+  .generator-grid{grid-template-columns:1fr 120px}
+  .criteria-row{grid-template-columns:1fr 100px}
+  .criteria-remove{grid-column:2;justify-self:end}
+  .generator-output{grid-template-columns:1fr}
+  .generator-output button{justify-self:start}
+}

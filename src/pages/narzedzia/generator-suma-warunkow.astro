@@ -1,0 +1,25 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CriteriaGenerator from '../../components/CriteriaGenerator.astro';
+---
+
+<ToolLayout
+  title="Generator SUMA.WARUNKÓW w Excelu"
+  description="Wskaż zakres sumowania i dodaj do pięciu kryteriów. Generator przygotuje gotową formułę SUMA.WARUNKÓW bez ręcznego pilnowania argumentów."
+  slug="generator-suma-warunkow"
+  functionName="SUMA.WARUNKÓW"
+  functionHref="/funkcje/suma-warunkow/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formuły</span>
+    <h2>Zbuduj SUMA.WARUNKÓW</h2>
+    <p>Dodawaj kolejne pary zakres + warunek. Generator sam zachowa prawidłową kolejność argumentów.</p>
+  </div>
+
+  <CriteriaGenerator mode="SUMA.WARUNKÓW"/>
+
+  <div class="generator-help">
+    <h2>Jak wpisywać warunki?</h2>
+    <p>Dla odwołania do komórki wybierz typ „Komórka”. Dla stałej wartości wybierz „Liczba” albo „Tekst”. Operator możesz ustawić osobno.</p>
+  </div>
+</ToolLayout>
