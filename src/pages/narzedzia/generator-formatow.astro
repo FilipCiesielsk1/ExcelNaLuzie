@@ -1,0 +1,301 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Generator formatów niestandardowych Excel"
+  description="Wybierz sposób wyświetlania liczby, waluty, procentu, daty, czasu lub jednostki, a generator przygotuje gotowy kod formatu niestandardowego do Excela."
+  slug="generator-formatow"
+  functionName="Formatowanie niestandardowe"
+  functionHref="/formuly/"
+  resourceLabel="Powiązany temat"
+  resourceAction="Przejdź do formuł →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formatu</span>
+    <h2>Zbuduj format niestandardowy</h2>
+    <p>Wybierz typ, ustaw szczegóły i skopiuj gotowy kod do pola <strong>Formatowanie komórek → Niestandardowe → Typ</strong>.</p>
+  </div>
+
+  <div class="format-generator" data-format-generator>
+    <div class="generator-grid">
+      <div class="generator-field">
+        <label for="fmt-type">Typ formatu</label>
+        <select id="fmt-type" data-type>
+          <option value="number">Liczba</option>
+          <option value="currency">Waluta PLN</option>
+          <option value="percent">Procent</option>
+          <option value="unit">Liczba z jednostką</option>
+          <option value="date">Data</option>
+          <option value="elapsed">Czas powyżej 24 godzin</option>
+          <option value="hidezero">Ukryj zera</option>
+        </select>
+      </div>
+
+      <div class="generator-field" data-number-options>
+        <label for="fmt-decimals">Miejsca dziesiętne</label>
+        <select id="fmt-decimals" data-decimals>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+
+      <div class="generator-field" data-number-options>
+        <label for="fmt-group">Separator tysięcy</label>
+        <select id="fmt-group" data-group>
+          <option value="yes">Tak</option>
+          <option value="no">Nie</option>
+        </select>
+      </div>
+
+      <div class="generator-field" data-number-options>
+        <label for="fmt-negative">Liczby ujemne</label>
+        <select id="fmt-negative" data-negative>
+          <option value="minus">Z minusem</option>
+          <option value="parentheses">W nawiasach</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="format-extra">
+      <div class="generator-field hidden" data-unit-field>
+        <label for="fmt-unit">Jednostka</label>
+        <input id="fmt-unit" data-unit value="kg" spellcheck="false"/>
+        <small>Tekst zostanie dodany w cudzysłowie, np. 125,50 kg.</small>
+      </div>
+
+      <div class="generator-field hidden" data-date-field>
+        <label for="fmt-date-style">Wygląd daty</label>
+        <select id="fmt-date-style" data-date-style>
+          <option value="short">31.12.2026</option>
+          <option value="month">31 grudnia 2026</option>
+          <option value="weekday">czwartek, 31 grudnia 2026</option>
+          <option value="monthyear">grudzień 2026</option>
+        </select>
+      </div>
+
+      <div class="generator-field hidden" data-time-field>
+        <label for="fmt-time-style">Wygląd czasu</label>
+        <select id="fmt-time-style" data-time-style>
+          <option value="hm">27:30</option>
+          <option value="hms">27:30:15</option>
+        </select>
+      </div>
+
+      <div class="generator-field" data-sample-number>
+        <label for="fmt-sample">Wartość przykładowa</label>
+        <input id="fmt-sample" data-sample type="number" step="0.01" value="12345.67"/>
+      </div>
+
+      <div class="generator-field hidden" data-sample-date>
+        <label for="fmt-sample-date">Przykładowa data</label>
+        <input id="fmt-sample-date" data-date-sample type="date" value="2026-12-31"/>
+      </div>
+
+      <div class="generator-field hidden" data-sample-hours>
+        <label for="fmt-hours">Przykładowy czas w godzinach</label>
+        <input id="fmt-hours" data-hours-sample type="number" min="0" step="0.25" value="27.5"/>
+      </div>
+    </div>
+
+    <div class="format-preview">
+      <span>Podgląd</span>
+      <strong data-preview>12 345,67</strong>
+      <small>Podgląd pokazuje efekt dla wartości przykładowej.</small>
+    </div>
+
+    <div class="generator-output">
+      <div>
+        <span>Kod formatu</span>
+        <small>Wklej w Excelu do pola Typ.</small>
+      </div>
+      <code data-format-code># ##0,00</code>
+      <button type="button" data-copy>Kopiuj format</button>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Jak zastosować format?</h2>
+    <p>Zaznacz komórki → naciśnij <strong>Ctrl+1</strong> → wybierz <strong>Niestandardowe</strong> → wklej kod do pola <strong>Typ</strong>. Format zmienia tylko sposób wyświetlania wartości, nie samą wartość w komórce.</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-format-generator]');
+    const type = root.querySelector('[data-type]');
+    const decimals = root.querySelector('[data-decimals]');
+    const group = root.querySelector('[data-group]');
+    const negative = root.querySelector('[data-negative]');
+    const unit = root.querySelector('[data-unit]');
+    const dateStyle = root.querySelector('[data-date-style]');
+    const timeStyle = root.querySelector('[data-time-style]');
+    const sample = root.querySelector('[data-sample]');
+    const dateSample = root.querySelector('[data-date-sample]');
+    const hoursSample = root.querySelector('[data-hours-sample]');
+    const preview = root.querySelector('[data-preview]');
+    const code = root.querySelector('[data-format-code]');
+
+    const numberOptions = root.querySelectorAll('[data-number-options]');
+    const unitField = root.querySelector('[data-unit-field]');
+    const dateField = root.querySelector('[data-date-field]');
+    const timeField = root.querySelector('[data-time-field]');
+    const sampleNumber = root.querySelector('[data-sample-number]');
+    const sampleDate = root.querySelector('[data-sample-date]');
+    const sampleHours = root.querySelector('[data-sample-hours]');
+
+    const show = (element, visible) => element.classList.toggle('hidden', !visible);
+
+    const quoteText = (value) => '"' + value.replaceAll('"', '""') + '"';
+
+    const numericBase = () => {
+      const places = Number(decimals.value);
+      const integer = group.value === 'yes' ? '# ##0' : '0';
+      return integer + (places > 0 ? ',' + '0'.repeat(places) : '');
+    };
+
+    const applyNegativeSection = (base) => {
+      return negative.value === 'parentheses'
+        ? base + ';(' + base + ')'
+        : base;
+    };
+
+    const formatNumber = (value, places, useGrouping) =>
+      new Intl.NumberFormat('pl-PL', {
+        minimumFractionDigits: places,
+        maximumFractionDigits: places,
+        useGrouping
+      }).format(value);
+
+    const formatDatePreview = (value, style) => {
+      if (!value) return '—';
+      const [y,m,d] = value.split('-').map(Number);
+      const date = new Date(Date.UTC(y,m-1,d));
+
+      if (style === 'short') {
+        return new Intl.DateTimeFormat('pl-PL',{
+          day:'2-digit',month:'2-digit',year:'numeric',timeZone:'UTC'
+        }).format(date);
+      }
+
+      if (style === 'month') {
+        return new Intl.DateTimeFormat('pl-PL',{
+          day:'numeric',month:'long',year:'numeric',timeZone:'UTC'
+        }).format(date);
+      }
+
+      if (style === 'weekday') {
+        return new Intl.DateTimeFormat('pl-PL',{
+          weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'UTC'
+        }).format(date);
+      }
+
+      return new Intl.DateTimeFormat('pl-PL',{
+        month:'long',year:'numeric',timeZone:'UTC'
+      }).format(date);
+    };
+
+    const updateVisibility = () => {
+      const current = type.value;
+      const numeric = ['number','currency','percent','unit','hidezero'].includes(current);
+
+      numberOptions.forEach((element) => show(element, numeric && current !== 'hidezero'));
+      show(unitField, current === 'unit');
+      show(dateField, current === 'date');
+      show(timeField, current === 'elapsed');
+      show(sampleNumber, numeric);
+      show(sampleDate, current === 'date');
+      show(sampleHours, current === 'elapsed');
+    };
+
+    const update = () => {
+      updateVisibility();
+
+      const current = type.value;
+      const places = Number(decimals.value);
+      const useGrouping = group.value === 'yes';
+      const sampleValue = Number(sample.value || 0);
+      let formatCode = '';
+      let previewValue = '';
+
+      if (current === 'number') {
+        const base = numericBase();
+        formatCode = applyNegativeSection(base);
+        previewValue = formatNumber(sampleValue, places, useGrouping);
+      }
+
+      if (current === 'currency') {
+        const base = numericBase() + ' "zł"';
+        formatCode = negative.value === 'parentheses'
+          ? base + ';(' + base + ')'
+          : base;
+        previewValue = formatNumber(sampleValue, places, useGrouping) + ' zł';
+      }
+
+      if (current === 'percent') {
+        const base = (places > 0 ? '0,' + '0'.repeat(places) : '0') + '%';
+        formatCode = applyNegativeSection(base);
+        previewValue = formatNumber(sampleValue * 100, places, false) + '%';
+      }
+
+      if (current === 'unit') {
+        const cleanUnit = unit.value.trim() || 'kg';
+        const base = numericBase() + ' ' + quoteText(cleanUnit);
+        formatCode = negative.value === 'parentheses'
+          ? base + ';(' + base + ')'
+          : base;
+        previewValue = formatNumber(sampleValue, places, useGrouping) + ' ' + cleanUnit;
+      }
+
+      if (current === 'date') {
+        const map = {
+          short: 'dd.mm.rrrr',
+          month: 'd mmmm rrrr',
+          weekday: 'dddd, d mmmm rrrr',
+          monthyear: 'mmmm rrrr'
+        };
+        formatCode = map[dateStyle.value];
+        previewValue = formatDatePreview(dateSample.value, dateStyle.value);
+      }
+
+      if (current === 'elapsed') {
+        formatCode = timeStyle.value === 'hms' ? '[g]:mm:ss' : '[g]:mm';
+        const hours = Math.max(0, Number(hoursSample.value || 0));
+        const totalSeconds = Math.round(hours * 3600);
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+        previewValue = timeStyle.value === 'hms'
+          ? `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`
+          : `${h}:${String(m).padStart(2,'0')}`;
+      }
+
+      if (current === 'hidezero') {
+        const base = '# ##0,00';
+        formatCode = base + ';-' + base + ';;@';
+        previewValue = sampleValue === 0
+          ? '(puste)'
+          : formatNumber(sampleValue, 2, true);
+      }
+
+      code.textContent = formatCode;
+      preview.textContent = previewValue;
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+
+    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(code.textContent || '');
+        event.currentTarget.textContent = 'Skopiowano ✓';
+        setTimeout(() => event.currentTarget.textContent = 'Kopiuj format', 1500);
+      } catch {
+        event.currentTarget.textContent = 'Zaznacz ręcznie';
+      }
+    });
+
+    update();
+  </script>
+</ToolLayout>

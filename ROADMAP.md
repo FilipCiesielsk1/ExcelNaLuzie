@@ -102,7 +102,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] Generator LICZ.WARUNKI
 - [x] numer kolumny ↔ litera kolumny
 - [x] kalkulator dat Excel
-- [ ] generator formatów niestandardowych
+- [x] generator formatów niestandardowych
 
 ### Etap 4 — sekcja VBA
 - [ ] ostatni wiersz

@@ -230,7 +230,7 @@ Powiązane funkcje:
 - [x] Numer kolumny → litera
 - [x] Litera kolumny → numer
 - [x] Kalkulator dat Excel
-- [ ] Generator formatów niestandardowych
+- [x] Generator formatów niestandardowych
 
 ---
 
