@@ -4,7 +4,7 @@ title: "X.WYSZUKAJ z dwoma warunkami w Excelu"
 description: "Jak użyć X.WYSZUKAJ z dwoma warunkami bez kolumny pomocniczej. Gotowa formuła i prosty przykład."
 slug: "xwyszukaj-dwa-warunki"
 category: "Wyszukiwanie danych"
-categorySlug: "formuly"
+categorySlug: "formuly/wyszukiwanie"
 date: "2026-10-06"
 updated: "2026-10-06"
 author: "Filip Ciesielski"
@@ -15,12 +15,15 @@ excelVersions:
   - "Excel 2021+"
 verified: false
 related:
-  - title: "Jak pobrać tekst po znaku w Excelu?"
-    url: "/poradniki/tekst-po-znaku/"
-    category: "Tekst"
-  - title: "Baza funkcji Excel"
-    url: "/funkcje/"
-    category: "Funkcje"
+  - title: "X.WYSZUKAJ z kilkoma warunkami"
+    url: "/poradniki/xwyszukaj-kilka-warunkow/"
+    category: "Wyszukiwanie"
+  - title: "X.WYSZUKAJ — prosty przykład"
+    url: "/poradniki/xwyszukaj-podstawy/"
+    category: "Wyszukiwanie"
+  - title: "Wyszukiwanie danych w Excelu"
+    url: "/formuly/wyszukiwanie/"
+    category: "Hub"
 ---
 
 <div class="answer"><strong>Dwa warunki w X.WYSZUKAJ</strong> możesz połączyć przez przemnożenie dwóch tablic logicznych.</div>
