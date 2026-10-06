@@ -1,0 +1,5 @@
+<div class="search-shell"><input id="site-search" type="search" placeholder='Np. „tekst po znaku”, „X.WYSZUKAJ dwa warunki”…' aria-label="Szukaj w ExcelNaLuzie"/><div id="search-results"></div></div>
+<script is:inline>
+const input=document.querySelector('#site-search');const box=document.querySelector('#search-results');let pf;
+input?.addEventListener('input',async()=>{const q=input.value.trim();if(q.length<2){box.innerHTML='';return;}try{pf??=await import('/pagefind/pagefind.js');await pf.init();const s=await pf.search(q);const rows=await Promise.all(s.results.slice(0,6).map(r=>r.data()));box.innerHTML=rows.map(r=>`<a style="display:block;padding:12px 4px;border-top:1px solid #e4e8e5" href="${r.url}"><strong>${r.meta.title||r.url}</strong><br><small>${r.excerpt||''}</small></a>`).join('')||'<p>Brak wyników.</p>';}catch(e){box.innerHTML='<small>Wyszukiwarka będzie aktywna po pierwszym wdrożeniu produkcyjnym.</small>';}});
+</script>
