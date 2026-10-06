@@ -27,8 +27,8 @@ Docelowy hub:
 - [x] Formuły tekstowe w Excelu
 
 Powiązane funkcje:
-- [ ] TEKST.PO
-- [ ] TEKST.PRZED
+- [x] TEKST.PO
+- [x] TEKST.PRZED
 - [ ] LEWY
 - [ ] PRAWY
 - [ ] FRAGMENT.TEKSTU
@@ -89,11 +89,11 @@ Docelowy hub:
 - [x] Wyszukiwanie danych w Excelu
 
 Powiązane funkcje:
-- [ ] X.WYSZUKAJ
+- [x] X.WYSZUKAJ
 - [ ] WYSZUKAJ.PIONOWO
 - [ ] INDEKS
 - [ ] PODAJ.POZYCJĘ
-- [ ] FILTRUJ
+- [x] FILTRUJ
 
 ---
 
@@ -199,25 +199,25 @@ Powiązane funkcje:
 
 # Baza funkcji — pierwszy etap
 
-- [ ] JEŻELI
+- [x] JEŻELI
 - [ ] ORAZ
 - [ ] LUB
 - [ ] JEŻELI.BŁĄD
-- [ ] X.WYSZUKAJ
-- [ ] FILTRUJ
-- [ ] UNIKATOWE
-- [ ] SORTUJ
-- [ ] TEKST.PO
-- [ ] TEKST.PRZED
+- [x] X.WYSZUKAJ
+- [x] FILTRUJ
+- [x] UNIKATOWE
+- [x] SORTUJ
+- [x] TEKST.PO
+- [x] TEKST.PRZED
 - [ ] LEWY
 - [ ] PRAWY
 - [ ] FRAGMENT.TEKSTU
 - [ ] DŁ
 - [ ] ZNAJDŹ
 - [ ] LICZ.JEŻELI
-- [ ] LICZ.WARUNKI
+- [x] LICZ.WARUNKI
 - [ ] SUMA.JEŻELI
-- [ ] SUMA.WARUNKÓW
+- [x] SUMA.WARUNKÓW
 
 ---
 

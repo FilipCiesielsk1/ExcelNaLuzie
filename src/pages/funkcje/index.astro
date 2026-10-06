@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
+import { functionCatalog } from '../../data/functionCatalog.js';
 ---
 
 <BaseLayout
@@ -14,19 +15,19 @@ import { withBase as link } from '../../utils/paths.js';
         <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Funkcje</strong></nav>
         <span class="hub-kicker">Baza funkcji</span>
         <h1>Każda funkcja.<br/><em>Po ludzku.</em></h1>
-        <p>Składnia, argumenty i przykłady użycia bez przepisywania dokumentacji. Ta sekcja będzie rosnąć razem z poradnikami.</p>
+        <p>Składnia, argumenty i przykłady użycia bez przepisywania dokumentacji. Zacznij od funkcji, którą chcesz zrozumieć.</p>
         <div class="hub-actions">
-          <a class="hub-primary" href="#popularne">Popularne funkcje <span>↓</span></a>
+          <a class="hub-primary" href="#popularne">Przeglądaj funkcje <span>↓</span></a>
           <a class="hub-secondary" href={link("/formuly/")}>Przejdź do formuł</a>
         </div>
       </div>
 
       <div class="function-reference" aria-hidden="true">
-        <div class="ref-top"><span>fx</span><strong>X.WYSZUKAJ</strong><i>Microsoft 365</i></div>
-        <div class="ref-syntax">=X.WYSZUKAJ(szukana_wartość; przeszukiwana_tablica; zwracana_tablica)</div>
+        <div class="ref-top"><span>fx</span><strong>X.WYSZUKAJ</strong><i>Microsoft 365 / 2024 / 2021</i></div>
+        <div class="ref-syntax">=X.WYSZUKAJ(szukana_wartość;szukana_tablica;zwracana_tablica)</div>
         <div class="ref-args">
           <div><b>01</b><span>szukana_wartość</span><i>czego szukasz</i></div>
-          <div><b>02</b><span>przeszukiwana_tablica</span><i>gdzie szukasz</i></div>
+          <div><b>02</b><span>szukana_tablica</span><i>gdzie szukasz</i></div>
           <div><b>03</b><span>zwracana_tablica</span><i>co zwrócić</i></div>
         </div>
       </div>
@@ -36,47 +37,22 @@ import { withBase as link } from '../../utils/paths.js';
   <section class="hub-section" id="popularne">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Najczęściej używane</span><h2>Popularne funkcje</h2></div>
-        <p>Od tych funkcji zaczniemy budować pełną bazę referencyjną ExcelNaLuzie.</p>
+        <div><span class="section-kicker">Pierwszy etap</span><h2>{functionCatalog.length} funkcji gotowych</h2></div>
+        <p>Każda strona ma składnię, opis argumentów, prosty przykład, typowe zastosowania i link do dokumentacji Microsoftu.</p>
       </div>
 
       <div class="function-grid">
-        <article class="function-card">
-          <div><span class="function-symbol">JEŻELI</span><small>Logika</small></div>
-          <p>Zwraca jeden wynik, gdy warunek jest prawdziwy, i drugi, gdy jest fałszywy.</p>
-          <code>=JEŻELI(test; prawda; fałsz)</code>
-          <span class="hub-coming">Strona w przygotowaniu</span>
-        </article>
-        <article class="function-card highlighted">
-          <div><span class="function-symbol">X.WYSZUKAJ</span><small>Wyszukiwanie</small></div>
-          <p>Wyszukuje wartość w jednej tablicy i zwraca odpowiadający wynik z innej.</p>
-          <code>=X.WYSZUKAJ(...)</code>
-          <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}>Zobacz praktyczny przykład →</a>
-        </article>
-        <article class="function-card">
-          <div><span class="function-symbol">FILTRUJ</span><small>Dynamiczne</small></div>
-          <p>Zwraca tylko te wiersze lub kolumny, które spełniają wskazane warunki.</p>
-          <code>=FILTRUJ(tablica; warunek)</code>
-          <span class="hub-coming">Strona w przygotowaniu</span>
-        </article>
-        <article class="function-card">
-          <div><span class="function-symbol">SUMA.WARUNKÓW</span><small>Liczenie</small></div>
-          <p>Sumuje wartości, które spełniają jeden lub kilka warunków.</p>
-          <code>=SUMA.WARUNKÓW(...)</code>
-          <span class="hub-coming">Strona w przygotowaniu</span>
-        </article>
-        <article class="function-card">
-          <div><span class="function-symbol">TEKST.PO</span><small>Tekst</small></div>
-          <p>Zwraca fragment tekstu znajdujący się po wybranym separatorze.</p>
-          <code>=TEKST.PO(A1;"-")</code>
-          <a href={link("/poradniki/tekst-po-znaku/")}>Zobacz praktyczny przykład →</a>
-        </article>
-        <article class="function-card">
-          <div><span class="function-symbol">LICZ.WARUNKI</span><small>Liczenie</small></div>
-          <p>Liczy wiersze spełniające wiele niezależnych kryteriów jednocześnie.</p>
-          <code>=LICZ.WARUNKI(...)</code>
-          <span class="hub-coming">Strona w przygotowaniu</span>
-        </article>
+        {functionCatalog.map((fn) => (
+          <article class:list={['function-card', { highlighted: fn.slug === 'xwyszukaj' }]}>
+            <div>
+              <span class="function-symbol">{fn.name}</span>
+              <small>{fn.category}</small>
+            </div>
+            <p>{fn.description}</p>
+            <code>{fn.example}</code>
+            <a href={link('/funkcje/' + fn.slug + '/')}>Otwórz funkcję →</a>
+          </article>
+        ))}
       </div>
     </div>
   </section>
@@ -85,19 +61,19 @@ import { withBase as link } from '../../utils/paths.js';
     <div class="wrap">
       <div class="hub-section-head">
         <div><span class="section-kicker">Jak czytać bazę</span><h2>Jedna funkcja, jeden schemat</h2></div>
-        <p>Każda strona funkcji będzie zbudowana tak samo, żeby potrzebną informację dało się znaleźć od razu.</p>
+        <p>Każda strona jest zbudowana tak samo, żeby potrzebną informację dało się znaleźć od razu.</p>
       </div>
       <div class="reference-steps">
-        <div><span>01</span><strong>Składnia</strong><p>Najpierw dokładny zapis funkcji i opis argumentów.</p></div>
-        <div><span>02</span><strong>Prosty przykład</strong><p>Minimalny przykład pokazujący, co faktycznie robi funkcja.</p></div>
-        <div><span>03</span><strong>Praktyczne użycie</strong><p>Realny scenariusz, gotowa formuła i powiązane poradniki.</p></div>
+        <div><span>01</span><strong>Składnia i argumenty</strong><p>Najpierw dokładny zapis funkcji i krótki opis każdego argumentu.</p></div>
+        <div><span>02</span><strong>Prosty przykład</strong><p>Minimalna formuła pokazująca, co faktycznie robi funkcja.</p></div>
+        <div><span>03</span><strong>Praktyczne użycie</strong><p>Najczęstsze warianty, pułapki i przejście do powiązanych poradników.</p></div>
       </div>
     </div>
   </section>
 
   <section class="hub-cta-section">
     <div class="wrap hub-cta">
-      <div><span class="section-kicker light">Nie znasz nazwy funkcji?</span><h2>To żaden problem.</h2><p>W sekcji Formuły zaczynasz od tego, co chcesz osiągnąć.</p></div>
+      <div><span class="section-kicker light">Nie znasz nazwy funkcji?</span><h2>To żaden problem.</h2><p>W sekcji Formuły zaczynasz od efektu, który chcesz osiągnąć.</p></div>
       <a href={link("/formuly/")}>Znajdź rozwiązanie <span>→</span></a>
     </div>
   </section>

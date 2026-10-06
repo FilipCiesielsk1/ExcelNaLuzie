@@ -84,15 +84,15 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] uzupełnić hub Formuły o wszystkie aktywne poradniki (dynamiczny katalog 30 poradników)
 
 ### Etap 2 — baza funkcji
-- [ ] JEŻELI
-- [ ] X.WYSZUKAJ
-- [ ] FILTRUJ
-- [ ] TEKST.PO
-- [ ] TEKST.PRZED
-- [ ] SUMA.WARUNKÓW
-- [ ] LICZ.WARUNKI
-- [ ] UNIKATOWE
-- [ ] SORTUJ
+- [x] JEŻELI
+- [x] X.WYSZUKAJ
+- [x] FILTRUJ
+- [x] TEKST.PO
+- [x] TEKST.PRZED
+- [x] SUMA.WARUNKÓW
+- [x] LICZ.WARUNKI
+- [x] UNIKATOWE
+- [x] SORTUJ
 - [ ] pozostałe funkcje według ruchu i zapytań
 
 ### Etap 3 — pierwsze narzędzia online
