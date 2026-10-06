@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../utils/paths.js';
 import '../styles/global.css';
 
 const {
@@ -9,9 +10,8 @@ const {
   canonical=Astro.url.pathname
 } = Astro.props;
 
-const base = import.meta.env.BASE_URL;
 const url=new URL(canonical, 'https://excelnaluzie.pl');
-const favicon = `${base}favicon.svg`;
+const favicon = withBase('/favicon.svg');
 ---
 
 <!doctype html>
