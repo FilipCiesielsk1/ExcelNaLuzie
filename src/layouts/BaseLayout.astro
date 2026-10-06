@@ -10,7 +10,8 @@ const {
   canonical=Astro.url.pathname
 } = Astro.props;
 
-const url=new URL(canonical, 'https://excelnaluzie.pl');
+const canonicalPath = canonical.replace(/^\/ExcelNaLuzie\/?/, '/');
+const url=new URL(canonicalPath, 'https://excelnaluzie.pl');
 const favicon = withBase('/favicon.svg');
 ---
 
