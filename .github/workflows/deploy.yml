@@ -23,14 +23,21 @@ jobs:
       - name: Validate XLSX templates for desktop Excel
         run: python scripts/repair-xlsx-compat.py
 
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - run: npm install
-      - run: npm run build
 
-      - uses: actions/configure-pages@v5
+      - name: Build site
+        run: npm run build
+        env:
+          EXCELNALUZIE_SITE_ORIGIN: ${{ steps.pages.outputs.origin }}
+          EXCELNALUZIE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
