@@ -1918,3 +1918,92 @@ a.hub-topic-card:hover{
   .cluster-nav-next{text-align:left}
   .cluster-nav-hub{order:-1;min-height:88px}
 }
+
+
+/* Full formulas directory */
+.formula-directory{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:16px;
+}
+.formula-directory-group{
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(22,54,36,.04);
+}
+.formula-directory-head{
+  min-height:92px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:17px 18px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(145deg,#fbfdfb,#f1f7f3);
+}
+.formula-directory-head>div{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  min-width:0;
+}
+.formula-directory-head>div>span{
+  color:#9aa69e;
+  font:800 .66rem ui-monospace,monospace;
+}
+.formula-directory-head small{
+  display:block;
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.54rem;
+  font-weight:850;
+}
+.formula-directory-head h3{
+  margin:2px 0 0;
+  font-size:1rem;
+  line-height:1.2;
+  letter-spacing:-.02em;
+}
+.formula-directory-head>a{
+  flex:0 0 auto;
+  color:var(--green);
+  font-size:.66rem;
+  font-weight:800;
+}
+.formula-directory-links{display:grid}
+.formula-directory-links>a{
+  min-height:54px;
+  display:grid;
+  grid-template-columns:27px minmax(0,1fr) 16px;
+  gap:9px;
+  align-items:center;
+  padding:10px 14px;
+  border-bottom:1px solid #edf1ee;
+  transition:.16s ease;
+}
+.formula-directory-links>a:last-child{border-bottom:0}
+.formula-directory-links>a:hover{background:#f7faf8}
+.formula-directory-links span{
+  color:#a3aea7;
+  font:750 .6rem ui-monospace,monospace;
+}
+.formula-directory-links strong{
+  min-width:0;
+  color:#3a493f;
+  font-size:.73rem;
+  line-height:1.3;
+}
+.formula-directory-links b{
+  color:var(--green);
+  font-size:.75rem;
+}
+@media(max-width:980px){
+  .formula-directory{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .formula-directory-head{align-items:flex-start}
+  .formula-directory-head>a{margin-top:3px}
+}

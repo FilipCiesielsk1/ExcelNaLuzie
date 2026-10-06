@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
+import { articleClusters } from '../../data/articleClusters.js';
+
+const activeClusters = Object.values(articleClusters);
+const totalArticles = activeClusters.reduce((sum, cluster) => sum + cluster.articles.length, 0);
 ---
 
 <BaseLayout
@@ -76,20 +80,41 @@ import { withBase as link } from '../../utils/paths.js';
     </div>
   </section>
 
-  <section class="hub-section hub-section-alt">
+  <section class="hub-section hub-section-alt" id="wszystkie-poradniki">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Na start</span><h2>Gotowe poradniki</h2></div>
-        <p>Te rozwiązania są już dostępne i prowadzą prosto do działającej formuły.</p>
+        <div>
+          <span class="section-kicker">Pełna baza</span>
+          <h2>Wszystkie poradniki</h2>
+        </div>
+        <p>{totalArticles} aktywnych poradników pogrupowanych według problemu. Każdy prowadzi bezpośrednio do gotowego rozwiązania.</p>
       </div>
 
-      <div class="hub-article-list">
-        <a href={link("/formuly/tekst/")}><span class="hub-list-num">01</span><div><small>Klaster</small><strong>Formuły tekstowe — 10 praktycznych poradników</strong></div><code>TEKST</code><b>→</b></a>
-        <a href={link("/formuly/wyszukiwanie/")}><span class="hub-list-num">02</span><div><small>Klaster</small><strong>Wyszukiwanie danych — 10 praktycznych poradników</strong></div><code>X.WYSZUKAJ</code><b>→</b></a>
-        <a href={link("/formuly/daty/")}><span class="hub-list-num">03</span><div><small>Klaster</small><strong>Daty i czas — 10 praktycznych poradników</strong></div><code>DATA</code><b>→</b></a>
-        <a href={link("/poradniki/tekst-po-znaku/")}><span class="hub-list-num">05</span><div><small>Tekst</small><strong>Jak pobrać tekst po znaku?</strong></div><code>=TEKST.PO(...)</code><b>→</b></a>
-        <a href={link("/poradniki/tekst-przed-znakiem/")}><span class="hub-list-num">04</span><div><small>Tekst</small><strong>Jak pobrać tekst przed znakiem?</strong></div><code>=TEKST.PRZED(...)</code><b>→</b></a>
-        <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}><span class="hub-list-num">06</span><div><small>Wyszukiwanie</small><strong>X.WYSZUKAJ z dwoma warunkami</strong></div><code>=X.WYSZUKAJ(...)</code><b>→</b></a>
+      <div class="formula-directory">
+        {activeClusters.map((cluster, clusterIndex) => (
+          <section class="formula-directory-group">
+            <header class="formula-directory-head">
+              <div>
+                <span>{String(clusterIndex + 1).padStart(2, '0')}</span>
+                <div>
+                  <small>Klaster</small>
+                  <h3>{cluster.title}</h3>
+                </div>
+              </div>
+              <a href={link(cluster.hub)}>Otwórz hub →</a>
+            </header>
+
+            <div class="formula-directory-links">
+              {cluster.articles.map((article, articleIndex) => (
+                <a href={link('/poradniki/' + article.slug + '/')}>
+                  <span>{String(articleIndex + 1).padStart(2, '0')}</span>
+                  <strong>{article.title}</strong>
+                  <b>→</b>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   </section>
