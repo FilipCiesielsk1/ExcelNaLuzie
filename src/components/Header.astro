@@ -1,6 +1,10 @@
+---
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
+---
 <header class="site-header">
   <div class="wrap nav">
-    <a class="brand" href="/" aria-label="ExcelNaLuzie.pl — strona główna">
+    <a class="brand" href={link("/")} aria-label="ExcelNaLuzie.pl — strona główna">
       <span class="brand-mark" aria-hidden="true">
         <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       </span>
@@ -8,14 +12,14 @@
     </a>
 
     <nav class="menu" aria-label="Główna nawigacja">
-      <a href="/formuly/">Formuły</a>
-      <a href="/funkcje/">Funkcje</a>
-      <a href="/vba/">VBA</a>
-      <a href="/narzedzia/">Narzędzia</a>
-      <a href="/szablony/">Szablony</a>
+      <a href={link("/formuly/")}>Formuły</a>
+      <a href={link("/funkcje/")}>Funkcje</a>
+      <a href={link("/vba/")}>VBA</a>
+      <a href={link("/narzedzia/")}>Narzędzia</a>
+      <a href={link("/szablony/")}>Szablony</a>
     </nav>
 
-    <a class="header-search" href="/#szukaj" aria-label="Przejdź do wyszukiwarki">
+    <a class="header-search" href={link("/#szukaj")} aria-label="Przejdź do wyszukiwarki">
       <span aria-hidden="true">⌕</span>
       <span>Szukaj</span>
     </a>
