@@ -1,6 +1,43 @@
 ---
-import Header from '../components/Header.astro';import Footer from '../components/Footer.astro';import '../styles/global.css';
-const {title='ExcelNaLuzie — rozwiązania do Excela bez zbędnego gadania',description='Praktyczne formuły, VBA, poradniki, narzędzia i gotowe rozwiązania problemów z Excelem.',canonical=Astro.url.pathname} = Astro.props;
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const {
+  title='ExcelNaLuzie — rozwiązania do Excela bez zbędnego gadania',
+  description='Praktyczne formuły, VBA, poradniki, narzędzia i gotowe rozwiązania problemów z Excelem.',
+  canonical=Astro.url.pathname
+} = Astro.props;
+
 const url=new URL(canonical, Astro.site ?? 'https://excelnaluzie.pl');
 ---
-<!doctype html><html lang="pl"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width"/><title>{title}</title><meta name="description" content={description}/><link rel="canonical" href={url}/><meta property="og:type" content="website"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={url}/><meta name="twitter:card" content="summary"/><script type="application/ld+json" set:html={JSON.stringify({'@context':'https://schema.org','@type':'WebSite',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl'})}></script></head><body><Header/><main><slot/></main><Footer/></body></html>
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="theme-color" content="#107c41"/>
+    <meta name="color-scheme" content="light"/>
+    <title>{title}</title>
+    <meta name="description" content={description}/>
+    <link rel="canonical" href={url}/>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content={title}/>
+    <meta property="og:description" content={description}/>
+    <meta property="og:url" content={url}/>
+    <meta name="twitter:card" content="summary"/>
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context':'https://schema.org',
+      '@type':'WebSite',
+      name:'ExcelNaLuzie.pl',
+      url:'https://excelnaluzie.pl'
+    })}></script>
+  </head>
+  <body>
+    <Header/>
+    <main><slot/></main>
+    <Footer/>
+  </body>
+</html>
