@@ -1,4 +1,104 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
 ---
-<BaseLayout title="Funkcje Excel | ExcelNaLuzie" description="Baza funkcji Excel po polsku."><section class="section"><div class="wrap"><h1>Funkcje Excel</h1><p>Baza funkcji z opisem składni i praktycznymi zastosowaniami.</p></div></section></BaseLayout>
+
+<BaseLayout
+  title="Funkcje Excel — baza funkcji po polsku | ExcelNaLuzie"
+  description="Baza funkcji Excel po polsku: składnia, zastosowanie, praktyczne przykłady i powiązane poradniki."
+>
+  <section class="hub-hero hub-functions">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Funkcje</strong></nav>
+        <span class="hub-kicker">Baza funkcji</span>
+        <h1>Każda funkcja.<br/><em>Po ludzku.</em></h1>
+        <p>Składnia, argumenty i przykłady użycia bez przepisywania dokumentacji. Ta sekcja będzie rosnąć razem z poradnikami.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#popularne">Popularne funkcje <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Przejdź do formuł</a>
+        </div>
+      </div>
+
+      <div class="function-reference" aria-hidden="true">
+        <div class="ref-top"><span>fx</span><strong>X.WYSZUKAJ</strong><i>Microsoft 365</i></div>
+        <div class="ref-syntax">=X.WYSZUKAJ(szukana_wartość; przeszukiwana_tablica; zwracana_tablica)</div>
+        <div class="ref-args">
+          <div><b>01</b><span>szukana_wartość</span><i>czego szukasz</i></div>
+          <div><b>02</b><span>przeszukiwana_tablica</span><i>gdzie szukasz</i></div>
+          <div><b>03</b><span>zwracana_tablica</span><i>co zwrócić</i></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="popularne">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Najczęściej używane</span><h2>Popularne funkcje</h2></div>
+        <p>Od tych funkcji zaczniemy budować pełną bazę referencyjną ExcelNaLuzie.</p>
+      </div>
+
+      <div class="function-grid">
+        <article class="function-card">
+          <div><span class="function-symbol">JEŻELI</span><small>Logika</small></div>
+          <p>Zwraca jeden wynik, gdy warunek jest prawdziwy, i drugi, gdy jest fałszywy.</p>
+          <code>=JEŻELI(test; prawda; fałsz)</code>
+          <span class="hub-coming">Strona w przygotowaniu</span>
+        </article>
+        <article class="function-card highlighted">
+          <div><span class="function-symbol">X.WYSZUKAJ</span><small>Wyszukiwanie</small></div>
+          <p>Wyszukuje wartość w jednej tablicy i zwraca odpowiadający wynik z innej.</p>
+          <code>=X.WYSZUKAJ(...)</code>
+          <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}>Zobacz praktyczny przykład →</a>
+        </article>
+        <article class="function-card">
+          <div><span class="function-symbol">FILTRUJ</span><small>Dynamiczne</small></div>
+          <p>Zwraca tylko te wiersze lub kolumny, które spełniają wskazane warunki.</p>
+          <code>=FILTRUJ(tablica; warunek)</code>
+          <span class="hub-coming">Strona w przygotowaniu</span>
+        </article>
+        <article class="function-card">
+          <div><span class="function-symbol">SUMA.WARUNKÓW</span><small>Liczenie</small></div>
+          <p>Sumuje wartości, które spełniają jeden lub kilka warunków.</p>
+          <code>=SUMA.WARUNKÓW(...)</code>
+          <span class="hub-coming">Strona w przygotowaniu</span>
+        </article>
+        <article class="function-card">
+          <div><span class="function-symbol">TEKST.PO</span><small>Tekst</small></div>
+          <p>Zwraca fragment tekstu znajdujący się po wybranym separatorze.</p>
+          <code>=TEKST.PO(A1;"-")</code>
+          <a href={link("/poradniki/tekst-po-znaku/")}>Zobacz praktyczny przykład →</a>
+        </article>
+        <article class="function-card">
+          <div><span class="function-symbol">LICZ.WARUNKI</span><small>Liczenie</small></div>
+          <p>Liczy wiersze spełniające wiele niezależnych kryteriów jednocześnie.</p>
+          <code>=LICZ.WARUNKI(...)</code>
+          <span class="hub-coming">Strona w przygotowaniu</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Jak czytać bazę</span><h2>Jedna funkcja, jeden schemat</h2></div>
+        <p>Każda strona funkcji będzie zbudowana tak samo, żeby potrzebną informację dało się znaleźć od razu.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Składnia</strong><p>Najpierw dokładny zapis funkcji i opis argumentów.</p></div>
+        <div><span>02</span><strong>Prosty przykład</strong><p>Minimalny przykład pokazujący, co faktycznie robi funkcja.</p></div>
+        <div><span>03</span><strong>Praktyczne użycie</strong><p>Realny scenariusz, gotowa formuła i powiązane poradniki.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-cta-section">
+    <div class="wrap hub-cta">
+      <div><span class="section-kicker light">Nie znasz nazwy funkcji?</span><h2>To żaden problem.</h2><p>W sekcji Formuły zaczynasz od tego, co chcesz osiągnąć.</p></div>
+      <a href={link("/formuly/")}>Znajdź rozwiązanie <span>→</span></a>
+    </div>
+  </section>
+</BaseLayout>
