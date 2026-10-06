@@ -2,8 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 
 const { frontmatter } = Astro.props;
-const base = import.meta.env.BASE_URL;
-const link = (path) => `${base}${path.replace(/^\//, '')}`;
+import { withBase as link } from '../utils/paths.js';
 const canonical = `/poradniki/${frontmatter.slug}/`;
 const schema = {
   '@context':'https://schema.org',
@@ -43,7 +42,7 @@ const schema = {
 
     <div class="related">
       <strong>Idź dalej</strong>
-      <a href="/formuly/">Formuły Excel</a> ·
+      <a href={link("/formuly/")}>Formuły Excel</a> ·
       <a href={link("/funkcje/")}>Baza funkcji</a> ·
       <a href={link("/narzedzia/")}>Narzędzia</a>
     </div>
