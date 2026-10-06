@@ -1,4 +1,155 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';import Search from '../components/Search.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Search from '../components/Search.astro';
 ---
-<BaseLayout><section class="hero"><div class="wrap"><h1>Excel bez błądzenia po internecie.</h1><p>Wpisz problem. Dostaniesz konkretną formułę, makro albo instrukcję — z przykładami i bez zbędnego lania wody.</p><Search/><div class="chips"><a class="chip" href="/formuly/">Formuły</a><a class="chip" href="/vba/">VBA</a><a class="chip" href="/funkcje/">Funkcje</a><a class="chip" href="/narzedzia/">Narzędzia</a></div></div></section><section class="section"><div class="wrap"><h2>Najczęstsze problemy</h2><p class="lead">Zaczynamy od tematów, które rozwiązują konkretny problem w kilka minut.</p><div class="grid"><a class="card" href="/poradniki/tekst-po-znaku/"><h3>Tekst po znaku</h3><p>Wyciągnij część tekstu znajdującą się po myślniku, przecinku lub innym separatorze.</p></a><a class="card" href="/poradniki/usun-pierwsze-znaki/"><h3>Usuń pierwsze znaki</h3><p>Usuń pierwsze N znaków z wartości w komórce.</p></a><a class="card" href="/poradniki/xwyszukaj-dwa-warunki/"><h3>X.WYSZUKAJ — dwa warunki</h3><p>Znajdź wynik po dwóch kryteriach bez kolumn pomocniczych.</p></a></div></div></section><section class="section"><div class="wrap"><h2>Portal budowany pod praktykę</h2><div class="grid"><div class="card"><h3>⚡ Odpowiedź od razu</h3><p>Najważniejsza formuła lub rozwiązanie znajduje się na początku strony.</p></div><div class="card"><h3>📊 Realne przykłady</h3><p>Formuły pokazane na prostych danych, które można od razu odtworzyć.</p></div><div class="card"><h3>🧰 Narzędzia</h3><p>Generatory i kalkulatory pomagające tworzyć formuły bez zgadywania składni.</p></div></div></div></section></BaseLayout>
+
+<BaseLayout>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> Excel bez przekopywania internetu</div>
+        <h1>Znajdź rozwiązanie.<br/><em>Wracaj do pracy.</em></h1>
+        <p>Formuły, VBA i konkretne instrukcje do najczęstszych problemów w Excelu — pokazane na prostych przykładach.</p>
+        <Search/>
+
+        <div class="hero-links" aria-label="Popularne tematy">
+          <span>Popularne:</span>
+          <a href="/poradniki/tekst-po-znaku/">tekst po znaku</a>
+          <a href="/poradniki/xwyszukaj-dwa-warunki/">X.WYSZUKAJ</a>
+          <a href="/vba/">VBA</a>
+        </div>
+      </div>
+
+      <div class="sheet-demo" aria-hidden="true">
+        <div class="sheet-window">
+          <div class="sheet-topbar">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>Przykład.xlsx</span>
+            <b>✓</b>
+          </div>
+          <div class="formula-bar">
+            <span>fx</span>
+            <code>=TEKST.PO(A2;"-")</code>
+          </div>
+          <div class="sheet-grid">
+            <div class="cell corner"></div><div class="cell col">A</div><div class="cell col">B</div><div class="cell col">C</div>
+            <div class="cell row">1</div><div class="cell head">Numer dokumentu</div><div class="cell head">Wynik</div><div class="cell head">Status</div>
+            <div class="cell row">2</div><div class="cell">FV-2026-001</div><div class="cell active">2026-001</div><div class="cell"><span class="ok-pill">Gotowe</span></div>
+            <div class="cell row">3</div><div class="cell">FV-2026-002</div><div class="cell">2026-002</div><div class="cell"><span class="ok-pill">Gotowe</span></div>
+            <div class="cell row">4</div><div class="cell">FV-2026-003</div><div class="cell">2026-003</div><div class="cell"><span class="ok-pill">Gotowe</span></div>
+          </div>
+          <div class="sheet-tabs"><span class="active-tab">Arkusz1</span><span>+</span></div>
+        </div>
+        <div class="floating-tip"><b>3 sekundy</b><span>i masz gotową formułę</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quick-strip">
+    <div class="wrap quick-grid">
+      <a href="/formuly/"><span class="quick-icon">ƒx</span><div><strong>Formuły</strong><small>Gotowe rozwiązania</small></div><b>→</b></a>
+      <a href="/funkcje/"><span class="quick-icon">Σ</span><div><strong>Funkcje</strong><small>Składnia i przykłady</small></div><b>→</b></a>
+      <a href="/vba/"><span class="quick-icon">&lt;/&gt;</span><div><strong>VBA</strong><small>Makra bez magii</small></div><b>→</b></a>
+      <a href="/narzedzia/"><span class="quick-icon">⚙</span><div><strong>Narzędzia</strong><small>Generatory i kalkulatory</small></div><b>→</b></a>
+    </div>
+  </section>
+
+  <section class="section problems-section">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">Najczęściej szukane</span>
+          <h2>Rozwiąż konkretny problem</h2>
+        </div>
+        <a class="section-link" href="/formuly/">Zobacz wszystkie poradniki <span>→</span></a>
+      </div>
+
+      <div class="problem-grid">
+        <a class="problem-card featured" href="/poradniki/tekst-po-znaku/">
+          <span class="card-tag">Tekst</span>
+          <div class="card-code">=TEKST.PO(A1;"-")</div>
+          <h3>Jak pobrać tekst po znaku?</h3>
+          <p>Wyciągnij wszystko po myślniku, przecinku lub dowolnym separatorze.</p>
+          <span class="card-arrow">Czytaj poradnik →</span>
+        </a>
+
+        <a class="problem-card" href="/poradniki/usun-pierwsze-znaki/">
+          <span class="card-tag">Tekst</span>
+          <div class="mini-sheet">
+            <span>ABC12345</span>
+            <i>→</i>
+            <strong>12345</strong>
+          </div>
+          <h3>Usuń pierwsze znaki</h3>
+          <p>Usuń pierwsze 1, 2, 3 lub dowolną liczbę znaków z komórki.</p>
+          <span class="card-arrow">Czytaj poradnik →</span>
+        </a>
+
+        <a class="problem-card" href="/poradniki/xwyszukaj-dwa-warunki/">
+          <span class="card-tag">Wyszukiwanie</span>
+          <div class="mini-lookup"><span>Produkt</span><b>+</b><span>Miasto</span><i>→</i><strong>Cena</strong></div>
+          <h3>X.WYSZUKAJ — dwa warunki</h3>
+          <p>Znajdź właściwy wynik po dwóch kryteriach bez kolumn pomocniczych.</p>
+          <span class="card-arrow">Czytaj poradnik →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section category-section">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">Baza wiedzy</span>
+          <h2>Wybierz temat</h2>
+        </div>
+      </div>
+
+      <div class="category-grid">
+        <a href="/formuly/" class="category-card">
+          <span class="category-number">01</span>
+          <div class="category-symbol">ƒx</div>
+          <h3>Formuły</h3>
+          <p>Tekst, daty, logika, wyszukiwanie, liczenie i formuły dynamiczne.</p>
+          <span>Przeglądaj →</span>
+        </a>
+        <a href="/funkcje/" class="category-card">
+          <span class="category-number">02</span>
+          <div class="category-symbol">Σ</div>
+          <h3>Funkcje</h3>
+          <p>Składnia funkcji Excela wyjaśniona po polsku i bez akademickiego tonu.</p>
+          <span>Przeglądaj →</span>
+        </a>
+        <a href="/vba/" class="category-card">
+          <span class="category-number">03</span>
+          <div class="category-symbol">&lt;/&gt;</div>
+          <h3>VBA</h3>
+          <p>Gotowe makra, automatyzacje plików, arkuszy, Outlooka i raportów.</p>
+          <span>Przeglądaj →</span>
+        </a>
+        <a href="/narzedzia/" class="category-card">
+          <span class="category-number">04</span>
+          <div class="category-symbol">⚙</div>
+          <h3>Narzędzia</h3>
+          <p>Generatory formuł i małe narzędzia, które zrobią część pracy za Ciebie.</p>
+          <span>Przeglądaj →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section promise-section">
+    <div class="wrap promise-box">
+      <div class="promise-copy">
+        <span class="section-kicker light">Jak działa ExcelNaLuzie</span>
+        <h2>Najpierw rozwiązanie.<br/>Potem wyjaśnienie.</h2>
+        <p>Nie musisz czytać trzech ekranów wstępu, żeby znaleźć formułę. Każdy poradnik zaczyna się od odpowiedzi, a dopiero później tłumaczy dlaczego działa.</p>
+      </div>
+      <div class="promise-list">
+        <div><span>01</span><p><strong>Gotowa odpowiedź</strong> na samej górze artykułu</p></div>
+        <div><span>02</span><p><strong>Prosty przykład</strong> na realnych danych</p></div>
+        <div><span>03</span><p><strong>Warianty rozwiązania</strong> dla różnych wersji Excela</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
