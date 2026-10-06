@@ -1,7 +1,11 @@
+---
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
+---
 <footer class="site-footer">
   <div class="wrap footer-main">
     <div class="footer-brand">
-      <a class="brand footer-logo" href="/">
+      <a class="brand footer-logo" href={link("/")}>
         <span class="brand-mark" aria-hidden="true">
           <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </span>
@@ -13,14 +17,14 @@
     <div class="footer-links">
       <div>
         <strong>Ucz się</strong>
-        <a href="/formuly/">Formuły</a>
-        <a href="/funkcje/">Funkcje</a>
-        <a href="/vba/">VBA</a>
+        <a href={link("/formuly/")}>Formuły</a>
+        <a href={link("/funkcje/")}>Funkcje</a>
+        <a href={link("/vba/")}>VBA</a>
       </div>
       <div>
         <strong>Korzystaj</strong>
-        <a href="/narzedzia/">Narzędzia</a>
-        <a href="/szablony/">Szablony</a>
+        <a href={link("/narzedzia/")}>Narzędzia</a>
+        <a href={link("/szablony/")}>Szablony</a>
       </div>
     </div>
   </div>
