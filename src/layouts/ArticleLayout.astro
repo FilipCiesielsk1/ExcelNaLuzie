@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { withBase as link } from '../utils/paths.js';
+import { articleClusters } from '../data/articleClusters.js';
 
 const { frontmatter } = Astro.props;
 
@@ -22,6 +23,13 @@ const {
 
 const canonical = `/poradniki/${slug}/`;
 const absoluteUrl = `https://excelnaluzie.pl${canonical}`;
+
+const cluster = articleClusters[categorySlug] || null;
+const clusterIndex = cluster ? cluster.articles.findIndex((item) => item.slug === slug) : -1;
+const previousArticle = clusterIndex > 0 ? cluster.articles[clusterIndex - 1] : null;
+const nextArticle = cluster && clusterIndex >= 0 && clusterIndex < cluster.articles.length - 1
+  ? cluster.articles[clusterIndex + 1]
+  : null;
 
 const schema = {
   '@context':'https://schema.org',
@@ -91,6 +99,34 @@ const schema = {
         <div class="article-content">
           <slot/>
         </div>
+
+        {cluster && clusterIndex >= 0 && (
+          <nav class="cluster-nav" aria-label={`Nawigacja w klastrze ${cluster.title}`}>
+            <div class="cluster-nav-side">
+              {previousArticle ? (
+                <a href={link(`/poradniki/${previousArticle.slug}/`)}>
+                  <small>← Poprzedni poradnik</small>
+                  <strong>{previousArticle.title}</strong>
+                </a>
+              ) : <span aria-hidden="true"></span>}
+            </div>
+
+            <a class="cluster-nav-hub" href={link(cluster.hub)}>
+              <small>Cały klaster</small>
+              <strong>{cluster.title}</strong>
+              <span>{clusterIndex + 1} / {cluster.articles.length}</span>
+            </a>
+
+            <div class="cluster-nav-side cluster-nav-next">
+              {nextArticle ? (
+                <a href={link(`/poradniki/${nextArticle.slug}/`)}>
+                  <small>Następny poradnik →</small>
+                  <strong>{nextArticle.title}</strong>
+                </a>
+              ) : <span aria-hidden="true"></span>}
+            </div>
+          </nav>
+        )}
 
         <section class="article-author" aria-label="O autorze">
           <div class="author-avatar" aria-hidden="true">FC</div>

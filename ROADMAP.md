@@ -80,7 +80,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] ukończyć pierwszy klaster: operacje na tekście (10 poradników + hub)
 - [x] ukończyć klaster: daty i czas (10 poradników + hub)
 - [x] ukończyć klaster: wyszukiwanie danych (10 poradników + hub)
-- [ ] rozbudować linkowanie wewnętrzne między artykułami
+- [x] rozbudować linkowanie wewnętrzne między artykułami (automatyczna nawigacja poprzedni / hub / następny)
 - [ ] uzupełnić hub Formuły o wszystkie aktywne poradniki
 
 ### Etap 2 — baza funkcji
