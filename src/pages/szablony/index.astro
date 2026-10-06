@@ -1,4 +1,100 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL;
+const link = (path) => `${base}${path.replace(/^\//, '')}`;
 ---
-<BaseLayout title="Szablony Excel | ExcelNaLuzie" description="Gotowe pliki i szablony Excel do pobrania."><section class="section"><div class="wrap"><h1>Szablony Excel</h1><p>Gotowe pliki XLSX i XLSM do praktycznych zastosowań.</p></div></section></BaseLayout>
+
+<BaseLayout
+  title="Szablony Excel — gotowe pliki XLSX i XLSM | ExcelNaLuzie"
+  description="Gotowe szablony Excel do pobrania: budżet, harmonogram, raporty, checklisty i narzędzia VBA."
+>
+  <section class="hub-hero hub-templates">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Szablony</strong></nav>
+        <span class="hub-kicker">Gotowe pliki</span>
+        <h1>Nie buduj arkusza<br/><em>od zera.</em></h1>
+        <p>Gotowe pliki XLSX i XLSM do codziennej pracy. Każdy szablon będzie opisany, pokazany na podglądzie i gotowy do pobrania.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#biblioteka">Zobacz bibliotekę <span>↓</span></a>
+          <a class="hub-secondary" href={link("/narzedzia/")}>Narzędzia online</a>
+        </div>
+      </div>
+
+      <div class="file-showcase" aria-hidden="true">
+        <div class="file-card back"><span class="file-type">XLSX</span><strong>Budżet.xlsx</strong><small>Planowanie finansów</small></div>
+        <div class="file-card middle"><span class="file-type">XLSM</span><strong>Raport.xlsm</strong><small>Automatyczny raport</small></div>
+        <div class="file-card front"><div class="file-preview-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="file-type">XLSX</span><strong>Checklist.xlsx</strong><small>Gotowy do użycia</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="biblioteka">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Biblioteka</span><h2>Jakie pliki tu znajdziesz?</h2></div>
+        <p>Najpierw skupimy się na szablonach, które rozwiązują częste problemy i dają realną oszczędność czasu.</p>
+      </div>
+
+      <div class="template-grid">
+        <article class="template-card">
+          <div class="template-thumb finance"><span>PLN</span><div></div><div></div><div></div></div>
+          <div class="template-meta"><span>Finanse</span><b>W przygotowaniu</b></div>
+          <h3>Budżet domowy</h3>
+          <p>Przychody, wydatki, kategorie, miesiące i szybkie podsumowanie w jednym pliku.</p>
+        </article>
+        <article class="template-card">
+          <div class="template-thumb plan"><span>✓</span><div></div><div></div><div></div></div>
+          <div class="template-meta"><span>Organizacja</span><b>W przygotowaniu</b></div>
+          <h3>Checklista zadań</h3>
+          <p>Prosta lista zadań z priorytetem, statusem i automatycznym podsumowaniem postępu.</p>
+        </article>
+        <article class="template-card">
+          <div class="template-thumb report"><span>▥</span><div></div><div></div><div></div></div>
+          <div class="template-meta"><span>Raporty</span><b>W przygotowaniu</b></div>
+          <h3>Raport miesięczny</h3>
+          <p>Gotowa struktura raportu z KPI, tabelą danych i czytelną sekcją podsumowania.</p>
+        </article>
+        <article class="template-card">
+          <div class="template-thumb calendar"><span>31</span><div></div><div></div><div></div></div>
+          <div class="template-meta"><span>Planowanie</span><b>W przygotowaniu</b></div>
+          <h3>Harmonogram roczny</h3>
+          <p>Planowanie zadań i terminów w ujęciu miesięcznym i rocznym.</p>
+        </article>
+        <article class="template-card">
+          <div class="template-thumb inventory"><span>#</span><div></div><div></div><div></div></div>
+          <div class="template-meta"><span>Dane</span><b>W przygotowaniu</b></div>
+          <h3>Rejestr i ewidencja</h3>
+          <p>Uniwersalny rejestr pozycji z filtrami, statusem i kontrolą kompletności danych.</p>
+        </article>
+        <article class="template-card">
+          <div class="template-thumb macro"><span>VBA</span><div></div><div></div><div></div></div>
+          <div class="template-meta"><span>Automatyzacja</span><b>W przygotowaniu</b></div>
+          <h3>Narzędzia XLSM</h3>
+          <p>Gotowe skoroszyty z makrami do powtarzalnych czynności i raportowania.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Każdy plik</span><h2>Wiesz, co pobierasz</h2></div>
+        <p>Przy każdym szablonie pokażemy dokładnie, do czego służy, jak wygląda i czego wymaga.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Podgląd</strong><p>Zobaczysz układ i najważniejsze elementy pliku przed pobraniem.</p></div>
+        <div><span>02</span><strong>Instrukcja</strong><p>Krótki opis konfiguracji i miejsc, które możesz dopasować do siebie.</p></div>
+        <div><span>03</span><strong>Wersja Excela</strong><p>Jasna informacja, czy plik działa w starszym Excelu, czy wymaga Microsoft 365.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-cta-section">
+    <div class="wrap hub-cta">
+      <div><span class="section-kicker light">Potrzebujesz rozwiązania już teraz?</span><h2>Zacznij od poradników.</h2><p>Biblioteka plików będzie rosła, a konkretne formuły są już dostępne.</p></div>
+      <a href={link("/formuly/")}>Przejdź do poradników <span>→</span></a>
+    </div>
+  </section>
+</BaseLayout>
