@@ -36,6 +36,27 @@ const files = fs.existsSync(root)
 const errors = [];
 const clusterByArticleSlug = new Map();
 
+const englishExcelFunctions = [
+  'IF','IFS','AND','OR','NOT','IFERROR',
+  'XLOOKUP','VLOOKUP','HLOOKUP','LOOKUP',
+  'INDEX','MATCH','FILTER','UNIQUE','SORT',
+  'TEXTAFTER','TEXTBEFORE','TEXT','LEFT','RIGHT','MID','LEN','SUBSTITUTE','REPLACE','SEARCH','FIND',
+  'SUMIF','SUMIFS','COUNTIF','COUNTIFS',
+  'TODAY','NOW','DATE','YEAR','MONTH','WEEKNUM','ISOWEEKNUM','NETWORKDAYS','NETWORKDAYS.INTL','EDATE','EOMONTH'
+];
+
+const validatePolishFormulaNames = (body, label) => {
+  const formulaBlocks = [...body.matchAll(/<div class="formula">([\s\S]*?)<\/div>/gi)].map((match) => match[1]);
+  for (const formula of formulaBlocks) {
+    for (const name of englishExcelFunctions) {
+      const escaped = name.replace('.', '\\.');
+      if (new RegExp(`(^|[^A-ZĄĆĘŁŃÓŚŹŻ.])${escaped}\\s*\\(`, 'i').test(formula)) {
+        errors.push(`${label}: angielska nazwa funkcji "${name}" w formule; strona ma używać nazw polskiego Excela`);
+      }
+    }
+  }
+};
+
 for (const [categorySlug, cluster] of Object.entries(articleClusters)) {
   const hubSegments = cluster.hub.split('/').filter(Boolean);
   const hubPath = path.resolve('src/pages', ...hubSegments, 'index.astro');
@@ -114,6 +135,8 @@ for (const file of files) {
     errors.push(`${file}: brak co najmniej jednego bloku formuły`);
   }
 
+  validatePolishFormulaNames(body, file);
+
   const wordCount = countWords(body);
   if (wordCount < 220) {
     errors.push(`${file}: treść ma tylko ${wordCount} słów; minimum jakościowe to 220`);
@@ -159,6 +182,8 @@ for (const file of functionFiles) {
   if (!/<div class="formula">/i.test(body)) {
     errors.push(`funkcje/${file}: brak praktycznego bloku formuły`);
   }
+
+  validatePolishFormulaNames(body, `funkcje/${file}`);
 
   const wordCount = countWords(body);
   if (wordCount < 180) {
