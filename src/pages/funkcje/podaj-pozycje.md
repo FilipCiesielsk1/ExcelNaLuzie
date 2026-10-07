@@ -40,3 +40,7 @@ Jeżeli liczba została zapisana jako tekst, a szukana wartość jest liczbą, d
 Do prostego zwracania wartości X.WYSZUKAJ jest zwykle wygodniejsze. PODAJ.POZYCJĘ jest jednak potrzebne wtedy, gdy sam numer pozycji ma znaczenie albo ma zostać przekazany do innej funkcji, np. INDEKS.
 
 To klasyczna funkcja wyszukująca, która nadal jest bardzo przydatna w starszych modelach i bardziej technicznych formułach.
+
+## Co zrobić przy duplikatach?
+
+Przy dokładnym dopasowaniu funkcja zwraca pozycję pierwszego pasującego elementu. Jeżeli ten sam klucz występuje wiele razy i potrzebujesz wszystkich rekordów, PODAJ.POZYCJĘ nie jest najlepszym narzędziem. W nowszym Excelu do takich zadań częściej sprawdzi się FILTRUJ.

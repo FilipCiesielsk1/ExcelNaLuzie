@@ -50,3 +50,7 @@ Formuła przechowuje regułę, a nie statyczny zestaw komórek. Jeśli potrzebuj
 W połączeniu z DATA możesz generować kolejne dni lub miesiące. Z innymi funkcjami dynamicznymi SEKWENCJA może tworzyć indeksy dopasowane do zmieniającej się długości raportu.
 
 To jedna z prostszych funkcji tablic dynamicznych, ale bardzo dobrze pokazuje ich najważniejszą cechę: jeden wzór może zwrócić cały zmienny zakres wyników.
+
+## Dynamiczne wymiary
+
+Liczba wierszy i kolumn również może pochodzić z innych komórek lub obliczeń. Dzięki temu rozmiar wynikowej tablicy może reagować na ustawienia użytkownika. Pamiętaj tylko, że obszar, na który ma rozlać się wynik, musi pozostać wolny od innych danych.

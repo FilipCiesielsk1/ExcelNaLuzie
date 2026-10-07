@@ -40,3 +40,7 @@ Microsoft ostrzega, że wariant MD może w określonych sytuacjach zwracać nied
 ## Kiedy używać DATA.RÓŻNICA?
 
 Przy stażu pracy, wieku, długości umowy i analizie okresów wyrażanych w pełnych miesiącach lub latach. Jeżeli potrzebujesz tylko zwykłej różnicy w dniach, odejmowanie dat jest często prostsze i bardziej przejrzyste.
+
+## Pełne miesiące a miesiące kalendarzowe
+
+DATA.RÓŻNICA liczy pełne jednostki czasu. Dwie daty znajdujące się w różnych miesiącach kalendarzowych nie zawsze oznaczają jeden pełny miesiąc różnicy. Przy raportach kadrowych i umowach sprawdź przypadki przypadające pod koniec miesiąca oraz lata przestępne.

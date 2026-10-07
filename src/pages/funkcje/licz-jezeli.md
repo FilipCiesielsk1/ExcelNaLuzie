@@ -46,3 +46,7 @@ Dane importowane mogą zawierać zbędne spacje albo liczby zapisane jako tekst.
 ## Typowe zastosowania
 
 Liczenie statusów, wystąpień kodu, rekordów przekraczających próg, produktów z konkretnej kategorii czy pustych i niepustych pozycji. Funkcja jest prosta, szybka i często wystarcza do podstawowych wskaźników w dashboardach.
+
+## Liczenie pustych i niepustych wartości
+
+LICZ.JEŻELI może też sprawdzać brak danych. Kryterium pustego tekstu pozwala liczyć komórki wyglądające na puste, a zapis "<>" może pomóc przy liczeniu wartości niepustych. Przy komórkach zawierających formuły zwracające pusty tekst warto jednak sprawdzić rezultat na przykładowych danych.

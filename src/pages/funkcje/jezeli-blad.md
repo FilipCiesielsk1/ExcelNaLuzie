@@ -38,3 +38,7 @@ Dlatego przy krytycznych obliczeniach często lepiej sprawdzić konkretny warune
 Gdy błąd jest przewidywalną częścią procesu: brak dopasowania, brak danych albo obliczenie, którego nie da się wykonać przed uzupełnieniem formularza.
 
 W raportach końcowych pomaga zastąpić techniczne komunikaty czytelnymi informacjami, ale podczas budowania arkusza nie powinna być używana jako sposób na ukrywanie wszystkich błędów bez diagnozy.
+
+## Dobra praktyka podczas tworzenia arkusza
+
+Najpierw uruchom właściwą formułę bez JEŻELI.BŁĄD i sprawdź, jakie błędy rzeczywiście mogą wystąpić. Dopiero po przetestowaniu dodaj obsługę błędu. Dzięki temu nie zamaskujesz przypadkiem literówki, błędnego zakresu albo problemu z typem danych.

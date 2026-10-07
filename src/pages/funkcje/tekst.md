@@ -46,3 +46,7 @@ Kody formatów i separator dziesiętny powinny odpowiadać polskim ustawieniom E
 Budowanie opisów w raportach, tworzenie etykiet, wyświetlanie nazw miesięcy, formatowanie numerów i dat przed połączeniem z innym tekstem.
 
 TEKST jest bardzo przydatne do prezentacji, ale nie powinno zastępować prawidłowego formatowania komórki tam, gdzie wartość ma nadal pozostać liczbą do dalszych obliczeń.
+
+## Format komórki a funkcja TEKST
+
+Jeżeli chcesz jedynie zmienić wygląd liczby na ekranie, zwykle wystarczy formatowanie komórki. Funkcji TEKST używaj wtedy, gdy sformatowana wartość ma stać się częścią większego tekstu, etykiety albo komunikatu. Dzięki temu zachowasz liczby do dalszych obliczeń tam, gdzie są potrzebne.

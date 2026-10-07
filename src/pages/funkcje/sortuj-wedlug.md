@@ -40,3 +40,7 @@ SORTUJ jest krótsze, gdy kolumna sortująca znajduje się w zwracanej tablicy. 
 ## Typowe zastosowania
 
 Rankingi, listy projektów sortowane według priorytetu, raporty klientów sortowane według wartości sprzedaży oraz wielopoziomowe zestawienia, w których nie chcesz zmieniać kolejności tabeli źródłowej.
+
+## Zakresy muszą sobie odpowiadać
+
+Tablica zwracana i zakres używany do sortowania powinny reprezentować te same rekordy. Jeżeli A2:B100 jest sortowane według C2:C100, każdy wiersz C musi odpowiadać temu samemu wierszowi danych w A:B. Przesunięte zakresy prowadzą do błędnej kolejności.

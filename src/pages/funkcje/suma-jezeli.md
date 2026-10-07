@@ -42,3 +42,7 @@ Zakres kryterium i zakres sumowania powinny odpowiadać tym samym rekordom. Prze
 ## Typowe zastosowania
 
 Sumowanie sprzedaży dla kategorii, kosztów dla działu, godzin dla projektu, wartości powyżej progu albo kwot przypisanych do konkretnego statusu. To jedna z podstawowych funkcji do budowania prostych raportów bez tabel przestawnych.
+
+## Tekst i symbole wieloznaczne
+
+W kryteriach tekstowych możesz używać gwiazdki, gdy interesuje Cię fragment wartości. Na przykład kryterium "FV-*" może sumować dokumenty zaczynające się od określonego prefiksu. To przydatne przy numerach dokumentów, kodach produktów i prostych klasyfikacjach tekstowych.

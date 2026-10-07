@@ -38,3 +38,7 @@ Dla zakresu C2:C100 pozycja 1 oznacza C2, a nie pierwszy wiersz arkusza. To czę
 ## Kiedy wybrać INDEKS?
 
 Gdy masz już numer pozycji, potrzebujesz pełnej kontroli nad zwracanym zakresem albo pracujesz ze starszymi wersjami Excela. Połączenie INDEKS + PODAJ.POZYCJĘ jest również dobrym sposobem na zrozumienie, jak działają mechanizmy wyszukiwania w arkuszu.
+
+## Zwracanie wartości z większej tabeli
+
+Przy tablicy obejmującej kilka kolumn numer kolumny liczony jest od lewej krawędzi przekazanego zakresu. Dzięki temu INDEKS może działać na dowolnym fragmencie arkusza bez znaczenia, w której fizycznej kolumnie zaczyna się tabela. To ułatwia późniejsze przenoszenie modelu.
