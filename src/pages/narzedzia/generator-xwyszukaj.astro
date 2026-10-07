@@ -64,7 +64,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 
     <div class="generator-output">
       <div><span>Gotowa formuła</span><small>Domyślne dopasowanie jest dokładne.</small></div>
-      <code data-output></code>
+      <code data-output aria-live="polite"></code>
       <button type="button" data-copy>Kopiuj formułę</button>
     </div>
   </div>
@@ -105,4 +105,11 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     });
     update();
   </script>
+
+  <div class="generator-help">
+    <h2>Jak uniknąć błędnego wyniku?</h2>
+    <p>Zakres wyszukiwania i zakres wyniku powinny obejmować odpowiadające sobie wiersze. Jeżeli szukasz w A2:A100, zakres zwracany powinien zaczynać i kończyć się na tych samych pozycjach, np. C2:C100.</p>
+    <p>X.WYSZUKAJ może zwracać dane również z kolumny znajdującej się po lewej stronie. Nie trzeba zmieniać układu tabeli ani liczyć numeru kolumny.</p>
+    <p>Jeżeli klucz występuje kilka razy, dostaniesz pojedyncze dopasowanie. Gdy wiele rekordów jest prawidłowym wynikiem, lepszym narzędziem będzie FILTRUJ.</p>
+  </div>
 </ToolLayout>

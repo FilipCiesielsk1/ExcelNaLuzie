@@ -80,7 +80,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 
     <div class="generator-output">
       <div><span>Gotowa formuła</span><small>Skopiuj i wklej do Excela.</small></div>
-      <code data-output></code>
+      <code data-output aria-live="polite"></code>
       <button type="button" data-copy>Kopiuj formułę</button>
     </div>
   </div>
@@ -123,4 +123,11 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     });
     update();
   </script>
+
+  <div class="generator-help">
+    <h2>Kiedy użyć generatora JEŻELI?</h2>
+    <p>Najlepiej sprawdza się przy prostych decyzjach typu: jeżeli wartość przekracza próg, zwróć jeden wynik, w przeciwnym razie drugi. Generator pilnuje operatorów, cudzysłowów dla tekstu i kolejności argumentów.</p>
+    <p>Przy warunkach granicznych zwróć uwagę na różnicę między &gt; i &gt;=. Dla progu 100 formuły te zachowują się inaczej dokładnie dla wartości 100.</p>
+    <p>Jeśli zaczynasz budować wiele zagnieżdżonych JEŻELI, rozważ tabelę pomocniczą albo X.WYSZUKAJ. Generator ma pomagać w czytelnej formule, nie w tworzeniu wielopoziomowych konstrukcji trudnych do utrzymania.</p>
+  </div>
 </ToolLayout>

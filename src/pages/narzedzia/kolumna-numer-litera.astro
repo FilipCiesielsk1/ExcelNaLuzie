@@ -23,7 +23,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
         <small>Zakres Excela: 1–16384</small>
         <div class="column-converter-result">
           <span>Litera</span>
-          <strong data-letter-result>AB</strong>
+          <strong data-letter-result aria-live="polite">AB</strong>
           <button type="button" data-copy-letter>Kopiuj</button>
         </div>
       </div>
@@ -36,13 +36,13 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
         <small>Zakres Excela: A–XFD</small>
         <div class="column-converter-result">
           <span>Numer</span>
-          <strong data-number-result>28</strong>
+          <strong data-number-result aria-live="polite">28</strong>
           <button type="button" data-copy-number>Kopiuj</button>
         </div>
       </div>
     </div>
 
-    <div class="column-converter-message" data-message>
+    <div class="column-converter-message" data-message aria-live="polite">
       Excel ma 16 384 kolumny. Ostatnia kolumna to XFD.
     </div>
   </div>
@@ -143,4 +143,11 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 
     updateFromNumber();
   </script>
+
+  <div class="generator-help">
+    <h2>Do czego przydaje się ten konwerter?</h2>
+    <p>Najczęściej przy pracy z VBA, adresami zakresów, importami oraz sytuacjach, w których jedna aplikacja operuje numerem kolumny, a Excel pokazuje jej literę.</p>
+    <p>Excel ma 16 384 kolumny: A ma numer 1, Z — 26, AA — 27, a ostatnia kolumna XFD — 16 384. Konwerter celowo odrzuca wartości poza tym zakresem.</p>
+    <p>Przeliczenie działa lokalnie w przeglądarce. Wpisane wartości nie są wysyłane na serwer.</p>
+  </div>
 </ToolLayout>

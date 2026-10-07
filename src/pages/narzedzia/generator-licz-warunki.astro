@@ -22,4 +22,11 @@ import CriteriaGenerator from '../../components/CriteriaGenerator.astro';
     <h2>Ważne</h2>
     <p>Zakresy kryteriów powinny mieć zgodne wymiary. Jeśli jeden obejmuje A2:A100, pozostałe najlepiej prowadzić po tych samych wierszach.</p>
   </div>
+
+  <div class="generator-help">
+    <h2>Jak czytać wynik LICZ.WARUNKI?</h2>
+    <p>Funkcja nie sumuje wartości — zwraca liczbę wierszy spełniających wszystkie podane kryteria. Każda kolejna para zakres + kryterium zawęża wynik.</p>
+    <p>Zakresy powinny mieć ten sam rozmiar i odpowiadać tym samym rekordom. Dla A2:A100 drugi zakres najlepiej prowadzić po tych samych wierszach, np. B2:B100.</p>
+    <p>Operator ustaw osobno, a wartość wpisz jako liczbę, tekst albo odwołanie do komórki. To eliminuje częsty błąd ręcznego składania kryteriów typu „&gt;=” z adresem komórki.</p>
+  </div>
 </ToolLayout>

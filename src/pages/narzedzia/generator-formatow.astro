@@ -103,7 +103,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 
     <div class="format-preview">
       <span>Podgląd</span>
-      <strong data-preview>12 345,67</strong>
+      <strong data-preview aria-live="polite">12 345,67</strong>
       <small>Podgląd pokazuje efekt dla wartości przykładowej.</small>
     </div>
 
@@ -298,4 +298,11 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 
     update();
   </script>
+
+  <div class="generator-help">
+    <h2>Format zmienia wygląd, nie wartość</h2>
+    <p>Format niestandardowy nie przelicza liczby i nie zamienia jej na tekst. W komórce nadal pozostaje ta sama wartość, zmienia się tylko sposób jej wyświetlania.</p>
+    <p>To ważne przy walutach, procentach, datach i własnych jednostkach. Dzięki formatowi liczba może nadal uczestniczyć w obliczeniach, mimo że użytkownik widzi np. „1 250 zł” albo „12,5%”.</p>
+    <p>Po wygenerowaniu kodu otwórz Formatowanie komórek → Niestandardowe i wklej go w pole typu. Jeżeli efekt nie odpowiada oczekiwaniom, wróć do generatora i zmień parametry zamiast ręcznie poprawiać długi kod.</p>
+  </div>
 </ToolLayout>

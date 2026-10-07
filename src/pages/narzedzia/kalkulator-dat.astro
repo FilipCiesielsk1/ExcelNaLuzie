@@ -64,14 +64,14 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     <div class="date-result-card">
       <div>
         <span>Wynik</span>
-        <strong data-result>5 dni</strong>
+        <strong data-result aria-live="polite">5 dni</strong>
         <small data-result-note>Różnica B2-A2.</small>
       </div>
     </div>
 
     <div class="generator-output">
       <div><span>Formuła Excel</span><small data-formula-note>Zakładamy datę początkową w A2 i końcową w B2.</small></div>
-      <code data-formula>=B2-A2</code>
+      <code data-formula aria-live="polite">=B2-A2</code>
       <button type="button" data-copy>Kopiuj formułę</button>
     </div>
   </div>
@@ -279,4 +279,11 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
 
     update();
   </script>
+
+  <div class="generator-help">
+    <h2>Którą operację wybrać?</h2>
+    <p>„Liczba dni” oznacza zwykłą różnicę kalendarzową. „Dni robocze” pomijają weekendy i opcjonalną listę świąt. „Pełne miesiące” odpowiadają okresom zakończonym, a nie prostemu podzieleniu liczby dni przez 30.</p>
+    <p>Przy terminach płatności i harmonogramach zwróć uwagę, czy chcesz policzyć odstęp między datami, czy oba dni włącznie — to dwa różne wyniki.</p>
+    <p>Kalkulator pokazuje nie tylko rezultat, ale również formułę Excela, dzięki czemu możesz od razu przenieść tę samą logikę do własnego arkusza.</p>
+  </div>
 </ToolLayout>

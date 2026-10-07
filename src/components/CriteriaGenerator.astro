@@ -24,11 +24,11 @@ const isSum = mode === 'SUMA.WARUNKÓW';
     <div class="criteria-row" data-criterion-row>
       <div class="generator-field">
         <label>Zakres kryterium</label>
-        <input data-range type="text" value="A2:A100" spellcheck="false"/>
+        <input data-range type="text" aria-label="Zakres kryterium" value="A2:A100" spellcheck="false"/>
       </div>
       <div class="generator-field compact">
         <label>Operator</label>
-        <select data-operator>
+        <select data-operator aria-label="Operator kryterium">
           <option value="=">=</option>
           <option value=">">&gt;</option>
           <option value=">=">&gt;=</option>
@@ -39,11 +39,11 @@ const isSum = mode === 'SUMA.WARUNKÓW';
       </div>
       <div class="generator-field">
         <label>Wartość</label>
-        <input data-value type="text" value="F2" spellcheck="false"/>
+        <input data-value type="text" aria-label="Wartość kryterium" value="F2" spellcheck="false"/>
       </div>
       <div class="generator-field compact">
         <label>Typ</label>
-        <select data-type>
+        <select data-type aria-label="Typ wartości kryterium">
           <option value="cell">Komórka</option>
           <option value="text">Tekst</option>
           <option value="number">Liczba</option>
@@ -57,11 +57,11 @@ const isSum = mode === 'SUMA.WARUNKÓW';
     <div class="criteria-row" data-criterion-row>
       <div class="generator-field">
         <label>Zakres kryterium</label>
-        <input data-range type="text" value="B2:B100" spellcheck="false"/>
+        <input data-range type="text" aria-label="Zakres kryterium" value="B2:B100" spellcheck="false"/>
       </div>
       <div class="generator-field compact">
         <label>Operator</label>
-        <select data-operator>
+        <select data-operator aria-label="Operator kryterium">
           <option value="=">=</option>
           <option value=">">&gt;</option>
           <option value=">=">&gt;=</option>
@@ -72,11 +72,11 @@ const isSum = mode === 'SUMA.WARUNKÓW';
       </div>
       <div class="generator-field">
         <label>Wartość</label>
-        <input data-value type="text" value="G2" spellcheck="false"/>
+        <input data-value type="text" aria-label="Wartość kryterium" value="G2" spellcheck="false"/>
       </div>
       <div class="generator-field compact">
         <label>Typ</label>
-        <select data-type>
+        <select data-type aria-label="Typ wartości kryterium">
           <option value="cell">Komórka</option>
           <option value="text">Tekst</option>
           <option value="number">Liczba</option>
@@ -91,7 +91,7 @@ const isSum = mode === 'SUMA.WARUNKÓW';
       <span>Gotowa formuła</span>
       <small>Aktualizuje się automatycznie.</small>
     </div>
-    <code data-formula-output></code>
+    <code data-formula-output aria-live="polite"></code>
     <button type="button" data-copy-formula>Kopiuj formułę</button>
   </div>
 </div>

@@ -22,4 +22,11 @@ import CriteriaGenerator from '../../components/CriteriaGenerator.astro';
     <h2>Jak wpisywać warunki?</h2>
     <p>Dla odwołania do komórki wybierz typ „Komórka”. Dla stałej wartości wybierz „Liczba” albo „Tekst”. Operator możesz ustawić osobno.</p>
   </div>
+
+  <div class="generator-help">
+    <h2>Najczęstsze błędy w SUMA.WARUNKÓW</h2>
+    <p>Zakres sumowania i wszystkie zakresy kryteriów powinny obejmować odpowiadające sobie wiersze. Przesunięcie jednego zakresu o wiersz może dać błędny wynik.</p>
+    <p>Jeżeli próg znajduje się w komórce, wybierz typ „Komórka”. Generator połączy operator z odwołaniem w poprawny sposób, np. kryterium większe lub równe wartości z F2.</p>
+    <p>Kolejne warunki w SUMA.WARUNKÓW działają jak logiczne ORAZ — do sumy trafiają tylko rekordy spełniające wszystkie dodane kryteria.</p>
+  </div>
 </ToolLayout>
