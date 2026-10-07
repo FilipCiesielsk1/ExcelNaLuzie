@@ -31,6 +31,34 @@ const nextArticle = cluster && clusterIndex >= 0 && clusterIndex < cluster.artic
   ? cluster.articles[clusterIndex + 1]
   : null;
 
+const automaticRelated = cluster && clusterIndex >= 0
+  ? [
+      ...cluster.articles.slice(clusterIndex + 1),
+      ...cluster.articles.slice(0, clusterIndex).reverse()
+    ]
+      .slice(0, 3)
+      .map((item) => ({
+        title: item.title,
+        url: `/poradniki/${item.slug}/`,
+        category: cluster.title
+      }))
+  : [];
+
+const relatedCandidates = [
+  ...related,
+  ...automaticRelated,
+  ...(cluster ? [{ title: cluster.title, url: cluster.hub, category: 'Cały temat' }] : [])
+];
+
+const seenRelatedUrls = new Set();
+const effectiveRelated = relatedCandidates
+  .filter((item) => {
+    if (!item?.url || item.url === canonical || seenRelatedUrls.has(item.url)) return false;
+    seenRelatedUrls.add(item.url);
+    return true;
+  })
+  .slice(0, 4);
+
 const schema = {
   '@context':'https://schema.org',
   '@graph':[
@@ -147,9 +175,9 @@ const schema = {
             <h2>Powiązane materiały</h2>
           </div>
 
-          {related.length > 0 ? (
+          {effectiveRelated.length > 0 ? (
             <div class="related-grid">
-              {related.map((item) => (
+              {effectiveRelated.map((item) => (
                 <a href={link(item.url)}>
                   <small>{item.category || 'Poradnik'}</small>
                   <strong>{item.title}</strong>
