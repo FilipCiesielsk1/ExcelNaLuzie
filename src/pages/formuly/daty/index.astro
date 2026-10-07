@@ -1,23 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
 
-const articles = [
-  ['roznica-miedzy-datami','Różnica między datami','dni / miesiące / lata'],
-  ['liczba-dni-miedzy-datami','Liczba dni między datami','odejmowanie dat'],
-  ['liczba-miesiecy-miedzy-datami','Liczba miesięcy między datami','DATA.RÓŻNICA'],
-  ['data-na-nazwe-miesiaca','Data na nazwę miesiąca','TEKST'],
-  ['numer-tygodnia-w-excelu','Numer tygodnia w Excelu','NUM.TYG'],
-  ['poniedzialek-z-numeru-tygodnia','Poniedziałek z numeru tygodnia','DATA + DZIEŃ.TYG'],
-  ['pierwszy-dzien-miesiaca','Pierwszy dzień miesiąca','DATA'],
-  ['ostatni-dzien-miesiaca','Ostatni dzień miesiąca','NR.SER.OST.DN.MIES'],
-  ['dodawanie-miesiecy-do-daty','Dodawanie miesięcy do daty','NR.SER.DATY'],
-  ['liczba-dni-roboczych','Liczba dni roboczych','DNI.ROBOCZE']
-];
+const cluster = articleClusters['formuly/daty'];
+const articles = cluster.articles;
 ---
 
 <BaseLayout
-  title="Daty i czas w Excelu — 10 praktycznych poradników | ExcelNaLuzie"
+  title={`Daty i czas w Excelu — ${articles.length} praktycznych poradników | ExcelNaLuzie`}
   description="Daty w Excelu bez zgadywania: różnice między datami, miesiące, tygodnie, pierwszy i ostatni dzień miesiąca oraz dni robocze."
 >
   <section class="hub-hero hub-formulas">
@@ -43,15 +34,15 @@ const articles = [
   <section class="hub-section" id="poradniki">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">10 poradników</span><h2>Co chcesz policzyć?</h2></div>
+        <div><span class="section-kicker">{articles.length} poradników</span><h2>Co chcesz policzyć?</h2></div>
         <p>Wybierz rezultat: liczbę dni, pełne miesiące, tydzień, początek okresu albo termin po przesunięciu daty.</p>
       </div>
       <div class="hub-article-list">
         {articles.map((item,index) => (
-          <a href={link('/poradniki/' + item[0] + '/')}>
+          <a href={link('/poradniki/' + item.slug + '/')}>
             <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
-            <div><small>Daty i czas</small><strong>{item[1]}</strong></div>
-            <code>{item[2]}</code>
+            <div><small>Daty i czas</small><strong>{item.title}</strong></div>
+            <code>{item.label}</code>
             <b>→</b>
           </a>
         ))}
