@@ -70,3 +70,11 @@ Drugim częstym problemem jest próba dodania kilku niezależnych warunków. SUM
 ## Kiedy użyć SUMA.WARUNKÓW?
 
 Jeżeli chcesz zsumować np. sprzedaż dla Warszawy, tylko dla statusu Gotowe i tylko od określonej daty, użyj SUMA.WARUNKÓW. Jest to naturalne rozszerzenie SUMA.JEŻELI na kilka kryteriów.
+
+## Przykład: suma kosztów jednej kategorii
+
+Jeżeli w A2:A100 znajdują się nazwy kategorii kosztów, a w B2:B100 kwoty, możesz łatwo policzyć łączny koszt transportu:
+
+<div class="formula">=SUMA.JEŻELI(A2:A100;"Transport";B2:B100)</div>
+
+To często prostsze niż filtrowanie tabeli i ręczne odczytywanie sumy z paska stanu.
