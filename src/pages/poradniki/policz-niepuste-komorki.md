@@ -72,3 +72,9 @@ Wynik 10 oznacza, że wszystkie komórki zawierają jakąś wartość.
 ILE.NIEPUSTYCH — gdy liczysz dowolne dane. ILE.LICZB — gdy interesują Cię tylko liczby. LICZ.PUSTE — gdy chcesz policzyć brakujące komórki.
 
 To prosty zestaw funkcji, który często wystarcza do kontroli jakości danych bez budowania bardziej rozbudowanych warunków.
+
+## Przykład: kontrola kompletności kolumny
+
+Jeżeli w zakresie A2:A100 każdy aktywny rekord powinien mieć identyfikator, wynik ILE.NIEPUSTYCH możesz porównać z oczekiwaną liczbą rekordów. To szybki sposób na wychwycenie braków przed importem lub wysłaniem raportu.
+
+Pamiętaj jednak, że formuła zwracająca pusty tekst nadal jest przez ILE.NIEPUSTYCH liczona jako niepusta komórka.
