@@ -54,6 +54,16 @@ const validatePolishFormulaNames = (body, label) => {
         errors.push(`${label}: angielska nazwa funkcji "${name}" w formule; strona ma używać nazw polskiego Excela`);
       }
     }
+    if (/\b(?:TRUE|FALSE)\b/i.test(formula)) {
+      errors.push(`${label}: angielska wartość logiczna TRUE/FALSE w formule; użyj PRAWDA/FAŁSZ`);
+    }
+  }
+
+  const englishErrors = ['#VALUE!', '#REF!', '#DIV/0!', '#NAME?', '#NUM!', '#N/A'];
+  for (const token of englishErrors) {
+    if (body.includes(token)) {
+      errors.push(`${label}: angielski kod błędu "${token}"; użyj polskiego odpowiednika Excela`);
+    }
   }
 };
 
