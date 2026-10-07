@@ -37,7 +37,8 @@ const errors = [];
 const clusterByArticleSlug = new Map();
 
 for (const [categorySlug, cluster] of Object.entries(articleClusters)) {
-  const hubPath = path.resolve('src/pages', cluster.hub.replace(/^\\/+|\\/+$/g, ''), 'index.astro');
+  const hubSegments = cluster.hub.split('/').filter(Boolean);
+  const hubPath = path.resolve('src/pages', ...hubSegments, 'index.astro');
   if (!fs.existsSync(hubPath)) {
     errors.push(`klaster "${categorySlug}": brak strony hub ${cluster.hub}`);
   }
