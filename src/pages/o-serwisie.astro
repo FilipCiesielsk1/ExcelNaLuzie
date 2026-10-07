@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'AboutPage',
+      '@id':'https://excelnaluzie.pl/o-serwisie/#page',
+      url:'https://excelnaluzie.pl/o-serwisie/',
+      name:'O serwisie ExcelNaLuzie.pl',
+      description:'Jak powstają poradniki, narzędzia i szablony publikowane w ExcelNaLuzie.pl.',
+      inLanguage:'pl-PL',
+      about:{
+        '@type':'WebSite',
+        name:'ExcelNaLuzie.pl',
+        url:'https://excelnaluzie.pl/'
+      }
+    },
+    {
+      '@type':'Person',
+      '@id':'https://excelnaluzie.pl/o-serwisie/#author',
+      name:'Filip Ciesielski',
+      url:'https://excelnaluzie.pl/o-serwisie/'
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'O serwisie',item:'https://excelnaluzie.pl/o-serwisie/'}
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="O serwisie | ExcelNaLuzie.pl"
+  description="Jak powstają poradniki, narzędzia i szablony publikowane w ExcelNaLuzie.pl oraz jakie zasady stosujemy przy tworzeniu treści."
+  canonical="/o-serwisie/"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
+  <section class="legal-page">
+    <div class="wrap legal-wrap">
+      <span class="section-kicker">O ExcelNaLuzie</span>
+      <h1>Excel bez zbędnego gadania.</h1>
+      <p class="legal-lead">ExcelNaLuzie.pl powstało po to, żeby użytkownik mógł możliwie szybko przejść od problemu do działającego rozwiązania — formuły, kodu VBA, narzędzia albo gotowego pliku.</p>
+
+      <div class="legal-content">
+        <section>
+          <h2>Kto tworzy serwis?</h2>
+          <p>Autorem poradników i twórcą ExcelNaLuzie.pl jest Filip Ciesielski. Serwis jest rozwijany niezależnie i nie jest oficjalną stroną firmy Microsoft.</p>
+        </section>
+
+        <section>
+          <h2>Jak powstają poradniki?</h2>
+          <p>Najpierw pokazujemy rozwiązanie, a dopiero później wyjaśnienie. Każdy materiał ma odpowiadać na konkretny problem i unikać długich wstępów, które nie pomagają wykonać zadania.</p>
+          <p>Przy poradnikach wskazujemy wersje Excela, poziom trudności i powiązane materiały. Jeżeli przykład został sprawdzony i oznaczony jako zweryfikowany, informacja pojawia się bezpośrednio przy artykule.</p>
+        </section>
+
+        <section>
+          <h2>Jak traktujemy AI?</h2>
+          <p>Narzędzia AI mogą pomagać w przygotowaniu struktury, redakcji i rozwoju serwisu, ale nie są traktowane jako źródło prawdy. Treść ma przede wszystkim rozwiązywać realny problem użytkownika i nie powinna być publikowana tylko po to, żeby zwiększać liczbę podstron.</p>
+        </section>
+
+        <section>
+          <h2>Narzędzia i pliki</h2>
+          <p>Generatory i kalkulatory na stronie działają lokalnie w przeglądarce. Darmowe szablony XLSX są przygotowane tak, aby można było je otworzyć w zwykłym Excelu bez instalowania dodatkowych rozszerzeń.</p>
+        </section>
+
+        <section>
+          <h2>Zasada redakcyjna</h2>
+          <p><strong>Najpierw rozwiązanie. Potem wyjaśnienie.</strong> To główna zasada całego serwisu i kryterium, według którego rozwijamy kolejne materiały.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
