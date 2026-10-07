@@ -22,14 +22,14 @@ export const templateCatalog = [
     ],
     preview: {
       label1: 'Przychody',
-      value1: '8 500 zł',
+      value1: '8 920 zł',
       label2: 'Wydatki',
-      value2: '3 160 zł',
+      value2: '3 768 zł',
       label3: 'Bilans',
-      value3: '5 340 zł',
+      value3: '5 152 zł',
       rows: [
         ['Mieszkanie', '2 400 zł'],
-        ['Jedzenie', '321 zł'],
+        ['Jedzenie', '459 zł'],
         ['Transport', '280 zł']
       ]
     }
@@ -41,7 +41,7 @@ export const templateCatalog = [
     icon: '✓',
     file: '/downloads/szablony/lista-zadan.xlsx',
     version: 'Excel 2016+',
-    description: 'Tracker zadań z priorytetem, statusem, terminem, właścicielem oraz prostym dashboardem pokazującym postęp pracy.',
+    description: 'Tracker zadań z dashboardem, priorytetami, terminami, procentem postępu i automatycznym wyróżnianiem zaległości.',
     sheets: ['Dashboard', 'Zadania', 'Instrukcja'],
     features: [
       'Dashboard z KPI, statusem, zaległościami i średnim postępem',
@@ -53,13 +53,13 @@ export const templateCatalog = [
       'Przejdź do arkusza „Zadania”.',
       'Usuń przykładowe zadania lub wykorzystaj je jako wzór.',
       'Ustaw priorytet, status i termin dla każdego zadania.',
-      'Dashboard automatycznie pokaże liczbę wszystkich, trwających i zakończonych zadań.'
+      'Dashboard automatycznie pokaże statusy, zadania po terminie, średni postęp i strukturę priorytetów.'
     ],
     preview: {
       label1: 'Wszystkie',
-      value1: '6',
+      value1: '8',
       label2: 'W toku',
-      value2: '1',
+      value2: '2',
       label3: 'Gotowe',
       value3: '2',
       rows: [
@@ -76,7 +76,7 @@ export const templateCatalog = [
     icon: '8h',
     file: '/downloads/szablony/ewidencja-czasu-pracy.xlsx',
     version: 'Excel 2016+',
-    description: 'Rejestr czasu z projektami, startem, końcem, przerwą, godzinami netto, stawką i automatycznym podsumowaniem wartości pracy.',
+    description: 'Ewidencja czasu pracy z automatycznym liczeniem godzin netto, stawek i wartości pracy oraz dashboardem miesięcznym i analizą projektów.',
     sheets: ['Podsumowanie', 'Czas pracy', 'Instrukcja'],
     features: [
       'Automatyczne obliczanie godzin netto po odjęciu przerwy',
@@ -88,19 +88,19 @@ export const templateCatalog = [
       'Otwórz arkusz „Czas pracy”.',
       'Wpisz datę, projekt, zadanie oraz godzinę rozpoczęcia i zakończenia.',
       'Podaj przerwę w minutach oraz opcjonalnie stawkę godzinową.',
-      'Arkusz „Podsumowanie” automatycznie pokaże łączny czas i wartość pracy.'
+      'Wybierz miesiąc w arkuszu „Podsumowanie”, aby przeanalizować czas, wartość i projekty.'
     ],
     preview: {
       label1: 'Godziny',
-      value1: '21,75 h',
+      value1: '25,75 h',
       label2: 'Wartość',
-      value2: '2 745 zł',
+      value2: '3 475 zł',
       label3: 'Wpisy',
       value3: '7',
       rows: [
-        ['Projekt A', '11,25 h'],
-        ['Projekt B', '6,50 h'],
-        ['Projekt C', '3,00 h']
+        ['Projekt A', '12,50 h'],
+        ['Projekt B', '7,25 h'],
+        ['Projekt C', '6,00 h']
       ]
     }
   }
