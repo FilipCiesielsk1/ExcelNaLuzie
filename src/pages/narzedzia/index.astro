@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
+import { functionTranslations } from '../../data/functionTranslations.js';
 
 const toolItems = [
   ['Generator JEŻELI','generator-jezeli'],
@@ -150,7 +151,7 @@ const schema = {
           <div class="tool-card-top"><span class="tool-icon">PL↔EN</span><span class="tool-status">Gotowe</span></div>
           <h3>Tłumacz funkcji Excel</h3>
           <p>Sprawdź polską lub angielską nazwę najważniejszych funkcji Excela i skopiuj odpowiednik.</p>
-          <div class="tool-tags"><span>PL ↔ EN</span><span>21 funkcji</span><span>słownik</span></div>
+          <div class="tool-tags"><span>PL ↔ EN</span><span>{functionTranslations.length} funkcji</span><span>słownik</span></div>
         </a>
       </div>
     </div>
