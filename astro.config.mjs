@@ -1,8 +1,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-const site = process.env.EXCELNALUZIE_SITE_ORIGIN || 'https://filipciesielsk1.github.io';
-const rawBase = process.env.EXCELNALUZIE_BASE_PATH ?? '/ExcelNaLuzie';
+const configuredOrigin = process.env.EXCELNALUZIE_SITE_ORIGIN || 'https://excelnaluzie.pl';
+const site = configuredOrigin.replace(/^http:\/\/excelnaluzie\.pl$/i, 'https://excelnaluzie.pl');
+const rawBase = process.env.EXCELNALUZIE_BASE_PATH ?? '/';
 const base = rawBase && rawBase !== '/'
   ? `${rawBase.replace(/\/+$/, '')}/`
   : '/';
