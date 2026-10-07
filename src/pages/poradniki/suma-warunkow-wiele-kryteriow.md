@@ -64,3 +64,11 @@ Jeżeli zakres sumowania obejmuje D2:D100, zakresy kryteriów powinny odnosić s
 Przy jednym kryterium SUMA.JEŻELI jest krótsza. Gdy warunków jest kilka, SUMA.WARUNKÓW jest czytelniejsza i łatwiejsza do rozbudowy.
 
 To jedna z najbardziej praktycznych funkcji w raportach sprzedaży, kosztów, czasu pracy i budżetach.
+
+## Przykład: raport sprzedaży handlowca
+
+Jeżeli A zawiera handlowca, B region, C status, a D wartość sprzedaży, możesz zsumować tylko zatwierdzone transakcje wybranej osoby:
+
+<div class="formula">=SUMA.WARUNKÓW(D2:D100;A2:A100;F2;C2:C100;"Gotowe")</div>
+
+Dodanie kolejnego kryterium nie zmienia logiki — każdy następny warunek musi być spełniony jednocześnie.
