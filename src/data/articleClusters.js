@@ -31,6 +31,22 @@ export const articleClusters = {
       { slug: 'jak-znalezc-wartosc-w-tabeli', title: 'Jak znaleźć wartość w tabeli?', label: 'wybór metody' }
     ]
   },
+  'formuly/logika': {
+    title: 'Warunki i logika',
+    hub: '/formuly/logika/',
+    articles: [
+      { slug: 'jezeli-podstawy', title: 'JEŻELI — prosty przykład', label: 'JEŻELI' },
+      { slug: 'jezeli-wiele-warunkow', title: 'JEŻELI z wieloma warunkami', label: 'wiele warunków' },
+      { slug: 'jezeli-oraz', title: 'JEŻELI + ORAZ', label: 'ORAZ' },
+      { slug: 'jezeli-lub', title: 'JEŻELI + LUB', label: 'LUB' },
+      { slug: 'jezeli-pusta-komorka', title: 'JEŻELI i pusta komórka', label: '=""' },
+      { slug: 'jezeli-blad', title: 'JEŻELI.BŁĄD — obsługa błędów', label: 'JEŻELI.BŁĄD' },
+      { slug: 'jezeli-tekst', title: 'JEŻELI i warunek tekstowy', label: 'tekst' },
+      { slug: 'jezeli-data', title: 'JEŻELI i daty', label: 'daty' },
+      { slug: 'jezeli-progi', title: 'JEŻELI i przedziały liczbowe', label: 'progi' },
+      { slug: 'jezeli-kilka-kryteriow', title: 'Kilka kryteriów w jednej formule', label: 'ORAZ / LUB' }
+    ]
+  },
   'formuly/daty': {
     title: 'Daty i czas',
     hub: '/formuly/daty/',
