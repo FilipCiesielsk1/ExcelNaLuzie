@@ -50,7 +50,7 @@ const textOf = (html, tag) =>
     .trim() ?? '';
 
 const attr = (tag, name) =>
-  tag.match(new RegExp('\\b' + name + '=["\\']([^"\\']+)["\\']', 'i'))?.[1] ?? '';
+  tag.match(new RegExp("\\b" + name + "=[\"']([^\"']+)[\"']", "i"))?.[1] ?? '';
 
 const resolveInternalTarget = (href) => {
   if (!href || href.startsWith('#') || /^(mailto:|tel:|javascript:|data:)/i.test(href)) return null;
