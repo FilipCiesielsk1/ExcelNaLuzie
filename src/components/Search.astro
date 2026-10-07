@@ -1,23 +1,51 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
-<div class="search-shell" id="szukaj">
+<div class="search-shell" id="szukaj" role="search">
   <div class="search-box">
     <span class="search-icon" aria-hidden="true">⌕</span>
-    <input id="site-search" type="search" placeholder="Wpisz problem, np. X.WYSZUKAJ dwa warunki" aria-label="Szukaj w ExcelNaLuzie" autocomplete="off"/>
-    <span class="search-key">Enter</span>
+    <input
+      id="site-search"
+      type="search"
+      placeholder="Wpisz problem, np. X.WYSZUKAJ dwa warunki"
+      aria-label="Szukaj w ExcelNaLuzie"
+      aria-controls="search-results"
+      aria-describedby="search-hint"
+      autocomplete="off"
+    />
+    <span class="search-key" id="search-hint">Enter</span>
   </div>
-  <div id="search-results" class="search-results"></div>
+  <div id="search-results" class="search-results" aria-live="polite" aria-busy="false"></div>
 </div>
 
 <script is:inline define:vars={{ base }}>
 const input=document.querySelector('#site-search');
 const box=document.querySelector('#search-results');
 let pf;
+let requestId=0;
 
-input?.addEventListener('input',async()=>{
+const esc=(value='')=>String(value)
+  .replaceAll('&','&amp;')
+  .replaceAll('<','&lt;')
+  .replaceAll('>','&gt;')
+  .replaceAll('"','&quot;')
+  .replaceAll("'","&#039;");
+
+const clearResults=()=>{
+  box.innerHTML='';
+  box.setAttribute('aria-busy','false');
+};
+
+const runSearch=async()=>{
   const q=input.value.trim();
-  if(q.length<2){box.innerHTML='';return;}
+  const current=++requestId;
+
+  if(q.length<2){
+    clearResults();
+    return;
+  }
+
+  box.setAttribute('aria-busy','true');
 
   try{
     pf??=await import(base+'pagefind/pagefind.js');
@@ -25,12 +53,38 @@ input?.addEventListener('input',async()=>{
     const s=await pf.search(q);
     const rows=await Promise.all(s.results.slice(0,6).map(r=>r.data()));
 
+    if(current!==requestId) return;
+
     box.innerHTML=rows.map(r=>{
       const target=r.url.startsWith(base) ? r.url : base+r.url.replace(/^\//,'');
-      return '<a class="search-result" href="'+target+'"><span><strong>'+(r.meta.title||r.url)+'</strong><small>'+(r.excerpt||'')+'</small></span><b aria-hidden="true">→</b></a>';
-    }).join('') || '<p class="search-empty">Nie znaleziono jeszcze pasującego poradnika.</p>';
+      const title=esc(r.meta.title||r.url);
+      const excerpt=esc((r.excerpt||'').replace(/<[^>]*>/g,''));
+      return '<a class="search-result" href="'+esc(target)+'"><span><strong>'+title+'</strong><small>'+excerpt+'</small></span><b aria-hidden="true">→</b></a>';
+    }).join('') || '<p class="search-empty">Nie znaleziono pasującego poradnika.</p>';
   }catch(e){
-    box.innerHTML='<p class="search-empty">Wyszukiwarka będzie aktywna po wdrożeniu strony.</p>';
+    if(current!==requestId) return;
+    box.innerHTML='<p class="search-empty">Wyszukiwarka jest chwilowo niedostępna.</p>';
+  }finally{
+    if(current===requestId) box.setAttribute('aria-busy','false');
+  }
+};
+
+input?.addEventListener('input',runSearch);
+
+input?.addEventListener('keydown',(event)=>{
+  if(event.key==='Escape'){
+    input.value='';
+    clearResults();
+    input.blur();
+    return;
+  }
+
+  if(event.key==='Enter'){
+    const first=box.querySelector('a.search-result');
+    if(first){
+      event.preventDefault();
+      first.click();
+    }
   }
 });
 </script>
