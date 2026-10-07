@@ -13,6 +13,35 @@ const {
 } = Astro.props;
 
 const canonical = `/narzedzia/${slug}/`;
+const absoluteUrl = `https://excelnaluzie.pl${canonical}`;
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'WebApplication',
+      '@id':absoluteUrl + '#app',
+      name:title,
+      description,
+      url:absoluteUrl,
+      applicationCategory:'BusinessApplication',
+      operatingSystem:'Any',
+      browserRequirements:'JavaScript',
+      inLanguage:'pl-PL',
+      isAccessibleForFree:true,
+      author:{'@type':'Person',name:'Filip Ciesielski'},
+      publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'}
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Narzędzia Excel',item:'https://excelnaluzie.pl/narzedzia/'},
+        {'@type':'ListItem',position:3,name:title,item:absoluteUrl}
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -21,6 +50,8 @@ const canonical = `/narzedzia/${slug}/`;
   description={description}
   canonical={canonical}
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
   <div class="tool-page">
     <div class="tool-page-wrap">
       <nav class="breadcrumbs" aria-label="Okruszki">
