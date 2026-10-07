@@ -36,5 +36,24 @@ const items = [
       <span aria-hidden="true">⌕</span>
       <span>Szukaj</span>
     </a>
+
+    <details class="mobile-menu">
+      <summary aria-label="Otwórz menu nawigacji">
+        <span aria-hidden="true" class="mobile-menu-icon">☰</span>
+        <span>Menu</span>
+      </summary>
+      <nav class="mobile-menu-panel" aria-label="Nawigacja mobilna">
+        {items.map((item) => (
+          <a
+            href={link(item.href)}
+            class:list={{ active: activeSection === item.key }}
+            aria-current={activeSection === item.key ? 'page' : undefined}
+          >
+            <span>{item.label}</span>
+            <b aria-hidden="true">→</b>
+          </a>
+        ))}
+      </nav>
+    </details>
   </div>
 </header>
