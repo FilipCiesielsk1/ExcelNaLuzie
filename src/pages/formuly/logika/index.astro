@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
+
+const cluster = articleClusters['formuly/logika'];
+const articles = cluster.articles;
+---
+
+<BaseLayout
+  title={`Warunki i logika w Excelu — ${articles.length} praktycznych poradników | ExcelNaLuzie`}
+  description="Formuły logiczne w Excelu: JEŻELI, ORAZ, LUB, wiele warunków, puste komórki, daty, tekst i obsługa błędów. Gotowe przykłady."
+>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><a href={link("/formuly/")}>Formuły</a><span>›</span><strong>Warunki i logika</strong></nav>
+        <span class="hub-kicker">Klaster: Warunki i logika</span>
+        <h1>Jeśli warunek jest spełniony.<br/><em>Zrób właściwą rzecz.</em></h1>
+        <p>Od prostego JEŻELI po kilka kryteriów, daty, tekst i obsługę błędów. Każdy poradnik zaczyna się od gotowej formuły.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>JEŻELI</span><code>=JEŻELI(B2&gt;=100;"TAK";"NIE")</code></div>
+        <div class="formula-stack-card two"><span>Dwa warunki</span><code>=JEŻELI(ORAZ(...);...;...)</code></div>
+        <div class="formula-stack-card three"><span>Alternatywa</span><code>=JEŻELI(LUB(...);...;...)</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">{articles.length} poradników</span><h2>Jaki warunek chcesz zbudować?</h2></div>
+        <p>Wybierz rezultat: pojedynczy test, kilka kryteriów, puste komórki, daty, tekst albo czytelny komunikat zamiast błędu.</p>
+      </div>
+      <div class="hub-article-list">
+        {articles.map((item,index) => (
+          <a href={link('/poradniki/' + item.slug + '/')}>
+            <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
+            <div><small>Warunki i logika</small><strong>{item.title}</strong></div>
+            <code>{item.label}</code>
+            <b>→</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Najważniejsza zasada</span><h2>Najpierw nazwij warunek</h2></div>
+        <p>Większość problemów logicznych staje się prosta, gdy zapiszesz je zwykłym zdaniem: „jeśli A i B, pokaż X; w przeciwnym razie pokaż Y”.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Jeden test</strong><p>Użyj JEŻELI, gdy decyzja zależy od jednego warunku.</p></div>
+        <div><span>02</span><strong>Kilka warunków naraz</strong><p>Połącz je funkcją ORAZ, jeśli wszystkie muszą być prawdziwe, albo LUB, jeśli wystarczy jeden.</p></div>
+        <div><span>03</span><strong>Błędy i braki</strong><p>Obsłuż puste komórki i błędy jawnie, żeby raport nie pokazywał przypadkowych komunikatów.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
