@@ -44,7 +44,8 @@ const schema = {
       inLanguage:'pl-PL',
       mainEntityOfPage:{'@type':'WebPage','@id':absoluteUrl},
       author:{'@type':'Person',name:author,url:'https://excelnaluzie.pl/o-serwisie/'},
-      publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'}
+      publisher:{'@id':'https://excelnaluzie.pl/#organization'},
+      isPartOf:{'@id':'https://excelnaluzie.pl/#website'}
     },
     {
       '@type':'BreadcrumbList',
@@ -64,6 +65,9 @@ const schema = {
   canonical={canonical}
   ogType="article"
   navSection={categorySlug.split('/')[0]}
+  articlePublishedTime={date}
+  articleModifiedTime={updated}
+  articleAuthor={author}
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
