@@ -47,6 +47,22 @@ export const articleClusters = {
       { slug: 'jezeli-kilka-kryteriow', title: 'Kilka kryteriów w jednej formule', label: 'ORAZ / LUB' }
     ]
   },
+  'formuly/liczenie': {
+    title: 'Liczenie i sumowanie',
+    hub: '/formuly/liczenie/',
+    articles: [
+      { slug: 'licz-jezeli-podstawy', title: 'LICZ.JEŻELI — prosty przykład', label: 'LICZ.JEŻELI' },
+      { slug: 'licz-jezeli-tekst', title: 'LICZ.JEŻELI dla tekstu', label: 'tekst' },
+      { slug: 'licz-jezeli-wieksze-mniejsze', title: 'LICZ.JEŻELI — większe, mniejsze i przedział', label: '> / <' },
+      { slug: 'licz-warunki-wiele-kryteriow', title: 'LICZ.WARUNKI — wiele kryteriów', label: 'LICZ.WARUNKI' },
+      { slug: 'suma-jezeli-podstawy', title: 'SUMA.JEŻELI — prosty przykład', label: 'SUMA.JEŻELI' },
+      { slug: 'suma-warunkow-wiele-kryteriow', title: 'SUMA.WARUNKÓW — wiele kryteriów', label: 'SUMA.WARUNKÓW' },
+      { slug: 'suma-warunkow-daty', title: 'SUMA.WARUNKÓW i daty', label: 'daty' },
+      { slug: 'suma-warunkow-tekst', title: 'SUMA.WARUNKÓW i tekst', label: 'tekst' },
+      { slug: 'policz-unikalne-wartosci', title: 'Jak policzyć unikalne wartości?', label: 'UNIKATOWE' },
+      { slug: 'policz-niepuste-komorki', title: 'Jak policzyć niepuste komórki?', label: '<>' }
+    ]
+  },
   'formuly/daty': {
     title: 'Daty i czas',
     hub: '/formuly/daty/',
