@@ -2,6 +2,36 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
 import { templateCatalog } from '../../data/templateCatalog.js';
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'CollectionPage',
+      '@id':'https://excelnaluzie.pl/szablony/#collection',
+      name:'Darmowe szablony Excel',
+      description:'Darmowe szablony Excel XLSX do codziennej pracy.',
+      url:'https://excelnaluzie.pl/szablony/',
+      inLanguage:'pl-PL',
+      mainEntity:{
+        '@type':'ItemList',
+        itemListElement:templateCatalog.map((template,index)=>({
+          '@type':'ListItem',
+          position:index+1,
+          name:template.title,
+          url:'https://excelnaluzie.pl/szablony/' + template.slug + '/'
+        }))
+      }
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Szablony Excel',item:'https://excelnaluzie.pl/szablony/'}
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -9,6 +39,8 @@ import { templateCatalog } from '../../data/templateCatalog.js';
   title="Szablony Excel — darmowe pliki XLSX | ExcelNaLuzie"
   description="Darmowe szablony Excel XLSX: budżet domowy, lista zadań i ewidencja czasu pracy. Podgląd, instrukcja i gotowy plik do pobrania."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
   <section class="hub-hero hub-templates">
     <div class="wrap hub-hero-grid">
       <div>
