@@ -66,3 +66,11 @@ Jeżeli suma jest niższa niż oczekujesz, sprawdź źródłowe teksty przed kom
 ## Kiedy użyć SUMA.JEŻELI?
 
 Jeżeli masz tylko jeden warunek tekstowy, SUMA.JEŻELI może być krótsza. SUMA.WARUNKÓW warto stosować wtedy, gdy planujesz dodawać kolejne kryteria albo raport od początku opiera się na kilku kolumnach.
+
+## Przykład: suma dla wybranego statusu i kategorii
+
+Jeżeli status wybierasz w F2, a kategorię w G2, możesz połączyć oba parametry bez wpisywania tekstu na stałe:
+
+<div class="formula">=SUMA.WARUNKÓW(C2:C100;A2:A100;F2;B2:B100;G2)</div>
+
+Takie rozwiązanie dobrze sprawdza się w prostych dashboardach, bo użytkownik zmienia parametry, a formuła pozostaje bez zmian.
