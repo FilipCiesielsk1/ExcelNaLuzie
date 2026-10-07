@@ -70,3 +70,11 @@ Drugim częstym problemem jest nieprawidłowe zapisanie operatora. Zapis >=100 p
 ## Kiedy użyć czegoś innego?
 
 Jeżeli chcesz zsumować wartości spełniające kryterium, użyj SUMA.JEŻELI lub SUMA.WARUNKÓW. LICZ.JEŻELI zwraca wyłącznie liczbę pasujących komórek — nie sumuje ich zawartości.
+
+## Przykład: kontrola statusów w tabeli
+
+Jeżeli w kolumnie A masz status każdego zadania, możesz szybko sprawdzić liczbę pozycji zakończonych i porównać ją z liczbą wszystkich rekordów. To prosty sposób na budowę wskaźnika postępu bez tabeli przestawnej.
+
+<div class="formula">=LICZ.JEŻELI(A2:A100;"Gotowe")</div>
+
+W praktyce dobrze jest trzymać kryterium w jednej komórce pomocniczej, jeśli ma być często zmieniane.
