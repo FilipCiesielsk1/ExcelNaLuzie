@@ -2,6 +2,35 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
 import { vbaCatalog } from '../../data/vbaCatalog.js';
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'CollectionPage',
+      name:'VBA Excel — gotowe makra i automatyzacje',
+      url:'https://excelnaluzie.pl/vba/',
+      inLanguage:'pl-PL',
+      mainEntity:{
+        '@type':'ItemList',
+        numberOfItems:vbaCatalog.length,
+        itemListElement:vbaCatalog.map((article,index)=>({
+          '@type':'ListItem',
+          position:index+1,
+          name:article.shortTitle,
+          url:'https://excelnaluzie.pl/vba/' + article.slug + '/'
+        }))
+      }
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'VBA Excel',item:'https://excelnaluzie.pl/vba/'}
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -9,6 +38,8 @@ import { vbaCatalog } from '../../data/vbaCatalog.js';
   title="VBA Excel — gotowe makra i automatyzacje | ExcelNaLuzie"
   description="Praktyczne przykłady VBA do Excela: zakresy, arkusze, pliki, PDF, Outlook i przyspieszanie makr. Gotowy kod do skopiowania."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
   <section class="hub-hero hub-vba">
     <div class="wrap hub-hero-grid">
       <div>

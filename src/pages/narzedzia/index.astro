@@ -1,6 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
+
+const toolItems = [
+  ['Generator JEŻELI','generator-jezeli'],
+  ['Generator X.WYSZUKAJ','generator-xwyszukaj'],
+  ['Generator SUMA.WARUNKÓW','generator-suma-warunkow'],
+  ['Generator LICZ.WARUNKI','generator-licz-warunki'],
+  ['Kolumna ↔ numer','kolumna-numer-litera'],
+  ['Kalkulator dat Excel','kalkulator-dat'],
+  ['Generator formatów','generator-formatow']
+];
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'CollectionPage',
+      name:'Narzędzia Excel — generatory i kalkulatory',
+      url:'https://excelnaluzie.pl/narzedzia/',
+      inLanguage:'pl-PL',
+      mainEntity:{
+        '@type':'ItemList',
+        numberOfItems:toolItems.length,
+        itemListElement:toolItems.map((item,index)=>({
+          '@type':'ListItem',
+          position:index+1,
+          name:item[0],
+          url:'https://excelnaluzie.pl/narzedzia/' + item[1] + '/'
+        }))
+      }
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Narzędzia Excel',item:'https://excelnaluzie.pl/narzedzia/'}
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -8,6 +47,8 @@ import { withBase as link } from '../../utils/paths.js';
   title="Narzędzia Excel — generatory i kalkulatory | ExcelNaLuzie"
   description="Darmowe narzędzia do Excela działające w przeglądarce: generatory formuł, konwertery i kalkulatory."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
   <section class="hub-hero hub-tools">
     <div class="wrap hub-hero-grid">
       <div>

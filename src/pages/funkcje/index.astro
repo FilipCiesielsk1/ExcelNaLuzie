@@ -2,6 +2,35 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../utils/paths.js';
 import { functionCatalog } from '../../data/functionCatalog.js';
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'CollectionPage',
+      name:'Funkcje Excel — baza funkcji po polsku',
+      url:'https://excelnaluzie.pl/funkcje/',
+      inLanguage:'pl-PL',
+      mainEntity:{
+        '@type':'ItemList',
+        numberOfItems:functionCatalog.length,
+        itemListElement:functionCatalog.map((fn,index)=>({
+          '@type':'ListItem',
+          position:index+1,
+          name:fn.name,
+          url:'https://excelnaluzie.pl/funkcje/' + fn.slug + '/'
+        }))
+      }
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Funkcje Excel',item:'https://excelnaluzie.pl/funkcje/'}
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -9,6 +38,8 @@ import { functionCatalog } from '../../data/functionCatalog.js';
   title="Funkcje Excel — baza funkcji po polsku | ExcelNaLuzie"
   description="Baza funkcji Excel po polsku: składnia, zastosowanie, praktyczne przykłady i powiązane poradniki."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
   <section class="hub-hero hub-functions">
     <div class="wrap hub-hero-grid">
       <div>

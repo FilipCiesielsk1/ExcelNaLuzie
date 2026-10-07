@@ -5,12 +5,44 @@ import { articleClusters } from '../../data/articleClusters.js';
 
 const activeClusters = Object.values(articleClusters);
 const totalArticles = activeClusters.reduce((sum, cluster) => sum + cluster.articles.length, 0);
+const formulaArticles = activeClusters.flatMap((cluster) => cluster.articles);
+
+const schema = {
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'CollectionPage',
+      name:'Formuły Excel — gotowe rozwiązania i przykłady',
+      url:'https://excelnaluzie.pl/formuly/',
+      inLanguage:'pl-PL',
+      mainEntity:{
+        '@type':'ItemList',
+        numberOfItems:formulaArticles.length,
+        itemListElement:formulaArticles.map((article,index)=>({
+          '@type':'ListItem',
+          position:index+1,
+          name:article.title,
+          url:'https://excelnaluzie.pl/poradniki/' + article.slug + '/'
+        }))
+      }
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Formuły Excel',item:'https://excelnaluzie.pl/formuly/'}
+      ]
+    }
+  ]
+};
 ---
 
 <BaseLayout
   title="Formuły Excel — gotowe rozwiązania i przykłady | ExcelNaLuzie"
   description="Praktyczne formuły Excel podzielone według problemów: tekst, daty, wyszukiwanie, warunki, liczenie i formuły dynamiczne."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
   <section class="hub-hero hub-formulas">
     <div class="wrap hub-hero-grid">
       <div>
