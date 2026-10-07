@@ -71,6 +71,20 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] wzorcowy templates/article-seo.md
 - [x] AGENTS.md dla AI
 - [x] walidacja treści przed buildem
+- [x] minimalny próg jakości treści w CI dla poradników i stron funkcji
+- [x] rozbudowane 30 poradników o praktyczne przykłady, pułapki i warianty
+- [x] rozbudowane strony 9 funkcji o praktyczne użycie
+
+### Jakość, SEO techniczne i dostępność
+- [x] własna strona 404 z noindex
+- [x] automatyczna walidacja canonical, sitemap, robots i linków wewnętrznych po buildzie
+- [x] structured data dla poradników, funkcji, VBA, narzędzi, szablonów i głównych katalogów
+- [x] strona O serwisie i spójna tożsamość autora w schema.org
+- [x] polityka prywatności
+- [x] mobilna nawigacja
+- [x] obsługa klawiatury: focus-visible i link „Przejdź do treści”
+- [x] prefers-reduced-motion
+- [x] aria-live dla dynamicznych wyników narzędzi
 
 ---
 
