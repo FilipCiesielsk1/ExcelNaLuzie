@@ -88,6 +88,7 @@ const functionCount = functionTranslations.length;
 
     let activeIndex = -1;
     let currentMatches = [];
+    let hasInteracted = false;
 
     const normalize = (value) => value
       .trim()
@@ -128,10 +129,47 @@ const functionCount = functionTranslations.length;
 
     const closeSuggestions = () => {
       suggestions.classList.add('hidden');
+      suggestions.classList.remove('open-up');
       suggestions.replaceChildren();
+      suggestions.removeAttribute('style');
       input.setAttribute('aria-expanded', 'false');
       activeIndex = -1;
       currentMatches = [];
+    };
+
+    const placeSuggestions = () => {
+      if (suggestions.classList.contains('hidden')) return;
+
+      const rect = input.getBoundingClientRect();
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const mobile = viewportWidth <= 640;
+
+      const left = mobile ? 12 : Math.max(12, rect.left);
+      const width = mobile
+        ? Math.max(280, viewportWidth - 24)
+        : Math.min(Math.max(rect.width, 430), viewportWidth - left - 12);
+
+      suggestions.style.left = left + 'px';
+      suggestions.style.width = width + 'px';
+      suggestions.style.right = 'auto';
+
+      const desiredHeight = Math.min(suggestions.scrollHeight, mobile ? 420 : 390);
+      const spaceBelow = viewportHeight - rect.bottom - 12;
+      const spaceAbove = rect.top - 12;
+      const openAbove = spaceBelow < Math.min(desiredHeight, 240) && spaceAbove > spaceBelow;
+
+      suggestions.classList.toggle('open-up', openAbove);
+
+      if (openAbove) {
+        const height = Math.min(desiredHeight, Math.max(160, spaceAbove - 8));
+        suggestions.style.maxHeight = height + 'px';
+        suggestions.style.top = Math.max(12, rect.top - height - 8) + 'px';
+      } else {
+        const height = Math.min(desiredHeight, Math.max(160, spaceBelow - 8));
+        suggestions.style.maxHeight = height + 'px';
+        suggestions.style.top = Math.min(viewportHeight - 12, rect.bottom + 8) + 'px';
+      }
     };
 
     const selectMatch = (pair) => {
@@ -146,7 +184,7 @@ const functionCount = functionTranslations.length;
       currentMatches = matches;
       activeIndex = -1;
 
-      if (!matches.length) {
+      if (!hasInteracted || !matches.length) {
         closeSuggestions();
         return;
       }
@@ -183,6 +221,7 @@ const functionCount = functionTranslations.length;
 
       suggestions.classList.remove('hidden');
       input.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(placeSuggestions);
     };
 
     const updateActive = () => {
@@ -194,7 +233,7 @@ const functionCount = functionTranslations.length;
       });
     };
 
-    const update = () => {
+    const update = (showSuggestions = false) => {
       const query = normalize(input.value);
 
       if (!query) {
@@ -206,7 +245,9 @@ const functionCount = functionTranslations.length;
         return;
       }
 
+      const matches = findMatches(query);
       const exact = exactPair(query);
+
       if (exact) {
         setResult(exact);
       } else {
@@ -214,19 +255,39 @@ const functionCount = functionTranslations.length;
         en.textContent = '—';
         message.textContent = query.length < 2
           ? 'Wpisz jeszcze jeden znak, aby zobaczyć podpowiedzi.'
-          : 'Wybierz funkcję z podpowiedzi.';
-        message.classList.toggle('error', query.length >= 2 && findMatches(query).length === 0);
+          : matches.length
+            ? 'Wybierz funkcję z podpowiedzi.'
+            : 'Nie znaleziono funkcji pasującej do wpisanego tekstu.';
+        message.classList.toggle('error', query.length >= 2 && matches.length === 0);
       }
 
-      renderSuggestions(findMatches(query));
+      if (showSuggestions && query.length >= 2) {
+        renderSuggestions(matches);
+      } else {
+        closeSuggestions();
+      }
     };
 
-    input.addEventListener('input', update);
-    input.addEventListener('focus', update);
+    input.addEventListener('input', () => {
+      hasInteracted = true;
+      update(true);
+    });
+
+    input.addEventListener('focus', () => {
+      if (hasInteracted && normalize(input.value).length >= 2) update(true);
+    });
 
     input.addEventListener('keydown', (event) => {
       if (suggestions.classList.contains('hidden') || !currentMatches.length) {
-        if (event.key === 'ArrowDown') update();
+        if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          hasInteracted = true;
+          update(true);
+          if (currentMatches.length) {
+            activeIndex = 0;
+            updateActive();
+          }
+        }
         return;
       }
 
@@ -253,8 +314,11 @@ const functionCount = functionTranslations.length;
     });
 
     document.addEventListener('click', (event) => {
-      if (!root.contains(event.target)) closeSuggestions();
+      if (!root.contains(event.target) && !suggestions.contains(event.target)) closeSuggestions();
     });
+
+    window.addEventListener('resize', placeSuggestions);
+    window.addEventListener('scroll', placeSuggestions, true);
 
     const copy = async (value, button) => {
       if (!value || value === '—') return;
@@ -274,7 +338,7 @@ const functionCount = functionTranslations.length;
       copy(en.textContent, event.currentTarget)
     );
 
-    update();
+    update(false);
   </script>
 
   <div class="generator-help">
@@ -284,24 +348,42 @@ const functionCount = functionTranslations.length;
   </div>
 </ToolLayout>
 
-<style>
+<style is:global>
   .translator-search {
     position: relative;
   }
 
   .translator-suggestions {
-    position: absolute;
-    z-index: 30;
-    top: calc(100% - 2px);
-    left: 0;
-    right: 0;
-    max-height: 390px;
+    position: fixed;
+    z-index: 1000;
     overflow-y: auto;
-    background: var(--surface, #fff);
-    border: 1px solid rgba(20, 29, 39, .16);
-    border-radius: 14px;
-    box-shadow: 0 18px 50px rgba(20, 29, 39, .16);
-    padding: 6px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.98), rgba(250,251,250,.98));
+    border: 1px solid rgba(20, 29, 39, .13);
+    border-radius: 16px;
+    box-shadow:
+      0 22px 60px rgba(20, 29, 39, .18),
+      0 3px 12px rgba(20, 29, 39, .08);
+    padding: 7px;
+    backdrop-filter: blur(14px);
+    scrollbar-width: thin;
+  }
+
+  .translator-suggestions::before {
+    content: 'Podpowiedzi';
+    display: block;
+    padding: 6px 10px 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(20, 29, 39, .48);
+  }
+
+  .translator-suggestions.open-up::before {
+    content: 'Podpowiedzi';
   }
 
   .translator-suggestions.hidden {
@@ -315,9 +397,10 @@ const functionCount = functionTranslations.length;
     justify-content: space-between;
     gap: 16px;
     border: 0;
-    border-radius: 10px;
+    border-radius: 11px;
     background: transparent;
-    padding: 10px 12px;
+    padding: 11px 12px;
+    min-height: 48px;
     text-align: left;
     cursor: pointer;
     color: inherit;
@@ -326,6 +409,10 @@ const functionCount = functionTranslations.length;
   .translator-suggestion:hover,
   .translator-suggestion.active {
     background: rgba(50, 120, 90, .10);
+  }
+
+  .translator-suggestion + .translator-suggestion {
+    border-top: 1px solid rgba(20, 29, 39, .055);
   }
 
   .translator-suggestion-names {
@@ -342,7 +429,11 @@ const functionCount = functionTranslations.length;
 
   .translator-suggestion code {
     font-size: 12px;
+    font-weight: 650;
     opacity: .72;
+    background: rgba(20, 29, 39, .055);
+    border-radius: 7px;
+    padding: 3px 6px;
   }
 
   .translator-suggestion small {
@@ -366,8 +457,33 @@ const functionCount = functionTranslations.length;
   }
 
   @media (max-width: 640px) {
+    .translator-suggestions {
+      border-radius: 18px;
+      padding: 7px;
+      max-width: calc(100vw - 24px);
+      box-shadow:
+        0 18px 44px rgba(20, 29, 39, .22),
+        0 2px 8px rgba(20, 29, 39, .08);
+    }
+
     .translator-suggestion {
-      align-items: flex-start;
+      align-items: center;
+      padding: 12px;
+      min-height: 52px;
+    }
+
+    .translator-suggestion-names {
+      gap: 7px;
+    }
+
+    .translator-suggestion strong {
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .translator-suggestion code {
+      font-size: 11px;
+      overflow-wrap: anywhere;
     }
 
     .translator-suggestion small {
