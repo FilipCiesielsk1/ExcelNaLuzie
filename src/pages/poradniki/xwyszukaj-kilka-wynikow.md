@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/ArticleLayout.astro
-title: "X.WYSZUKAJ i kilka wyników — jak zwrócić wszystkie dopasowania?"
+title: "X.WYSZUKAJ i wiele wyników — użyj FILTRUJ"
 description: "X.WYSZUKAJ zwraca pojedyncze dopasowanie. Zobacz, jak zwrócić wszystkie pasujące wiersze w Excelu za pomocą funkcji FILTRUJ."
 slug: "xwyszukaj-kilka-wynikow"
 category: "Wyszukiwanie danych"

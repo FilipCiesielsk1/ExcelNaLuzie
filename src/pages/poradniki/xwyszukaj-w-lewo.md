@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/ArticleLayout.astro
-title: "X.WYSZUKAJ w lewo — jak zwrócić wartość z wcześniejszej kolumny?"
+title: "X.WYSZUKAJ w lewo — prosty przykład"
 description: "Jak wyszukiwać w lewo w Excelu za pomocą X.WYSZUKAJ. Gotowa formuła, przykład i porównanie z WYSZUKAJ.PIONOWO."
 slug: "xwyszukaj-w-lewo"
 category: "Wyszukiwanie danych"
