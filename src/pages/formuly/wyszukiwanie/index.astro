@@ -1,23 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
 
-const articles = [
-  ['xwyszukaj-podstawy','X.WYSZUKAJ — prosty przykład','X.WYSZUKAJ'],
-  ['xwyszukaj-dwa-warunki','X.WYSZUKAJ z dwoma warunkami','2 warunki'],
-  ['xwyszukaj-kilka-warunkow','X.WYSZUKAJ z kilkoma warunkami','3+ warunki'],
-  ['xwyszukaj-w-lewo','X.WYSZUKAJ w lewo','w lewo'],
-  ['xwyszukaj-kilka-wynikow','X.WYSZUKAJ i kilka wyników','FILTRUJ'],
-  ['xwyszukaj-najblizsza-wartosc','X.WYSZUKAJ — najbliższa wartość','-1 / 1'],
-  ['xwyszukaj-brak-wyniku','X.WYSZUKAJ — brak wyniku','#N/D'],
-  ['wyszukaj-pionowo-dwa-warunki','WYSZUKAJ.PIONOWO z dwoma warunkami','WYSZUKAJ.PIONOWO'],
-  ['indeks-podaj-pozycje','INDEKS + PODAJ.POZYCJĘ','INDEKS'],
-  ['jak-znalezc-wartosc-w-tabeli','Jak znaleźć wartość w tabeli?','wybór metody']
-];
+const cluster = articleClusters['formuly/wyszukiwanie'];
+const articles = cluster.articles;
 ---
 
 <BaseLayout
-  title="Wyszukiwanie danych w Excelu — 10 poradników | ExcelNaLuzie"
+  title={`Wyszukiwanie danych w Excelu — ${articles.length} poradników | ExcelNaLuzie`}
   description="Wyszukiwanie danych w Excelu: X.WYSZUKAJ, FILTRUJ, WYSZUKAJ.PIONOWO, INDEKS + PODAJ.POZYCJĘ oraz wiele warunków."
 >
   <section class="hub-hero hub-formulas">
@@ -43,15 +34,15 @@ const articles = [
   <section class="hub-section" id="poradniki">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">10 poradników</span><h2>Jakiego wyszukiwania potrzebujesz?</h2></div>
+        <div><span class="section-kicker">{articles.length} poradników</span><h2>Jakiego wyszukiwania potrzebujesz?</h2></div>
         <p>Wybierz problem zamiast zgadywać nazwę funkcji. Każda strona prowadzi od gotowej formuły do wyjaśnienia.</p>
       </div>
       <div class="hub-article-list">
         {articles.map((item,index) => (
-          <a href={link('/poradniki/' + item[0] + '/')}>
+          <a href={link('/poradniki/' + item.slug + '/')}>
             <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
-            <div><small>Wyszukiwanie danych</small><strong>{item[1]}</strong></div>
-            <code>{item[2]}</code>
+            <div><small>Wyszukiwanie danych</small><strong>{item.title}</strong></div>
+            <code>{item.label}</code>
             <b>→</b>
           </a>
         ))}
