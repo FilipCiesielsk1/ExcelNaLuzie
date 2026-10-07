@@ -21,7 +21,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - GitHub jako repozytorium
 - GitHub Actions jako CI/CD
 - GitHub Pages jako hosting
-- docelowa domena: ExcelNaLuzie.pl
+- domena produkcyjna: ExcelNaLuzie.pl
 
 ---
 
@@ -124,7 +124,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] instrukcja użycia przy każdym pliku
 
 ### Etap 6 — produkcyjne SEO
-- [ ] podpiąć domenę ExcelNaLuzie.pl
+- [x] podpiąć domenę ExcelNaLuzie.pl
 - [ ] Google Search Console
 - [ ] przesłać sitemap
 - [ ] Google Analytics lub alternatywna lekka analityka
