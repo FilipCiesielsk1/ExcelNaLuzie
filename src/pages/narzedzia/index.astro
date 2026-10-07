@@ -9,7 +9,10 @@ const toolItems = [
   ['Generator LICZ.WARUNKI','generator-licz-warunki'],
   ['Kolumna ↔ numer','kolumna-numer-litera'],
   ['Kalkulator dat Excel','kalkulator-dat'],
-  ['Generator formatów','generator-formatow']
+  ['Generator formatów','generator-formatow'],
+  ['Generator FILTRUJ','generator-filtruj'],
+  ['Generator INDEKS + PODAJ.POZYCJĘ','generator-indeks-podaj-pozycje'],
+  ['Tłumacz funkcji PL ↔ EN','tlumacz-funkcji-excel']
 ];
 
 const schema = {
@@ -75,7 +78,7 @@ const schema = {
   <section class="hub-section" id="narzedzia">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Mini-aplikacje</span><h2>7 narzędzi już działa</h2></div>
+        <div><span class="section-kicker">Mini-aplikacje</span><h2>{toolItems.length} narzędzi już działa</h2></div>
         <p>Wszystko liczy się lokalnie w przeglądarce. Możesz zbudować formułę, skopiować ją jednym kliknięciem i wkleić do Excela.</p>
       </div>
 
@@ -127,6 +130,27 @@ const schema = {
           <h3>Generator formatów</h3>
           <p>Zbuduj format liczby, waluty, procentu, daty, czasu lub własnej jednostki.</p>
           <div class="tool-tags"><span>formaty</span><span>daty</span><span>[g]:mm</span></div>
+        </a>
+
+        <a class="tool-card priority live" href={link("/narzedzia/generator-filtruj/")}>
+          <div class="tool-card-top"><span class="tool-icon">⇢</span><span class="tool-status">Gotowe</span></div>
+          <h3>Generator FILTRUJ</h3>
+          <p>Zbuduj dynamiczne filtrowanie z maksymalnie trzema warunkami połączonymi logiką ORAZ albo LUB.</p>
+          <div class="tool-tags"><span>FILTRUJ</span><span>ORAZ / LUB</span><span>Microsoft 365+</span></div>
+        </a>
+
+        <a class="tool-card priority live" href={link("/narzedzia/generator-indeks-podaj-pozycje/")}>
+          <div class="tool-card-top"><span class="tool-icon">I↔P</span><span class="tool-status">Gotowe</span></div>
+          <h3>Generator INDEKS + PODAJ.POZYCJĘ</h3>
+          <p>Wpisz wartość i dwa zakresy, a narzędzie przygotuje klasyczną formułę wyszukującą.</p>
+          <div class="tool-tags"><span>INDEKS</span><span>PODAJ.POZYCJĘ</span><span>starszy Excel</span></div>
+        </a>
+
+        <a class="tool-card priority live" href={link("/narzedzia/tlumacz-funkcji-excel/")}>
+          <div class="tool-card-top"><span class="tool-icon">PL↔EN</span><span class="tool-status">Gotowe</span></div>
+          <h3>Tłumacz funkcji Excel</h3>
+          <p>Sprawdź polską lub angielską nazwę najważniejszych funkcji Excela i skopiuj odpowiednik.</p>
+          <div class="tool-tags"><span>PL ↔ EN</span><span>21 funkcji</span><span>słownik</span></div>
         </a>
       </div>
     </div>

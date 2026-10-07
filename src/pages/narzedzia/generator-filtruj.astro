@@ -1,0 +1,202 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Generator FILTRUJ w Excelu"
+  description="Zbuduj polską formułę FILTRUJ z maksymalnie trzema warunkami. Połącz kryteria logiką ORAZ albo LUB i skopiuj gotową formułę."
+  slug="generator-filtruj"
+  functionName="FILTRUJ"
+  functionHref="/funkcje/filtruj/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formuły</span>
+    <h2>Zbuduj FILTRUJ z kilkoma warunkami</h2>
+    <p>Wskaż zwracany zakres, ustaw kryteria i wybierz, czy wszystkie warunki muszą być spełnione, czy wystarczy jeden.</p>
+  </div>
+
+  <div class="formula-generator" data-filter-generator>
+    <div class="generator-grid">
+      <div class="generator-field">
+        <label for="filter-array">Zakres zwracanych danych</label>
+        <input id="filter-array" data-array value="A2:D100" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="filter-logic">Łączenie warunków</label>
+        <select id="filter-logic" data-logic>
+          <option value="and">ORAZ — wszystkie</option>
+          <option value="or">LUB — dowolny</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label for="filter-empty">Gdy brak wyników</label>
+        <input id="filter-empty" data-empty value="Brak wyników" spellcheck="false"/>
+      </div>
+    </div>
+
+    <div class="criteria-toolbar">
+      <div><span>Warunki</span><small>Drugi i trzeci warunek możesz zostawić puste.</small></div>
+    </div>
+
+    <div class="criteria-list">
+      <div class="criteria-row">
+        <div class="generator-field">
+          <label>Zakres 1</label>
+          <input data-range value="B2:B100" spellcheck="false"/>
+        </div>
+        <div class="generator-field compact">
+          <label>Operator</label>
+          <select data-operator>
+            <option value="=">=</option>
+            <option value="<>">&lt;&gt;</option>
+            <option value=">">&gt;</option>
+            <option value=">=">&gt;=</option>
+            <option value="<">&lt;</option>
+            <option value="<=">&lt;=</option>
+          </select>
+        </div>
+        <div class="generator-field">
+          <label>Wartość</label>
+          <input data-value value="Warszawa" spellcheck="false"/>
+        </div>
+        <div class="generator-field compact">
+          <label>Typ</label>
+          <select data-type>
+            <option value="text">Tekst</option>
+            <option value="number">Liczba</option>
+            <option value="cell">Komórka</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="criteria-row">
+        <div class="generator-field">
+          <label>Zakres 2</label>
+          <input data-range value="C2:C100" spellcheck="false"/>
+        </div>
+        <div class="generator-field compact">
+          <label>Operator</label>
+          <select data-operator>
+            <option value="=">=</option>
+            <option value="<>">&lt;&gt;</option>
+            <option value=">">&gt;</option>
+            <option value=">=">&gt;=</option>
+            <option value="<">&lt;</option>
+            <option value="<=">&lt;=</option>
+          </select>
+        </div>
+        <div class="generator-field">
+          <label>Wartość</label>
+          <input data-value value="Gotowe" spellcheck="false"/>
+        </div>
+        <div class="generator-field compact">
+          <label>Typ</label>
+          <select data-type>
+            <option value="text">Tekst</option>
+            <option value="number">Liczba</option>
+            <option value="cell">Komórka</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="criteria-row">
+        <div class="generator-field">
+          <label>Zakres 3 (opcjonalnie)</label>
+          <input data-range value="" placeholder="np. D2:D100" spellcheck="false"/>
+        </div>
+        <div class="generator-field compact">
+          <label>Operator</label>
+          <select data-operator>
+            <option value="=">=</option>
+            <option value="<>">&lt;&gt;</option>
+            <option value=">">&gt;</option>
+            <option value=">=">&gt;=</option>
+            <option value="<">&lt;</option>
+            <option value="<=">&lt;=</option>
+          </select>
+        </div>
+        <div class="generator-field">
+          <label>Wartość</label>
+          <input data-value value="" placeholder="np. 1000" spellcheck="false"/>
+        </div>
+        <div class="generator-field compact">
+          <label>Typ</label>
+          <select data-type>
+            <option value="number">Liczba</option>
+            <option value="text">Tekst</option>
+            <option value="cell">Komórka</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Gotowa formuła</span><small>Polska składnia ze średnikami.</small></div>
+      <code data-output aria-live="polite"></code>
+      <button type="button" data-copy>Kopiuj formułę</button>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>ORAZ czy LUB?</h2>
+    <p>Przy ORAZ generator łączy testy znakiem mnożenia. Rekord musi wtedy spełnić wszystkie warunki. Przy LUB testy są dodawane i wystarczy spełnienie jednego kryterium.</p>
+    <p>Przykład ORAZ: miasto = Warszawa i status = Gotowe. Przykład LUB: miasto = Warszawa albo Gdańsk.</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-filter-generator]');
+    const escapeExcel = (value) => value.replaceAll('"', '""');
+    const normalizePolishNumber = (value) => {
+      const clean = value.trim();
+      return /^[-+]?\d+(?:[.,]\d+)?$/.test(clean) ? clean.replace('.', ',') : clean;
+    };
+
+    const typedValue = (value, type) => {
+      const clean = value.trim();
+      if (type === 'text') return '"' + escapeExcel(clean) + '"';
+      if (type === 'number') return normalizePolishNumber(clean);
+      return clean;
+    };
+
+    const update = () => {
+      const array = root.querySelector('[data-array]').value.trim() || 'A2:D100';
+      const logic = root.querySelector('[data-logic]').value;
+      const empty = root.querySelector('[data-empty]').value.trim();
+      const tests = [];
+
+      root.querySelectorAll('.criteria-row').forEach((row) => {
+        const range = row.querySelector('[data-range]').value.trim();
+        const operator = row.querySelector('[data-operator]').value;
+        const valueRaw = row.querySelector('[data-value]').value;
+        const type = row.querySelector('[data-type]').value;
+        if (!range || !valueRaw.trim()) return;
+        tests.push('(' + range + operator + typedValue(valueRaw, type) + ')');
+      });
+
+      const joiner = logic === 'or' ? '+' : '*';
+      const condition = tests.length ? tests.join(joiner) : 'PRAWDA';
+      const emptyPart = '"' + escapeExcel(empty) + '"';
+      root.querySelector('[data-output]').textContent =
+        '=FILTRUJ(' + array + ';' + condition + ';' + emptyPart + ')';
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(root.querySelector('[data-output]').textContent || '');
+        event.currentTarget.textContent = 'Skopiowano ✓';
+        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+      } catch {
+        event.currentTarget.textContent = 'Zaznacz ręcznie';
+      }
+    });
+    update();
+  </script>
+
+  <div class="generator-help">
+    <h2>Wskazówka</h2>
+    <p>Zakresy kryteriów powinny mieć tyle samo wierszy co zwracany zakres. Jeżeli filtrujesz A2:D100, typowym zakresem kryterium będzie np. B2:B100 albo C2:C100.</p>
+    <p>Generator jest przeznaczony dla Excela z obsługą tablic dynamicznych, czyli m.in. Microsoft 365, Excel 2024 i Excel 2021.</p>
+  </div>
+</ToolLayout>

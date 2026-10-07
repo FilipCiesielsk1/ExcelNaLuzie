@@ -1,0 +1,133 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Tłumacz nazw funkcji Excel PL ↔ EN"
+  description="Wpisz polską lub angielską nazwę funkcji Excela i sprawdź jej odpowiednik. Słownik obejmuje najważniejsze funkcje używane w ExcelNaLuzie."
+  slug="tlumacz-funkcji-excel"
+  functionName="Baza funkcji Excel"
+  functionHref="/funkcje/"
+  resourceLabel="Pełna baza"
+  resourceAction="Przejdź do funkcji →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Słownik funkcji</span>
+    <h2>Polski Excel ↔ angielski Excel</h2>
+    <p>Wpisz nazwę w jednej z wersji językowych, np. JEŻELI albo IF. Narzędzie pokaże oba odpowiedniki.</p>
+  </div>
+
+  <div class="formula-generator" data-function-translator>
+    <div class="generator-grid">
+      <div class="generator-field">
+        <label for="translator-input">Nazwa funkcji</label>
+        <input id="translator-input" data-input value="JEŻELI" list="function-name-list" spellcheck="false" autocomplete="off"/>
+        <datalist id="function-name-list" data-list></datalist>
+      </div>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Polska nazwa</span><small>Do polskiej wersji Excela.</small></div>
+      <code data-pl aria-live="polite">JEŻELI</code>
+      <button type="button" data-copy-pl>Kopiuj</button>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Angielska nazwa</span><small>Do angielskiej wersji Excela.</small></div>
+      <code data-en aria-live="polite">IF</code>
+      <button type="button" data-copy-en>Kopiuj</button>
+    </div>
+
+    <div class="column-converter-message" data-message aria-live="polite">
+      Znaleziono funkcję.
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Obsługiwane funkcje</h2>
+    <p>Słownik obejmuje obecnie 21 kluczowych funkcji z naszej bazy, m.in. JEŻELI, X.WYSZUKAJ, FILTRUJ, SUMA.WARUNKÓW, LICZ.WARUNKI, INDEKS, PODAJ.POZYCJĘ, DATA.RÓŻNICA, TEKST.PO, SORTUJ.WEDŁUG i SEKWENCJA.</p>
+  </div>
+
+  <script>
+    const pairs = [
+      ['JEŻELI','IF'],
+      ['X.WYSZUKAJ','XLOOKUP'],
+      ['FILTRUJ','FILTER'],
+      ['TEKST.PO','TEXTAFTER'],
+      ['TEKST.PRZED','TEXTBEFORE'],
+      ['SUMA.WARUNKÓW','SUMIFS'],
+      ['LICZ.WARUNKI','COUNTIFS'],
+      ['UNIKATOWE','UNIQUE'],
+      ['SORTUJ','SORT'],
+      ['ORAZ','AND'],
+      ['LUB','OR'],
+      ['JEŻELI.BŁĄD','IFERROR'],
+      ['LICZ.JEŻELI','COUNTIF'],
+      ['SUMA.JEŻELI','SUMIF'],
+      ['INDEKS','INDEX'],
+      ['PODAJ.POZYCJĘ','MATCH'],
+      ['DATA.RÓŻNICA','DATEDIF'],
+      ['DNI.ROBOCZE','NETWORKDAYS'],
+      ['SORTUJ.WEDŁUG','SORTBY'],
+      ['SEKWENCJA','SEQUENCE'],
+      ['TEKST','TEXT']
+    ];
+
+    const root = document.querySelector('[data-function-translator]');
+    const input = root.querySelector('[data-input]');
+    const pl = root.querySelector('[data-pl]');
+    const en = root.querySelector('[data-en]');
+    const message = root.querySelector('[data-message]');
+    const list = root.querySelector('[data-list]');
+
+    pairs.flat().forEach((name) => {
+      const option = document.createElement('option');
+      option.value = name;
+      list.appendChild(option);
+    });
+
+    const normalize = (value) => value.trim().toUpperCase();
+
+    const update = () => {
+      const query = normalize(input.value);
+      const pair = pairs.find(([polish, english]) =>
+        normalize(polish) === query || normalize(english) === query
+      );
+
+      if (!pair) {
+        pl.textContent = '—';
+        en.textContent = '—';
+        message.textContent = 'Nie ma tej nazwy w obecnym słowniku. Wybierz jedną z podpowiedzi.';
+        message.classList.add('error');
+        return;
+      }
+
+      pl.textContent = pair[0];
+      en.textContent = pair[1];
+      message.textContent = 'Znaleziono funkcję. Możesz skopiować wybraną nazwę.';
+      message.classList.remove('error');
+    };
+
+    const copy = async (value, button) => {
+      if (!value || value === '—') return;
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = 'Skopiowano ✓';
+        setTimeout(() => button.textContent = 'Kopiuj', 1500);
+      } catch {
+        button.textContent = 'Zaznacz ręcznie';
+      }
+    };
+
+    input.addEventListener('input', update);
+    root.querySelector('[data-copy-pl]').addEventListener('click', (event) => copy(pl.textContent, event.currentTarget));
+    root.querySelector('[data-copy-en]').addEventListener('click', (event) => copy(en.textContent, event.currentTarget));
+    update();
+  </script>
+
+  <div class="generator-help">
+    <h2>Co tłumaczy narzędzie?</h2>
+    <p>Tłumacz dotyczy nazw funkcji, nie całych formuł. Separatory argumentów i formaty liczb zależą od ustawień regionalnych Excela, dlatego automatyczna zamiana całej formuły wymagałaby dodatkowej analizy składni.</p>
+    <p>Jeżeli pracujesz na polskim Excelu, nasze poradniki i generatory używają polskich nazw funkcji oraz średników jako separatorów argumentów.</p>
+  </div>
+</ToolLayout>

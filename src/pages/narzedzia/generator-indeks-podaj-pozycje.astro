@@ -1,0 +1,110 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Generator INDEKS + PODAJ.POZYCJĘ w Excelu"
+  description="Wpisz szukaną wartość, zakres wyszukiwania i zakres wyniku. Generator utworzy polską formułę INDEKS + PODAJ.POZYCJĘ."
+  slug="generator-indeks-podaj-pozycje"
+  functionName="INDEKS + PODAJ.POZYCJĘ"
+  functionHref="/poradniki/indeks-podaj-pozycje/"
+  resourceLabel="Powiązany poradnik"
+  resourceAction="Zobacz przykład krok po kroku →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Generator formuły</span>
+    <h2>Zbuduj klasyczne wyszukiwanie</h2>
+    <p>To rozwiązanie działa także w starszych wersjach Excela, w których nie ma X.WYSZUKAJ.</p>
+  </div>
+
+  <div class="formula-generator" data-index-match-generator>
+    <div class="generator-grid">
+      <div class="generator-field">
+        <label for="im-value">Szukana wartość</label>
+        <input id="im-value" data-value value="F2" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="im-type">Typ</label>
+        <select id="im-type" data-type>
+          <option value="cell">Komórka</option>
+          <option value="text">Tekst</option>
+          <option value="number">Liczba</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label for="im-lookup">Zakres wyszukiwania</label>
+        <input id="im-lookup" data-lookup value="A2:A100" spellcheck="false"/>
+      </div>
+      <div class="generator-field">
+        <label for="im-return">Zakres wyniku</label>
+        <input id="im-return" data-return value="C2:C100" spellcheck="false"/>
+      </div>
+      <div class="generator-field compact">
+        <label for="im-match">Dopasowanie</label>
+        <select id="im-match" data-match>
+          <option value="0">Dokładne (0)</option>
+          <option value="1">Mniejsze / równe (1)</option>
+          <option value="-1">Większe / równe (-1)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="generator-output">
+      <div><span>Gotowa formuła</span><small>Domyślnie używamy dokładnego dopasowania.</small></div>
+      <code data-output aria-live="polite"></code>
+      <button type="button" data-copy>Kopiuj formułę</button>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Jak działa ta konstrukcja?</h2>
+    <p>PODAJ.POZYCJĘ znajduje numer elementu w zakresie wyszukiwania. INDEKS używa tego numeru, aby zwrócić wartość z odpowiadającej pozycji w drugim zakresie.</p>
+  </div>
+
+  <script>
+    const root = document.querySelector('[data-index-match-generator]');
+    const escapeExcel = (value) => value.replaceAll('"', '""');
+    const normalizePolishNumber = (value) => {
+      const clean = value.trim();
+      return /^[-+]?\d+(?:[.,]\d+)?$/.test(clean) ? clean.replace('.', ',') : clean;
+    };
+
+    const typedValue = (value, type) => {
+      const clean = value.trim();
+      if (type === 'text') return '"' + escapeExcel(clean) + '"';
+      if (type === 'number') return normalizePolishNumber(clean);
+      return clean;
+    };
+
+    const update = () => {
+      const value = typedValue(
+        root.querySelector('[data-value]').value || 'F2',
+        root.querySelector('[data-type]').value
+      );
+      const lookup = root.querySelector('[data-lookup]').value.trim() || 'A2:A100';
+      const returned = root.querySelector('[data-return]').value.trim() || 'C2:C100';
+      const match = root.querySelector('[data-match]').value;
+      root.querySelector('[data-output]').textContent =
+        '=INDEKS(' + returned + ';PODAJ.POZYCJĘ(' + value + ';' + lookup + ';' + match + '))';
+    };
+
+    root.addEventListener('input', update);
+    root.addEventListener('change', update);
+    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(root.querySelector('[data-output]').textContent || '');
+        event.currentTarget.textContent = 'Skopiowano ✓';
+        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+      } catch {
+        event.currentTarget.textContent = 'Zaznacz ręcznie';
+      }
+    });
+    update();
+  </script>
+
+  <div class="generator-help">
+    <h2>Który tryb dopasowania?</h2>
+    <p>W większości wyszukiwań używaj wartości 0, czyli dokładnego dopasowania. Tryby 1 i -1 są przeznaczone do wyszukiwania przybliżonego i wymagają odpowiednio uporządkowanych danych.</p>
+    <p>Zakres wyszukiwania i zakres wyniku powinny odpowiadać tym samym rekordom, np. A2:A100 oraz C2:C100.</p>
+  </div>
+</ToolLayout>
