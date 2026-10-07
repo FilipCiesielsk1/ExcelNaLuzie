@@ -99,13 +99,19 @@ const isSum = mode === 'SUMA.WARUNKÓW';
 <script>
   const escapeExcel = (value) => value.replaceAll('"', '""');
 
+  const normalizePolishNumber = (value) => {
+    const clean = value.trim();
+    return /^[-+]?\d+(?:[.,]\d+)?$/.test(clean) ? clean.replace('.', ',') : clean;
+  };
+
   const criterionValue = (value, type, operator) => {
     const clean = value.trim();
     if (type === 'cell') {
       return operator === '=' ? clean : `"${operator}"&${clean}`;
     }
     if (type === 'number') {
-      return operator === '=' ? clean : `"${operator}${clean}"`;
+      const number = normalizePolishNumber(clean);
+      return operator === '=' ? number : `"${operator}${number}"`;
     }
     return `"${operator === '=' ? '' : operator}${escapeExcel(clean)}"`;
   };
