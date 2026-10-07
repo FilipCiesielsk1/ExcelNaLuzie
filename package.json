@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate && astro build && pagefind --site dist",
+    "build": "npm run validate:content && astro build && npm run validate:site && pagefind --site dist",
     "preview": "astro preview",
-    "validate": "node scripts/validate-content.mjs"
+    "validate": "npm run validate:content",
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:site": "node scripts/validate-built-site.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
