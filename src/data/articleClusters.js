@@ -63,6 +63,22 @@ export const articleClusters = {
       { slug: 'policz-niepuste-komorki', title: 'Jak policzyć niepuste komórki?', label: '<>' }
     ]
   },
+  'formuly/dynamiczne': {
+    title: 'Formuły dynamiczne',
+    hub: '/formuly/dynamiczne/',
+    articles: [
+      { slug: 'filtruj-podstawy', title: 'FILTRUJ — prosty przykład', label: 'FILTRUJ' },
+      { slug: 'filtruj-wiele-warunkow', title: 'FILTRUJ z wieloma warunkami', label: 'AND' },
+      { slug: 'filtruj-lub', title: 'FILTRUJ z warunkiem LUB', label: 'OR' },
+      { slug: 'unikatowe-podstawy', title: 'UNIKATOWE — lista bez duplikatów', label: 'UNIKATOWE' },
+      { slug: 'unikatowe-kilka-kolumn', title: 'UNIKATOWE dla kilku kolumn', label: 'wiersze' },
+      { slug: 'sortuj-podstawy', title: 'SORTUJ — dynamiczne sortowanie', label: 'SORTUJ' },
+      { slug: 'sortuj-wedlug', title: 'SORTUJ.WEDŁUG — sortowanie po innej kolumnie', label: 'SORTUJ.WEDŁUG' },
+      { slug: 'sekwencja-excel', title: 'SEKWENCJA — automatyczne serie liczb', label: 'SEKWENCJA' },
+      { slug: 'zakres-rozlany-operator-hash', title: 'Operator # i zakres rozlany', label: '#' },
+      { slug: 'filtruj-sortuj-unikatowe', title: 'FILTRUJ + SORTUJ + UNIKATOWE', label: '3 funkcje' }
+    ]
+  },
   'formuly/daty': {
     title: 'Daty i czas',
     hub: '/formuly/daty/',

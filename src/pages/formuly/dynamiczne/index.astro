@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
+
+const cluster = articleClusters['formuly/dynamiczne'];
+const articles = cluster.articles;
+---
+
+<BaseLayout
+  title={`Formuły dynamiczne w Excelu — ${articles.length} praktycznych poradników | ExcelNaLuzie`}
+  description="FILTRUJ, UNIKATOWE, SORTUJ, SORTUJ.WEDŁUG i SEKWENCJA w polskim Excelu. Praktyczne przykłady tablic dynamicznych i zakresów rozlanych."
+>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><a href={link("/formuly/")}>Formuły</a><span>›</span><strong>Formuły dynamiczne</strong></nav>
+        <span class="hub-kicker">Klaster: Formuły dynamiczne</span>
+        <h1>Jedna formuła.<br/><em>Cała dynamiczna lista.</em></h1>
+        <p>FILTRUJ, UNIKATOWE, SORTUJ, SEKWENCJA i zakresy rozlane pozwalają zastąpić wiele ręcznych kroków jedną formułą.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Filtrowanie</span><code>=FILTRUJ(A2:C100;C2:C100="Tak")</code></div>
+        <div class="formula-stack-card two"><span>Unikalne</span><code>=UNIKATOWE(A2:A100)</code></div>
+        <div class="formula-stack-card three"><span>Sortowanie</span><code>=SORTUJ(A2:A100)</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">{articles.length} poradników</span><h2>Co chcesz zrobić dynamicznie?</h2></div>
+        <p>Filtrowanie wielu rekordów, lista bez duplikatów, sortowanie, automatyczne serie i odwołania do rozlanych wyników.</p>
+      </div>
+      <div class="hub-article-list">
+        {articles.map((item,index) => (
+          <a href={link('/poradniki/' + item.slug + '/')}>
+            <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
+            <div><small>Formuły dynamiczne</small><strong>{item.title}</strong></div>
+            <code>{item.label}</code>
+            <b>→</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Jak to działa?</span><h2>Wynik może zająć wiele komórek</h2></div>
+        <p>Nowoczesny Excel potrafi automatycznie rozlać wynik formuły na sąsiednie komórki. Nie kopiujesz formuły w dół — zakres wyniku dopasowuje się sam.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>FILTRUJ</strong><p>Zwraca wszystkie rekordy spełniające warunek, a nie tylko pierwszy.</p></div>
+        <div><span>02</span><strong>UNIKATOWE</strong><p>Tworzy aktualizującą się listę wartości bez duplikatów.</p></div>
+        <div><span>03</span><strong>SORTUJ</strong><p>Porządkuje tablicę bez zmiany kolejności danych źródłowych.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
