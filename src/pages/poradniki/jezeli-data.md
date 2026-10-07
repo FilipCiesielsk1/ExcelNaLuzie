@@ -66,3 +66,11 @@ Przy zadaniach z dokładną godziną lepiej porównywać wartość z funkcją TE
 Data wyglądająca jak data może być tekstem. Wtedy porównania mogą zwracać błędne wyniki. Sprawdź format i źródło danych, zwłaszcza po imporcie z plików CSV.
 
 JEŻELI z datami jest bardzo przydatne do terminów, SLA, ważności dokumentów i planów, ale zawsze upewnij się, że porównywane komórki zawierają prawdziwe wartości daty.
+
+## Przykład: oznaczenie terminu płatności
+
+W arkuszu faktur możesz rozdzielić dokumenty na przeterminowane i nadal aktualne. Jeśli w A2 znajduje się termin płatności, a pusta data oznacza brak ustalonego terminu, połącz oba sprawdzenia:
+
+<div class="formula">=JEŻELI(A2="";"Brak terminu";JEŻELI(A2<DZIŚ();"Przeterminowana";"Do zapłaty"))</div>
+
+Taki zapis najpierw obsługuje brak danych, a dopiero później porównuje prawdziwą datę. Dzięki temu puste wiersze nie są przypadkowo klasyfikowane jako bardzo stare terminy.
