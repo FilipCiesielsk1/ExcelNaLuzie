@@ -64,3 +64,15 @@ Jeśli tablica to B2:D100, numer 1 oznacza kolumnę B, a nie kolumnę A arkusza.
 Gdy chcesz sortować wynik według kolumny, która nie musi znajdować się w zwracanej tablicy, albo chcesz łatwiej budować wielopoziomowe sortowanie.
 
 SORTUJ jest najlepsze do prostego i czytelnego porządkowania dynamicznych list.
+
+## Przykład: ranking bez ruszania tabeli źródłowej
+
+Jeżeli kolumna B zawiera wyniki sprzedaży, możesz utworzyć osobny ranking bez zmiany kolejności w tabeli źródłowej:
+
+<div class="formula">=SORTUJ(A2:B100;2;-1)</div>
+
+Taki wynik świetnie nadaje się do raportu lub dashboardu. Tabela źródłowa może pozostać w kolejności wprowadzania danych, a obok otrzymujesz automatycznie aktualizowany ranking.
+
+## Sortowanie tekstu i liczb
+
+SORTUJ działa zarówno na tekstach, jak i liczbach. Przy tekstach kolejność będzie alfabetyczna, a przy liczbach rosnąca lub malejąca zależnie od trzeciego argumentu. Jeśli dane zawierają mieszane typy, warto wcześniej sprawdzić ich spójność.

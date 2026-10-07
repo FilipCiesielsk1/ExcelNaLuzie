@@ -68,3 +68,7 @@ Formuła określa regułę, a nie statyczną listę. Zmiana pierwszego argumentu
 ## Kiedy używać SEKWENCJA?
 
 Do numeracji, kalendarzy, osi raportów, testowych danych, generowania indeksów i wszędzie tam, gdzie liczba pozycji może zmieniać się dynamicznie. To prosta funkcja, ale w połączeniu z innymi funkcjami tablicowymi staje się bardzo uniwersalnym narzędziem.
+
+## Przykład: numery porządkowe do raportu
+
+Jeżeli raport ma zawsze pokazywać kolejne numery od 1 do ustalonej liczby pozycji, SEKWENCJA eliminuje ręczne przeciąganie formuły. Zmiana liczby rekordów wymaga wtedy tylko zmiany argumentu wejściowego, a cała seria przebudowuje się automatycznie.
