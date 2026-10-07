@@ -125,7 +125,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 
 ### Etap 6 — produkcyjne SEO
 - [x] podpiąć domenę ExcelNaLuzie.pl
-- [ ] Google Search Console
+- [x] Google Search Console
 - [ ] przesłać sitemap
 - [ ] Google Analytics lub alternatywna lekka analityka
 - [ ] monitorować indeksowanie
