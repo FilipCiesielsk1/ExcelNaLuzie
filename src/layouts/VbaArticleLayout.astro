@@ -20,7 +20,7 @@ const schema = {
       description:article.description,
       inLanguage:'pl-PL',
       mainEntityOfPage:{'@type':'WebPage','@id':absoluteUrl},
-      author:{'@type':'Person',name:'Filip Ciesielski'},
+      author:{'@type':'Person',name:'Filip Ciesielski',url:'https://excelnaluzie.pl/o-serwisie/'},
       publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'}
     },
     {
@@ -60,7 +60,7 @@ const schema = {
           <h1 data-pagefind-meta="title">{article.title}</h1>
           <p>{article.description}</p>
           <div class="article-meta">
-            <span><strong>Filip Ciesielski</strong></span>
+            <span><strong><a href={link("/o-serwisie/")}>Filip Ciesielski</a></strong></span>
             <span>{article.readingTime} czytania</span>
             <span>Poziom: {article.difficulty}</span>
             <span>Excel VBA</span>

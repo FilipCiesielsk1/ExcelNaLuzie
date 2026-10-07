@@ -43,7 +43,7 @@ const schema = {
       dateModified:updated,
       inLanguage:'pl-PL',
       mainEntityOfPage:{'@type':'WebPage','@id':absoluteUrl},
-      author:{'@type':'Person',name:author},
+      author:{'@type':'Person',name:author,url:'https://excelnaluzie.pl/o-serwisie/'},
       publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'}
     },
     {
@@ -84,7 +84,7 @@ const schema = {
           <p class="article-lead">{description}</p>
 
           <div class="article-meta">
-            <span><strong>{author}</strong></span>
+            <span><strong><a href={link("/o-serwisie/")}>{author}</a></strong></span>
             <span>{readingTime} czytania</span>
             <span>Poziom: {difficulty}</span>
             {excelVersions.length > 0 && <span>{excelVersions.join(' · ')}</span>}
@@ -132,7 +132,7 @@ const schema = {
           <div class="author-avatar" aria-hidden="true">FC</div>
           <div>
             <span class="author-label">Autor</span>
-            <strong>{author}</strong>
+            <strong><a href={link("/o-serwisie/")}>{author}</a></strong>
             <p>Twórca ExcelNaLuzie. Poradniki są przygotowywane tak, aby najpierw dawać działające rozwiązanie, a dopiero potem wyjaśniać szczegóły.</p>
           </div>
         </section>
