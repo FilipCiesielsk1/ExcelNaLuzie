@@ -127,7 +127,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] podpiąć domenę ExcelNaLuzie.pl
 - [x] Google Search Console
 - [x] przesłać sitemap
-- [ ] Google Analytics lub alternatywna lekka analityka
+- [x] Google Analytics lub alternatywna lekka analityka
 - [ ] monitorować indeksowanie
 - [ ] monitorować CTR
 - [ ] monitorować pozycje i zapytania

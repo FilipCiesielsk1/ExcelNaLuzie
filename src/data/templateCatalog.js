@@ -6,19 +6,19 @@ export const templateCatalog = [
     icon: 'PLN',
     file: '/downloads/szablony/budzet-domowy.xlsx',
     version: 'Excel 2016+',
-    description: 'Gotowy budżet z rejestrem transakcji, kategoriami oraz automatycznym podsumowaniem przychodów, wydatków i bilansu.',
+    description: 'Rozbudowany budżet domowy z rejestrem transakcji, miesięcznym dashboardem, planem wydatków, kontrolą realizacji budżetu i wykresami.',
     sheets: ['Podsumowanie', 'Transakcje', 'Instrukcja'],
     features: [
-      'Automatyczne KPI: przychody, wydatki i bilans',
-      'Podsumowanie wydatków według kategorii',
-      'Listy rozwijane dla typu i kategorii transakcji',
-      'Przykładowe dane, które można od razu zastąpić własnymi'
+      'Dashboard z przychodami, wydatkami, bilansem i stopą oszczędności',
+      'Plan budżetu vs rzeczywiste wydatki dla 10 kategorii',
+      'Wykresy kategorii oraz trendu przychodów i wydatków',
+      'Listy rozwijane dla typu, kategorii i konta oraz kolorowe alerty'
     ],
     steps: [
       'Otwórz arkusz „Transakcje”.',
       'Usuń przykładowe wpisy albo zastąp je własnymi transakcjami.',
       'Dodawaj każdy przychód i wydatek w osobnym wierszu.',
-      'Wróć do arkusza „Podsumowanie” — wyniki przeliczą się automatycznie.'
+      'W arkuszu „Podsumowanie” ustaw budżety kategorii i wybierz miesiąc — KPI, realizacja planu oraz wykresy przeliczą się automatycznie.'
     ],
     preview: {
       label1: 'Przychody',
