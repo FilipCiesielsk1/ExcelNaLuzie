@@ -1,10 +1,13 @@
 ---
 import ToolLayout from '../../layouts/ToolLayout.astro';
+import { functionTranslations } from '../../data/functionTranslations.js';
+
+const functionCount = functionTranslations.length;
 ---
 
 <ToolLayout
   title="Tłumacz nazw funkcji Excel PL ↔ EN"
-  description="Wpisz polską lub angielską nazwę funkcji Excela i sprawdź jej odpowiednik. Słownik obejmuje najważniejsze funkcje używane w ExcelNaLuzie."
+  description={`Wpisz polską lub angielską nazwę funkcji Excela i znajdź odpowiednik. Słownik zawiera ${functionCount} popularnych funkcji.`}
   slug="tlumacz-funkcji-excel"
   functionName="Baza funkcji Excel"
   functionHref="/funkcje/"
@@ -14,16 +17,38 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
   <div class="generator-intro">
     <span class="section-kicker">Słownik funkcji</span>
     <h2>Polski Excel ↔ angielski Excel</h2>
-    <p>Wpisz nazwę w jednej z wersji językowych, np. JEŻELI albo IF. Narzędzie pokaże oba odpowiedniki.</p>
+    <p>Wpisz co najmniej 2 znaki polskiej lub angielskiej nazwy. Podpowiedzi pojawią się automatycznie.</p>
   </div>
 
   <div class="formula-generator" data-function-translator>
     <div class="generator-grid">
-      <div class="generator-field">
+      <div class="generator-field translator-search">
         <label for="translator-input">Nazwa funkcji</label>
-        <input id="translator-input" data-input value="JEŻELI" list="function-name-list" spellcheck="false" autocomplete="off"/>
-        <datalist id="function-name-list" data-list></datalist>
+        <input
+          id="translator-input"
+          data-input
+          value="JEŻELI"
+          spellcheck="false"
+          autocomplete="off"
+          aria-autocomplete="list"
+          aria-controls="translator-suggestions"
+          aria-expanded="false"
+        />
+        <small>Możesz wpisać np. jez, wysz, count, text albo network.</small>
+        <div
+          id="translator-suggestions"
+          class="translator-suggestions hidden"
+          data-suggestions
+          role="listbox"
+          aria-label="Podpowiedzi funkcji"
+        ></div>
       </div>
+    </div>
+
+    <div class="translator-meta">
+      <span><strong>{functionCount}</strong> funkcji w słowniku</span>
+      <span>polski ↔ angielski</span>
+      <span>wyszukiwanie po fragmencie</span>
     </div>
 
     <div class="generator-output">
@@ -44,69 +69,192 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
   </div>
 
   <div class="generator-help">
-    <h2>Obsługiwane funkcje</h2>
-    <p>Słownik obejmuje obecnie 21 kluczowych funkcji z naszej bazy, m.in. JEŻELI, X.WYSZUKAJ, FILTRUJ, SUMA.WARUNKÓW, LICZ.WARUNKI, INDEKS, PODAJ.POZYCJĘ, DATA.RÓŻNICA, TEKST.PO, SORTUJ.WEDŁUG i SEKWENCJA.</p>
+    <h2>Jak działa wyszukiwanie?</h2>
+    <p>Po wpisaniu dwóch znaków narzędzie pokazuje maksymalnie 12 najlepiej pasujących funkcji. Najpierw pojawiają się nazwy zaczynające się od wpisanego tekstu, a potem pozostałe wyniki zawierające ten fragment.</p>
+    <p>Możesz szukać po nazwie polskiej albo angielskiej. Wyszukiwanie ignoruje wielkość liter i polskie znaki, więc wpisanie <strong>jez</strong> znajdzie również <strong>JEŻELI</strong>.</p>
   </div>
 
-  <script>
-    const pairs = [
-      ['JEŻELI','IF'],
-      ['X.WYSZUKAJ','XLOOKUP'],
-      ['FILTRUJ','FILTER'],
-      ['TEKST.PO','TEXTAFTER'],
-      ['TEKST.PRZED','TEXTBEFORE'],
-      ['SUMA.WARUNKÓW','SUMIFS'],
-      ['LICZ.WARUNKI','COUNTIFS'],
-      ['UNIKATOWE','UNIQUE'],
-      ['SORTUJ','SORT'],
-      ['ORAZ','AND'],
-      ['LUB','OR'],
-      ['JEŻELI.BŁĄD','IFERROR'],
-      ['LICZ.JEŻELI','COUNTIF'],
-      ['SUMA.JEŻELI','SUMIF'],
-      ['INDEKS','INDEX'],
-      ['PODAJ.POZYCJĘ','MATCH'],
-      ['DATA.RÓŻNICA','DATEDIF'],
-      ['DNI.ROBOCZE','NETWORKDAYS'],
-      ['SORTUJ.WEDŁUG','SORTBY'],
-      ['SEKWENCJA','SEQUENCE'],
-      ['TEKST','TEXT']
-    ];
+  <script type="application/json" id="function-translations-data" set:html={JSON.stringify(functionTranslations)}></script>
 
+  <script>
     const root = document.querySelector('[data-function-translator]');
     const input = root.querySelector('[data-input]');
     const pl = root.querySelector('[data-pl]');
     const en = root.querySelector('[data-en]');
     const message = root.querySelector('[data-message]');
-    const list = root.querySelector('[data-list]');
+    const suggestions = root.querySelector('[data-suggestions]');
+    const dataNode = document.getElementById('function-translations-data');
+    const pairs = JSON.parse(dataNode.textContent || '[]');
 
-    pairs.flat().forEach((name) => {
-      const option = document.createElement('option');
-      option.value = name;
-      list.appendChild(option);
-    });
+    let activeIndex = -1;
+    let currentMatches = [];
 
-    const normalize = (value) => value.trim().toUpperCase();
+    const normalize = (value) => value
+      .trim()
+      .toUpperCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
 
-    const update = () => {
-      const query = normalize(input.value);
-      const pair = pairs.find(([polish, english]) =>
-        normalize(polish) === query || normalize(english) === query
-      );
+    const exactPair = (query) => pairs.find(([polish, english]) =>
+      normalize(polish) === query || normalize(english) === query
+    );
 
-      if (!pair) {
-        pl.textContent = '—';
-        en.textContent = '—';
-        message.textContent = 'Nie ma tej nazwy w obecnym słowniku. Wybierz jedną z podpowiedzi.';
-        message.classList.add('error');
+    const findMatches = (query) => {
+      if (query.length < 2) return [];
+
+      return pairs
+        .map((pair) => {
+          const plName = normalize(pair[0]);
+          const enName = normalize(pair[1]);
+          const starts = plName.startsWith(query) || enName.startsWith(query);
+          const contains = plName.includes(query) || enName.includes(query);
+          const exact = plName === query || enName === query;
+          return { pair, score: exact ? 0 : starts ? 1 : contains ? 2 : 99 };
+        })
+        .filter((item) => item.score < 99)
+        .sort((a, b) => a.score - b.score || a.pair[0].localeCompare(b.pair[0], 'pl'))
+        .slice(0, 12)
+        .map((item) => item.pair);
+    };
+
+    const setResult = (pair) => {
+      pl.textContent = pair[0];
+      en.textContent = pair[1];
+      message.textContent = pair[0] === pair[1]
+        ? 'Ta funkcja ma tę samą nazwę w polskim i angielskim Excelu.'
+        : 'Znaleziono funkcję. Możesz skopiować wybraną nazwę.';
+      message.classList.remove('error');
+    };
+
+    const closeSuggestions = () => {
+      suggestions.classList.add('hidden');
+      suggestions.replaceChildren();
+      input.setAttribute('aria-expanded', 'false');
+      activeIndex = -1;
+      currentMatches = [];
+    };
+
+    const selectMatch = (pair) => {
+      input.value = pair[0];
+      setResult(pair);
+      closeSuggestions();
+      input.focus();
+    };
+
+    const renderSuggestions = (matches) => {
+      suggestions.replaceChildren();
+      currentMatches = matches;
+      activeIndex = -1;
+
+      if (!matches.length) {
+        closeSuggestions();
         return;
       }
 
-      pl.textContent = pair[0];
-      en.textContent = pair[1];
-      message.textContent = 'Znaleziono funkcję. Możesz skopiować wybraną nazwę.';
-      message.classList.remove('error');
+      matches.forEach((pair, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'translator-suggestion';
+        button.setAttribute('role', 'option');
+        button.dataset.index = String(index);
+
+        const names = document.createElement('span');
+        names.className = 'translator-suggestion-names';
+
+        const polish = document.createElement('strong');
+        polish.textContent = pair[0];
+
+        const english = document.createElement('code');
+        english.textContent = pair[1];
+
+        names.append(polish, english);
+
+        const category = document.createElement('small');
+        category.textContent = pair[2];
+
+        button.append(names, category);
+        button.addEventListener('mousedown', (event) => {
+          event.preventDefault();
+          selectMatch(pair);
+        });
+
+        suggestions.appendChild(button);
+      });
+
+      suggestions.classList.remove('hidden');
+      input.setAttribute('aria-expanded', 'true');
     };
+
+    const updateActive = () => {
+      suggestions.querySelectorAll('[role="option"]').forEach((item, index) => {
+        const active = index === activeIndex;
+        item.classList.toggle('active', active);
+        item.setAttribute('aria-selected', active ? 'true' : 'false');
+        if (active) item.scrollIntoView({ block: 'nearest' });
+      });
+    };
+
+    const update = () => {
+      const query = normalize(input.value);
+
+      if (!query) {
+        pl.textContent = '—';
+        en.textContent = '—';
+        message.textContent = 'Wpisz co najmniej 2 znaki nazwy funkcji.';
+        message.classList.remove('error');
+        closeSuggestions();
+        return;
+      }
+
+      const exact = exactPair(query);
+      if (exact) {
+        setResult(exact);
+      } else {
+        pl.textContent = '—';
+        en.textContent = '—';
+        message.textContent = query.length < 2
+          ? 'Wpisz jeszcze jeden znak, aby zobaczyć podpowiedzi.'
+          : 'Wybierz funkcję z podpowiedzi.';
+        message.classList.toggle('error', query.length >= 2 && findMatches(query).length === 0);
+      }
+
+      renderSuggestions(findMatches(query));
+    };
+
+    input.addEventListener('input', update);
+    input.addEventListener('focus', update);
+
+    input.addEventListener('keydown', (event) => {
+      if (suggestions.classList.contains('hidden') || !currentMatches.length) {
+        if (event.key === 'ArrowDown') update();
+        return;
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        activeIndex = (activeIndex + 1) % currentMatches.length;
+        updateActive();
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        activeIndex = activeIndex <= 0 ? currentMatches.length - 1 : activeIndex - 1;
+        updateActive();
+      }
+
+      if (event.key === 'Enter' && activeIndex >= 0) {
+        event.preventDefault();
+        selectMatch(currentMatches[activeIndex]);
+      }
+
+      if (event.key === 'Escape') {
+        closeSuggestions();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) closeSuggestions();
+    });
 
     const copy = async (value, button) => {
       if (!value || value === '—') return;
@@ -119,15 +267,111 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       }
     };
 
-    input.addEventListener('input', update);
-    root.querySelector('[data-copy-pl]').addEventListener('click', (event) => copy(pl.textContent, event.currentTarget));
-    root.querySelector('[data-copy-en]').addEventListener('click', (event) => copy(en.textContent, event.currentTarget));
+    root.querySelector('[data-copy-pl]').addEventListener('click', (event) =>
+      copy(pl.textContent, event.currentTarget)
+    );
+    root.querySelector('[data-copy-en]').addEventListener('click', (event) =>
+      copy(en.textContent, event.currentTarget)
+    );
+
     update();
   </script>
 
   <div class="generator-help">
     <h2>Co tłumaczy narzędzie?</h2>
-    <p>Tłumacz dotyczy nazw funkcji, nie całych formuł. Separatory argumentów i formaty liczb zależą od ustawień regionalnych Excela, dlatego automatyczna zamiana całej formuły wymagałaby dodatkowej analizy składni.</p>
-    <p>Jeżeli pracujesz na polskim Excelu, nasze poradniki i generatory używają polskich nazw funkcji oraz średników jako separatorów argumentów.</p>
+    <p>Tłumacz dotyczy nazw funkcji, nie całych formuł. Separatory argumentów i formaty liczb zależą od ustawień regionalnych Excela, dlatego automatyczna zamiana całej formuły wymaga osobnego parsera składni.</p>
+    <p>Słownik koncentruje się na najczęściej używanych funkcjach logicznych, tekstowych, wyszukujących, dat, statystycznych, matematycznych i tablic dynamicznych.</p>
   </div>
 </ToolLayout>
+
+<style>
+  .translator-search {
+    position: relative;
+  }
+
+  .translator-suggestions {
+    position: absolute;
+    z-index: 30;
+    top: calc(100% - 2px);
+    left: 0;
+    right: 0;
+    max-height: 390px;
+    overflow-y: auto;
+    background: var(--surface, #fff);
+    border: 1px solid rgba(20, 29, 39, .16);
+    border-radius: 14px;
+    box-shadow: 0 18px 50px rgba(20, 29, 39, .16);
+    padding: 6px;
+  }
+
+  .translator-suggestions.hidden {
+    display: none;
+  }
+
+  .translator-suggestion {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    padding: 10px 12px;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .translator-suggestion:hover,
+  .translator-suggestion.active {
+    background: rgba(50, 120, 90, .10);
+  }
+
+  .translator-suggestion-names {
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .translator-suggestion strong {
+    font-size: 14px;
+  }
+
+  .translator-suggestion code {
+    font-size: 12px;
+    opacity: .72;
+  }
+
+  .translator-suggestion small {
+    flex: 0 0 auto;
+    font-size: 11px;
+    opacity: .58;
+  }
+
+  .translator-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: -2px 0 18px;
+  }
+
+  .translator-meta span {
+    border: 1px solid rgba(20, 29, 39, .12);
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .translator-suggestion {
+      align-items: flex-start;
+    }
+
+    .translator-suggestion small {
+      display: none;
+    }
+  }
+</style>
