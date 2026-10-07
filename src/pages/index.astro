@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Search from '../components/Search.astro';
 import { withBase as link } from '../utils/paths.js';
+import { templateCatalog } from '../data/templateCatalog.js';
 ---
 
 <BaseLayout>
@@ -135,6 +136,42 @@ import { withBase as link } from '../utils/paths.js';
           <p>Generatory formuł i małe narzędzia, które zrobią część pracy za Ciebie.</p>
           <span>Przeglądaj →</span>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section home-templates-section">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">Darmowe pliki XLSX</span>
+          <h2>Nie buduj arkusza od zera</h2>
+        </div>
+        <a class="section-link" href={link("/szablony/")}>Wszystkie szablony <span>→</span></a>
+      </div>
+
+      <div class="template-grid template-grid-live">
+        {templateCatalog.map((template) => (
+          <a class="template-card template-card-live" href={link('/szablony/' + template.slug + '/')}>
+            <div class="template-thumb">
+              <span>{template.icon}</span>
+              <div></div><div></div><div></div>
+              <div class="template-mini-kpis">
+                <i></i><i></i><i></i>
+              </div>
+            </div>
+            <div class="template-meta">
+              <span>{template.type}</span>
+              <b>{template.version}</b>
+            </div>
+            <h3>{template.title}</h3>
+            <p>{template.description}</p>
+            <div class="template-card-footer">
+              <span>XLSX · Darmowy</span>
+              <strong>Zobacz i pobierz →</strong>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
