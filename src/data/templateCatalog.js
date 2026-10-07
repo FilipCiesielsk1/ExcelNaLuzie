@@ -44,10 +44,10 @@ export const templateCatalog = [
     description: 'Tracker zadań z priorytetem, statusem, terminem, właścicielem oraz prostym dashboardem pokazującym postęp pracy.',
     sheets: ['Dashboard', 'Zadania', 'Instrukcja'],
     features: [
-      'Statusy: Do zrobienia, W toku, Wstrzymane i Gotowe',
-      'Priorytety z listy rozwijanej',
-      'Automatyczne liczniki zadań na dashboardzie',
-      'Wyróżnianie przeterminowanych, niezakończonych zadań'
+      'Dashboard z KPI, statusem, zaległościami i średnim postępem',
+      'Priorytety, statusy i kategorie z list rozwijanych',
+      'Automatyczne wyróżnianie zadań po terminie oraz pilnych',
+      'Wykresy statusów i priorytetów oraz paski postępu'
     ],
     steps: [
       'Przejdź do arkusza „Zadania”.',
@@ -81,8 +81,8 @@ export const templateCatalog = [
     features: [
       'Automatyczne obliczanie godzin netto po odjęciu przerwy',
       'Opcjonalna stawka godzinowa i automatyczna wartość pracy',
-      'Podsumowanie godzin według projektu',
-      'Lista projektów i gotowa tabela do dalszego rozszerzania'
+      'Dashboard miesięczny z KPI i podsumowaniem według projektu',
+      'Wykres godzin projektowych, trend miesięczny i alert dni powyżej 8 h'
     ],
     steps: [
       'Otwórz arkusz „Czas pracy”.',
