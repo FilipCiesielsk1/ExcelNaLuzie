@@ -76,3 +76,11 @@ Drugim problemem są liczby zapisane jako tekst. Jeżeli dane pochodzą z CSV lu
 ## Kiedy przejść na LICZ.WARUNKI?
 
 Gdy tylko potrzebujesz jednocześnie dolnej i górnej granicy albo kilku różnych kryteriów, LICZ.WARUNKI jest zwykle bardziej naturalne niż kombinowanie kilku osobnych LICZ.JEŻELI.
+
+## Liczenie wartości poza przedziałem
+
+Czasem interesują Cię wartości skrajne, np. poniżej 100 lub powyżej 500. Najprościej policzyć oba warunki osobno i dodać wyniki:
+
+<div class="formula">=LICZ.JEŻELI(B2:B100;"<100")+LICZ.JEŻELI(B2:B100;">500")</div>
+
+Taki zapis jasno pokazuje logikę LUB: wartość trafia do wyniku, jeśli spełnia jeden z dwóch rozłącznych warunków.
