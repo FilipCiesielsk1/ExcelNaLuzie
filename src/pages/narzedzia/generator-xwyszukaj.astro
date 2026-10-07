@@ -77,7 +77,15 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
   <script>
     const root = document.querySelector('[data-xlookup-generator]');
     const escapeExcel = (value) => value.replaceAll('"', '""');
-    const typedValue = (value, type) => type === 'text' ? `"${escapeExcel(value.trim())}"` : value.trim();
+    const normalizePolishNumber = (value) => {
+      const clean = value.trim();
+      return /^[-+]?\d+(?:[.,]\d+)?$/.test(clean) ? clean.replace('.', ',') : clean;
+    };
+    const typedValue = (value, type) => {
+      if (type === 'text') return `"${escapeExcel(value.trim())}"`;
+      if (type === 'number') return normalizePolishNumber(value);
+      return value.trim();
+    };
 
     const update = () => {
       const value = typedValue(root.querySelector('[data-value]').value, root.querySelector('[data-value-type]').value) || 'F2';
