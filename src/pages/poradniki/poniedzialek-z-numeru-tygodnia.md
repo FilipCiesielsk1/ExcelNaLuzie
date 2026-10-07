@@ -6,7 +6,7 @@ slug: "poniedzialek-z-numeru-tygodnia"
 category: "Daty i czas"
 categorySlug: "formuly/daty"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Średni"
@@ -55,3 +55,37 @@ Dlatego punktem odniesienia jest 4 stycznia.
 ## Praktyczne zastosowanie
 
 Taka data świetnie sprawdza się jako klucz tygodnia w raportach, planach pracy i zestawieniach, bo jednoznacznie identyfikuje cały tydzień.
+
+## Przykład
+
+Załóżmy, że A2 zawiera numer tygodnia 41, a B2 rok 2026.
+
+<div class="formula">=DATA(B2;1;4)-DZIEŃ.TYG(DATA(B2;1;4);2)+1+(A2-1)*7</div>
+
+Wynikiem będzie poniedziałek rozpoczynający wskazany tydzień ISO.
+
+Formuła wykorzystuje 4 stycznia, ponieważ według ISO tydzień zawierający ten dzień zawsze należy do pierwszego tygodnia roku.
+
+## Jak dostać inne dni tego samego tygodnia?
+
+Gdy masz już poniedziałek, kolejne dni są proste. Dla wyniku w C2:
+
+<div class="formula">=C2+4</div>
+
+zwróci piątek tego samego tygodnia, a:
+
+<div class="formula">=C2+6</div>
+
+zwróci niedzielę.
+
+To pozwala łatwo budować tygodniowe zakresy od poniedziałku do niedzieli.
+
+## Uważaj na tydzień 53
+
+Nie każdy rok ma 53 tygodnie ISO. Jeżeli użytkownik wpisuje numer tygodnia ręcznie, warto ograniczyć pole do zakresu 1–53, ale pamiętać, że tydzień 53 nie występuje w każdym roku.
+
+W formularzach biznesowych dobrze jest dodatkowo sprawdzić, czy wyliczony poniedziałek nadal należy do oczekiwanego roku tygodniowego.
+
+## Kiedy taka formuła się przydaje?
+
+Najczęściej w planach tygodniowych, grafikach, raportach sprzedaży i harmonogramach, gdzie użytkownik wybiera rok oraz numer tygodnia zamiast konkretnej daty.

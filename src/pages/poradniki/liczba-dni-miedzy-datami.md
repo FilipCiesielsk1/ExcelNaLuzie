@@ -6,9 +6,9 @@ slug: "liczba-dni-miedzy-datami"
 category: "Daty i czas"
 categorySlug: "formuly/daty"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "4 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -60,3 +60,39 @@ To przydatne np. do liczenia wieku zgłoszenia, liczby dni od płatności albo c
 Jeżeli zamiast liczby widzisz kolejną datę, zmień format komórki wyniku na Ogólny lub Liczbowe.
 
 Sama formuła jest wtedy poprawna — problem dotyczy wyłącznie formatu wyświetlania.
+
+## Czy liczyć również dzień początkowy?
+
+Standardowa różnica:
+
+<div class="formula">=B2-A2</div>
+
+liczy odstęp między datami. Dla 1 października i 3 października wynikiem są 2 dni.
+
+Jeżeli chcesz policzyć **oba dni włącznie**, np. liczbę dni pobytu od 1 do 3 października, dodaj 1:
+
+<div class="formula">=B2-A2+1</div>
+
+Wtedy wynikiem będą 3 dni: 1, 2 i 3 października.
+
+## Co gdy daty są wpisane odwrotnie?
+
+Jeśli data końcowa jest wcześniejsza od początkowej, zwykłe odejmowanie da wynik ujemny. Jeżeli potrzebujesz zawsze dodatniej liczby dni, możesz zabezpieczyć formułę:
+
+<div class="formula">=JEŻELI(B2>=A2;B2-A2;A2-B2)</div>
+
+W raportach terminów wynik ujemny bywa jednak przydatny, bo od razu pokazuje, że kolejność dat jest nieprawidłowa.
+
+## Daty z godziną
+
+Excel przechowuje godzinę jako część ułamkową dnia. Dlatego różnica między 01.10.2026 08:00 a 02.10.2026 14:00 wyniesie 1,25 dnia, a nie 1.
+
+Jeżeli pracujesz z datą i godziną, warto świadomie zdecydować, czy potrzebujesz pełnych dób, godzin czy zwykłej różnicy kalendarzowej.
+
+## Praktyczny przykład: termin płatności
+
+Jeśli w A2 masz dzisiejszą datę, a w B2 termin faktury, formuła:
+
+<div class="formula">=B2-DZIŚ()</div>
+
+pokaże liczbę dni pozostałych do terminu. Wynik 0 oznacza dziś, liczba dodatnia — termin w przyszłości, a liczba ujemna — termin już minął.

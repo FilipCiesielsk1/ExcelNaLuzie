@@ -6,9 +6,9 @@ slug: "liczba-miesiecy-miedzy-datami"
 category: "Daty i czas"
 categorySlug: "formuly/daty"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "4 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -60,3 +60,39 @@ oraz liczbę dni pozostałych po pełnych miesiącach:
 ## Uwaga na kolejność dat
 
 Data początkowa musi być wcześniejsza od końcowej. W przeciwnym razie DATA.RÓŻNICA może zwrócić błąd.
+
+## Przykład na konkretnych datach
+
+Jeżeli A2 zawiera 15.01.2026, a B2 zawiera 14.04.2026, formuła:
+
+<div class="formula">=DATA.RÓŻNICA(A2;B2;"m")</div>
+
+zwróci 2, a nie 3. Trzeci pełny miesiąc zakończyłby się dopiero 15 kwietnia.
+
+To właśnie oznacza „pełne miesiące” — funkcja nie liczy rozpoczętego miesiąca, jeśli nie minął jeszcze odpowiadający dzień.
+
+## Liczba zmian miesiąca to co innego
+
+Czasami nie potrzebujesz pełnych miesięcy, tylko informacji, ile granic miesięcy dzieli dwie daty. Wtedy można policzyć różnicę numerów miesięcy:
+
+<div class="formula">=(ROK(B2)-ROK(A2))*12+MIESIĄC(B2)-MIESIĄC(A2)</div>
+
+Ta metoda ignoruje dzień miesiąca. Dla 31 stycznia i 1 lutego zwróci 1, mimo że minął tylko jeden dzień.
+
+Dlatego do wieku umowy, stażu czy pełnych okresów rozliczeniowych lepsza jest DATA.RÓŻNICA.
+
+## Pełne lata i miesiące
+
+Jeśli chcesz rozbić okres na pełne lata i pozostałe miesiące, możesz użyć dwóch formuł:
+
+<div class="formula">=DATA.RÓŻNICA(A2;B2;"y")</div>
+
+oraz:
+
+<div class="formula">=DATA.RÓŻNICA(A2;B2;"ym")</div>
+
+Pierwsza zwraca pełne lata, druga liczbę miesięcy pozostałych po odjęciu pełnych lat.
+
+## Co z datą końcową wcześniejszą od początkowej?
+
+DATA.RÓŻNICA zakłada, że data początkowa jest wcześniejsza od końcowej. Jeśli użytkownik może wpisać daty w dowolnej kolejności, warto wcześniej sprawdzić je funkcją JEŻELI albo walidacją danych.

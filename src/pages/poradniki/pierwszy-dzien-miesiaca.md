@@ -6,9 +6,9 @@ slug: "pierwszy-dzien-miesiaca"
 category: "Daty i czas"
 categorySlug: "formuly/daty"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "4 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -57,3 +57,41 @@ To rozwiązanie będzie aktualizować się automatycznie wraz z bieżącą datą
 ## Do czego się przydaje?
 
 Pierwszy dzień miesiąca jest wygodnym punktem odniesienia przy filtrowaniu raportów, budowaniu zakresów miesięcznych i porównywaniu okresów.
+
+## Pierwszy dzień następnego miesiąca
+
+Najprostszy wariant to zwiększenie numeru miesiąca o 1:
+
+<div class="formula">=DATA(ROK(A2);MIESIĄC(A2)+1;1)</div>
+
+Excel automatycznie poradzi sobie również z grudniem. Dla daty z grudnia wynik przejdzie do stycznia następnego roku.
+
+Alternatywnie możesz wykorzystać koniec bieżącego miesiąca:
+
+<div class="formula">=NR.SER.OST.DN.MIES(A2;0)+1</div>
+
+Obie metody prowadzą do pierwszego dnia kolejnego miesiąca.
+
+## Przykład w raportowaniu
+
+Jeżeli A2 zawiera 18.10.2026, formuła:
+
+<div class="formula">=DATA(ROK(A2);MIESIĄC(A2);1)</div>
+
+zwróci 01.10.2026.
+
+To pozwala „sprowadzić” dowolną datę do wspólnego początku miesiąca. Taka pomocnicza kolumna świetnie nadaje się do grupowania danych, tabel przestawnych i miesięcznych zestawień.
+
+## Dlaczego nie używać tekstu „2026-10”?
+
+Tekst może wyglądać wygodnie, ale nie zachowuje właściwości daty. Trudniej potem przesuwać miesiące, liczyć okresy lub korzystać z funkcji datowych.
+
+Lepiej przechowywać prawdziwą datę, np. 01.10.2026, a sposób wyświetlania zmienić formatem komórki.
+
+## Początek bieżącego miesiąca
+
+Dla aktualnego miesiąca użyj:
+
+<div class="formula">=DATA(ROK(DZIŚ());MIESIĄC(DZIŚ());1)</div>
+
+Wynik będzie automatycznie aktualizowany wraz ze zmianą miesiąca.
