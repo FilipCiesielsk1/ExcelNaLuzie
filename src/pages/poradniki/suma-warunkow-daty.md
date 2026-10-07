@@ -68,3 +68,19 @@ Jeżeli użytkownik wpisuje dowolną datę z miesiąca w F2, możesz wyznaczyć 
 <div class="formula">=SUMA.WARUNKÓW(C2:C100;A2:A100;">="&DATA(ROK(F2);MIESIĄC(F2);1);A2:A100;"<="&NR.SER.OST.DN.MIES(F2;0))</div>
 
 To wygodne w raportach miesięcznych sterowanych jedną komórką.
+
+## Poprzedni miesiąc
+
+Jeżeli raport ma automatycznie obejmować poprzedni pełny miesiąc, możesz oprzeć granice na funkcji NR.SER.OST.DN.MIES.
+
+<div class="formula">=SUMA.WARUNKÓW(C2:C100;A2:A100;">="&NR.SER.OST.DN.MIES(DZIŚ();-2)+1;A2:A100;"<="&NR.SER.OST.DN.MIES(DZIŚ();-1))</div>
+
+Pierwsze kryterium wyznacza pierwszy dzień poprzedniego miesiąca, a drugie jego ostatni dzień. Dzięki temu formuła nie wymaga ręcznej zmiany dat po rozpoczęciu nowego miesiąca.
+
+## Daty zawierające godziny
+
+Gdy kolumna A zawiera także godzinę, bezpieczniej potraktować górną granicę jako początek następnego dnia i użyć operatora mniejszości:
+
+<div class="formula">=SUMA.WARUNKÓW(C2:C100;A2:A100;">="&F2;A2:A100;"<"&G2+1)</div>
+
+Wtedy rekord z datą końcową o godzinie 18:30 nadal zostanie uwzględniony. To ważne przy danych z systemów sprzedażowych, logach i rejestrach operacji, gdzie data i czas są zapisane razem.
