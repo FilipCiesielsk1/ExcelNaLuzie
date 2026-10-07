@@ -19,6 +19,7 @@ const htmlFiles = files.filter((file) => file.endsWith('.html'));
 const errors = [];
 const warnings = [];
 const canonicals = new Map();
+const rel = (file) => '/' + path.relative(dist, file).replaceAll(path.sep, '/');
 
 // Performance budget: keep the static site lightweight.
 // Pagefind assets are intentionally excluded because they are loaded lazily by the search UI.
@@ -44,7 +45,6 @@ for (const file of files) {
   }
 }
 
-const rel = (file) => '/' + path.relative(dist, file).replaceAll(path.sep, '/');
 const textOf = (html, tag) => html.match(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i'))?.[1]?.replace(/<[^>]+>/g, '').trim() ?? '';
 const attr = (tag, name) => tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] ?? '';
 
@@ -127,6 +127,29 @@ for (const file of htmlFiles) {
 
   const h1Count = (html.match(/<h1\b/gi) || []).length;
   if (h1Count !== 1) errors.push(`${page}: oczekiwano dokładnie 1 H1, znaleziono ${h1Count}`);
+
+  const requiredOg = ['og:type', 'og:title', 'og:description', 'og:url'];
+  for (const property of requiredOg) {
+    const propertyPattern = property.replace(/[.*+?^$()|[\]{}]/g, '\\  const h1Count = (html.match(/<h1\b/gi) || []).length;
+  if (h1Count !== 1) errors.push(`${page}: oczekiwano dokładnie 1 H1, znaleziono ${h1Count}`);
+
+  const hrefs =');
+    const hasTag = new RegExp(`<meta\\b[^>]*property=["']${propertyPattern}["'][^>]*content=["'][^"']+["']`, 'i').test(html);
+    if (!hasTag) errors.push(`${page}: brak kompletnego meta ${property}`);
+  }
+
+  const jsonLdBlocks = [...html.matchAll(/<script\\b[^>]*type=["']application\\/ld\\+json["'][^>]*>([\\s\\S]*?)<\\/script>/gi)];
+  if (!jsonLdBlocks.length) {
+    errors.push(`${page}: brak danych strukturalnych JSON-LD`);
+  } else {
+    for (const block of jsonLdBlocks) {
+      try {
+        JSON.parse(block[1]);
+      } catch {
+        errors.push(`${page}: niepoprawny JSON-LD`);
+      }
+    }
+  }
 
   const hrefs = [...html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi)].map((match) => match[1]);
   for (const href of hrefs) {
