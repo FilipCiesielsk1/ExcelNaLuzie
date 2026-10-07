@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { articleClusters } from '../src/data/articleClusters.js';
 
 const root = path.resolve('src/pages/poradniki');
 const functionRoot = path.resolve('src/pages/funkcje');
@@ -33,6 +34,24 @@ const files = fs.existsSync(root)
   : [];
 
 const errors = [];
+const clusterByArticleSlug = new Map();
+
+for (const [categorySlug, cluster] of Object.entries(articleClusters)) {
+  const hubPath = path.resolve('src/pages', cluster.hub.replace(/^\\/+|\\/+$/g, ''), 'index.astro');
+  if (!fs.existsSync(hubPath)) {
+    errors.push(`klaster "${categorySlug}": brak strony hub ${cluster.hub}`);
+  }
+
+  for (const article of cluster.articles) {
+    if (clusterByArticleSlug.has(article.slug)) {
+      errors.push(`articleClusters: slug "${article.slug}" występuje w więcej niż jednym klastrze`);
+      continue;
+    }
+    clusterByArticleSlug.set(article.slug, categorySlug);
+  }
+}
+
+const articleFileSlugs = new Set();
 
 for (const file of files) {
   const full = path.join(root, file);
@@ -46,6 +65,21 @@ for (const file of files) {
 
   const frontmatter = parts[1];
   const body = parts.slice(2).join('---');
+
+  const slug = frontmatter.match(/^slug:\s*["']?([^"'\\n]+)["']?\s*$/m)?.[1]?.trim() ?? '';
+  const categorySlug = frontmatter.match(/^categorySlug:\s*["']?([^"'\\n]+)["']?\s*$/m)?.[1]?.trim() ?? '';
+
+  if (slug) {
+    if (articleFileSlugs.has(slug)) errors.push(`${file}: zduplikowany slug "${slug}"`);
+    articleFileSlugs.add(slug);
+
+    const clusterCategory = clusterByArticleSlug.get(slug);
+    if (!clusterCategory) {
+      errors.push(`${file}: artykuł "${slug}" nie jest przypisany do articleClusters — grozi stroną osieroconą`);
+    } else if (categorySlug && clusterCategory !== categorySlug) {
+      errors.push(`${file}: categorySlug "${categorySlug}" nie zgadza się z klastrem "${clusterCategory}"`);
+    }
+  }
 
   for (const key of required) {
     const pattern = new RegExp(`^${key}:`, 'm');
@@ -87,6 +121,12 @@ for (const file of files) {
   const description = frontmatter.match(/^description:\s*["']?(.*?)["']?\s*$/m)?.[1] ?? '';
   if (description.length > 165) {
     errors.push(`${file}: description ma ${description.length} znaków; celuj w maks. 165`);
+  }
+}
+
+for (const [slug, categorySlug] of clusterByArticleSlug.entries()) {
+  if (!articleFileSlugs.has(slug)) {
+    errors.push(`articleClusters: "${slug}" w klastrze "${categorySlug}" nie ma pliku poradnika`);
   }
 }
 
