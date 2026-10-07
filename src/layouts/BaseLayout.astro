@@ -27,7 +27,7 @@ const inferredNavSection = navSection || currentPath.split('/')[0] || null;
 <html lang="pl">
   <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#107c41"/>
     <meta name="color-scheme" content="light"/>
     <meta name="robots" content={noindex ? 'noindex,nofollow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'}/>
@@ -57,8 +57,9 @@ const inferredNavSection = navSection || currentPath.split('/')[0] || null;
     })}></script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Przejdź do treści</a>
     <Header activeSection={inferredNavSection}/>
-    <main><slot/></main>
+    <main id="main-content" tabindex="-1"><slot/></main>
     <Footer/>
     <script
       is:inline

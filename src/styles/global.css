@@ -3278,3 +3278,37 @@ a.hub-topic-card:hover{
 @media(max-width:620px){
   .footer-links{grid-template-columns:1fr 1fr}
 }
+
+
+/* Accessibility baseline */
+.skip-link{
+  position:fixed;
+  top:10px;
+  left:10px;
+  z-index:200;
+  transform:translateY(-160%);
+  padding:10px 14px;
+  border-radius:9px;
+  background:#fff;
+  color:var(--green-dark);
+  box-shadow:0 8px 28px rgba(20,55,33,.18);
+  font-size:.82rem;
+  font-weight:850;
+  transition:transform .16s ease;
+}
+.skip-link:focus{transform:translateY(0)}
+:where(a,button,input,select,textarea,summary):focus-visible{
+  outline:3px solid #14884b;
+  outline-offset:3px;
+}
+#main-content:focus{outline:none}
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}

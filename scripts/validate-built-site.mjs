@@ -50,6 +50,26 @@ for (const file of htmlFiles) {
   const html = fs.readFileSync(file, 'utf8');
   const page = rel(file);
 
+  if (!/<html\b[^>]*lang=["']pl["']/i.test(html)) {
+    errors.push(`${page}: brak lang="pl" na elemencie html`);
+  }
+
+  if (!/<meta\b[^>]*name=["']viewport["'][^>]*content=["'][^"']*width=device-width[^"']*initial-scale=1/i.test(html)) {
+    errors.push(`${page}: brak kompletnego viewport width=device-width, initial-scale=1`);
+  }
+
+  if (!/<main\b[^>]*id=["']main-content["']/i.test(html)) {
+    errors.push(`${page}: brak głównego regionu #main-content`);
+  }
+
+  if (!/<a\b[^>]*class=["'][^"']*skip-link[^"']*["'][^>]*href=["']#main-content["']/i.test(html)) {
+    errors.push(`${page}: brak linku „Przejdź do treści”`);
+  }
+
+  const ids = [...html.matchAll(/\bid=["']([^"']+)["']/gi)].map((m) => m[1]);
+  const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+  for (const id of duplicateIds) errors.push(`${page}: zduplikowany id="${id}"`);
+
   if (/filipciesielsk1\.github\.io|\/ExcelNaLuzie\//i.test(html)) {
     errors.push(`${page}: zawiera stary adres GitHub Pages lub ścieżkę /ExcelNaLuzie/`);
   }
