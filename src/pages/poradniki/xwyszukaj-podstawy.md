@@ -6,7 +6,7 @@ slug: "xwyszukaj-podstawy"
 category: "Wyszukiwanie danych"
 categorySlug: "formuly/wyszukiwanie"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -58,3 +58,43 @@ Dlatego w nowych wersjach Excela jest zwykle wygodniejszym wyborem do codzienneg
 ## Dopasowanie dokładne
 
 Domyślnie X.WYSZUKAJ szuka dokładnego dopasowania, więc w typowych tabelach nie musisz dopisywać dodatkowego argumentu odpowiadającego za tryb dopasowania.
+
+## Przykład krok po kroku
+
+Załóżmy, że A2:A100 zawiera ID produktu, C2:C100 cenę, a w F2 wpisujesz szukane ID.
+
+<div class="formula">=X.WYSZUKAJ(F2;A2:A100;C2:C100;"Brak wyniku")</div>
+
+Excel najpierw szuka wartości z F2 w kolumnie A, a potem zwraca wartość z odpowiadającego wiersza kolumny C.
+
+## Zakres wyszukiwania i wyniku powinny mieć ten sam rozmiar
+
+Jeżeli szukasz w A2:A100, zakres zwracany powinien obejmować odpowiadające wiersze, np. C2:C100.
+
+Przesunięcie jednego z zakresów o wiersz może zwracać poprawnie wyglądające, ale błędne dane.
+
+## X.WYSZUKAJ zwraca pierwsze dopasowanie
+
+Jeżeli szukana wartość występuje kilka razy, dostaniesz pojedynczy wynik.
+
+Dla unikalnych ID to oczekiwane zachowanie. Jeśli duplikaty są normalne i potrzebujesz całej listy, użyj FILTRUJ.
+
+## Wyszukiwanie może działać w dowolnym kierunku
+
+Zakres wyniku nie musi znajdować się po prawej stronie. Możesz szukać w kolumnie C i zwracać dane z A:
+
+<div class="formula">=X.WYSZUKAJ(F2;C2:C100;A2:A100;"Brak wyniku")</div>
+
+To jedna z najważniejszych przewag nad klasycznym WYSZUKAJ.PIONOWO.
+
+## Gdy formuła nie znajduje oczywistego rekordu
+
+Sprawdź typ danych. Liczba i tekst wyglądający jak liczba nie zawsze są tym samym.
+
+Przy danych z importu warto również sprawdzić zbędne spacje i niewidoczne znaki.
+
+## Kiedy nie używać X.WYSZUKAJ?
+
+Jeżeli plik musi działać w Excelu bez X.WYSZUKAJ, wybierz INDEKS + PODAJ.POZYCJĘ lub istniejące WYSZUKAJ.PIONOWO.
+
+Jeśli potrzebujesz wielu rekordów, wybierz FILTRUJ zamiast wymuszać pojedynczy wynik.

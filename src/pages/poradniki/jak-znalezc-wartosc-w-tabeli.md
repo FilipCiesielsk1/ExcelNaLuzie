@@ -6,9 +6,9 @@ slug: "jak-znalezc-wartosc-w-tabeli"
 category: "Wyszukiwanie danych"
 categorySlug: "formuly/wyszukiwanie"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "6 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -61,3 +61,41 @@ To jednak nie jest jedyna metoda. Właściwa funkcja zależy od tego, jakiego wy
 Najpierw ustal, czy potrzebujesz jednego wyniku, wielu wyników, kilku warunków albo wyszukiwania w lewo. Dopiero potem wybierz funkcję.
 
 To zwykle prowadzi do prostszej formuły i łatwiejszego w utrzymaniu arkusza.
+
+## Najpierw określ, ilu wyników potrzebujesz
+
+To najważniejsza decyzja.
+
+Jeżeli dla szukanej wartości ma istnieć tylko jeden wynik, zacznij od X.WYSZUKAJ:
+
+<div class="formula">=X.WYSZUKAJ(F2;A2:A100;C2:C100;"Brak wyniku")</div>
+
+Jeżeli jeden klucz może pasować do wielu wierszy i chcesz zobaczyć wszystkie, użyj FILTRUJ:
+
+<div class="formula">=FILTRUJ(A2:C100;A2:A100=F2;"Brak wyników")</div>
+
+## Co jeśli w tabeli są duplikaty?
+
+X.WYSZUKAJ zwróci pojedyncze dopasowanie. Dlatego przed użyciem go jako „jednego źródła prawdy” sprawdź, czy klucz rzeczywiście jest unikalny.
+
+Przy numerach zamówień lub ID klienta zwykle powinien być. Przy nazwie miasta, kategorii albo produktu duplikaty są normalne — wtedy FILTRUJ często lepiej odpowiada intencji.
+
+## Wyszukiwanie w lewo
+
+Jeżeli kolumna wyniku znajduje się przed kolumną wyszukiwania, X.WYSZUKAJ nie wymaga żadnych sztuczek:
+
+<div class="formula">=X.WYSZUKAJ(F2;C2:C100;A2:A100;"Brak wyniku")</div>
+
+W starszym Excelu podobny efekt daje INDEKS + PODAJ.POZYCJĘ.
+
+## Tekst i liczba mogą wyglądać tak samo
+
+Kod 1001 zapisany jako liczba i tekst „1001” może nie zostać potraktowany jako identyczna wartość.
+
+Jeżeli formuła „powinna działać”, ale nie znajduje rekordu, sprawdź typ danych, zbędne spacje oraz sposób importu danych.
+
+## Prosta reguła wyboru
+
+Jeden wynik w nowym Excelu — X.WYSZUKAJ. Wiele wyników — FILTRUJ. Starszy Excel — INDEKS + PODAJ.POZYCJĘ albo istniejące WYSZUKAJ.PIONOWO.
+
+Dopiero później warto optymalizować formułę pod bardziej nietypowe przypadki.

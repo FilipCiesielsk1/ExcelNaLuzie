@@ -6,7 +6,7 @@ slug: "xwyszukaj-w-lewo"
 category: "Wyszukiwanie danych"
 categorySlug: "formuly/wyszukiwanie"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -54,3 +54,39 @@ X.WYSZUKAJ rozdziela zakres wyszukiwania od zakresu wyniku, więc ich kolejnoś�
 <div class="formula">=INDEKS(A2:A100;PODAJ.POZYCJĘ(F2;C2:C100;0))</div>
 
 Ten wariant również pozwala zwracać dane z kolumn po lewej stronie.
+
+## Przykład: znajdź ID po kodzie kreskowym
+
+Załóżmy, że A2:A100 zawiera ID, a C2:C100 kod kreskowy. Szukany kod wpisujesz w F2.
+
+<div class="formula">=X.WYSZUKAJ(F2;C2:C100;A2:A100;"Brak wyniku")</div>
+
+X.WYSZUKAJ nie interesuje się fizyczną kolejnością kolumn. Zakres wyszukiwania i zakres zwracany wskazujesz osobno.
+
+## Przesuwanie kolumn jest mniej ryzykowne
+
+WYSZUKAJ.PIONOWO zwraca kolumnę na podstawie jej numeru w wybranym zakresie. Dodanie nowej kolumny może więc wymagać zmiany formuły.
+
+X.WYSZUKAJ odwołuje się bezpośrednio do zakresu wyniku, dzięki czemu struktura jest łatwiejsza do zrozumienia i utrzymania.
+
+## Co z duplikatami?
+
+Jeżeli kod kreskowy pojawia się kilka razy, X.WYSZUKAJ zwróci pojedyncze dopasowanie.
+
+Jeśli to nie powinno się zdarzać, duplikat jest problemem jakości danych. Jeżeli wiele rekordów jest prawidłowe, rozważ FILTRUJ.
+
+## Zabezpieczenie braku wyniku
+
+Czwarty argument pozwala zwrócić własny komunikat:
+
+<div class="formula">=X.WYSZUKAJ(F2;C2:C100;A2:A100;"Nie znaleziono")</div>
+
+Nie musisz dodawać osobnego JEŻELI.BŁĄD tylko po to, żeby obsłużyć brak dopasowania.
+
+## Starszy Excel
+
+INDEKS + PODAJ.POZYCJĘ daje ten sam kluczowy efekt — wyszukiwanie i zwracanie mogą odbywać się w dowolnych kolumnach:
+
+<div class="formula">=INDEKS(A2:A100;PODAJ.POZYCJĘ(F2;C2:C100;0))</div>
+
+To najlepsza alternatywa, gdy skoroszyt musi działać bez X.WYSZUKAJ.

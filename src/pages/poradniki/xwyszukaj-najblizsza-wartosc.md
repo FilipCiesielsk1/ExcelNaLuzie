@@ -6,7 +6,7 @@ slug: "xwyszukaj-najblizsza-wartosc"
 category: "Wyszukiwanie danych"
 categorySlug: "formuly/wyszukiwanie"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Średni"
@@ -57,3 +57,39 @@ Tryb 1 oznacza dokładne dopasowanie albo następną większą wartość.
 ## Dobra praktyka
 
 Przy tabelach progowych warto układać wartości progów rosnąco. Ułatwia to kontrolę arkusza i zmniejsza ryzyko błędnej interpretacji danych.
+
+## Przykład: tabela progów
+
+Załóżmy, że w A2:A10 masz progi punktowe, a w B2:B10 odpowiadające im poziomy rabatu.
+
+<div class="formula">=X.WYSZUKAJ(F2;A2:A10;B2:B10;"Brak";-1)</div>
+
+Jeżeli dokładnego progu nie ma, tryb -1 wybierze dokładne dopasowanie albo najbliższą mniejszą wartość.
+
+To pasuje do tabel typu „od tej wartości obowiązuje dany próg”.
+
+## Kiedy użyć trybu 1?
+
+Tryb 1 działa odwrotnie:
+
+<div class="formula">=X.WYSZUKAJ(F2;A2:A10;B2:B10;"Brak";1)</div>
+
+Jeżeli dokładnego wyniku nie ma, wybierane jest najbliższe większe dopasowanie.
+
+Może to być przydatne np. przy przypisywaniu do najbliższego wyższego limitu.
+
+## Testuj wartości graniczne
+
+Przy tabelach progowych sprawdź minimum, dokładny próg, wartość pomiędzy progami i wartość większą niż najwyższy próg.
+
+To właśnie na granicach najłatwiej przeoczyć błędne założenie dotyczące sposobu dopasowania.
+
+## Uporządkuj tabelę progów
+
+Nawet jeśli formuła technicznie działa, rosnąco uporządkowana kolumna progów jest dużo łatwiejsza do sprawdzenia przez człowieka.
+
+Przy raportach finansowych lub cennikach czytelność tabeli jest równie ważna jak sama formuła.
+
+## Nie używaj przybliżenia dla identyfikatorów
+
+Tryby -1 i 1 są dobre dla progów, przedziałów i limitów. Dla numeru zamówienia, kodu produktu albo PESEL potrzebujesz dopasowania dokładnego.

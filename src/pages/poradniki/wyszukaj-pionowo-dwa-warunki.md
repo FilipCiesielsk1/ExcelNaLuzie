@@ -6,7 +6,7 @@ slug: "wyszukaj-pionowo-dwa-warunki"
 category: "Wyszukiwanie danych"
 categorySlug: "formuly/wyszukiwanie"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Średni"
@@ -63,3 +63,39 @@ Jeżeli masz X.WYSZUKAJ, prostszym rozwiązaniem bez kolumny pomocniczej będzie
 ## Kiedy zostać przy WYSZUKAJ.PIONOWO?
 
 Głównie wtedy, gdy arkusz musi działać w starszych wersjach Excela albo jest częścią istniejącego rozwiązania opartego na tej funkcji.
+
+## Jak wygląda pełny układ?
+
+Najwygodniej dodać kolumnę pomocniczą z kluczem złożonym z dwóch wartości:
+
+<div class="formula">=B2&amp;"|"&amp;C2</div>
+
+Jeżeli B2 to miasto, a C2 produkt, możesz otrzymać np. `Warszawa|Laptop`.
+
+Następnie szukasz identycznie zbudowanego klucza:
+
+<div class="formula">=WYSZUKAJ.PIONOWO(F2&amp;"|"&amp;G2;A2:D100;4;FAŁSZ)</div>
+
+## Dlaczego FAŁSZ jest obowiązkowe?
+
+Przy identyfikatorach i kluczach tekstowych potrzebujesz dopasowania dokładnego. Ostatni argument FAŁSZ mówi WYSZUKAJ.PIONOWO, żeby nie szukało wartości przybliżonej.
+
+Pomijanie tego argumentu jest jedną z częstszych przyczyn pozornie losowych wyników w starszych arkuszach.
+
+## Dobierz bezpieczny separator
+
+Jeżeli łączysz dwa pola w klucz, separator powinien być znakiem, który nie występuje naturalnie w danych.
+
+Dla większości prostych tabel znak `|` jest czytelniejszy i bezpieczniejszy niż zwykła spacja.
+
+## Gdy dane mogą zawierać duplikaty
+
+Klucz złożony nie gwarantuje unikalności. Jeśli ta sama para warunków pojawia się kilka razy, WYSZUKAJ.PIONOWO zwróci pierwsze pasujące wystąpienie.
+
+Jeśli potrzebujesz wszystkich rekordów, nowoczesny Excel lepiej obsłuży to funkcją FILTRUJ.
+
+## Czy warto dziś budować tak nowy plik?
+
+Jeśli skoroszyt ma działać również w starszym Excelu — tak, kolumna pomocnicza jest prostym i czytelnym rozwiązaniem.
+
+Jeżeli możesz korzystać z Microsoft 365, Excel 2024 lub 2021, X.WYSZUKAJ z warunkami zwykle pozwoli uniknąć dodatkowej kolumny.
