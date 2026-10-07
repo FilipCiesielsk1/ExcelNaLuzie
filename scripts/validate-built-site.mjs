@@ -20,6 +20,30 @@ const errors = [];
 const warnings = [];
 const canonicals = new Map();
 
+// Performance budget: keep the static site lightweight.
+// Pagefind assets are intentionally excluded because they are loaded lazily by the search UI.
+const kib = (bytes) => Math.round(bytes / 1024);
+for (const file of files) {
+  const relative = rel(file);
+  const size = fs.statSync(file).size;
+
+  if (file.endsWith('.html') && size > 100 * 1024) {
+    errors.push(`${relative}: HTML ma ${kib(size)} KiB; budżet to 100 KiB`);
+  }
+
+  if (relative.startsWith('/_astro/') && file.endsWith('.css') && size > 100 * 1024) {
+    errors.push(`${relative}: CSS ma ${kib(size)} KiB; budżet to 100 KiB`);
+  }
+
+  if (relative.startsWith('/_astro/') && file.endsWith('.js') && size > 80 * 1024) {
+    errors.push(`${relative}: JS ma ${kib(size)} KiB; budżet to 80 KiB`);
+  }
+
+  if (/\.(png|jpe?g|webp|avif)$/i.test(file) && size > 350 * 1024) {
+    warnings.push(`${relative}: obraz ma ${kib(size)} KiB; sprawdź kompresję`);
+  }
+}
+
 const rel = (file) => '/' + path.relative(dist, file).replaceAll(path.sep, '/');
 const textOf = (html, tag) => html.match(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i'))?.[1]?.replace(/<[^>]+>/g, '').trim() ?? '';
 const attr = (tag, name) => tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] ?? '';
