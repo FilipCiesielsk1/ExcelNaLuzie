@@ -60,5 +60,11 @@ const inferredNavSection = navSection || currentPath.split('/')[0] || null;
     <Header activeSection={inferredNavSection}/>
     <main><slot/></main>
     <Footer/>
+    <script
+      is:inline
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token":"e95a42d41be14398885d7892394fcc3f"}'
+    ></script>
   </body>
 </html>

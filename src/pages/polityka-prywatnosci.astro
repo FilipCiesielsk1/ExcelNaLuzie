@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Polityka prywatności | ExcelNaLuzie.pl"
+  description="Informacje o prywatności i analityce używanej w serwisie ExcelNaLuzie.pl."
+  canonical="/polityka-prywatnosci/"
+  noindex={true}
+>
+  <section class="legal-page">
+    <div class="wrap legal-wrap">
+      <span class="section-kicker">Prywatność</span>
+      <h1>Polityka prywatności</h1>
+      <p class="legal-lead">ExcelNaLuzie.pl korzysta z możliwie lekkich narzędzi i ogranicza zbieranie danych o odwiedzających do minimum potrzebnego do rozwijania serwisu.</p>
+
+      <div class="legal-content">
+        <section>
+          <h2>Cloudflare Web Analytics</h2>
+          <p>Serwis korzysta z Cloudflare Web Analytics do pomiaru liczby odwiedzin, popularności podstron oraz parametrów wydajności strony. Według dokumentacji Cloudflare narzędzie to nie zbiera ani nie wykorzystuje danych osobowych odwiedzających i nie śledzi pojedynczych użytkowników między witrynami.</p>
+          <p>Pomiar odbywa się przez niewielki skrypt ładowany z domeny <code>static.cloudflareinsights.com</code>. Dane służą wyłącznie do oceny działania i rozwoju ExcelNaLuzie.pl.</p>
+        </section>
+
+        <section>
+          <h2>Pliki cookies</h2>
+          <p>Cloudflare Web Analytics w używanej przez nas konfiguracji jest narzędziem analitycznym bezcookiesowym. ExcelNaLuzie.pl nie wykorzystuje obecnie cookies reklamowych ani profili marketingowych.</p>
+        </section>
+
+        <section>
+          <h2>Hosting i dane techniczne</h2>
+          <p>Strona jest hostowana przez GitHub Pages. Podczas korzystania z serwisu dostawcy infrastruktury internetowej mogą przetwarzać standardowe dane techniczne niezbędne do dostarczenia strony, bezpieczeństwa i niezawodności usługi.</p>
+        </section>
+
+        <section>
+          <h2>Zmiany tej strony</h2>
+          <p>Jeżeli w przyszłości dodamy inne narzędzia analityczne, formularze, newsletter, reklamy lub funkcje wymagające dodatkowego przetwarzania danych, ta informacja zostanie odpowiednio zaktualizowana.</p>
+          <p class="legal-updated">Ostatnia aktualizacja: 7 października 2026 r.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
