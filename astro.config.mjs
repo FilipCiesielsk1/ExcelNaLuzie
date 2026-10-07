@@ -11,6 +11,10 @@ export default defineConfig({
   site,
   base,
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/404\/?$/.test(new URL(page).pathname)
+    })
+  ],
   build: { format: 'directory' }
 });
