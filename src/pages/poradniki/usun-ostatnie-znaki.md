@@ -6,9 +6,9 @@ slug: "usun-ostatnie-znaki"
 category: "Formuły tekstowe"
 categorySlug: "formuly/tekst"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "4 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -62,3 +62,35 @@ Jeżeli liczba znaków do usunięcia znajduje się w komórce B1:
 Ta metoda działa także dla wartości o różnej długości, ponieważ liczba znaków jest liczona osobno dla każdej komórki.
 
 Uważaj tylko, aby nie odjąć większej liczby znaków niż faktycznie zawiera tekst — wtedy formuła może zwrócić błąd.
+
+## Przykład: usuń rozszerzenie lub końcówkę kodu
+
+Jeżeli A1 zawiera `ABC123XYZ` i wiesz, że ostatnie trzy znaki są zawsze zbędne:
+
+<div class="formula">=LEWY(A1;DŁ(A1)-3)</div>
+
+wynikiem będzie `ABC123`.
+
+Ta metoda jest dobra wtedy, gdy końcówka ma stałą długość, niezależnie od długości całego tekstu.
+
+## Liczba znaków sterowana z komórki
+
+Jeżeli B1 zawiera liczbę znaków do usunięcia:
+
+<div class="formula">=LEWY(A1;DŁ(A1)-B1)</div>
+
+możesz zmieniać parametr bez edytowania formuły. To wygodne w prostych narzędziach czyszczących dane.
+
+## Zabezpieczenie przed zbyt dużą liczbą
+
+Jeśli B1 jest większe niż długość tekstu, zwykła formuła może zwrócić błąd. Bezpieczniejszy wariant:
+
+<div class="formula">=LEWY(A1;MAX(0;DŁ(A1)-B1))</div>
+
+Gdy liczba znaków do usunięcia jest za duża, wynikiem będzie pusty tekst zamiast błędu.
+
+## Stała długość czy separator?
+
+Jeżeli chcesz usunąć wszystko po określonym znaku, nie licz znaków. Lepiej wykorzystać TEKST.PRZED albo LEWY + ZNAJDŹ.
+
+Usuwanie „ostatnich N znaków” jest najlepsze wtedy, gdy struktura danych jest stała.

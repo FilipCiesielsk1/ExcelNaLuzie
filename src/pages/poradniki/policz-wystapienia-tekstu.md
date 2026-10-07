@@ -6,7 +6,7 @@ slug: "policz-wystapienia-tekstu"
 category: "Formuły tekstowe"
 categorySlug: "formuly/tekst"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -58,3 +58,37 @@ Jeżeli szukany fragment znajduje się w B1:
 ## Ważne ograniczenie
 
 Jeżeli komórka z szukanym tekstem jest pusta, dzielenie przez jego długość spowoduje błąd. W praktycznym arkuszu warto zabezpieczyć taki przypadek.
+
+## Przykład na konkretnym tekście
+
+Jeżeli A1 zawiera:
+
+`abc-123-abc-xyz-abc`
+
+to formuła:
+
+<div class="formula">=(DŁ(A1)-DŁ(PODSTAW(A1;"abc";"")))/DŁ("abc")</div>
+
+zwróci 3.
+
+PODSTAW usuwa z tekstu wszystkie wystąpienia „abc”. Różnica długości mówi, ile znaków zniknęło, a podzielenie przez długość szukanej frazy daje liczbę wystąpień.
+
+## Uważaj na pustą komórkę z kryterium
+
+Jeżeli szukany tekst jest w B1 i B1 jest puste, dzielenie przez DŁ(B1) oznacza dzielenie przez zero.
+
+Możesz temu zapobiec:
+
+<div class="formula">=JEŻELI(B1="";0;(DŁ(A1)-DŁ(PODSTAW(A1;B1;"")))/DŁ(B1))</div>
+
+## Wielkość liter ma znaczenie
+
+PODSTAW rozróżnia wielkie i małe litery. „ABC” i „abc” są dla tej metody różnymi ciągami znaków.
+
+Jeżeli dane mają różny zapis liter, najpierw warto je ujednolicić albo świadomie zdecydować, że wielkość liter ma być częścią kryterium.
+
+## Nakładające się fragmenty
+
+Ta metoda liczy wystąpienia usuwane przez PODSTAW i nie nadaje się dobrze do sytuacji, w których szukane fragmenty nachodzą na siebie.
+
+Dla typowych kodów, separatorów, słów i znaków specjalnych działa jednak bardzo wygodnie i nie wymaga makr.

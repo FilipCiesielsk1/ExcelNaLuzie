@@ -6,7 +6,7 @@ slug: "tekst-miedzy-znakami"
 category: "Formuły tekstowe"
 categorySlug: "formuly/tekst"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -54,3 +54,33 @@ Dla nawiasów okrągłych wystarczy zmienić znaki w formule:
 ## Gdy znaki mogą nie występować
 
 Jeżeli w części komórek brakuje któregoś separatora, formuła zwróci błąd. W takim przypadku warto dodać obsługę błędu albo najpierw zweryfikować strukturę danych.
+
+## Prostszy wariant w Microsoft 365 i Excelu 2024
+
+Jeżeli masz dostęp do TEKST.PO i TEKST.PRZED, formułę można znacznie uprościć:
+
+<div class="formula">=TEKST.PRZED(TEKST.PO(A1;"[");"]")</div>
+
+Najpierw pobierany jest tekst po znaku [, a następnie wszystko przed ].
+
+Dla wartości `Produkt [ABC-123] aktywny` wynikiem będzie `ABC-123`.
+
+## Różne pary separatorów
+
+Ta sama technika działa z nawiasami, ukośnikami albo własnymi znacznikami tekstowymi. Przykładowo dla nawiasów okrągłych:
+
+<div class="formula">=TEKST.PRZED(TEKST.PO(A1;"(");")")</div>
+
+## Co jeśli separatorów jest kilka?
+
+Klasyczna formuła z ZNAJDŹ zwykle pracuje na pierwszym znalezionym znaku. Jeśli tekst zawiera kilka par nawiasów, musisz zdecydować, którą parę chcesz obsłużyć.
+
+W nowym Excelu argument wystąpienia w TEKST.PO i TEKST.PRZED daje większą kontrolę nad pierwszym lub ostatnim separatorem.
+
+## Zabezpieczenie przed brakującym znakiem
+
+Jeśli dane nie zawsze zawierają obie granice, użyj JEŻELI.BŁĄD:
+
+<div class="formula">=JEŻELI.BŁĄD(TEKST.PRZED(TEKST.PO(A1;"[");"]");"")</div>
+
+Zamiast błędu komórka pozostanie pusta. W raportach lepiej czasami zwrócić własny komunikat, np. „Brak kodu”, żeby łatwiej znaleźć niepoprawne rekordy.

@@ -6,9 +6,9 @@ slug: "usun-pierwsze-znaki"
 category: "Formuły tekstowe"
 categorySlug: "formuly/tekst"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "3 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -65,3 +65,37 @@ Dzięki temu możesz zmieniać liczbę usuwanych znaków bez edytowania formuły
 ## Uwaga na zbyt dużą liczbę
 
 Jeżeli spróbujesz usunąć więcej znaków, niż zawiera komórka, formuła zwróci błąd. Przy danych o zmiennej długości warto uwzględnić taki przypadek w formule.
+
+## Przykład: usuń prefiks z kodu
+
+Jeżeli A1 zawiera `PL-ABC123`, a prefiks ma zawsze trzy znaki:
+
+<div class="formula">=PRAWY(A1;DŁ(A1)-3)</div>
+
+wynikiem będzie `ABC123`.
+
+Nie ma znaczenia, jak długa jest pozostała część tekstu — odejmujesz tylko stałą długość prefiksu.
+
+## Sterowanie liczbą znaków z komórki
+
+Jeżeli w B1 użytkownik podaje liczbę znaków do usunięcia:
+
+<div class="formula">=PRAWY(A1;DŁ(A1)-B1)</div>
+
+ta sama formuła może obsługiwać różne warianty danych.
+
+## Zabezpieczenie przed zbyt dużą wartością
+
+Jeżeli B1 przekroczy długość tekstu, zabezpiecz liczbę zwracanych znaków:
+
+<div class="formula">=PRAWY(A1;MAX(0;DŁ(A1)-B1))</div>
+
+Zamiast błędu otrzymasz pusty tekst.
+
+## Gdy prefiks kończy się separatorem
+
+Jeżeli liczba znaków przed właściwą wartością nie jest stała, ale prefiks kończy się np. myślnikiem, lepiej użyć TEKST.PO:
+
+<div class="formula">=TEKST.PO(A1;"-")</div>
+
+To bardziej odporne rozwiązanie dla kodów o zmiennej długości prefiksu.

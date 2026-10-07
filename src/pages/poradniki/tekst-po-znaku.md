@@ -6,9 +6,9 @@ slug: "tekst-po-znaku"
 category: "Formuły tekstowe"
 categorySlug: "formuly/tekst"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
-readingTime: "4 min"
+readingTime: "5 min"
 difficulty: "Podstawowy"
 excelVersions:
   - "Microsoft 365"
@@ -68,3 +68,41 @@ Ten wariant zwraca tekst po **pierwszym** wystąpieniu separatora.
 ## Najczęstszy błąd
 
 Jeżeli separatora nie ma w komórce, formuła może zwrócić błąd. W praktycznych arkuszach warto wtedy dodać obsługę błędu lub najpierw sprawdzić, czy separator występuje w tekście.
+
+## Usuń spację po separatorze
+
+Dane często wyglądają tak:
+
+`Kod - Produkt`
+
+Jeżeli separatorem ma być dokładnie myślnik ze spacjami, możesz uwzględnić je w formule:
+
+<div class="formula">=TEKST.PO(A1;" - ")</div>
+
+Wynik nie będzie wtedy zaczynał się od dodatkowego odstępu.
+
+## Co jeśli separatora nie ma?
+
+Przy niejednolitych danych brak myślnika może powodować błąd. Najprostsze zabezpieczenie:
+
+<div class="formula">=JEŻELI.BŁĄD(TEKST.PO(A1;"-");A1)</div>
+
+Jeżeli znak występuje, dostaniesz część po nim. Jeśli go nie ma, zostanie zwrócony oryginalny tekst.
+
+## Pierwszy i ostatni separator
+
+Dla tekstu `PL-2026-00125`:
+
+<div class="formula">=TEKST.PO(A1;"-")</div>
+
+zwróci wszystko po pierwszym myślniku, natomiast:
+
+<div class="formula">=TEKST.PO(A1;"-";-1)</div>
+
+zwróci tylko część po ostatnim myślniku, czyli `00125`.
+
+## Kiedy starsza formuła jest problematyczna?
+
+Wariant z PRAWY, DŁ i ZNAJDŹ dobrze działa dla pierwszego separatora, ale staje się trudniejszy przy ostatnim wystąpieniu albo brakujących znakach.
+
+Dlatego w nowszych wersjach Excela TEKST.PO jest czytelniejszym domyślnym rozwiązaniem.

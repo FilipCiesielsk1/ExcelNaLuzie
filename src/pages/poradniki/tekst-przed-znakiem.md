@@ -6,7 +6,7 @@ slug: "tekst-przed-znakiem"
 category: "Formuły tekstowe"
 categorySlug: "formuly/tekst"
 date: "2026-10-06"
-updated: "2026-10-06"
+updated: "2026-10-07"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -60,3 +60,43 @@ Jeżeli Twoja wersja nie ma funkcji TEKST.PRZED, możesz użyć połączenia LEW
 ## Co jeśli znaku nie ma w komórce?
 
 Jeżeli separator nie występuje w tekście, formuła może zwrócić błąd. W arkuszach z niejednorodnymi danymi warto dodać obsługę błędu lub wcześniej sprawdzić, czy separator występuje.
+
+## Przykład: kod przed separatorem
+
+Jeżeli A1 zawiera:
+
+`ABC-2026-001`
+
+formuła:
+
+<div class="formula">=TEKST.PRZED(A1;"-")</div>
+
+zwróci `ABC`.
+
+Jeżeli potrzebujesz wszystkiego przed **ostatnim** myślnikiem:
+
+<div class="formula">=TEKST.PRZED(A1;"-";-1)</div>
+
+wynikiem będzie `ABC-2026`.
+
+## Separator może zawierać kilka znaków
+
+Nie musisz ograniczać się do jednego znaku. Dla tekstu typu `Nazwa | Kategoria` możesz użyć:
+
+<div class="formula">=TEKST.PRZED(A1;" | ")</div>
+
+To często pozwala uniknąć późniejszego czyszczenia spacji.
+
+## Brak separatora w części danych
+
+Jeżeli nie wszystkie rekordy mają separator, zabezpiecz formułę:
+
+<div class="formula">=JEŻELI.BŁĄD(TEKST.PRZED(A1;"-");A1)</div>
+
+Rekord z myślnikiem zostanie podzielony, a rekord bez myślnika pozostanie bez zmian.
+
+## Kiedy użyć LEWY + ZNAJDŹ?
+
+W Excelu 2021 i starszych TEKST.PRZED może być niedostępne. Wtedy klasyczny wariant LEWY + ZNAJDŹ nadal jest dobrym rozwiązaniem.
+
+W nowych wersjach TEKST.PRZED wygrywa przede wszystkim czytelnością i łatwiejszą obsługą ostatniego wystąpienia separatora.
