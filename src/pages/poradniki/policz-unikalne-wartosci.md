@@ -14,8 +14,6 @@ excelVersions:
   - "Microsoft 365"
   - "Excel 2024"
   - "Excel 2021"
-  - "Excel 2019"
-  - "Excel 2016"
 verified: false
 ---
 
@@ -66,3 +64,9 @@ To samo podejście działa dla produktów, miast, handlowców, numerów zleceń 
 UNIKATOWE i FILTRUJ są funkcjami nowoczesnych wersji Excela. W starszych wydaniach liczenie wartości unikalnych wymaga innych konstrukcji, tabeli przestawnej albo bardziej złożonej formuły.
 
 Jeżeli pracujesz w Microsoft 365 lub nowszym Excelu, wariant z UNIKATOWE jest znacznie czytelniejszy i łatwiejszy do utrzymania.
+
+## Gdzie ta metoda sprawdza się najlepiej?
+
+Najczęściej przy listach klientów, produktów, numerów dokumentów i kategorii, gdzie jedna wartość może występować wiele razy. Dzięki tablicom dynamicznym nie potrzebujesz kolumn pomocniczych ani ręcznego usuwania duplikatów.
+
+Jeżeli dane stale rosną, warto używać tabeli Excela zamiast sztywnego zakresu A2:A100.
