@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
+
+const cluster = articleClusters['formuly/liczenie'];
+const articles = cluster.articles;
+---
+
+<BaseLayout
+  title={`Liczenie i sumowanie w Excelu — ${articles.length} praktycznych poradników | ExcelNaLuzie`}
+  description="LICZ.JEŻELI, LICZ.WARUNKI, SUMA.JEŻELI i SUMA.WARUNKÓW w praktyce: tekst, liczby, daty, kilka kryteriów i unikalne wartości."
+>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><a href={link("/formuly/")}>Formuły</a><span>›</span><strong>Liczenie i sumowanie</strong></nav>
+        <span class="hub-kicker">Klaster: Liczenie i sumowanie</span>
+        <h1>Policz to, co spełnia warunek.<br/><em>Zsumuj tylko właściwe rekordy.</em></h1>
+        <p>Od prostego LICZ.JEŻELI po SUMA.WARUNKÓW z kilkoma kryteriami, datami i tekstem.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
+          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Liczenie</span><code>=LICZ.JEŻELI(A:A;"Gotowe")</code></div>
+        <div class="formula-stack-card two"><span>Kilka warunków</span><code>=LICZ.WARUNKI(...)</code></div>
+        <div class="formula-stack-card three"><span>Sumowanie</span><code>=SUMA.WARUNKÓW(...)</code></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">{articles.length} poradników</span><h2>Co chcesz policzyć lub zsumować?</h2></div>
+        <p>Wybierz problem: wystąpienia tekstu, progi liczbowe, kilka kryteriów, daty, wartości unikalne albo sumę tylko wybranych rekordów.</p>
+      </div>
+      <div class="hub-article-list">
+        {articles.map((item,index) => (
+          <a href={link('/poradniki/' + item.slug + '/')}>
+            <span class="hub-list-num">{String(index+1).padStart(2,'0')}</span>
+            <div><small>Liczenie i sumowanie</small><strong>{item.title}</strong></div>
+            <code>{item.label}</code>
+            <b>→</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-section hub-section-alt">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Szybki wybór</span><h2>Jedno kryterium czy kilka?</h2></div>
+        <p>To najważniejsze rozróżnienie. Gdy masz jeden warunek, zwykle wystarczy LICZ.JEŻELI albo SUMA.JEŻELI. Dla kilku warunków używaj wersji WARUNKI.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>LICZ.JEŻELI</strong><p>Liczy komórki spełniające jeden warunek.</p></div>
+        <div><span>02</span><strong>LICZ.WARUNKI</strong><p>Liczy rekordy spełniające wszystkie podane kryteria.</p></div>
+        <div><span>03</span><strong>SUMA.WARUNKÓW</strong><p>Sumuje wartości tylko w wierszach spełniających wymagane warunki.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
