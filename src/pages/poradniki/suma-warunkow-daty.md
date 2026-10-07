@@ -60,3 +60,11 @@ Jeśli wartości zawierają również czas, kryterium <= data końcowa może nie
 ## Kiedy warto używać tej metody?
 
 W raportach miesięcznych, fakturach, kosztach, sprzedaży i ewidencji czasu. Zamiast ręcznie filtrować tabelę, formuła przelicza zakres dat automatycznie po zmianie parametrów.
+
+## Przykład: suma za wybrany miesiąc
+
+Jeżeli użytkownik wpisuje dowolną datę z miesiąca w F2, możesz wyznaczyć początek i koniec tego miesiąca bez dodatkowych komórek:
+
+<div class="formula">=SUMA.WARUNKÓW(C2:C100;A2:A100;">="&DATA(ROK(F2);MIESIĄC(F2);1);A2:A100;"<="&NR.SER.OST.DN.MIES(F2;0))</div>
+
+To wygodne w raportach miesięcznych sterowanych jedną komórką.
