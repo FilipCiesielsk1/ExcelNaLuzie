@@ -1,0 +1,352 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+
+const demo = [
+  'Data\tRegion\tHandlowiec\tKategoria\tKwota\tSztuki\tStatus',
+  '2026-10-01\tPółnoc\tAnna\tElektronika\t1250,50\t2\tOpłacone',
+  '2026-10-01\tPołudnie\tPiotr\tMeble\t800,00\t1\tOpłacone',
+  '2026-10-02\tPółnoc\tAnna\tMeble\t600,00\t3\tNowe',
+  '2026-10-03\tZachód\tOla\tElektronika\t320,00\t1\tOpłacone',
+  '2026-10-03\tPołudnie\tPiotr\tElektronika\t2100,00\t4\tNowe',
+  '2026-10-04\tPółnoc\tTomek\tElektronika\t400,00\t2\tOpłacone',
+  '2026-10-04\tZachód\tOla\tMeble\t995,50\t1\tOpłacone',
+  '2026-10-05\tPołudnie\tAnna\tMeble\t1200,00\t2\tOpłacone',
+  '2026-10-06\tPółnoc\tTomek\tMeble\t310,00\t1\tNowe'
+].join('\n');
+---
+
+<ToolLayout
+  title="Generator tabel przestawnych Excel — podgląd i raport XLSX"
+  description="Wczytaj dane Excel XLSX lub CSV, wybierz wiersze, kolumny, wartości i filtry. Zbuduj podsumowanie z sumą, średnią lub licznikiem i pobierz skoroszyt z instrukcją utworzenia tabeli przestawnej."
+  slug="generator-tabel-przestawnych"
+  resourceLabel="Powiązane narzędzie"
+  functionName="Porównywarka tabel Excel"
+  functionHref="/narzedzia/porownywarka-tabel/"
+  resourceAction="Porównaj dwa zestawienia →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Nowe narzędzie · bez przesyłania plików</span>
+    <h2>Od surowych danych do czytelnego raportu</h2>
+    <p>Wczytaj arkusz, ustaw pola jak w tabeli przestawnej i zobacz podsumowanie od razu w przeglądarce. Pobierzesz <strong>XLSX z danymi, podsumowaniem i instrukcją</strong> utworzenia edytowalnej tabeli przestawnej w Excelu.</p>
+  </div>
+
+  <div class="pb-app" data-pivot-builder>
+    <section class="pb-panel" aria-labelledby="pb-source-title">
+      <div class="pb-section-top">
+        <span class="pb-number">1</span>
+        <div><h3 id="pb-source-title">Wczytaj dane</h3><p>Jedna tabela z nagłówkami w pierwszym wierszu</p></div>
+      </div>
+      <div class="pb-source-grid">
+        <div class="pb-source-left">
+          <label for="pb-file">Plik XLSX / CSV / TSV</label>
+          <input type="file" id="pb-file" accept=".xlsx,.csv,.tsv,.txt" data-file />
+          <div data-sheet-wrap hidden>
+            <label for="pb-sheet">Arkusz pliku Excel</label>
+            <select id="pb-sheet" data-sheet></select>
+          </div>
+          <span class="pb-or">albo wklej zakres skopiowany z Excela</span>
+          <button type="button" data-load-paste class="tc-load-button">Wczytaj dane z pola →</button>
+        </div>
+        <div>
+          <label for="pb-paste">Wklejony zakres (przykładowe dane)</label>
+          <textarea id="pb-paste" data-paste rows="8" spellcheck="false" autocorrect="off" autocapitalize="off">{demo}</textarea>
+        </div>
+      </div>
+      <p class="pb-data-status" data-data-status aria-live="polite"></p>
+    </section>
+
+    <section class="pb-panel" aria-labelledby="pb-config-title">
+      <div class="pb-section-top">
+        <span class="pb-number">2</span>
+        <div><h3 id="pb-config-title">Skonfiguruj pola</h3><p>Wybierz kategorie i sposób agregacji danych</p></div>
+      </div>
+      <div class="pb-field-grid">
+        <div class="pb-field">
+          <label for="pb-row-one"><span class="pb-field-icon">↕</span> Wiersze — główna kategoria</label>
+          <select id="pb-row-one" data-row-one></select>
+        </div>
+        <div class="pb-field">
+          <label for="pb-row-two"><span class="pb-field-icon">↳</span> Drugi poziom wierszy (opcjonalnie)</label>
+          <select id="pb-row-two" data-row-two></select>
+        </div>
+        <div class="pb-field">
+          <label for="pb-column"><span class="pb-field-icon">↔</span> Kolumny (opcjonalnie)</label>
+          <select id="pb-column" data-column></select>
+        </div>
+        <div class="pb-field">
+          <label for="pb-value"><span class="pb-field-icon">Σ</span> Wartości — pole do obliczenia</label>
+          <select id="pb-value" data-value></select>
+        </div>
+        <div class="pb-field">
+          <label for="pb-agg"><span class="pb-field-icon">ƒx</span> Operacja</label>
+          <select id="pb-agg" data-agg>
+            <option value="sum">Suma</option>
+            <option value="count">Licznik niepustych</option>
+            <option value="avg">Średnia</option>
+            <option value="min">Minimum</option>
+            <option value="max">Maksimum</option>
+          </select>
+        </div>
+        <div class="pb-field">
+          <label for="pb-filter"><span class="pb-field-icon">⌕</span> Filtr (opcjonalnie)</label>
+          <select id="pb-filter" data-filter-field></select>
+        </div>
+        <div class="pb-field pb-filter-value" data-filter-value-wrap hidden>
+          <label for="pb-filter-value">Pokaż tylko rekordy z wartością</label>
+          <select id="pb-filter-value" data-filter-value></select>
+        </div>
+      </div>
+      <div class="pb-quick-presets">
+        <span>Przykładowe układy:</span>
+        <button type="button" data-preset="regions">Sprzedaż według regionu</button>
+        <button type="button" data-preset="people">Handlowcy i kategorie</button>
+        <button type="button" data-preset="status">Liczba zamówień według statusu</button>
+      </div>
+      <div class="pb-run">
+        <button type="button" data-run class="tc-run">Generuj podgląd <span aria-hidden="true">→</span></button>
+        <p data-feedback role="status" aria-live="polite">Przykładowe dane są już załadowane. Możesz uruchomić podgląd.</p>
+      </div>
+    </section>
+
+    <section class="pb-panel pb-results" data-results hidden aria-labelledby="pb-results-title">
+      <div class="pb-results-head">
+        <div><span class="section-kicker">Zestawienie danych</span><h3 id="pb-results-title">Podgląd podsumowania</h3></div>
+        <button type="button" data-export class="tc-export tc-export-primary">Pobierz raport XLSX ↓</button>
+      </div>
+      <div class="pb-kpis" data-kpis></div>
+      <p class="pb-warning" data-warning hidden></p>
+      <div class="pb-preview-scroll" tabindex="0" aria-label="Podgląd tabeli z poziomym przewijaniem">
+        <table class="pb-preview-table">
+          <thead data-preview-head></thead>
+          <tbody data-preview-body></tbody>
+        </table>
+      </div>
+      <p class="pb-smallprint">Podgląd pokazuje maksymalnie 80 pierwszych wierszy grupowania. Eksport XLSX zawiera pełne zestawienie wszystkich grup.</p>
+    </section>
+  </div>
+
+  <div class="generator-help">
+    <h2>Czy pobrany plik jest prawdziwą tabelą przestawną?</h2>
+    <p><strong>Nie od razu.</strong> Plik XLSX zawiera statyczne podsumowanie obliczone w przeglądarce, arkusz <strong>Dane</strong> i arkusz <strong>Instrukcja</strong>. Podsumowanie można od razu otworzyć i analizować w Excelu, ale nie obsługuje ono przeciągania pól ani przycisku „Odśwież” właściwego dla natywnej tabeli przestawnej.</p>
+    <p>Aby utworzyć <strong>prawdziwą, edytowalną tabelę przestawną</strong>, otwórz pobrany skoroszyt, przejdź do arkusza Dane, wybierz <strong>Wstaw → Tabela przestawna</strong>, a następnie przenieś pola zgodnie z arkuszem Instrukcja. Ta operacja nie wymaga makr.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Jakie dane i funkcje są obsługiwane?</h2>
+    <p>Pliki XLSX z wyborem arkusza, CSV, TSV i zakresy kopiowane z Excela. Wybierasz jedną lub dwie kategorie wierszy, jedną opcjonalną kategorię kolumn, pole wartości oraz opcjonalny filtr. Dostępne działania: suma, licznik, średnia, minimum i maksimum. Średnia oraz wynik ogółem są obliczane na podstawie oryginalnych rekordów, a nie jako średnia wyników grup.</p>
+    <p>Limit wejściowy: <strong>10 000 rekordów, 80 kolumn, 5 MB na plik</strong>. Podgląd jest ograniczony do 350 grup wierszy i 24 kategorii kolumn, żeby przeglądarka zachowała płynność. Nie przeliczamy formuł zapisanych w XLSX; korzystamy z ich zapisanych wartości. Wszystkie dane pozostają w Twojej przeglądarce.</p>
+  </div>
+
+  <script>
+    import {parseDelimited,prepareTable,MAX_FILE_BYTES} from '../../utils/tableCompare.js';
+    import {buildPivot,getPivotFilterValues,getPivotWorkbook,AGGREGATIONS} from '../../utils/pivotBuilder.js';
+    const root=document.querySelector('[data-pivot-builder]');
+    if(root){
+      const find=s=>root.querySelector(s);
+      const input=find('[data-paste]');
+      const file=find('[data-file]');
+      const sheetWrap=find('[data-sheet-wrap]');
+      const sheetSelector=find('[data-sheet]');
+      const feedback=find('[data-feedback]');
+      const dataStatus=find('[data-data-status]');
+      const results=find('[data-results]');
+      const fields={
+        rowOne:find('[data-row-one]'),rowTwo:find('[data-row-two]'),
+        column:find('[data-column]'),value:find('[data-value]'),
+        agg:find('[data-agg]'),filter:find('[data-filter-field]'),
+        filterValue:find('[data-filter-value]')
+      };
+      let table=null, pivot=null, sheets=null;
+      let reading=false;
+      const element=(tag,value,className)=>{
+        const node=document.createElement(tag);
+        if(value!==undefined)node.textContent=String(value);
+        if(className)node.className=className;
+        return node;
+      };
+      const status=(message,error=false)=>{
+        feedback.textContent=message;
+        feedback.classList.toggle('pb-error',error);
+      };
+      const invalidate=()=>{
+        pivot=null;results.hidden=true;
+      };
+      const updateSelect=(select,names,previous,placeholder)=>{
+        select.replaceChildren();
+        if(placeholder!==undefined){
+          const option=element('option',placeholder);option.value='';select.append(option);
+        }
+        for(const name of names){
+          const option=element('option',name);option.value=name;select.append(option);
+        }
+        select.value=names.includes(previous)?previous:(placeholder!==undefined?'':(names[0]??''));
+      };
+      const updateFilterValues=()=>{
+        const name=fields.filter.value;
+        const selected=fields.filterValue.value;
+        const choices=table&&name?getPivotFilterValues(table,name):[];
+        const wrap=find('[data-filter-value-wrap]');
+        wrap.hidden=!name;
+        updateSelect(fields.filterValue,choices,selected);
+      };
+      const loadTable=(data,label)=>{
+        table=prepareTable(data);
+        const headers=table.headers;
+        updateSelect(fields.rowOne,headers,headers.includes('Region')?'Region':fields.rowOne.value);
+        updateSelect(fields.rowTwo,headers,fields.rowTwo.value,'— Brak drugiej kategorii —');
+        updateSelect(fields.column,headers,headers.includes('Kategoria')?'Kategoria':fields.column.value,'— Bez kolumn —');
+        const money=headers.find(n=>/^(kwota|sprzedaż|wartość|przychód|suma|obrót)$/i.test(n));
+        updateSelect(fields.value,headers,money??fields.value.value);
+        updateSelect(fields.filter,headers,fields.filter.value,'— Bez filtra —');
+        updateFilterValues();
+        dataStatus.textContent=label+' · '+table.rows.length.toLocaleString('pl-PL')+' wierszy · '+headers.length+' kolumn';
+        dataStatus.classList.remove('pb-error');
+        invalidate();
+        status('Dane są gotowe. Wybierz pola i wygeneruj podgląd.');
+      };
+      const loadPaste=()=>{
+        sheets=null;sheetWrap.hidden=true;
+        try{
+          loadTable(parseDelimited(input.value),'Wklejony zakres');
+        }catch(e){
+          table=null;invalidate();
+          dataStatus.textContent=e.message;dataStatus.classList.add('pb-error');
+          status('Popraw wklejone dane.',true);
+        }
+      };
+      const fileText=async f=>{
+        const buffer=await f.arrayBuffer();
+        try{return new TextDecoder('utf-8',{fatal:true}).decode(buffer);}
+        catch{return new TextDecoder('windows-1250').decode(buffer);}
+      };
+      const loadSheet=()=>{
+        try{
+          const choice=sheets?.[Number(sheetSelector.value)];
+          if(!choice)throw new Error('Nie wybrano istniejącego arkusza.');
+          loadTable(choice.data,'Arkusz: '+choice.sheet);
+        }catch(e){
+          table=null;invalidate();
+          dataStatus.textContent=e.message;dataStatus.classList.add('pb-error');
+        }
+      };
+      const loadFile=async f=>{
+        if(!f)return;
+        if(f.size>MAX_FILE_BYTES){status('Plik jest większy niż 5 MB.',true);return;}
+        reading=true;find('[data-run]').disabled=true;
+        status('Wczytywanie pliku…');
+        try{
+          if(/\.xlsx$/i.test(f.name)){
+            const {default:readExcelFile}=await import('read-excel-file/browser');
+            sheets=await readExcelFile(f);
+            sheetSelector.replaceChildren();
+            sheets.forEach((sheet,i)=>{
+              const opt=element('option',sheet.sheet);opt.value=i;sheetSelector.append(opt);
+            });
+            sheetWrap.hidden=false;
+            loadSheet();
+          }else if(/\.(csv|tsv|txt)$/i.test(f.name)){
+            sheets=null;sheetWrap.hidden=true;
+            loadTable(parseDelimited(await fileText(f)),f.name);
+          }else throw new Error('Obsługiwane są tylko pliki XLSX, CSV, TSV lub TXT.');
+        }catch(e){
+          table=null;invalidate();
+          status('Nie udało się odczytać pliku: '+e.message,true);
+          dataStatus.textContent='Błąd wczytywania';dataStatus.classList.add('pb-error');
+        }finally{reading=false;find('[data-run]').disabled=false;}
+      };
+      const number=n=>n===null?'—':new Intl.NumberFormat('pl-PL',{maximumFractionDigits:2}).format(n);
+      const render=()=>{
+        const r=pivot;
+        const metrics=[
+          ['Rekordy objęte analizą',r.totalRows],
+          ['Grupy wierszy',r.rows.length],
+          ['Grupy kolumn',r.columnValues.length||1],
+          ['Wynik ogółem',number(r.grandTotal)]
+        ];
+        const stats=find('[data-kpis]');
+        stats.replaceChildren();
+        for(const [title,value] of metrics){
+          const box=element('div');
+          box.append(element('small',title),element('strong',value));
+          stats.append(box);
+        }
+        const warning=find('[data-warning]');
+        warning.hidden=r.skippedNumbers===0;
+        warning.textContent=r.skippedNumbers+' wartości nie było liczbami — pominięto je w obliczeniu '+AGGREGATIONS[r.aggregation].toLowerCase()+'.';
+        const head=find('[data-preview-head]'),body=find('[data-preview-body]');
+        head.replaceChildren();body.replaceChildren();
+        const tr=element('tr');
+        for(const text of r.headers)tr.append(element('th',text));
+        head.append(tr);
+        for(const row of r.rows.slice(0,80)){
+          const record=element('tr');
+          row.labels.forEach(text=>record.append(element('th',text)));
+          row.values.forEach(value=>record.append(element('td',number(value))));
+          if(r.includeRowTotal)record.append(element('td',number(row.total)));
+          body.append(record);
+        }
+        const total=element('tr',undefined,'pb-grand-total');
+        total.append(element('th','WYNIK OGÓŁEM'));
+        for(let i=1;i<r.rowFields.length;i++)total.append(element('th',''));
+        r.grandValues.forEach(value=>total.append(element('td',number(value))));
+        if(r.includeRowTotal)total.append(element('td',number(r.grandTotal)));
+        body.append(total);
+        results.hidden=false;
+        results.scrollIntoView({behavior:'smooth',block:'start'});
+      };
+      root.addEventListener('change',event=>{
+        if(!Object.values(fields).includes(event.target))return;
+        if(event.target===fields.filter)updateFilterValues();
+        invalidate();
+      });
+      file.addEventListener('change',e=>loadFile(e.target.files?.[0]));
+      sheetSelector.addEventListener('change',loadSheet);
+      find('[data-load-paste]').addEventListener('click',loadPaste);
+      input.addEventListener('input',()=>{
+        table=null;invalidate();
+        dataStatus.textContent='Treść została zmieniona. Kliknij „Wczytaj dane z pola”.';
+      });
+      const presets={
+        regions:{rowOne:'Region',rowTwo:'',column:'Kategoria',value:'Kwota',agg:'sum',filter:''},
+        people:{rowOne:'Region',rowTwo:'Handlowiec',column:'Kategoria',value:'Kwota',agg:'avg',filter:''},
+        status:{rowOne:'Status',rowTwo:'',column:'Region',value:'Kwota',agg:'count',filter:''}
+      };
+      for(const button of root.querySelectorAll('[data-preset]')){
+        button.addEventListener('click',()=>{
+          if(!table)return status('Najpierw wczytaj dane.',true);
+          const preset=presets[button.dataset.preset];
+          if(![preset.rowOne,preset.column,preset.value,...(preset.rowTwo?[preset.rowTwo]:[])].every(x=>table.headers.includes(x)))
+            return status('Przykładowy układ działa z danymi demonstracyjnymi. Dostosuj pola ręcznie.',true);
+          for(const [key,value] of Object.entries(preset))fields[key].value=value;
+          updateFilterValues();invalidate();
+          status('Wybrano przykładowy układ. Kliknij „Generuj podgląd”.');
+        });
+      }
+      find('[data-run]').addEventListener('click',()=>{
+        if(reading)return;
+        try{
+          pivot=buildPivot(table,{
+            rowFields:[fields.rowOne.value,fields.rowTwo.value].filter(Boolean),
+            columnField:fields.column.value,valueField:fields.value.value,
+            aggregation:fields.agg.value,
+            filterField:fields.filter.value,
+            filterValue:fields.filter.value?fields.filterValue.value:''
+          });
+          status('Podsumowano '+pivot.totalRows+' rekordów. Wynik jest gotowy.');
+          render();
+        }catch(e){invalidate();status(e.message,true);}
+      });
+      find('[data-export]').addEventListener('click',async()=>{
+        if(!pivot||!table)return;
+        const button=find('[data-export]');
+        button.disabled=true;
+        const original=button.textContent;button.textContent='Tworzenie pliku…';
+        try{
+          const {default:writeExcelFile}=await import('write-excel-file/browser');
+          await writeExcelFile(getPivotWorkbook(table,pivot)).toFile('raport-tabela-przestawna.xlsx');
+        }catch(e){status('Nie udało się utworzyć XLSX: '+e.message,true);}
+        finally{button.disabled=false;button.textContent=original;}
+      });
+      loadPaste();
+    }
+  </script>
+</ToolLayout>
