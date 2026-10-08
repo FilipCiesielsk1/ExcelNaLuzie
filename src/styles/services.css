@@ -89,3 +89,7 @@
 @media(max-width:850px){.service-hero-grid{grid-template-columns:1fr;gap:28px}.service-example{max-width:650px}.service-contact-layout{grid-template-columns:1fr}.service-contact-copy{position:static}.service-how-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.service-hero{padding:32px 0 45px}.service-section{padding:44px 0}.service-form-shell{padding:17px}.service-home-strip-inner{align-items:stretch;flex-direction:column}.service-home-strip a{align-self:flex-start}.service-field :is(input,select,textarea){font-size:16px}}
 @media(max-width:540px){.service-offer-grid,.service-faq-grid,.service-form-grid{grid-template-columns:1fr}.service-field-full{grid-column:auto}.service-hero h1{font-size:clamp(2.4rem,11vw,3.15rem)}.service-example{padding:16px}.service-form-actions{flex-direction:column;align-items:stretch}.service-form-actions button{width:100%}.service-hero-actions>a{width:100%}}
+
+/* Honeypot stays accessible to basic bots, outside the visible viewport for users. */
+.service-honeypot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+.service-submit:disabled{opacity:.6;cursor:wait}

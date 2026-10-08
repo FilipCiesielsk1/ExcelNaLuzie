@@ -54,7 +54,7 @@ test('Payload FormSubmit zawiera wszystkie istotne dane, bez dodatkowych odbiorc
  assert.equal(payload._honey,'');
  assert.match(payload.message,/E-mail do odpowiedzi: anna@example\.com/);
  assert.ok(!Object.hasOwn(payload,'_cc'));
- assert.equal(getInquiryEndpoint(),'https://formsubmit.co/ajax/excelnaluzie%40gmail.com');
+ assert.equal(getInquiryEndpoint(),'https://formsubmit.co/ajax/excelnaluzie@gmail.com');
 });
 test('Odpowiedzi FormSubmit interpretowane są bez fałszywego sukcesu',()=>{
  assert.equal(isInquiryAccepted(200,{success:true}),true);

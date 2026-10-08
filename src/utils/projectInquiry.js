@@ -41,7 +41,7 @@ export function createProjectInquiry(data={}) {
 
 /** Przesyłka JSON do FormSubmit — adres odbiorcy po stronie serwisu, nie od użytkownika. */
 export function getInquiryEndpoint(){
-  return 'https://formsubmit.co/ajax/'+encodeURIComponent(serviceContact.email);
+  return 'https://formsubmit.co/ajax/'+serviceContact.email;
 }
 
 export function buildInquiryPayload(data={}){
