@@ -259,16 +259,22 @@ const toolHighlights = [
       <div class="template-grid template-grid-live">
         {templateCatalog.map((template) => (
           <a class="template-card template-card-live" href={link('/szablony/' + template.slug + '/')}>
-            <div class="template-card-top">
-              <span class="template-icon">{template.icon}</span>
-              <span class="template-status">XLSX</span>
+            <div class="template-thumb">
+              <span>{template.icon}</span>
+              <div></div><div></div><div></div>
+              <div class="template-mini-kpis">
+                <i></i><i></i><i></i>
+              </div>
             </div>
-            <span class="template-type">{template.type}</span>
+            <div class="template-meta">
+              <span>{template.type}</span>
+              <b>{template.version}</b>
+            </div>
             <h3>{template.title}</h3>
             <p>{template.description}</p>
-            <div class="template-meta">
-              <span>{template.version}</span>
-              <b>Pobierz za darmo →</b>
+            <div class="template-card-footer">
+              <span>XLSX · Darmowy</span>
+              <strong>Zobacz i pobierz →</strong>
             </div>
           </a>
         ))}
