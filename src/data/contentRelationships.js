@@ -50,6 +50,14 @@ export const articleFunctionOverrides = {
 };
 
 export const articleToolRules = [
+  { prefix: 'formatowanie-warunkowe-', slugs: ['generator-formatowania-warunkowego'] },
+  { prefix: 'zaznacz-przeterminowane-', slugs: ['generator-formatowania-warunkowego'] },
+  { prefix: 'naprzemienne-kolory-', slugs: ['generator-formatowania-warunkowego'] },
+  { prefix: 'ukrywanie-zer-', slugs: ['generator-formatow'] },
+  { prefix: 'liczba-z-jednostka-', slugs: ['generator-formatow'] },
+  { prefix: 'godziny-powyzej-', slugs: ['generator-formatow'] },
+  { prefix: 'miesiac-slownie-', slugs: ['generator-formatow'] },
+  { prefix: 'wlasny-format-daty-', slugs: ['generator-formatow'] },
   { prefix: 'jezeli-', slugs: ['generator-jezeli'] },
   { prefix: 'xwyszukaj-', slugs: ['generator-xwyszukaj'] },
   { prefix: 'filtruj-', slugs: ['generator-filtruj'] },
@@ -79,6 +87,11 @@ export const articleToolOverrides = {
 };
 
 export const toolRelationships = {
+  'generator-formatowania-warunkowego': {
+    title: 'Generator formatowania warunkowego',
+    functions: [],
+    articles: ['formatowanie-warunkowe-caly-wiersz', 'formatowanie-warunkowe-dat', 'zaznacz-przeterminowane-daty']
+  },
   'generator-jezeli': {
     title: 'Generator JEŻELI',
     functions: ['jezeli'],
@@ -117,7 +130,7 @@ export const toolRelationships = {
   'generator-formatow': {
     title: 'Generator formatów liczb i dat',
     functions: ['tekst'],
-    articles: ['data-na-nazwe-miesiaca']
+    articles: ['data-na-nazwe-miesiaca','ukrywanie-zer-format-niestandardowy','wlasny-format-daty-excel']
   },
   'kolumna-numer-litera': {
     title: 'Kolumna ↔ numer',
