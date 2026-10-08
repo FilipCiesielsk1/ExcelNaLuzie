@@ -72,9 +72,40 @@ for (const article of allArticles) {
     errors.push('Poradnik ' + article.slug + ': brak następnego poradnika');
 }
 
+const functionSourceFiles = new Set(
+  fs.readdirSync('src/pages/funkcje')
+    .filter((file) => file.endsWith('.md'))
+    .map((file) => file.slice(0, -3))
+);
+if (functionCatalog.length < 50) {
+  errors.push('Katalog ma mniej niż 50 funkcji: ' + functionCatalog.length);
+}
+if (functionSourceFiles.size !== functionCatalog.length) {
+  errors.push('Liczba stron funkcji nie zgadza się z katalogiem: ' +
+    functionSourceFiles.size + ' plików vs ' + functionCatalog.length + ' wpisów');
+}
+const knownCategories = new Set([
+  'Wyszukiwanie', 'Tekst', 'Daty i czas',
+  'Liczenie i sumowanie', 'Logika', 'Formuły dynamiczne'
+]);
+const seenFunctionSlugs = new Set();
 for (const fn of functionCatalog) {
+  if (seenFunctionSlugs.has(fn.slug)) errors.push('Zduplikowany slug funkcji: ' + fn.slug);
+  seenFunctionSlugs.add(fn.slug);
+  if (!functionSourceFiles.has(fn.slug)) errors.push('Brak pliku MD funkcji: ' + fn.slug);
+  if (!knownCategories.has(fn.category)) errors.push('Nieznana kategoria funkcji: ' + fn.slug);
+  if (!fn.name || !fn.description || !fn.syntax || !fn.example ||
+      !fn.arguments?.length || !fn.versions?.length || !fn.docs) {
+    errors.push('Niekompletne metadane funkcji: ' + fn.slug);
+  }
+  if (!/^https:\/\/support\.microsoft\.com\//.test(fn.docs)) {
+    errors.push('Nieprawidłowy adres dokumentacji: ' + fn.slug);
+  }
   if (!functionBySlug[fn.slug]) errors.push('Brak funkcji w katalogu: ' + fn.slug);
   getFunctionNextSteps(fn.slug, fn.related);
+}
+for (const slug of functionSourceFiles) {
+  if (!seenFunctionSlugs.has(slug)) errors.push('Nieosierocony plik funkcji wymagany: ' + slug);
 }
 
 for (const slug of toolSlugs) getToolNextSteps(slug);

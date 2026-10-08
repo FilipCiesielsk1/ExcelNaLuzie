@@ -3538,3 +3538,68 @@ button.sidebar-search {
   .xlsx-kpis strong { font-size: .64rem; }
   .home-panel-top { flex-wrap: wrap; }
 }
+
+
+/* Category navigation in the expanded Excel function directory */
+.function-directory-nav {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin:0 0 35px;
+}
+.function-directory-nav a {
+  display:inline-flex;
+  gap:9px;
+  align-items:center;
+  padding:10px 13px;
+  border:1px solid var(--line-strong);
+  border-radius:11px;
+  background:#fff;
+  color:var(--green-deep);
+  font-size:.77rem;
+  font-weight:800;
+  transition:background .16s ease,border-color .16s ease;
+}
+.function-directory-nav a:hover {
+  border-color:#a9cdb5;
+  background:#eff8f2;
+}
+.function-directory-nav small {
+  display:grid;
+  place-items:center;
+  min-width:24px;
+  height:23px;
+  padding-inline:5px;
+  border-radius:7px;
+  background:#e8f3eb;
+  color:var(--green);
+  font-size:.66rem;
+  font-weight:900;
+}
+.function-directory-group {
+  margin-bottom:47px;
+  scroll-margin-top:105px;
+}
+.function-directory-group:last-child { margin-bottom:0; }
+.function-directory-heading {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:18px;
+  padding:0 0 15px;
+  margin-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+.function-directory-heading h3 {
+  margin:5px 0 0;
+  font-size:clamp(1.55rem,3vw,2.2rem);
+  letter-spacing:-.035em;
+}
+.function-directory-heading>span { color:var(--muted);font-size:.76rem;white-space:nowrap; }
+.function-directory-groups .function-card { min-width:0; }
+.function-directory-groups .function-card .function-symbol { overflow-wrap:anywhere; }
+@media (max-width:760px) {
+  .function-directory-nav { gap:7px; margin-bottom:30px; }
+  .function-directory-nav a {padding:9px 11px;font-size:.72rem;}
+  .function-directory-heading {align-items:start;}
+}
