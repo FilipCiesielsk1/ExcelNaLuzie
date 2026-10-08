@@ -22,6 +22,13 @@ const functionSlugs = [
   'sekwencja'
 ];
 
+const featuredGuides = [
+  { title: 'Jak porównać dwie tabele Excel?', description: 'Znajdź zmienione wartości, brakujące rekordy i duplikaty po ID.', href: '/poradniki/jak-porownac-dwie-tabele-excel/' },
+  { title: 'Jak zrobić tabelę przestawną?', description: 'Przejdź od danych źródłowych do raportu z wierszami, kolumnami i sumami.', href: '/poradniki/jak-zrobic-tabele-przestawna-w-excelu/' },
+  { title: 'WYSZUKAJ.PIONOWO na X.WYSZUKAJ', description: 'Przepisz starszą formułę na czytelniejsze wyszukiwanie dokładne.', href: '/poradniki/wyszukaj-pionowo-na-xwyszukaj/' },
+  { title: 'Jak naprawić błędy formuł?', description: 'Sprawdź nawiasy, średniki, cudzysłowy i typowe błędy Excela.', href: '/poradniki/jak-sprawdzic-bledy-w-formule-excel/' }
+];
+
 const popularFunctions = functionSlugs
   .map((slug) => functionCatalog.find((item) => item.slug === slug))
   .filter(Boolean);
@@ -215,6 +222,27 @@ const toolHighlights = [
             <h3>{cluster.title}</h3>
             <p>{cluster.articles.slice(0,3).map((article) => article.label).join(' · ')}</p>
             <span>{cluster.articles.length} poradników <b>→</b></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-featured-guides" aria-labelledby="home-guides-title">
+    <div class="wrap">
+      <div class="home-section-head">
+        <div>
+          <span class="section-kicker">Praktyczne instrukcje krok po kroku</span>
+          <h2 id="home-guides-title">Rozwiąż konkretny problem w Excelu</h2>
+        </div>
+        <a class="section-link" href={link('/formuly/')}>Więcej poradników <span>→</span></a>
+      </div>
+      <div class="home-featured-guide-grid">
+        {featuredGuides.map((guide) => (
+          <a class="home-featured-guide" href={link(guide.href)}>
+            <h3>{guide.title}</h3>
+            <p>{guide.description}</p>
+            <b>Zobacz rozwiązanie →</b>
           </a>
         ))}
       </div>

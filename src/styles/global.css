@@ -3794,3 +3794,14 @@ button.sidebar-search {
 .pb-smallprint{margin:12px 0 0;color:var(--muted);font-size:.7rem;line-height:1.55}
 @media(max-width:850px){.pb-source-grid{grid-template-columns:1fr}.pb-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.pb-panel{padding:15px}.pb-field-grid{grid-template-columns:1fr}.pb-source-grid :is(select,textarea,input[type=file]),.pb-field select{font-size:16px}.pb-run .tc-run{width:100%}.pb-results-head .tc-export{width:100%}}
+
+/* Direct discovery paths from indexed homepage to priority tutorials */
+.home-featured-guides{padding:44px 0 52px;background:#f7faf8}
+.home-featured-guide-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.home-featured-guide{display:flex;flex-direction:column;min-width:0;gap:11px;padding:21px;border:1px solid #dce9df;border-radius:15px;background:#fff;box-shadow:0 4px 16px rgba(13,69,36,.03);transition:border-color .15s ease,transform .15s ease}
+.home-featured-guide:hover{border-color:#a7cbb0;transform:translateY(-2px)}
+.home-featured-guide h3{margin:0;color:#173e28;letter-spacing:-.025em;font-size:1.06rem;line-height:1.35}
+.home-featured-guide p{margin:0;color:#5f7264;font-size:.78rem;line-height:1.62}
+.home-featured-guide b{margin-top:auto;color:#107c41;font-size:.74rem}
+@media(max-width:1050px){.home-featured-guide-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.home-featured-guides{padding:31px 0}.home-featured-guide-grid{grid-template-columns:1fr}.home-featured-guide{padding:17px}}
