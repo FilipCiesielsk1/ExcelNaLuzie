@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/ArticleLayout.astro
 title: "Liczba z jednostką kg, szt. lub zł w Excelu"
-description: "Dodaj jednostkę do liczby bez zmieniania jej na tekst. Przykład 0 "kg" i wskazówki."
+description: "Dodaj jednostkę do liczby bez zmieniania jej na tekst. Przykład kodu formatu 0 kg i wskazówki."
 slug: "liczba-z-jednostka-format-excel"
 category: "Formatowanie i formatowanie warunkowe"
 categorySlug: "formuly/formatowanie"
