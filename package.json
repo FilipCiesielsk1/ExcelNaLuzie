@@ -5,13 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate:content && npm run validate:relations && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
+    "build": "npm run validate:content && npm run validate:relations && npm run test:tools && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
     "preview": "astro preview",
     "validate": "npm run validate:content && npm run validate:relations",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:site": "node scripts/validate-built-site.mjs",
     "validate:relations": "node scripts/validate-relationships.mjs",
-    "validate:ui": "node scripts/validate-ui.mjs"
+    "validate:ui": "node scripts/validate-ui.mjs",
+    "test:tools": "node --test scripts/test-formula-tools.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",

@@ -22,7 +22,9 @@ const pages = [
   {route:'/szablony/', minOpeners:2},
   {route:'/poradniki/xwyszukaj-podstawy/', minOpeners:2},
   {route:'/funkcje/jezeli/', minOpeners:1},
-  {route:'/narzedzia/generator-jezeli/', minOpeners:1}
+  {route:'/narzedzia/generator-jezeli/', minOpeners:1},
+  {route:'/narzedzia/analizator-formul/', minOpeners:1},
+  {route:'/narzedzia/konwerter-wyszukaj-pionowo/', minOpeners:1}
 ];
 
 let checkedHtml = 0;
