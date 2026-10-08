@@ -6,7 +6,7 @@ slug: "jezeli-tekst"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -64,6 +64,27 @@ To szczególnie częste po imporcie danych z CSV, systemów ERP i kopiowaniu z i
 ## Sprawdzanie fragmentu tekstu
 
 Jeżeli chcesz ustalić nie to, czy komórka jest równa konkretnemu napisowi, lecz czy zawiera określony fragment, samo JEŻELI nie wystarczy. Potrzebujesz dodatkowej funkcji wyszukującej tekst.
+
+## Dane testowe: czy status jest równy „Gotowe”?
+
+Przy pierwszej formule z tego poradnika porównaj kilka wartości z kolumny A:
+
+| A — status | Wynik |
+|---|---|
+| Gotowe | Zamknięte |
+| gotowe | Zamknięte |
+| Gotowe ze spacją na końcu | W toku |
+| W toku | W toku |
+
+Standardowe porównanie tekstów w Excelu **nie rozróżnia wielkich i małych liter**. Rozróżnia natomiast spacje. Trzeci wiersz oznacza zawartość „Gotowe ” (ze spacją), a nie dosłowny napis opisujący tę sytuację.
+
+## Jak wymagać dokładnie takich samych liter?
+
+Jeżeli A2 ma być równe „Gotowe” również pod względem wielkości liter, możesz użyć funkcji PORÓWNAJ:
+
+<div class="formula">=JEŻELI(PORÓWNAJ(A2;"Gotowe");"Zamknięte";"W toku")</div>
+
+W tej wersji „gotowe” zwróci **W toku**, a „Gotowe” — **Zamknięte**. Takie sprawdzanie ma sens dla kodów i oznaczeń, w których wielkość liter stanowi część identyfikatora. W zwykłych statusach często lepiej zachować prosty test, a spacje usuwać już podczas importu danych.
 
 ## Kiedy ta metoda jest najlepsza?
 
