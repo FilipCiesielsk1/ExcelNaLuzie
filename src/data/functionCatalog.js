@@ -1034,6 +1034,281 @@ export const functionCatalog = [
         "/formuly/daty/"
       ]
     ]
+  },
+  {
+    "slug": "teraz",
+    "name": "TERAZ",
+    "category": "Daty i czas",
+    "description": "Zwraca bieżącą datę razem z godziną.",
+    "syntax": "=TERAZ()",
+    "example": "=TERAZ()",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "brak",
+        "Brak argumentów"
+      ],
+      [
+        " wymagane są puste nawiasy."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/now-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "rok",
+    "name": "ROK",
+    "category": "Daty i czas",
+    "description": "Wyodrębnia rok z daty zapisanej w Excelu.",
+    "syntax": "=ROK(liczba_seryjna)",
+    "example": "=ROK(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba_seryjna",
+        "Data Excela lub komórka z datą."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/year-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "miesiac",
+    "name": "MIESIĄC",
+    "category": "Daty i czas",
+    "description": "Zwraca numer miesiąca od 1 do 12.",
+    "syntax": "=MIESIĄC(liczba_seryjna)",
+    "example": "=MIESIĄC(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba_seryjna",
+        "Data, z której odczytywany jest miesiąc."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/month-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "dzien",
+    "name": "DZIEŃ",
+    "category": "Daty i czas",
+    "description": "Zwraca dzień miesiąca jako liczbę 1–31.",
+    "syntax": "=DZIEŃ(liczba_seryjna)",
+    "example": "=DZIEŃ(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba_seryjna",
+        "Rzeczywista data Excela."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/day-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "dzien-tyg",
+    "name": "DZIEŃ.TYG",
+    "category": "Daty i czas",
+    "description": "Wyznacza numer dnia tygodnia dla wskazanej daty.",
+    "syntax": "=DZIEŃ.TYG(liczba_seryjna;[zwracany_typ])",
+    "example": "=DZIEŃ.TYG(A2;2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba_seryjna",
+        "Data do sprawdzenia"
+      ],
+      [
+        "zwracany_typ",
+        "Opcjonalny schemat numerowania dni."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/weekday-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/dni-robocze/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "nr-ser-daty",
+    "name": "NR.SER.DATY",
+    "category": "Daty i czas",
+    "description": "Przesuwa datę o określoną liczbę miesięcy.",
+    "syntax": "=NR.SER.DATY(data_początkowa;miesiące)",
+    "example": "=NR.SER.DATY(A2;3)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "data_początkowa",
+        "Data wyjściowa"
+      ],
+      [
+        "miesiące",
+        "Liczba miesięcy do dodania lub odjęcia."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/edate-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "nr-ser-ost-dn-mies",
+    "name": "NR.SER.OST.DN.MIES",
+    "category": "Daty i czas",
+    "description": "Zwraca ostatni dzień wskazanego miesiąca.",
+    "syntax": "=NR.SER.OST.DN.MIES(data_początkowa;miesiące)",
+    "example": "=NR.SER.OST.DN.MIES(A2;0)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "data_początkowa",
+        "Początkowa data"
+      ],
+      [
+        "miesiące",
+        "Liczba miesięcy przesunięcia."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/eomonth-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "suma",
+    "name": "SUMA",
+    "category": "Liczenie i sumowanie",
+    "description": "Dodaje liczby z jednego lub wielu zakresów.",
+    "syntax": "=SUMA(liczba1;[liczba2];...)",
+    "example": "=SUMA(B2:B100)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba1",
+        "Liczba, zakres lub tablica do zsumowania"
+      ],
+      [
+        "kolejne_liczby",
+        "Opcjonalne dodatkowe wartości i zakresy."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/sum-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/suma-warunkow/"
+      ],
+      [
+        "Poradniki",
+        "/formuly/liczenie/"
+      ]
+    ]
   }
 ];
 
