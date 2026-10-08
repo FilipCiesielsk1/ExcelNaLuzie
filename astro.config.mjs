@@ -14,7 +14,7 @@ export default defineConfig({
   output: 'static',
   integrations: [
     sitemap({
-      filter: (page) => !/\/(404|polityka-prywatnosci)\/?$/.test(new URL(page).pathname)
+      filter: (page) => !/\/404\/?$/.test(new URL(page).pathname)
     })
   ],
   build: { format: 'directory' }
