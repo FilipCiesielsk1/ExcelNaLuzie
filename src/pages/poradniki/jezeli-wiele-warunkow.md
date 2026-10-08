@@ -6,7 +6,7 @@ slug: "jezeli-wiele-warunkow"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Średni"
@@ -50,6 +50,30 @@ Jeżeli poszczególne warunki dotyczą tego samego rodzaju progu, rozważ tabel�
 Najpierw zbuduj pierwsze JEŻELI i sprawdź kilka wartości granicznych. Potem dodaj drugi poziom i ponownie przetestuj dane dokładnie na progach, np. 49, 50, 74, 75, 89 i 90.
 
 Takie testowanie jest ważniejsze niż sama długość formuły. Najwięcej błędów w wielopoziomowym JEŻELI wynika nie ze składni, lecz z niewłaściwej kolejności warunków.
+
+## Tabela kontrolna dla czterech kategorii
+
+Dla formuły z początku artykułu przetestuj wartości na granicach przedziałów. Wszystkie liczby wpisujesz kolejno do B2.
+
+| B2 — punkty | Kategoria |
+|---|---|
+| 49 | D |
+| 50 | C |
+| 74 | C |
+| 75 | B |
+| 89 | B |
+| 90 | A |
+| 100 | A |
+
+Takie porównanie pokazuje, że **90** należy już do A, natomiast **89** nadal do B. Jeżeli przypadkowo zamienisz kolejność dwóch zagnieżdżonych funkcji, część wyników może wyglądać prawidłowo, a dopiero test przy wyższych progach ujawni pomyłkę.
+
+## Co zrobić z pustą komórką?
+
+Jeżeli brak wyniku testu ma być wyświetlany jako **Brak oceny**, dodaj warunek na samym początku:
+
+<div class="formula">=JEŻELI(B2="";"Brak oceny";JEŻELI(B2>=90;"A";JEŻELI(B2>=75;"B";JEŻELI(B2>=50;"C";"D"))))</div>
+
+Bez pierwszego sprawdzenia pusty wiersz mógłby otrzymać kategorię D, choć nie oznacza to faktycznie niezaliczonego testu. Przy większych tabelach trzymaj progi w osobnej tabeli, aby ich zmiana nie wymagała edytowania każdej kopii formuły.
 
 ## Czy zawsze warto używać wielu JEŻELI?
 
