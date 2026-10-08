@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../utils/paths.js';
+import { serviceContact, serviceCategories } from '../../data/serviceConfig.js';
+
+const canonical='/uslugi/excel-vba/';
+const schema={
+  '@context':'https://schema.org',
+  '@graph':[
+    {
+      '@type':'WebPage',
+      '@id':'https://excelnaluzie.pl/uslugi/excel-vba/#page',
+      url:'https://excelnaluzie.pl/uslugi/excel-vba/',
+      name:'Indywidualne rozwiązania Excel i VBA — konsultacja potrzeb',
+      inLanguage:'pl-PL',
+      description:'Zgłoś potrzebę automatyzacji pracy w Excelu, budowy raportu lub naprawy skoroszytu. Formularz przygotowuje wiadomość e-mail.'
+    },
+    {
+      '@type':'BreadcrumbList',
+      itemListElement:[
+        {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+        {'@type':'ListItem',position:2,name:'Indywidualne rozwiązania Excel i VBA',item:'https://excelnaluzie.pl/uslugi/excel-vba/'}
+      ]
+    }
+  ]
+};
+---
+
+<BaseLayout
+  title="Automatyzacja Excel i VBA — indywidualne rozwiązania | ExcelNaLuzie"
+  description="Potrzebujesz makra VBA, automatycznego raportu lub naprawy arkusza Excel? Opisz problem i przygotuj zapytanie o przyszły projekt. Bez zobowiązań."
+  canonical={canonical}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+
+  <div class="service-page">
+    <section class="service-hero">
+      <div class="wrap service-hero-grid">
+        <div>
+          <nav class="breadcrumbs" aria-label="Okruszki">
+            <a href={link('/')}>ExcelNaLuzie</a><span>›</span><strong>Indywidualne rozwiązania</strong>
+          </nav>
+          <span class="section-kicker">Excel · VBA · Automatyzacja procesów</span>
+          <h1>Masz problem w Excelu?<br/><em>Zaprojektujmy rozwiązanie.</em></h1>
+          <p>Powtarzalne kopiowanie danych, rozbudowane skoroszyty, raporty przygotowywane ręcznie albo makro, które przestało działać? Możesz opisać swój proces i zapytać o możliwość przygotowania dedykowanego rozwiązania.</p>
+          <div class="service-hero-actions">
+            <a href="#zapytanie" class="service-primary">Opisz swój projekt <span>→</span></a>
+            <a href="#zakres" class="service-secondary">Zobacz obszary pomocy ↓</a>
+          </div>
+          <p class="service-status"><span aria-hidden="true">ⓘ</span>{serviceContact.notice}</p>
+        </div>
+        <div class="service-example" aria-label="Przykładowy przebieg automatyzacji">
+          <span class="service-example-label">Przykład procesu</span>
+          <div class="service-example-step"><b>01</b><div><strong>Pliki wejściowe</strong><small>Excel · CSV · XML</small></div></div>
+          <div class="service-example-line" aria-hidden="true">↓</div>
+          <div class="service-example-step"><b>02</b><div><strong>Automatyzacja VBA</strong><small>Walidacja · Łączenie · Przetwarzanie</small></div></div>
+          <div class="service-example-line" aria-hidden="true">↓</div>
+          <div class="service-example-step"><b>03</b><div><strong>Raport gotowy do pracy</strong><small>Przejrzysty plik · Mniej ręcznych kroków</small></div></div>
+          <p>Ilustracyjny scenariusz, nie opis zrealizowanego zlecenia.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-section" id="zakres">
+      <div class="wrap">
+        <div class="service-section-head">
+          <span class="section-kicker">W czym możemy pomóc?</span>
+          <h2>Rozwiązania dopasowane do sposobu pracy</h2>
+          <p>Od pojedynczego makra po wieloarkuszowe narzędzia, które porządkują dane i ograniczają ręczne działania.</p>
+        </div>
+        <div class="service-offer-grid">
+          <article class="service-offer-card"><span class="service-offer-symbol">VBA</span><h3>Automatyzacja Excel i makra</h3><p>Przyciski, formularze, import danych, automatyczne przetwarzanie plików, tworzenie dokumentów oraz raportów bez powtarzania tych samych czynności.</p><small>Excel · VBA · Automatyzacje</small></article>
+          <article class="service-offer-card"><span class="service-offer-symbol">Σ</span><h3>Raporty i dashboardy</h3><p>Zestawienia zarządcze, kontrola jakości danych, analizy, podsumowania oraz czytelne arkusze, które pomagają podejmować decyzje.</p><small>Raportowanie · KPI · Analiza</small></article>
+          <article class="service-offer-card"><span class="service-offer-symbol">⇄</span><h3>Łączenie i konwersja danych</h3><p>Łączenie wielu plików, import CSV lub XML, przygotowanie danych do kolejnego systemu i ograniczanie błędów ręcznego przepisywania.</p><small>XLSX · CSV · XML</small></article>
+          <article class="service-offer-card"><span class="service-offer-symbol">⌘</span><h3>Naprawa istniejących skoroszytów</h3><p>Diagnoza błędnych formuł, niestabilnych makr, wolnych arkuszy i trudnych do utrzymania rozwiązań. Najpierw ustalamy źródło problemu.</p><small>Optymalizacja · Diagnostyka · Rozwój</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-section service-how">
+      <div class="wrap">
+        <div class="service-section-head">
+          <span class="section-kicker">Od pomysłu do projektu</span>
+          <h2>Jak przygotować dobre zapytanie?</h2>
+        </div>
+        <div class="service-how-grid">
+          <div><span>01</span><h3>Opisz, jak pracujesz teraz</h3><p>Skąd pochodzą dane, ile plików przetwarzasz i które czynności wykonujesz ręcznie?</p></div>
+          <div><span>02</span><h3>Pokaż oczekiwany efekt</h3><p>Jak powinien wyglądać wynik: raport, gotowy plik XLSX, eksport XML czy uruchamiane przyciskiem makro?</p></div>
+          <div><span>03</span><h3>Ustal zakres przyszłego projektu</h3><p>Wskaż ważne ograniczenia, wersję Excela i orientacyjny termin. Zakres i warunki realizacji będą możliwe do ustalenia po wznowieniu działalności.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-section" id="zapytanie">
+      <div class="wrap service-contact-layout">
+        <div class="service-contact-copy">
+          <span class="section-kicker">Kontakt bez zobowiązań</span>
+          <h2>Opisz swój problem w Excelu</h2>
+          <p>Nie musisz znać nazw funkcji ani technologii. Wystarczy informacja, co chcesz uprościć, jakie masz dane i jaki powinien być efekt.</p>
+          <div class="service-contact-details">
+            <strong>Wolisz napisać bez formularza?</strong>
+            <a href={'mailto:'+serviceContact.email}>{serviceContact.email}</a>
+            <p>Wiadomość możesz wysłać bezpośrednio na publiczny adres kontaktowy ProcessXpert. Odpowiedzi dotyczące ewentualnej realizacji odpłatnej usługi będą uzależnione od wznowienia działalności.</p>
+          </div>
+          <p class="service-contact-privacy">Nie przesyłaj od razu danych osobowych klientów, haseł ani poufnych skoroszytów. Na początek wystarczy opis i — ewentualnie — zanonimizowany przykład po ustaleniu dalszych kroków.</p>
+        </div>
+
+        <div class="service-form-shell">
+          <div class="service-form-head">
+            <span>Formularz zapytania</span>
+            <strong>Bez konta i bez załączników</strong>
+          </div>
+          <form data-service-form>
+            <div class="service-form-grid">
+              <div class="service-field service-field-full">
+                <label for="s-category">Czego potrzebujesz? <span>*</span></label>
+                <select id="s-category" name="category" required>
+                  <option value="">Wybierz rodzaj problemu</option>
+                  {serviceCategories.map(item=><option value={item.value}>{item.value}</option>)}
+                </select>
+              </div>
+              <div class="service-field">
+                <label for="s-name">Imię / firma</label>
+                <input id="s-name" name="name" maxlength="90" autocomplete="name" placeholder="Opcjonalnie"/>
+              </div>
+              <div class="service-field">
+                <label for="s-email">E-mail do odpowiedzi <span>*</span></label>
+                <input id="s-email" name="email" type="email" maxlength="180" required autocomplete="email" placeholder="adres@firma.pl"/>
+              </div>
+              <div class="service-field">
+                <label for="s-format">Format danych</label>
+                <select id="s-format" name="inputType">
+                  <option value="">Nie wiem / inny</option>
+                  <option>XLSX / XLSM</option>
+                  <option>CSV / TXT</option>
+                  <option>XML</option>
+                  <option>Wiele różnych plików</option>
+                  <option>Brak danych wejściowych</option>
+                </select>
+              </div>
+              <div class="service-field">
+                <label for="s-now">Jak wygląda obecny proces?</label>
+                <input id="s-now" name="currentWork" maxlength="140" placeholder="np. ręczne kopiowanie raportów"/>
+              </div>
+              <div class="service-field">
+                <label for="s-when">Orientacyjny termin</label>
+                <select id="s-when" name="timeframe">
+                  <option value="">Nie mam konkretnego terminu</option>
+                  <option>W najbliższych tygodniach</option>
+                  <option>W najbliższych miesiącach</option>
+                  <option>Do ustalenia</option>
+                </select>
+              </div>
+              <div class="service-field">
+                <label for="s-budget">Orientacyjny budżet</label>
+                <select id="s-budget" name="budget">
+                  <option value="">Jeszcze nie wiem</option>
+                  <option>Do 500 zł</option>
+                  <option>500–1500 zł</option>
+                  <option>1500–4000 zł</option>
+                  <option>Powyżej 4000 zł</option>
+                </select>
+              </div>
+              <div class="service-field service-field-full">
+                <label for="s-description">Jaki efekt chcesz osiągnąć? <span>*</span></label>
+                <textarea id="s-description" name="description" minlength="30" maxlength="1400" rows="6" required placeholder="Opisz źródło danych, problem, częstotliwość pracy i oczekiwany efekt. Minimum 30 znaków."></textarea>
+                <small>Minimum 30 znaków. Na tym etapie nie przesyłaj danych poufnych.</small>
+              </div>
+            </div>
+
+            <p class="service-form-disclaimer">Formularz przygotowuje treść wiadomości lokalnie w przeglądarce. Po kliknięciu otworzy się Twój program pocztowy — <strong>wiadomość nie zostanie wysłana automatycznie</strong>. Zapytanie nie oznacza zamówienia ani zgody na odpłatną realizację. Zobacz <a href={link('/polityka-prywatnosci/')}>zasady prywatności</a>.</p>
+            <div class="service-form-actions">
+              <button type="submit" class="service-primary service-submit">Przygotuj wiadomość e-mail <span>→</span></button>
+              <button type="button" class="service-copy-button" data-copy>Skopiuj treść</button>
+            </div>
+            <div class="service-form-message" data-message role="status" aria-live="polite">Możesz użyć formularza albo napisać bezpośrednio na adres podany obok.</div>
+            <div class="service-message-preview" data-preview-wrap hidden>
+              <label for="s-preview">Treść gotowa do skopiowania</label>
+              <textarea id="s-preview" data-preview rows="9" readonly></textarea>
+              <p>Gdy program pocztowy się nie otworzy, skopiuj treść i wyślij ją na <a href={'mailto:'+serviceContact.email}>{serviceContact.email}</a>.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-section service-faq">
+      <div class="wrap">
+        <div class="service-section-head">
+          <span class="section-kicker">Najczęstsze pytania</span><h2>Przed opisaniem projektu</h2>
+        </div>
+        <div class="service-faq-grid">
+          <div><h3>Czy potrzebuję gotowej specyfikacji?</h3><p>Nie. Wystarczy opis czynności, które zabierają czas, i oczekiwanego rezultatu. Na tej podstawie można ustalić, jakie szczegóły będą potrzebne do późniejszej oceny zakresu.</p></div>
+          <div><h3>Czy mogę podesłać istniejący plik Excel?</h3><p>Na początku lepiej nie przesyłać plików zawierających dane poufne. W zapytaniu podaj wersję Excela, rozmiar pliku i krótki opis struktury. Zanonimizowaną próbkę można uzgodnić później.</p></div>
+          <div><h3>Czy wycena jest automatyczna?</h3><p>Nie. Automatyzacje różnią się złożonością, obsługiwanymi plikami i liczbą scenariuszy. Nie podajemy fikcyjnej ceny przed poznaniem wymagań.</p></div>
+          <div><h3>Czy to jest już zamówienie?</h3><p>Nie. Formularz służy do zgłoszenia zapotrzebowania na przyszłą realizację. Nie zawierasz umowy ani nie dokonujesz płatności. Odpłatne prace mogą rozpocząć się dopiero po wznowieniu działalności.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    import {createProjectInquiry} from '../../utils/projectInquiry.js';
+    const form=document.querySelector('[data-service-form]');
+    if(form){
+      const previewWrap=form.querySelector('[data-preview-wrap]');
+      const preview=form.querySelector('[data-preview]');
+      const status=form.querySelector('[data-message]');
+      const prepare=()=>{
+        if(!form.reportValidity())return null;
+        try{
+          const draft=createProjectInquiry(Object.fromEntries(new FormData(form).entries()));
+          preview.value='Temat: '+draft.subject+'\nDo: '+draft.recipient+'\n\n'+draft.message;
+          previewWrap.hidden=false;
+          status.classList.remove('service-message-error');
+          return draft;
+        }catch(error){
+          status.textContent=error.message;
+          status.classList.add('service-message-error');
+          return null;
+        }
+      };
+      form.addEventListener('submit',event=>{
+        event.preventDefault();
+        const draft=prepare();
+        if(!draft)return;
+        if(draft.mailto){
+          status.textContent='Przygotowano wiadomość. Sprawdź program pocztowy i wyślij ją samodzielnie. Jeśli nic się nie otworzy, użyj przycisku kopiowania.';
+          window.location.href=draft.mailto;
+        }else{
+          status.textContent='Opis jest zbyt długi na automatyczne otwarcie poczty. Skopiuj gotową treść i wyślij ją na podany adres.';
+          preview.focus();
+        }
+      });
+      form.querySelector('[data-copy]').addEventListener('click',async()=>{
+        const draft=prepare();
+        if(!draft)return;
+        try{
+          await navigator.clipboard.writeText('Temat: '+draft.subject+'\n\n'+draft.message);
+          status.textContent='Skopiowano treść zapytania. Wyślij ją na '+draft.recipient+'.';
+        }catch{
+          preview.focus();
+          preview.select();
+          status.textContent='Zaznaczono treść wiadomości — skopiuj ją ręcznie skrótem Ctrl+C.';
+        }
+      });
+    }
+  </script>
+</BaseLayout>
