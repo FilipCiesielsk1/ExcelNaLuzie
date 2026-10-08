@@ -107,7 +107,7 @@ export function buildPivot(table,{
     for(let i=0;i<a.labels.length;i++){const order=compareStrings(a.labels[i],b.labels[i]);if(order)return order;}
     return 0;
   });
-  const headers=[...rowFields,...(colIndex>=0?columnValues:[AGGREGATIONS[aggregation]+' z '+valueField]),...(colIndex>=0?['Suma końcowa']:[])];
+  const headers=[...rowFields,...(colIndex>=0?columnValues:[AGGREGATIONS[aggregation]+' z '+valueField]),...(colIndex>=0?['Wynik ogółem']:[])];
   const rows=rowItems.map(group=>{
     const numbers=colIndex>=0?columnValues.map(key=>finish(group.byColumn.get(key),aggregation)):[finish(group.total,aggregation)];
     return {labels:group.labels,values:numbers,total:finish(group.total,aggregation)};

@@ -128,6 +128,11 @@ export const toolRelationships = {
     title: 'Porównywarka tabel Excel',
     functions: ['xwyszukaj', 'licz-warunki'],
     articles: ['jak-znalezc-wartosc-w-tabeli', 'xwyszukaj-podstawy']
+  },
+  'generator-tabel-przestawnych': {
+    title: 'Generator tabel przestawnych',
+    functions: ['suma', 'srednia', 'ile-liczb'],
+    articles: ['suma-warunkow-wiele-kryteriow', 'licz-warunki-wiele-kryteriow']
   }
 };
 

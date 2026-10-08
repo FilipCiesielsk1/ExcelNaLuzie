@@ -4,6 +4,7 @@ import { withBase as link } from '../../utils/paths.js';
 import { functionTranslations } from '../../data/functionTranslations.js';
 
 const toolItems = [
+  ['Generator tabel przestawnych','generator-tabel-przestawnych'],
   ['Porównywarka tabel Excel','porownywarka-tabel'],
   ['Analizator formuł','analizator-formul'],
   ['Konwerter WYSZUKAJ.PIONOWO → X.WYSZUKAJ','konwerter-wyszukaj-pionowo'],
@@ -87,6 +88,12 @@ const schema = {
       </div>
 
       <div class="tools-grid">
+        <a class="tool-card priority live" href={link("/narzedzia/generator-tabel-przestawnych/")}>
+          <div class="tool-card-top"><span class="tool-icon">Σ↔</span><span class="tool-status">Nowe</span></div>
+          <h3>Generator tabel przestawnych</h3>
+          <p>Wczytaj XLSX, skonfiguruj wiersze, kolumny, wartości i filtry. Zobacz wynik i pobierz skoroszyt z instrukcją.</p>
+          <div class="tool-tags"><span>podsumowanie</span><span>agregacje</span><span>XLSX</span></div>
+        </a>
         <a class="tool-card priority live" href={link("/narzedzia/porownywarka-tabel/")}>
           <div class="tool-card-top"><span class="tool-icon">A↔B</span><span class="tool-status">Nowe</span></div>
           <h3>Porównywarka dwóch tabel Excel</h3>
