@@ -2,12 +2,14 @@
 import BaseLayout from './BaseLayout.astro';
 import { withBase as link } from '../utils/paths.js';
 import { functionBySlug } from '../data/functionCatalog.js';
+import { getFunctionNextSteps } from '../data/contentRelationships.js';
 
 const { frontmatter } = Astro.props;
 const fn = functionBySlug[frontmatter.slug];
 
 if (!fn) throw new Error(`Unknown Excel function slug: ${frontmatter.slug}`);
 
+const nextSteps = getFunctionNextSteps(fn.slug, fn.related);
 const canonical = `/funkcje/${fn.slug}/`;
 const absoluteUrl = `https://excelnaluzie.pl${canonical}`;
 
@@ -102,10 +104,10 @@ const schema = {
             <h2>Co dalej?</h2>
           </div>
           <div class="related-grid">
-            {fn.related.map((item) => (
-              <a href={link(item[1])}>
-                <small>ExcelNaLuzie</small>
-                <strong>{item[0]}</strong>
+            {nextSteps.map((item) => (
+              <a href={link(item.url)}>
+                <small>{item.category}</small>
+                <strong>{item.title}</strong>
                 <span>→</span>
               </a>
             ))}

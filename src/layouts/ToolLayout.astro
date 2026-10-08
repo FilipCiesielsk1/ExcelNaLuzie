@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { withBase as link } from '../utils/paths.js';
+import { getToolNextSteps } from '../data/contentRelationships.js';
 
 const {
   title,
@@ -12,6 +13,7 @@ const {
   resourceAction = 'Zobacz składnię i przykłady →'
 } = Astro.props;
 
+const nextSteps = getToolNextSteps(slug);
 const canonical = `/narzedzia/${slug}/`;
 const absoluteUrl = `https://excelnaluzie.pl${canonical}`;
 
@@ -92,6 +94,24 @@ const schema = {
           </a>
         </aside>
       </div>
+
+      {nextSteps.length > 0 && (
+        <section class="related related-seo" aria-label="Dalsza nauka po użyciu narzędzia">
+          <div class="related-head">
+            <span class="section-kicker">Poznaj zasadę działania</span>
+            <h2>Co dalej?</h2>
+          </div>
+          <div class="related-grid">
+            {nextSteps.map((item) => (
+              <a href={link(item.url)}>
+                <small>{item.category}</small>
+                <strong>{item.title}</strong>
+                <span>→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   </div>
 </BaseLayout>
