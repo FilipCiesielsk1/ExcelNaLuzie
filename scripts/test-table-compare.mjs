@@ -100,7 +100,7 @@ test('CSV raport zawiera kompletne dane brakujących rekordów i neutralizuje fo
   const right=t('ID\tUwagi\n2\tNowe\n3\t+CMD');
   const csv=exportComparisonCsv(compare(left,right));
   assert.match(csv,/Tylko w A/);
-  assert.match(csv,/Uwagi: '=SUMA\(1;2\)/);
+  assert.match(csv,/Uwagi: =SUMA\(1;2\)/);
   assert.match(csv,/Tylko w B/);
   assert.match(csv,/Uwagi: \+CMD/);
   assert.match(csv,/^\uFEFF/);
@@ -114,4 +114,11 @@ test('ograniczenie liczby wierszy jest aktywne',()=>{
 test('obsługa dat i wartości logicznych odczytanych z pliku XLSX',()=>{
   const t=prepareTable([['ID','Data','Aktywny'],[1,new Date('2026-10-08T00:00:00Z'),true]]);
   assert.deepEqual(t.rows[0].cells,['1','2026-10-08','PRAWDA']);
+});
+
+test('niebezpieczne wartości na początku osobnych pól CSV są neutralizowane',()=>{
+  const left=t('ID\\tWartość\\n=2+3\\t10'.replaceAll('\\t','\t').replaceAll('\\n','\n'));
+  const right=t('ID\\tWartość\\nInny\\t10'.replaceAll('\\t','\t').replaceAll('\\n','\n'));
+  const report=exportComparisonCsv(compare(left,right));
+  assert.match(report, /"'=2\+3"/);
 });
