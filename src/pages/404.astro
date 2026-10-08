@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Search from '../components/Search.astro';
 import { withBase as link } from '../utils/paths.js';
 ---
 
@@ -17,7 +16,14 @@ import { withBase as link } from '../utils/paths.js';
         <span class="section-kicker">Tego arkusza tu nie ma</span>
         <h1>Nie znaleźliśmy tej strony.</h1>
         <p>Adres mógł się zmienić albo zawiera literówkę. Najszybciej będzie wyszukać rozwiązanie poniżej.</p>
-        <Search/>
+        <button class="home-search-launch" type="button" data-global-search-open aria-haspopup="dialog">
+          <span class="home-search-icon" aria-hidden="true">⌕</span>
+          <span class="home-search-copy">
+            <strong>Wyszukaj poradnik lub narzędzie</strong>
+            <small>Przeszukaj cały serwis jednym kliknięciem</small>
+          </span>
+          <span aria-hidden="true">→</span>
+        </button>
         <div class="error-actions">
           <a class="hub-primary" href={link("/")}>Strona główna <span>→</span></a>
           <a class="hub-secondary" href={link("/formuly/")}>Wszystkie poradniki</a>

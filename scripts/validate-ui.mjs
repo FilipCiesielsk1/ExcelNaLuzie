@@ -64,6 +64,9 @@ for (const file of sourceFiles) {
   if (source.includes('/#szukaj')) {
     errors.push(path.relative(sourceDir,file) + ': stary odnośnik /#szukaj w źródle');
   }
+  if (/import\s+Search\s+from\s+['"][^'"]+\/Search\.astro['"]/.test(source)) {
+    errors.push(path.relative(sourceDir,file) + ': import nieużywanej wyszukiwarki');
+  }
 }
 const cssSource = fs.readFileSync('src/styles/global.css','utf8');
 const headerSource = fs.readFileSync('src/components/Header.astro','utf8');
