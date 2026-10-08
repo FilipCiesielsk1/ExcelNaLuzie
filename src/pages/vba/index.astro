@@ -49,7 +49,7 @@ const schema = {
         <p>Gotowe fragmenty kodu, praktyczne automatyzacje i krótkie wyjaśnienia. Kopiujesz kod, zmieniasz wskazane miejsca i działasz.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#poradniki">10 poradników <span>↓</span></a>
-          <a class="hub-secondary" href={link("/#szukaj")}>Szukaj rozwiązania</a>
+          <button class="hub-secondary" type="button" data-global-search-open aria-haspopup="dialog">Szukaj rozwiązania</button>
         </div>
       </div>
 
@@ -112,7 +112,7 @@ const schema = {
   <section class="hub-cta-section">
     <div class="wrap hub-cta">
       <div><span class="section-kicker light">Następny poziom</span><h2>Biblioteka VBA będzie rosnąć.</h2><p>Kolejne makra dodamy według realnych problemów i danych z wyszukiwarki.</p></div>
-      <a href={link("/#szukaj")}>Szukaj na stronie <span>→</span></a>
+      <button type="button" data-global-search-open aria-haspopup="dialog">Szukaj na stronie <span>→</span></button>
     </div>
   </section>
 </BaseLayout>

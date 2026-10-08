@@ -133,6 +133,7 @@ const items = [
   const closeButtons = searchLayer?.querySelectorAll('[data-global-search-close]') || [];
   const exampleButtons = searchLayer?.querySelectorAll('[data-search-example]') || [];
 
+  let lastFocusedElement = null;
   let pagefind = null;
   let loadPromise = null;
   let searchTimer = null;
@@ -172,6 +173,7 @@ const items = [
     if (!searchLayer || !searchInput) return;
 
     if (open) {
+      if (searchLayer.hidden) lastFocusedElement = document.activeElement;
       searchLayer.hidden = false;
       document.documentElement.classList.add('search-open');
       requestAnimationFrame(() => {
@@ -190,6 +192,9 @@ const items = [
         if (!searchLayer.classList.contains('open')) searchLayer.hidden = true;
       }, 160);
       activeIndex = -1;
+      const restoreFocus = lastFocusedElement;
+      lastFocusedElement = null;
+      restoreFocus?.focus?.({ preventScroll: true });
     }
   };
 
@@ -309,6 +314,23 @@ const items = [
       searchInput.focus();
       runSearch();
     });
+  });
+
+  searchLayer?.addEventListener('keydown', (event) => {
+    if (event.key !== 'Tab' || searchLayer.hidden) return;
+    const candidates = [...searchLayer.querySelectorAll(
+      'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    )].filter((element) => element.getClientRects().length > 0);
+    if (!candidates.length) return;
+    const first = candidates[0];
+    const last = candidates[candidates.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !searchLayer.contains(document.activeElement))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 
   searchInput?.addEventListener('input', () => {

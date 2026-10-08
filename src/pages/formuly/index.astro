@@ -52,7 +52,7 @@ const schema = {
         <p>Wybierz problem, który chcesz rozwiązać. Pokażemy gotową formułę, prosty przykład i warianty dla różnych wersji Excela.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#tematy">Przeglądaj tematy <span>↓</span></a>
-          <a class="hub-secondary" href={link("/#szukaj")}>Szukaj problemu</a>
+          <button class="hub-secondary" type="button" data-global-search-open aria-haspopup="dialog">Szukaj problemu</button>
         </div>
       </div>
 
@@ -154,7 +154,7 @@ const schema = {
   <section class="hub-cta-section">
     <div class="wrap hub-cta">
       <div><span class="section-kicker light">Szybciej do odpowiedzi</span><h2>Masz konkretny problem?</h2><p>Wpisz go w wyszukiwarkę zamiast zgadywać nazwę funkcji.</p></div>
-      <a href={link("/#szukaj")}>Przejdź do wyszukiwarki <span>→</span></a>
+      <button type="button" data-global-search-open aria-haspopup="dialog">Przejdź do wyszukiwarki <span>→</span></button>
     </div>
   </section>
 </BaseLayout>
