@@ -649,14 +649,17 @@ const items = [
     }
 
     .global-search-layer {
-      padding: 10px;
-      place-items: end center;
+      padding:
+        max(10px, env(safe-area-inset-top))
+        10px
+        10px;
+      place-items: start center;
     }
 
     .global-search-dialog {
       width: 100%;
-      max-height: min(88vh, 760px);
-      border-radius: 22px 22px 15px 15px;
+      max-height: calc(100dvh - max(20px, env(safe-area-inset-top)));
+      border-radius: 15px 15px 22px 22px;
     }
 
     .global-search-head {

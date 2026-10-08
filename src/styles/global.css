@@ -164,7 +164,8 @@ button,input{font:inherit}
 /* Hero */
 .hero{
   position:relative;
-  overflow:hidden;
+  overflow:visible;
+  z-index:3;
   padding:82px 0 70px;
 }
 .hero:before{
@@ -410,7 +411,7 @@ button,input{font:inherit}
 /* Quick links */
 .quick-strip{
   position:relative;
-  z-index:2;
+  z-index:1;
   background:#fff;
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
