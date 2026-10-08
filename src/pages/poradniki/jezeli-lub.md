@@ -6,7 +6,7 @@ slug: "jezeli-lub"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -58,6 +58,27 @@ Najprostszy test językowy brzmi: czy w zdaniu użyłbyś słowa „albo”, czy
 ## Uważaj na zbyt szerokie warunki
 
 Przy wielu alternatywach łatwo stworzyć formułę, która prawie zawsze zwraca PRAWDA. Dlatego testuj przykłady, w których żaden warunek nie jest spełniony, jeden jest spełniony oraz kilka jest spełnionych naraz.
+
+## Przykład: wybór trybu obsługi zgłoszeń
+
+Załóż, że B2 to rodzaj zgłoszenia, a C2 to typ klienta. Zastosuj formułę z początku artykułu, aby przydzielić priorytet:
+
+| B — zgłoszenie | C — klient | Wynik |
+|---|---|---|
+| Pilne | Standard | Priorytet |
+| Zwykłe | VIP | Priorytet |
+| Pilne | VIP | Priorytet |
+| Zwykłe | Standard | Standard |
+
+LUB nie oznacza „dokładnie jeden warunek”. Gdy **oba** są spełnione, wynik nadal jest prawdziwy, co widać w trzecim wierszu. To częsta pomyłka przy przepisywaniu reguł biznesowych do Excela.
+
+## Gdy puste pola mają czekać na uzupełnienie
+
+Jeżeli nie chcesz klasyfikować zgłoszenia bez wybranego typu i klienta, możesz poprzedzić decyzję kontrolą wymaganych pól:
+
+<div class="formula">=JEŻELI(LUB(B2="";C2="");"Uzupełnij";JEŻELI(LUB(B2="Pilne";C2="VIP");"Priorytet";"Standard"))</div>
+
+Przykładowo przy pustym C2 zobaczysz **Uzupełnij**, nawet jeśli B2 zawiera Pilne. To świadomy wybór: najpierw sprawdzamy kompletność danych, dopiero później ustalamy priorytet.
 
 ## Kiedy LUB upraszcza arkusz?
 
