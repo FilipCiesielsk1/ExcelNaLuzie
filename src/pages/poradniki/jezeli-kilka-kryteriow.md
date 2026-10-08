@@ -6,7 +6,7 @@ slug: "jezeli-kilka-kryteriow"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Średni"
@@ -60,6 +60,29 @@ Przy złożonych formułach najpierw sprawdź osobno ORAZ i LUB. Upewnij się, �
 ## Testuj kombinacje, nie tylko pojedynczy przypadek
 
 Dla kilku kryteriów liczba możliwych kombinacji szybko rośnie. Sprawdź przypadek, gdy wszystkie warunki są prawdziwe, każdy z nich osobno jest fałszywy oraz sytuacje, w których spełniona jest tylko jedna gałąź LUB.
+
+## Tabela prawdy dla warunku mieszanego
+
+Sprawdźmy pierwszy przykład: **B2 musi być co najmniej 100** oraz (**C2 ma wartość VIP lub D2 ma wartość Pilne**).
+
+| B — wartość | C — klient | D — typ | Wynik |
+|---|---|---|---|
+| 120 | VIP | Zwykłe | Priorytet |
+| 120 | Standard | Pilne | Priorytet |
+| 120 | Standard | Zwykłe | Standard |
+| 90 | VIP | Pilne | Standard |
+
+Ostatni wiersz jest najważniejszy: pomimo spełnienia obu alternatyw w C i D próg w B nie jest osiągnięty. Daje to **Standard**, ponieważ zewnętrzna funkcja ORAZ nadal zwraca FAŁSZ.
+
+## Jak nie pomylić nawiasów?
+
+Możesz sprawdzić obie części reguły w pomocniczych kolumnach:
+
+<div class="formula">=B2>=100</div>
+
+<div class="formula">=LUB(C2="VIP";D2="Pilne")</div>
+
+Jeżeli pierwszy test daje FAŁSZ, cała reguła nie może zwrócić Priorytet. Dopiero gdy działanie pojedynczych testów jest jasne, połącz je w ORAZ i włóż do JEŻELI. To pomaga szczególnie wtedy, kiedy formułę przekazujesz innemu pracownikowi do późniejszej obsługi.
 
 ## Kiedy formuła jest już zbyt skomplikowana?
 
