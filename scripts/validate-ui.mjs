@@ -26,7 +26,8 @@ const pages = [
   {route:'/narzedzia/analizator-formul/', minOpeners:1},
   {route:'/narzedzia/konwerter-wyszukaj-pionowo/', minOpeners:1},
   {route:'/narzedzia/porownywarka-tabel/', minOpeners:1},
-  {route:'/narzedzia/generator-tabel-przestawnych/', minOpeners:1}
+  {route:'/narzedzia/generator-tabel-przestawnych/', minOpeners:1},
+  {route:'/uslugi/excel-vba/', minOpeners:1}
 ];
 
 let checkedHtml = 0;
