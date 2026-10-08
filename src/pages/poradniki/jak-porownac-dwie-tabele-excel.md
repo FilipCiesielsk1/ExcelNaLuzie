@@ -14,8 +14,6 @@ excelVersions:
   - "Microsoft 365"
   - "Excel 2024"
   - "Excel 2021"
-  - "Excel 2019"
-  - "Excel 2016"
 verified: false
 related:
   - title: "Porównywarka tabel Excel"

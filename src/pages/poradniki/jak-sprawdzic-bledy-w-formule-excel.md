@@ -59,7 +59,7 @@ Jeśli X.WYSZUKAJ nie odnajduje ID, może zwrócić błąd #N/D. Zanim go ukryje
 
 <div class="formula">=X.WYSZUKAJ(F2;A2:A100;C2:C100;"Brak produktu")</div>
 
-Czwarty argument służy do pokazania komunikatu, kiedy brakuje dopasowania. Nie chroni jednak przed źle wskazaną kolumną wyniku.
+Przykład z X.WYSZUKAJ wymaga Excela 2021 lub nowszego z obsługą tej funkcji; w Excelu 2016/2019 można zastosować WYSZUKAJ.PIONOWO. Czwarty argument służy do pokazania komunikatu, kiedy brakuje dopasowania. Nie chroni jednak przed źle wskazaną kolumną wyniku.
 
 ## 5. #DZIEL/0! — próba dzielenia przez zero
 
