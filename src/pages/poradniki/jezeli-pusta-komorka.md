@@ -6,7 +6,7 @@ slug: "jezeli-pusta-komorka"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -64,6 +64,27 @@ Jeżeli zero ma być traktowane jak brak danych, zapisz to jawnie:
 Komórka zawierająca jedną spację nie jest pusta. To częsty problem po imporcie danych albo ręcznym czyszczeniu arkusza.
 
 Jeżeli dane są niepewne, warto najpierw je oczyścić albo zastosować dodatkowe sprawdzenie długości tekstu po usunięciu zbędnych spacji.
+
+## Porównanie: pusty wpis, formuła i zero
+
+Najłatwiej zrozumieć różnicę na tych samych danych. Wstaw wskazaną zawartość do A2 i porównaj wyniki dwóch testów.
+
+| Zawartość A2 | A2="" | CZY.PUSTA(A2) |
+|---|---|---|
+| Faktycznie pusta komórka | PRAWDA | PRAWDA |
+| Formuła ="" | PRAWDA | FAŁSZ |
+| Liczba 0 | FAŁSZ | FAŁSZ |
+| Jedna spacja | FAŁSZ | FAŁSZ |
+
+Dzięki temu wiesz, dlaczego arkusz z formułami zwracającymi pusty tekst może zachowywać się inaczej niż arkusz z naprawdę niewypełnionymi polami. Funkcja **CZY.PUSTA** odpowiada na pytanie, czy komórka nie ma zawartości, a porównanie **=""** — czy odczytywana wartość jest pusta.
+
+## Przykład z wymaganą liczbą sztuk
+
+W kolumnie B masz liczbę zamówionych sztuk. Zero oznacza brak zamówienia, a puste pole oznacza, że użytkownik jeszcze nie wpisał liczby:
+
+<div class="formula">=JEŻELI(B2="";"Uzupełnij liczbę";JEŻELI(B2=0;"Brak zamówienia";"Zamówienie wpisane"))</div>
+
+Dla pustej B2 zobaczysz **Uzupełnij liczbę**, dla 0 — **Brak zamówienia**, a dla 4 — **Zamówienie wpisane**. To rozróżnienie jest ważne w formularzach i kontrolach kompletności danych.
 
 ## Którą metodę wybrać?
 
