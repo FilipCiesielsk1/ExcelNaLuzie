@@ -154,7 +154,7 @@ const items = [
   const loadPagefind = async () => {
     if (pagefind) return pagefind;
     if (!loadPromise) {
-      loadPromise = import('/pagefind/pagefind.js')
+      loadPromise = import(/* @vite-ignore */ '/pagefind/pagefind.js')
         .then(async (module) => {
           pagefind = module;
           if (typeof pagefind.init === 'function') await pagefind.init();
