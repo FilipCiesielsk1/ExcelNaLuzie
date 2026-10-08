@@ -133,7 +133,7 @@ export function getPivotFilterValues(table,field){
 export function getPivotWorkbook(table,result){
   const titleCell=s=>({value:String(s),type:String,fontWeight:'bold',textColor:'#FFFFFF',backgroundColor:'#146C43'});
   const textCell=s=>({value:String(s??''),type:String});
-  const numberCell=n=>n===null?{value:'',type:String}:{value:n,type:Number,format:'#,##0.00'});
+  const numberCell=n=>n===null?{value:'',type:String}:{value:n,type:Number,format:'#,##0.00'};
   const rowCells=row=>row.map(textCell);
   const left=result.rowFields.length;
   const reportRows=[
