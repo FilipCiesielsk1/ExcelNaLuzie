@@ -34,7 +34,7 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
         <textarea data-paste id="tc-paste-a" aria-label="Dane tabeli A" rows="6" spellcheck="false">{demoA}</textarea>
         <button type="button" class="tc-load-button" data-load-paste>Wczytaj wklejone dane</button>
         <div class="tc-status" data-status aria-live="polite"></div>
-        <label class="tc-field-label" for="tc-key-a">Kolumna identyfikatora</label>
+        <label class="tc-field-label" for="tc-key-a">Pierwsza kolumna klucza A</label>
         <select id="tc-key-a" data-key aria-label="Kolumna identyfikatora tabeli A"></select>
       </section>
 
@@ -50,13 +50,25 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
         <textarea data-paste id="tc-paste-b" aria-label="Dane tabeli B" rows="6" spellcheck="false">{demoB}</textarea>
         <button type="button" class="tc-load-button" data-load-paste>Wczytaj wklejone dane</button>
         <div class="tc-status" data-status aria-live="polite"></div>
-        <label class="tc-field-label" for="tc-key-b">Kolumna identyfikatora</label>
+        <label class="tc-field-label" for="tc-key-b">Pierwsza kolumna klucza B</label>
         <select id="tc-key-b" data-key aria-label="Kolumna identyfikatora tabeli B"></select>
       </section>
     </div>
 
+    <section class="tc-config" aria-labelledby="tc-keys-heading" data-config hidden>
+      <div class="tc-config-heading">
+        <div><span class="section-kicker">Dopasowanie rekordów</span><h3 id="tc-keys-heading">Klucz złożony z kilku kolumn</h3><p>Pierwszą parę wybierasz nad tabelami. Dodaj kolejne pary w tej samej kolejności, np. ID zamówienia + numer pozycji.</p></div>
+        <button type="button" class="tc-load-button" data-add-key>+ Dodaj parę kluczy</button>
+      </div>
+      <div class="tc-extra-keys" data-key-pairs></div>
+      <div class="tc-config-heading tc-config-maps-heading">
+        <div><span class="section-kicker">Porównywane wartości</span><h3>Mapowanie kolumn A → B</h3><p>Wybierz odpowiednik kolumny z A w tabeli B, nawet jeśli nagłówki się różnią. „Nie porównuj” pomija kolumnę.</p></div>
+      </div>
+      <div class="tc-mapping-list" data-column-mappings></div>
+    </section>
+
     <div class="tc-options">
-      <div><h3>Ustawienia porównania</h3><p>Rekordy są dopasowywane po wskazanej kolumnie, niezależnie od kolejności wierszy.</p></div>
+      <div><h3>Ustawienia porównania</h3><p>Rekordy są dopasowywane po jednej lub kilku parach kluczy, niezależnie od kolejności wierszy.</p></div>
       <label><input type="checkbox" data-ignore-case /> Ignoruj wielkość liter</label>
       <label><input type="checkbox" data-trim /> Ignoruj spacje na końcach wartości</label>
     </div>
@@ -68,7 +80,10 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
     <section class="tc-results" data-results hidden aria-labelledby="tc-results-title">
       <div class="tc-results-head">
         <div><span class="section-kicker">Wynik porównania</span><h2 id="tc-results-title">Różnice między tabelami</h2></div>
-        <button type="button" class="tc-export" data-export>Pobierz raport CSV ↓</button>
+        <div class="tc-export-actions">
+          <button type="button" class="tc-export tc-export-primary" data-export-xlsx>Pobierz Excel XLSX ↓</button>
+          <button type="button" class="tc-export" data-export>Pobierz CSV ↓</button>
+        </div>
       </div>
       <div class="tc-kpis" data-kpis></div>
       <p class="tc-notice" data-warning></p>
@@ -90,8 +105,8 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
 
   <div class="generator-help">
     <h2>Jak prawidłowo porównać tabele?</h2>
-    <p>Pierwszy wiersz każdej tabeli musi zawierać <strong>unikalne nagłówki</strong>. Wybierz kolumnę, która identyfikuje rekord, np. ID, SKU lub numer faktury. Nazwy kolumn klucza mogą różnić się między tabelami. Pozostałe kolumny są porównywane na podstawie takich samych nazw nagłówków — ich kolejność nie ma znaczenia.</p>
-    <p>Jeśli ten sam identyfikator powtarza się więcej niż raz, narzędzie wyświetli duplikaty, ale <strong>nie zgadnie, który wiersz dopasować</strong>. Takie klucze są wyłączone z zestawienia zmian i braków, aby wynik nie był mylący.</p>
+    <p>Pierwszy wiersz każdej tabeli musi zawierać <strong>unikalne nagłówki</strong>. Wybierz kolumnę identyfikatora po obu stronach, a gdy pojedyncza kolumna nie wystarcza, dodaj parę następnych — np. <strong>numer faktury + pozycja</strong>. Nazwy kluczy mogą być różne. Następnie ustaw mapowanie kolumn wartości A → B. Kolumny o tych samych nagłówkach dopasujemy automatycznie, pozostałe możesz przypisać ręcznie.</p>
+    <p>Jeśli ten sam klucz (lub kombinacja kluczy) powtarza się więcej niż raz, narzędzie wyświetli duplikaty, ale <strong>nie zgadnie, który wiersz dopasować</strong>. Takie klucze są wyłączone z zestawienia zmian i braków, aby wynik nie był mylący. W raporcie XLSX otrzymasz osobne arkusze z podsumowaniem, zmianami, brakami, duplikatami i rekordami bez klucza.</p>
   </div>
   <div class="generator-help">
     <h2>Limity i prywatność</h2>
@@ -100,11 +115,11 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
   </div>
 
   <script>
-    import {parseDelimited,prepareTable,compareTables,exportComparisonCsv,MAX_FILE_BYTES} from '../../utils/tableCompare.js';
+    import {parseDelimited,prepareTable,compareTables,exportComparisonCsv,buildComparisonWorkbook,normalizeHeader,MAX_FILE_BYTES} from '../../utils/tableCompare.js';
 
     const app = document.querySelector('[data-table-compare]');
     if (app) {
-      const state = {left:{table:null,sheets:null},right:{table:null,sheets:null},result:null,busy:false};
+      const state = {left:{table:null,sheets:null},right:{table:null,sheets:null},result:null,busy:false,keyPairs:[],mappingOverrides:{}};
       const dom = Object.fromEntries(['left','right'].map(side=>[side,app.querySelector('[data-side="'+side+'"]')]));
       const message = app.querySelector('[data-message]');
       const resultPanel=app.querySelector('[data-results]');
@@ -125,6 +140,8 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
       };
       const setTable=(side,table,label)=>{
         state[side].table=table;
+        state.keyPairs=[];
+        state.mappingOverrides={};
         const select=dom[side].querySelector('[data-key]');
         const selected=select.value;
         select.replaceChildren();
@@ -137,7 +154,94 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
         select.value=table.headers.includes(selected)?selected:(preferred??table.headers[0]);
         showStatus(side,label+' · '+table.rows.length.toLocaleString('pl-PL')+' wierszy · '+table.headers.length+' kolumn');
         invalidate();
+        renderConfiguration();
       };
+      const buildSelect=(names,value,placeholder)=>{
+        const select=el('select');
+        if(placeholder){
+          const blank=el('option',placeholder); blank.value=''; select.append(blank);
+        }
+        for(const name of names){
+          const option=el('option',name);option.value=name;select.append(option);
+        }
+        select.value=names.includes(value)?value:'';
+        return select;
+      };
+      const renderConfiguration=()=>{
+        const left=state.left.table,right=state.right.table;
+        const config=app.querySelector('[data-config]');
+        config.hidden=!(left&&right);
+        if(!left||!right)return;
+        const primaryL=dom.left.querySelector('[data-key]').value;
+        const primaryR=dom.right.querySelector('[data-key]').value;
+        const pairsContainer=app.querySelector('[data-key-pairs]');
+        pairsContainer.replaceChildren();
+        state.keyPairs=state.keyPairs.filter(pair=>left.headers.includes(pair.left)&&right.headers.includes(pair.right));
+        state.keyPairs.forEach((pair,i)=>{
+          const row=el('div',undefined,'tc-key-pair');
+          const leftChoices=left.headers.filter(name=>name!==primaryL);
+          const rightChoices=right.headers.filter(name=>name!==primaryR);
+          const lhs=buildSelect(leftChoices,pair.left);
+          const rhs=buildSelect(rightChoices,pair.right);
+          lhs.setAttribute('aria-label','Dodatkowy klucz tabeli A, para '+(i+2));
+          rhs.setAttribute('aria-label','Dodatkowy klucz tabeli B, para '+(i+2));
+          const remove=el('button','Usuń','tc-remove-key');remove.type='button';
+          row.append(el('span','Para '+(i+2)),lhs,el('span','↔'),rhs,remove);
+          const change=()=>{
+            state.keyPairs[i]={left:lhs.value,right:rhs.value};
+            renderConfiguration();
+            invalidate();
+          };
+          lhs.addEventListener('change',change);rhs.addEventListener('change',change);
+          remove.addEventListener('click',()=>{
+            state.keyPairs.splice(i,1);renderConfiguration();invalidate();
+          });
+          pairsContainer.append(row);
+        });
+        const selectedL=new Set([primaryL,...state.keyPairs.map(p=>p.left)].map(normalizeHeader));
+        const selectedR=new Set([primaryR,...state.keyPairs.map(p=>p.right)].map(normalizeHeader));
+        const leftValues=left.headers.filter(name=>!selectedL.has(normalizeHeader(name)));
+        const rightValues=right.headers.filter(name=>!selectedR.has(normalizeHeader(name)));
+        const mappings=app.querySelector('[data-column-mappings]');
+        mappings.replaceChildren();
+        for(const name of leftValues) {
+          const match=rightValues.find(x=>normalizeHeader(x)===normalizeHeader(name))??'';
+          const saved=Object.hasOwn(state.mappingOverrides,name)?state.mappingOverrides[name]:match;
+          const row=el('div',undefined,'tc-mapping-row');
+          const label=el('label',name);
+          const select=buildSelect(rightValues,saved,'— Nie porównuj —');
+          select.dataset.mapRight='';
+          select.dataset.mapLeft=name;
+          const id='tc-map-'+left.headers.indexOf(name);
+          select.id=id;label.htmlFor=id;
+          select.addEventListener('change',()=>{
+            state.mappingOverrides[name]=select.value;
+            invalidate();
+          });
+          row.append(label,el('span','→'),select);
+          mappings.append(row);
+        }
+        if(!leftValues.length)mappings.append(el('p','Brak kolumn wartości poza wybranymi kluczami.','tc-empty'));
+      };
+      app.querySelector('[data-add-key]').addEventListener('click',()=>{
+        if(!state.left.table||!state.right.table)return;
+        if(state.keyPairs.length>=4){
+          message.textContent='Można wybrać maksymalnie pięć kolumn klucza na stronę.';
+          return;
+        }
+        const left=state.left.table.headers,right=state.right.table.headers;
+        const usedL=new Set([dom.left.querySelector('[data-key]').value,...state.keyPairs.map(p=>p.left)]);
+        const usedR=new Set([dom.right.querySelector('[data-key]').value,...state.keyPairs.map(p=>p.right)]);
+        const candidate=left.find(x=>!usedL.has(x));
+        if(!candidate || !right.some(x=>!usedR.has(x))){
+          message.textContent='Brak kolejnej dostępnej pary kolumn.';
+          return;
+        }
+        const rightCandidate=right.find(x=>!usedR.has(x)&&normalizeHeader(x)===normalizeHeader(candidate))
+          ??right.find(x=>!usedR.has(x));
+        state.keyPairs.push({left:candidate,right:rightCandidate});
+        renderConfiguration();invalidate();
+      });
       const loadSheet=(side)=>{
         const select=dom[side].querySelector('[data-sheet]');
         try {
@@ -211,7 +315,12 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
           invalidate();
           state[side].table=null;
         });
-        root.querySelector('[data-key]').addEventListener('change',invalidate);
+        root.querySelector('[data-key]').addEventListener('change',()=>{
+          state.keyPairs=[];
+          state.mappingOverrides={};
+          renderConfiguration();
+          invalidate();
+        });
         loadPaste(side);
       }
 
@@ -260,8 +369,8 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
             const left=entry.type==='onlyLeft';
             n=card((left?'Tylko w A: ':'Tylko w B: ')+item.key,'Wiersz '+item.rowNumber,left?'tc-removed':'tc-added');
             const headers=left?r.leftHeaders:r.rightHeaders;
-            const keyColumn=left?r.leftKey:r.rightKey;
-            const preview=headers.map((name,i)=>name===keyColumn?'':name+': '+item.cells[i]).filter(Boolean).slice(0,3).join(' · ');
+            const keyColumns=new Set((left?r.leftKeys:r.rightKeys).map(normalizeHeader));
+            const preview=headers.map((name,i)=>keyColumns.has(normalizeHeader(name))?'':name+': '+item.cells[i]).filter(Boolean).slice(0,3).join(' · ');
             n.append(el('p',preview,'tc-record-preview'));
           }else if(entry.type.startsWith('duplicate')){
             const left=entry.type==='duplicateLeft';
@@ -307,10 +416,13 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
       app.querySelector('[data-compare]').addEventListener('click',()=>{
         if(state.busy)return;
         try{
-          const leftKey=dom.left.querySelector('[data-key]').value;
-          const rightKey=dom.right.querySelector('[data-key]').value;
+          const leftKeys=[dom.left.querySelector('[data-key]').value,...state.keyPairs.map(pair=>pair.left)];
+          const rightKeys=[dom.right.querySelector('[data-key]').value,...state.keyPairs.map(pair=>pair.right)];
+          const columnMappings=[...app.querySelectorAll('[data-map-right]')]
+            .filter(select=>select.value)
+            .map(select=>({left:select.dataset.mapLeft,right:select.value}));
           state.result=compareTables(state.left.table,state.right.table,{
-            leftKey,rightKey,
+            leftKeys,rightKeys,columnMappings,
             ignoreCase:app.querySelector('[data-ignore-case]').checked,
             trimValues:app.querySelector('[data-trim]').checked
           });
@@ -325,6 +437,23 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
       });
       app.querySelector('[data-filter]').addEventListener('change',resultsAsList);
       app.querySelectorAll('[data-ignore-case],[data-trim]').forEach(control=>control.addEventListener('change',invalidate));
+      app.querySelector('[data-export-xlsx]').addEventListener('click',async()=>{
+        if(!state.result)return;
+        const button=app.querySelector('[data-export-xlsx]');
+        button.disabled=true;
+        const previous=button.textContent;
+        button.textContent='Tworzenie skoroszytu…';
+        try{
+          const {default:writeExcelFile}=await import('write-excel-file/browser');
+          const workbook=buildComparisonWorkbook(state.result);
+          await writeExcelFile(workbook).toFile('porownanie-tabel-excel.xlsx');
+        }catch(error){
+          message.textContent='Nie udało się wygenerować pliku XLSX: '+error.message;
+          message.classList.add('tc-error');
+        }finally{
+          button.disabled=false;button.textContent=previous;
+        }
+      });
       app.querySelector('[data-export]').addEventListener('click',()=>{
         if(!state.result)return;
         const csv=exportComparisonCsv(state.result);
