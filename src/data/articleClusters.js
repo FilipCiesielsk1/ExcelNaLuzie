@@ -100,5 +100,17 @@ export const articleClusters = {
       { slug: 'dodawanie-miesiecy-do-daty', title: 'Dodawanie miesięcy do daty', label: 'NR.SER.DATY' },
       { slug: 'liczba-dni-roboczych', title: 'Liczba dni roboczych', label: 'DNI.ROBOCZE' }
     ]
+  },
+  'formuly/dane': {
+    title: 'Dane i listy',
+    hub: '/formuly/dane/',
+    articles: [
+      { slug:'jak-znalezc-duplikaty-excel', title:'Jak znaleźć duplikaty w Excelu?', label:'LICZ.JEŻELI' },
+      { slug:'jak-usunac-duplikaty-excel', title:'Jak usunąć duplikaty w Excelu?', label:'Usuń duplikaty' },
+      { slug:'lista-rozwijana-excel', title:'Jak zrobić listę rozwijaną?', label:'Lista wyboru' },
+      { slug:'lista-zalezna-excel', title:'Lista zależna w Excelu', label:'ADR.POŚR' },
+      { slug:'liczby-zapisane-jako-tekst-excel', title:'Jak zamienić tekst na liczbę?', label:'WARTOŚĆ' },
+      { slug:'jak-usunac-zbedne-spacje-excel', title:'Jak usunąć zbędne spacje?', label:'USUŃ.ZBĘDNE.ODSTĘPY' }
+    ]
   }
 };

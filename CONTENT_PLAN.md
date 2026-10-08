@@ -153,16 +153,21 @@ Hub:
 
 # Klaster 7 — Dane i listy
 
-- [ ] usuń duplikaty
-- [ ] znajdź duplikaty
-- [ ] zaznacz duplikaty
-- [ ] lista rozwijana
-- [ ] zależna lista rozwijana
-- [ ] kilka wyborów z listy
-- [ ] blokada wprowadzania danych
-- [ ] tekst jako liczba
-- [ ] liczba jako tekst
-- [ ] zamień przecinek na kropkę
+Etap v1 wdrożony 2026-10-08: 6 poradników, hub oraz dwa bezpłatne ćwiczenia XLSX.
+
+- [x] Jak znaleźć duplikaty?
+- [x] Jak usunąć duplikaty?
+- [x] Lista rozwijana w Excelu
+- [x] Zależna lista rozwijana
+- [x] Liczby zapisane jako tekst
+- [x] Jak usunąć zbędne spacje?
+- [ ] Wybór wielu pozycji z listy (temat rozszerzony, może wymagać VBA)
+- [ ] Blokada wprowadzania danych
+- [ ] Zamiana przecinka na kropkę
+- [ ] Zaawansowane czyszczenie danych z CSV
+
+Hub: /formuly/dane/
+Pliki: /downloads/przyklady/dane-duplikaty-czyszczenie.xlsx i /downloads/przyklady/dane-listy-rozwijane.xlsx
 
 ---
 

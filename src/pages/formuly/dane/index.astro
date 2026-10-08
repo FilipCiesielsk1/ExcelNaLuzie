@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
+
+const cluster=articleClusters['formuly/dane'];
+const articles=cluster.articles;
+const groups=[
+  {heading:'Znajdowanie i usuwanie duplikatów',text:'Odnajdź powtórzenia, sprawdź klucze i bezpiecznie usuń nadmiarowe wiersze.',slugs:['jak-znalezc-duplikaty-excel','jak-usunac-duplikaty-excel']},
+  {heading:'Listy rozwijane',text:'Ogranicz ręczne wpisywanie i połącz wybór kategorii z listą produktów.',slugs:['lista-rozwijana-excel','lista-zalezna-excel']},
+  {heading:'Czyszczenie i konwersja danych',text:'Popraw kwoty zapisane jako tekst i usuń spacje przeszkadzające w porównywaniu.',slugs:['liczby-zapisane-jako-tekst-excel','jak-usunac-zbedne-spacje-excel']}
+];
+const schema={
+  '@context':'https://schema.org',
+  '@type':'CollectionPage',
+  name:'Dane i listy w Excelu — praktyczne poradniki',
+  url:'https://excelnaluzie.pl/formuly/dane/',
+  inLanguage:'pl-PL',
+  mainEntity:{
+    '@type':'ItemList',
+    numberOfItems:articles.length,
+    itemListElement:articles.map((article,index)=>({
+      '@type':'ListItem',position:index+1,name:article.title,
+      url:'https://excelnaluzie.pl/poradniki/'+article.slug+'/'
+    }))
+  }
+};
+---
+<BaseLayout
+  navSection="formuly"
+  title="Dane i listy w Excelu — poradniki | ExcelNaLuzie"
+  description="Duplikaty, listy rozwijane i czyszczenie danych w Excelu. Sześć praktycznych poradników z przykładami, formułami i darmowymi plikami XLSX."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link('/')}>ExcelNaLuzie</a><span>›</span><a href={link('/formuly/')}>Formuły</a><span>›</span><strong>Dane i listy</strong></nav>
+        <span class="hub-kicker">Praca z danymi</span>
+        <h1>Uporządkuj dane.<br/><em>Bez ręcznego poprawiania.</em></h1>
+        <p>Usuń powtórzenia, przygotuj kontrolowane listy wyboru i popraw dane po imporcie. Przykłady dla polskiego Excela 2016 i nowszych.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">Zobacz {articles.length} poradników <span>↓</span></a>
+          <a class="hub-secondary" href="#pliki">Darmowe pliki XLSX</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Duplikaty</span><code>=LICZ.JEŻELI(...)</code></div>
+        <div class="formula-stack-card two"><span>Czyszczenie</span><code>=USUŃ.ZBĘDNE.ODSTĘPY(...)</code></div>
+        <div class="formula-stack-card three"><span>Listy zależne</span><code>=ADR.POŚR(...)</code></div>
+      </div>
+    </div>
+  </section>
+  <section class="hub-section" id="poradniki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">6 praktycznych rozwiązań</span><h2>Co chcesz zrobić z danymi?</h2></div>
+        <p>Wybierz konkretne zadanie. Każdy poradnik zaczyna się od rozwiązania, a dalej pokazuje przykład, pułapki i warianty dla różnych wersji Excela.</p>
+      </div>
+      {groups.map((group)=>(
+        <section class="formula-directory-group">
+          <header class="formula-directory-head">
+            <div><div><small>Dane i listy</small><h3>{group.heading}</h3></div></div>
+            <span>{group.text}</span>
+          </header>
+          <div class="formula-directory-links">
+            {group.slugs.map((slug,index)=>{
+              const item=articles.find((article)=>article.slug===slug);
+              return item ? <a href={link('/poradniki/'+item.slug+'/')}>
+                <span>{String(index+1).padStart(2,'0')}</span><strong>{item.title}</strong><b>→</b>
+              </a> : null;
+            })}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+  <section class="hub-section hub-section-alt" id="pliki">
+    <div class="wrap">
+      <div class="hub-section-head">
+        <div><span class="section-kicker">Do ćwiczeń</span><h2>Darmowe skoroszyty XLSX</h2></div>
+        <p>Przykładowe dane, gotowe formuły, listy wyboru i instrukcje. Pliki nie zawierają makr i działają w Excelu 2016+.</p>
+      </div>
+      <div class="reference-steps">
+        <div><span>01</span><strong>Duplikaty i czyszczenie danych</strong><p>Arkusze „Duplikaty”, „Czyszczenie” i „Instrukcja”. Kolumna kontrolna i formuły do uporządkowania danych.</p><p><a href={link('/downloads/przyklady/dane-duplikaty-czyszczenie.xlsx')} download>Pobierz przykład XLSX →</a></p></div>
+        <div><span>02</span><strong>Listy rozwijane i zależne</strong><p>Gotowe pola wyboru, dwie kategorie produktów, arkusz słowników i instrukcja.</p><p><a href={link('/downloads/przyklady/dane-listy-rozwijane.xlsx')} download>Pobierz przykład XLSX →</a></p></div>
+        <div><span>03</span><strong>Bezpieczna praca z danymi</strong><p>Przed usuwaniem powtórzeń zachowaj kopię tabeli. Pamiętaj, że zmiana kategorii nie czyści automatycznie produktu.</p></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -44,7 +44,9 @@ export const articleFunctionOverrides = {
   'jak-porownac-dwie-tabele-excel': ['xwyszukaj','licz-jezeli'],
   'duplikaty-klucz-zlozony-porownywanie-tabel': ['licz-warunki','xwyszukaj'],
   'wyszukaj-pionowo-na-xwyszukaj': ['wyszukaj-pionowo','xwyszukaj'],
-  'jak-sprawdzic-bledy-w-formule-excel': ['jezeli-blad','jezeli']
+  'jak-sprawdzic-bledy-w-formule-excel': ['jezeli-blad','jezeli'],
+  'jak-znalezc-duplikaty-excel': ['licz-jezeli'],
+  'jak-usunac-duplikaty-excel': ['unikatowe']
 };
 
 export const articleToolRules = [
@@ -72,7 +74,8 @@ export const articleToolOverrides = {
   'jak-porownac-dwie-tabele-excel': ['porownywarka-tabel'],
   'duplikaty-klucz-zlozony-porownywanie-tabel': ['porownywarka-tabel'],
   'wyszukaj-pionowo-na-xwyszukaj': ['konwerter-wyszukaj-pionowo'],
-  'jak-sprawdzic-bledy-w-formule-excel': ['analizator-formul']
+  'jak-sprawdzic-bledy-w-formule-excel': ['analizator-formul'],
+  'jak-znalezc-duplikaty-excel': ['porownywarka-tabel']
 };
 
 export const toolRelationships = {
