@@ -1,0 +1,108 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Konwerter WYSZUKAJ.PIONOWO na X.WYSZUKAJ"
+  description="Wklej formułę WYSZUKAJ.PIONOWO z dopasowaniem dokładnym. Bezpłatny konwerter zamieni zakres tabeli i numer kolumny na X.WYSZUKAJ."
+  slug="konwerter-wyszukaj-pionowo"
+  functionName="X.WYSZUKAJ"
+  functionHref="/funkcje/xwyszukaj/"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Modernizacja istniejących arkuszy</span>
+    <h2>Przepisz wyszukiwanie bez liczenia kolumn</h2>
+    <p>Konwerter zamienia cztery argumenty klasycznej formuły na trzy zakresy X.WYSZUKAJ. Przyjmuje tylko <strong>dopasowanie dokładne</strong> i jawny numer kolumny.</p>
+  </div>
+  <div class="formula-workbench" data-vlookup-converter>
+    <div class="workbench-label-line">
+      <label for="vl-input">Stara formuła WYSZUKAJ.PIONOWO</label>
+    </div>
+    <textarea id="vl-input" data-input rows="4" spellcheck="false" autocorrect="off" autocapitalize="off">=WYSZUKAJ.PIONOWO(F2;A2:D100;3;FAŁSZ)</textarea>
+    <div class="workbench-examples">
+      <span>Przykłady:</span>
+      <button type="button" data-example='=WYSZUKAJ.PIONOWO(F2;A2:D100;3;FAŁSZ)'>Zwykły zakres</button>
+      <button type="button" data-example="=WYSZUKAJ.PIONOWO(F2;'Dane 2026'!$A$2:$D$100;4;FAŁSZ)">Inny arkusz</button>
+      <button type="button" data-example='=WYSZUKAJ.PIONOWO(F2;A2:D100;3;PRAWDA)'>Tryb przybliżony</button>
+    </div>
+    <label class="workbench-checkbox">
+      <input type="checkbox" data-not-found-enabled/>
+      Zastąp błąd braku dopasowania własnym komunikatem
+    </label>
+    <div class="generator-field workbench-fallback" data-fallback-row hidden>
+      <label for="vl-not-found">Tekst przy braku wyniku</label>
+      <input id="vl-not-found" data-not-found value="Brak wyniku" spellcheck="false"/>
+    </div>
+    <div class="workbench-result-section">
+      <h3>Wynik konwersji</h3>
+      <div class="workbench-issues" data-status role="status" aria-live="polite"></div>
+      <div class="generator-output" data-result hidden>
+        <div><span>Gotowa formuła X.WYSZUKAJ</span><small>Dopasowanie dokładne</small></div>
+        <code data-formula></code>
+        <button type="button" data-copy>Kopiuj formułę</button>
+      </div>
+      <div data-range-summary class="workbench-range-summary" hidden>
+        <div><small>Zakres wyszukiwania</small><code data-lookup></code></div>
+        <div><small>Zakres zwracany</small><code data-return></code></div>
+      </div>
+    </div>
+  </div>
+  <div class="generator-help">
+    <h2>Dlaczego nie wszystkie formuły można przekonwertować automatycznie?</h2>
+    <p>WYSZUKAJ.PIONOWO z argumentem PRAWDA (lub bez czwartego argumentu) wykonuje wyszukiwanie przybliżone. X.WYSZUKAJ korzysta z innych ustawień domyślnych, dlatego taka automatyczna zamiana mogłaby zmienić wyniki. Konwerter celowo ją blokuje.</p>
+    <p>Obsługiwane są proste zakresy A1 i pełne kolumny, także z nazwą arkusza oraz znakami $. Nazwane zakresy, odwołania strukturalne, zewnętrzne skoroszyty, dynamiczny numer kolumny i całe formuły zagnieżdżone wymagają ręcznej migracji.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Zgodność i bezpieczeństwo</h2>
+    <p>Wynikowa X.WYSZUKAJ wymaga Microsoft 365, Excel 2024 lub Excel 2021. Bez zaznaczenia opcji „brak wyniku” zachowujemy domyślny błąd #N/D, jak przy WYSZUKAJ.PIONOWO. Sprawdź kilka wartości przed zastąpieniem formuły w całej kolumnie.</p>
+    <p>Formuły przetwarzane są lokalnie w przeglądarce i nie trafiają na serwer.</p>
+  </div>
+  <script>
+    import { convertVlookup } from '../../utils/formulaTools.js';
+    const root = document.querySelector('[data-vlookup-converter]');
+    if (root) {
+      const source = root.querySelector('[data-input]');
+      const check = root.querySelector('[data-not-found-enabled]');
+      const fallbackRow = root.querySelector('[data-fallback-row]');
+      const fallback = root.querySelector('[data-not-found]');
+      const result = root.querySelector('[data-result]');
+      const status = root.querySelector('[data-status]');
+      const summary = root.querySelector('[data-range-summary]');
+      let current = '';
+      const render = () => {
+        fallbackRow.hidden = !check.checked;
+        const state = convertVlookup(source.value, { notFound: check.checked ? fallback.value : null });
+        status.replaceChildren();
+        const message = document.createElement('p');
+        message.className = 'workbench-issue ' + (state.ok ? 'workbench-info' : 'workbench-warning');
+        message.textContent = state.message;
+        status.append(message);
+        current = state.ok ? state.formula : '';
+        result.hidden = !state.ok;
+        summary.hidden = !state.ok;
+        if (state.ok) {
+          root.querySelector('[data-formula]').textContent = state.formula;
+          root.querySelector('[data-lookup]').textContent = state.lookup;
+          root.querySelector('[data-return]').textContent = state.returned;
+        }
+      };
+      root.addEventListener('input', render);
+      root.addEventListener('change', render);
+      for (const button of root.querySelectorAll('[data-example]')) {
+        button.addEventListener('click', () => { source.value = button.dataset.example; render(); source.focus(); });
+      }
+      const copy = root.querySelector('[data-copy]');
+      copy.addEventListener('click', async () => {
+        if (!current) return;
+        try {
+          await navigator.clipboard.writeText(current);
+          copy.textContent = 'Skopiowano ✓';
+        } catch {
+          copy.textContent = 'Zaznacz formułę ręcznie';
+        }
+        setTimeout(() => { copy.textContent = 'Kopiuj formułę'; }, 1800);
+      });
+      render();
+    }
+  </script>
+</ToolLayout>

@@ -1,0 +1,122 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+
+<ToolLayout
+  title="Analizator formuł Excel — sprawdź składnię"
+  description="Wklej polską formułę Excela. Narzędzie lokalnie wykryje funkcje, zagnieżdżenia, niedomknięte nawiasy i możliwe problemy z separatorami."
+  slug="analizator-formul"
+  functionName="Baza 53 funkcji Excel"
+  functionHref="/funkcje/"
+  resourceLabel="Dokumentacja"
+  resourceAction="Przeglądaj funkcje →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Nowe narzędzie · bez wysyłania formuł</span>
+    <h2>Sprawdź konstrukcję formuły</h2>
+    <p>Wykryj użyte funkcje i podstawowe błędy zapisu, zanim wkleisz formułę do arkusza. Analizator nie wykonuje obliczeń i nie ma dostępu do danych w skoroszycie.</p>
+  </div>
+  <div class="formula-workbench" data-formula-analyzer>
+    <div class="workbench-label-line">
+      <label for="fa-input">Formuła Excela</label>
+      <button type="button" class="workbench-minor-button" data-clear>Wyczyść</button>
+    </div>
+    <textarea id="fa-input" data-input rows="5" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off">=JEŻELI(A2&gt;100;X.WYSZUKAJ(F2;A2:A100;B2:B100;"Brak");"Za mało")</textarea>
+    <div class="workbench-examples">
+      <span>Przetestuj:</span>
+      <button type="button" data-example='=SUMA.WARUNKÓW(C2:C100;A2:A100;"Kawa";B2:B100;">10")'>Kilka kryteriów</button>
+      <button type="button" data-example='=JEŻELI(A2>0;"OK";"Brak"'>Brak nawiasu</button>
+      <button type="button" data-example='=IF(A2>10,"Yes","No")'>Angielskie separatory</button>
+    </div>
+    <div class="workbench-stats" aria-label="Statystyki formuły">
+      <div><small>Wywołania funkcji</small><strong data-total>—</strong></div>
+      <div><small>Różne funkcje</small><strong data-unique>—</strong></div>
+      <div><small>Głębokość nawiasów</small><strong data-depth>—</strong></div>
+    </div>
+    <section class="workbench-result-section" aria-labelledby="fa-diagnostics">
+      <h3 id="fa-diagnostics">Wynik analizy</h3>
+      <div data-issues class="workbench-issues" role="status" aria-live="polite"></div>
+    </section>
+    <section class="workbench-result-section" aria-labelledby="fa-functions">
+      <div class="workbench-label-line">
+        <h3 id="fa-functions">Funkcje w formule</h3>
+        <span class="workbench-helper">Kolejność występowania</span>
+      </div>
+      <div data-functions class="workbench-functions"></div>
+    </section>
+  </div>
+
+  <div class="generator-help">
+    <h2>Co sprawdza analizator?</h2>
+    <p>Rozpoznaje wywołania funkcji i ich zagnieżdżenia, brakujące nawiasy, niedomknięte cudzysłowy oraz potencjalne separatory z wersji angielskiej. Znane funkcje są linkowane do naszej bazy. Funkcja spoza bazy nie oznacza błędu.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Czego nie może sprawdzić?</h2>
+    <p>Bez dostępu do skoroszytu nie da się potwierdzić istnienia zakresów, rozmiarów tablic, typów danych, wyniku ani zgodności ze wszystkimi wersjami Excela. To pomoc diagnostyczna, nie pełny walidator lub interpreter Microsoft Excel.</p>
+    <p>Wklejane formuły są analizowane tylko w Twojej przeglądarce; narzędzie nie wysyła ich do serwera.</p>
+  </div>
+
+  <script>
+    import { analyzeFormula } from '../../utils/formulaTools.js';
+    import { functionCatalog } from '../../data/functionCatalog.js';
+
+    const root = document.querySelector('[data-formula-analyzer]');
+    if (root) {
+      const input = root.querySelector('[data-input]');
+      const issuesBox = root.querySelector('[data-issues]');
+      const functionsBox = root.querySelector('[data-functions]');
+      const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+      const make = (tag, text, className) => {
+        const node = document.createElement(tag);
+        if (text !== undefined) node.textContent = text;
+        if (className) node.className = className;
+        return node;
+      };
+      const render = () => {
+        const analysis = analyzeFormula(input.value, functionCatalog);
+        root.querySelector('[data-total]').textContent = analysis.calls.length;
+        root.querySelector('[data-unique]').textContent = new Set(analysis.calls.map(f=>f.name)).size;
+        root.querySelector('[data-depth]').textContent = analysis.maxDepth;
+        issuesBox.replaceChildren();
+        functionsBox.replaceChildren();
+        for (const issue of analysis.issues) {
+          const item = make('div', undefined, 'workbench-issue workbench-' + issue.kind);
+          item.append(make('span', issue.kind === 'error' ? 'Błąd' : issue.kind === 'warning' ? 'Uwaga' : 'Info'), make('p', issue.text));
+          issuesBox.append(item);
+        }
+        if (!analysis.calls.length) {
+          functionsBox.append(make('p', 'Nie wykryto wywołań funkcji.', 'workbench-empty'));
+        } else {
+          for (const call of analysis.calls) {
+            const item = make('div', undefined, 'workbench-function');
+            const info = make('div');
+            info.append(make('strong', call.name), make('small', call.arguments + ' argumentów · poziom ' + call.depth));
+            item.append(info);
+            if (call.reference) {
+              const link = make('a', 'Składnia i przykłady →');
+              link.href = base + 'funkcje/' + call.reference.slug + '/';
+              item.append(link);
+            } else {
+              item.append(make('span', 'Spoza bazy funkcji', 'workbench-unknown'));
+            }
+            functionsBox.append(item);
+          }
+        }
+      };
+      input.addEventListener('input', render);
+      root.querySelector('[data-clear]').addEventListener('click', () => {
+        input.value = '';
+        render();
+        input.focus();
+      });
+      for (const button of root.querySelectorAll('[data-example]')) {
+        button.addEventListener('click', () => {
+          input.value = button.dataset.example;
+          render();
+          input.focus();
+        });
+      }
+      render();
+    }
+  </script>
+</ToolLayout>
