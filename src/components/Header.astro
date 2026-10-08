@@ -130,7 +130,6 @@ const items = [
   const searchResults = searchLayer?.querySelector('[data-search-results]');
   const searchStatus = searchLayer?.querySelector('[data-search-status]');
   const searchHints = searchLayer?.querySelector('[data-search-hints]');
-  const openButtons = document.querySelectorAll('[data-global-search-open]');
   const closeButtons = searchLayer?.querySelectorAll('[data-global-search-close]') || [];
   const exampleButtons = searchLayer?.querySelectorAll('[data-search-example]') || [];
 
@@ -294,7 +293,14 @@ const items = [
     }
   };
 
-  openButtons.forEach((button) => button.addEventListener('click', () => setOpen(true)));
+  document.addEventListener('click', (event) => {
+    const opener = event.target.closest?.('[data-global-search-open]');
+    if (opener) {
+      event.preventDefault();
+      setOpen(true);
+    }
+  });
+
   closeButtons.forEach((button) => button.addEventListener('click', () => setOpen(false)));
 
   exampleButtons.forEach((button) => {

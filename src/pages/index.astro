@@ -1,148 +1,254 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Search from '../components/Search.astro';
 import { withBase as link } from '../utils/paths.js';
+import { articleClusters } from '../data/articleClusters.js';
+import { functionCatalog } from '../data/functionCatalog.js';
 import { templateCatalog } from '../data/templateCatalog.js';
+
+const clusters = Object.values(articleClusters);
+const articleCount = clusters.reduce((sum, cluster) => sum + cluster.articles.length, 0);
+const functionCount = functionCatalog.length;
+const toolCount = 10;
+
+const functionSlugs = [
+  'jezeli',
+  'xwyszukaj',
+  'filtruj',
+  'suma-warunkow',
+  'licz-warunki',
+  'tekst-po',
+  'data-roznica',
+  'sekwencja'
+];
+
+const popularFunctions = functionSlugs
+  .map((slug) => functionCatalog.find((item) => item.slug === slug))
+  .filter(Boolean);
+
+const toolHighlights = [
+  {
+    title: 'Generator JEŻELI',
+    href: '/narzedzia/generator-jezeli/',
+    icon: 'IF',
+    text: 'Ułóż warunek i skopiuj gotową formułę.'
+  },
+  {
+    title: 'Generator X.WYSZUKAJ',
+    href: '/narzedzia/generator-xwyszukaj/',
+    icon: 'X',
+    text: 'Zbuduj wyszukiwanie bez pamiętania składni.'
+  },
+  {
+    title: 'Generator FILTRUJ',
+    href: '/narzedzia/generator-filtruj/',
+    icon: '⇢',
+    text: 'Połącz kilka warunków przez ORAZ albo LUB.'
+  },
+  {
+    title: 'Generator SUMA.WARUNKÓW',
+    href: '/narzedzia/generator-suma-warunkow/',
+    icon: 'Σ',
+    text: 'Zsumuj tylko rekordy spełniające kryteria.'
+  },
+  {
+    title: 'Kalkulator dat',
+    href: '/narzedzia/kalkulator-dat/',
+    icon: '31',
+    text: 'Policz różnicę i dni robocze między datami.'
+  },
+  {
+    title: 'Tłumacz funkcji PL ↔ EN',
+    href: '/narzedzia/tlumacz-funkcji-excel/',
+    icon: 'PL',
+    text: 'Znajdź odpowiednik w słowniku 150+ funkcji.'
+  }
+];
 ---
 
-<BaseLayout>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow"><span></span> Excel bez przekopywania internetu</div>
-        <h1>Znajdź rozwiązanie.<br/><em>Wracaj do pracy.</em></h1>
-        <p>Formuły, VBA i konkretne instrukcje do najczęstszych problemów w Excelu — pokazane na prostych przykładach.</p>
-        <Search/>
+<BaseLayout
+  title="ExcelNaLuzie — poradniki, funkcje i narzędzia do Excela"
+  description="Znajdź rozwiązanie problemu w Excelu, sprawdź polską składnię funkcji albo wygeneruj gotową formułę. Praktycznie i bez zbędnego gadania."
+>
+  <section class="home-hero">
+    <div class="wrap home-hero-grid">
+      <div class="home-hero-copy">
+        <div class="eyebrow"><span></span> Excel po polsku, konkretnie</div>
+        <h1>Masz problem w Excelu?<br/><em>Znajdź rozwiązanie.</em></h1>
+        <p>
+          Poradniki, polskie funkcje i generatory formuł w jednym miejscu.
+          Zamiast przekopywać fora — wpisz problem i przejdź prosto do rozwiązania.
+        </p>
 
-        <div class="hero-links" aria-label="Popularne tematy">
+        <button class="home-search-launch" type="button" data-global-search-open>
+          <span class="home-search-icon" aria-hidden="true">⌕</span>
+          <span class="home-search-copy">
+            <strong>Szukaj w całym ExcelNaLuzie</strong>
+            <small>np. X.WYSZUKAJ, daty, JEŻELI, tekst po znaku...</small>
+          </span>
+          <kbd>Ctrl K</kbd>
+        </button>
+
+        <div class="home-hero-links">
           <span>Popularne:</span>
-          <a href={link("/poradniki/tekst-po-znaku/")}>tekst po znaku</a>
-          <a href={link("/poradniki/xwyszukaj-dwa-warunki/")}>X.WYSZUKAJ</a>
-          <a href={link("/vba/")}>VBA</a>
+          <a href={link("/poradniki/xwyszukaj-podstawy/")}>X.WYSZUKAJ</a>
+          <a href={link("/poradniki/jezeli-podstawy/")}>JEŻELI</a>
+          <a href={link("/poradniki/roznica-miedzy-datami/")}>daty</a>
+          <a href={link("/poradniki/filtruj-podstawy/")}>FILTRUJ</a>
         </div>
       </div>
 
-      <div class="sheet-demo" aria-hidden="true">
-        <div class="sheet-window">
-          <div class="sheet-topbar">
-            <div class="window-dots"><i></i><i></i><i></i></div>
-            <span>Przykład.xlsx</span>
-            <b>✓</b>
-          </div>
-          <div class="formula-bar">
-            <span>fx</span>
-            <code>=TEKST.PO(A2;"-")</code>
-          </div>
-          <div class="sheet-grid">
-            <div class="cell corner"></div><div class="cell col">A</div><div class="cell col">B</div><div class="cell col">C</div>
-            <div class="cell row">1</div><div class="cell head">Numer dokumentu</div><div class="cell head">Wynik</div><div class="cell head">Status</div>
-            <div class="cell row">2</div><div class="cell">FV-2026-001</div><div class="cell active">2026-001</div><div class="cell"><span class="ok-pill">Gotowe</span></div>
-            <div class="cell row">3</div><div class="cell">FV-2026-002</div><div class="cell">2026-002</div><div class="cell"><span class="ok-pill">Gotowe</span></div>
-            <div class="cell row">4</div><div class="cell">FV-2026-003</div><div class="cell">2026-003</div><div class="cell"><span class="ok-pill">Gotowe</span></div>
-          </div>
-          <div class="sheet-tabs"><span class="active-tab">Arkusz1</span><span>+</span></div>
+      <div class="home-hero-panel">
+        <div class="home-panel-top">
+          <span>ExcelNaLuzie w liczbach</span>
+          <b>Aktualizowane na bieżąco</b>
         </div>
-        <div class="floating-tip"><b>3 sekundy</b><span>i masz gotową formułę</span></div>
+        <div class="home-stats">
+          <div><strong>{articleCount}</strong><span>poradników</span></div>
+          <div><strong>{functionCount}</strong><span>funkcji</span></div>
+          <div><strong>{toolCount}</strong><span>narzędzi</span></div>
+          <div><strong>{clusters.length}</strong><span>klastrów</span></div>
+        </div>
+        <div class="home-formula-preview">
+          <span>Przykład</span>
+          <code>=X.WYSZUKAJ(F2;A2:A100;C2:C100;"Brak")</code>
+          <div>
+            <i>1</i><p><strong>Znajdź poradnik</strong><small>Zrozum rozwiązanie.</small></p>
+          </div>
+          <div>
+            <i>2</i><p><strong>Sprawdź funkcję</strong><small>Zobacz składnię i argumenty.</small></p>
+          </div>
+          <div>
+            <i>3</i><p><strong>Użyj generatora</strong><small>Skopiuj gotową formułę.</small></p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="quick-strip">
-    <div class="wrap quick-grid">
-      <a href={link("/formuly/")}><span class="quick-icon">ƒx</span><div><strong>Formuły</strong><small>Gotowe rozwiązania</small></div><b>→</b></a>
-      <a href={link("/funkcje/")}><span class="quick-icon">Σ</span><div><strong>Funkcje</strong><small>Składnia i przykłady</small></div><b>→</b></a>
-      <a href={link("/vba/")}><span class="quick-icon">&lt;/&gt;</span><div><strong>VBA</strong><small>Makra bez magii</small></div><b>→</b></a>
-      <a href={link("/narzedzia/")}><span class="quick-icon">⚙</span><div><strong>Narzędzia</strong><small>Generatory i kalkulatory</small></div><b>→</b></a>
-    </div>
-  </section>
-
-  <section class="section problems-section">
+  <section class="home-paths-section">
     <div class="wrap">
-      <div class="section-heading">
+      <div class="home-section-head compact">
         <div>
-          <span class="section-kicker">Najczęściej szukane</span>
-          <h2>Rozwiąż konkretny problem</h2>
+          <span class="section-kicker">Od czego zaczynasz?</span>
+          <h2>Wybierz najkrótszą drogę</h2>
         </div>
-        <a class="section-link" href={link("/formuly/")}>Zobacz wszystkie poradniki <span>→</span></a>
       </div>
 
-      <div class="problem-grid">
-        <a class="problem-card featured" href={link("/poradniki/tekst-po-znaku/")}>
-          <span class="card-tag">Tekst</span>
-          <div class="card-code">=TEKST.PO(A1;"-")</div>
-          <h3>Jak pobrać tekst po znaku?</h3>
-          <p>Wyciągnij wszystko po myślniku, przecinku lub dowolnym separatorze.</p>
-          <span class="card-arrow">Czytaj poradnik →</span>
+      <div class="home-paths-grid">
+        <a class="home-path-card problem" href={link("/formuly/")}>
+          <span class="home-path-number">01</span>
+          <div class="home-path-icon">?</div>
+          <span class="home-path-label">Mam problem</span>
+          <h3>Znajdź gotowe rozwiązanie</h3>
+          <p>{articleCount} poradników opartych na konkretnych problemach: tekst, daty, wyszukiwanie, logika i więcej.</p>
+          <b>Przejdź do poradników →</b>
         </a>
 
-        <a class="problem-card" href={link("/poradniki/usun-pierwsze-znaki/")}>
-          <span class="card-tag">Tekst</span>
-          <div class="mini-sheet">
-            <span>ABC12345</span>
-            <i>→</i>
-            <strong>12345</strong>
-          </div>
-          <h3>Usuń pierwsze znaki</h3>
-          <p>Usuń pierwsze 1, 2, 3 lub dowolną liczbę znaków z komórki.</p>
-          <span class="card-arrow">Czytaj poradnik →</span>
+        <a class="home-path-card function" href={link("/funkcje/")}>
+          <span class="home-path-number">02</span>
+          <div class="home-path-icon">ƒx</div>
+          <span class="home-path-label">Szukam funkcji</span>
+          <h3>Sprawdź składnię i przykład</h3>
+          <p>{functionCount} opisanych funkcji polskiego Excela z argumentami, wersjami i praktycznym zastosowaniem.</p>
+          <b>Przejdź do funkcji →</b>
         </a>
 
-        <a class="problem-card" href={link("/poradniki/xwyszukaj-dwa-warunki/")}>
-          <span class="card-tag">Wyszukiwanie</span>
-          <div class="mini-lookup"><span>Produkt</span><b>+</b><span>Miasto</span><i>→</i><strong>Cena</strong></div>
-          <h3>X.WYSZUKAJ — dwa warunki</h3>
-          <p>Znajdź właściwy wynik po dwóch kryteriach bez kolumn pomocniczych.</p>
-          <span class="card-arrow">Czytaj poradnik →</span>
+        <a class="home-path-card tool" href={link("/narzedzia/")}>
+          <span class="home-path-number">03</span>
+          <div class="home-path-icon">⚙</div>
+          <span class="home-path-label">Chcę gotowca</span>
+          <h3>Wygeneruj formułę</h3>
+          <p>{toolCount} generatorów i kalkulatorów. Podajesz dane, kopiujesz wynik i wracasz do arkusza.</p>
+          <b>Przejdź do narzędzi →</b>
         </a>
+      </div>
+
+      <div class="home-secondary-links">
+        <a href={link("/vba/")}><span>&lt;/&gt;</span><strong>VBA</strong><small>Automatyzacja i makra</small><b>→</b></a>
+        <a href={link("/szablony/")}><span>XLSX</span><strong>Szablony</strong><small>Gotowe pliki do pobrania</small><b>→</b></a>
       </div>
     </div>
   </section>
 
-  <section class="section category-section">
+  <section class="home-clusters-section">
     <div class="wrap">
-      <div class="section-heading">
+      <div class="home-section-head">
         <div>
-          <span class="section-kicker">Baza wiedzy</span>
-          <h2>Wybierz temat</h2>
+          <span class="section-kicker">60 poradników w 6 tematach</span>
+          <h2>Wybierz obszar Excela</h2>
         </div>
+        <a class="section-link" href={link("/formuly/")}>Wszystkie poradniki <span>→</span></a>
       </div>
 
-      <div class="category-grid">
-        <a href={link("/formuly/")} class="category-card">
-          <span class="category-number">01</span>
-          <div class="category-symbol">ƒx</div>
-          <h3>Formuły</h3>
-          <p>Tekst, daty, logika, wyszukiwanie, liczenie i formuły dynamiczne.</p>
-          <span>Przeglądaj →</span>
-        </a>
-        <a href={link("/funkcje/")} class="category-card">
-          <span class="category-number">02</span>
-          <div class="category-symbol">Σ</div>
-          <h3>Funkcje</h3>
-          <p>Składnia funkcji Excela wyjaśniona po polsku i bez akademickiego tonu.</p>
-          <span>Przeglądaj →</span>
-        </a>
-        <a href={link("/vba/")} class="category-card">
-          <span class="category-number">03</span>
-          <div class="category-symbol">&lt;/&gt;</div>
-          <h3>VBA</h3>
-          <p>Gotowe makra, automatyzacje plików, arkuszy, Outlooka i raportów.</p>
-          <span>Przeglądaj →</span>
-        </a>
-        <a href={link("/narzedzia/")} class="category-card">
-          <span class="category-number">04</span>
-          <div class="category-symbol">⚙</div>
-          <h3>Narzędzia</h3>
-          <p>Generatory formuł i małe narzędzia, które zrobią część pracy za Ciebie.</p>
-          <span>Przeglądaj →</span>
-        </a>
+      <div class="home-cluster-grid">
+        {clusters.map((cluster, index) => (
+          <a class="home-cluster-card" href={link(cluster.hub)}>
+            <span class="home-cluster-index">{String(index + 1).padStart(2,'0')}</span>
+            <div class="home-cluster-symbol">
+              {['Aa','⌕','✓','Σ','↯','31'][index] ?? 'ƒx'}
+            </div>
+            <h3>{cluster.title}</h3>
+            <p>{cluster.articles.slice(0,3).map((article) => article.label).join(' · ')}</p>
+            <span>{cluster.articles.length} poradników <b>→</b></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-functions-section">
+    <div class="wrap">
+      <div class="home-section-head">
+        <div>
+          <span class="section-kicker">Szybka referencja</span>
+          <h2>Najczęściej używane funkcje</h2>
+        </div>
+        <a class="section-link" href={link("/funkcje/")}>Pełna baza funkcji <span>→</span></a>
+      </div>
+
+      <div class="home-function-grid">
+        {popularFunctions.map((fn) => (
+          <a class="home-function-card" href={link('/funkcje/' + fn.slug + '/')}>
+            <div>
+              <code>{fn.name}</code>
+              <span>{fn.category}</span>
+            </div>
+            <p>{fn.description}</p>
+            <b>Składnia i przykłady →</b>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="home-tools-section">
+    <div class="wrap">
+      <div class="home-section-head">
+        <div>
+          <span class="section-kicker">Nie wpisuj formuły ręcznie</span>
+          <h2>Narzędzia, które robią część pracy</h2>
+        </div>
+        <a class="section-link" href={link("/narzedzia/")}>Wszystkie narzędzia <span>→</span></a>
+      </div>
+
+      <div class="home-tools-grid">
+        {toolHighlights.map((tool) => (
+          <a class="home-tool-card" href={link(tool.href)}>
+            <span>{tool.icon}</span>
+            <div>
+              <h3>{tool.title}</h3>
+              <p>{tool.text}</p>
+            </div>
+            <b>→</b>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
   <section class="section home-templates-section">
     <div class="wrap">
-      <div class="section-heading">
+      <div class="home-section-head">
         <div>
           <span class="section-kicker">Darmowe pliki XLSX</span>
           <h2>Nie buduj arkusza od zera</h2>
@@ -153,22 +259,16 @@ import { templateCatalog } from '../data/templateCatalog.js';
       <div class="template-grid template-grid-live">
         {templateCatalog.map((template) => (
           <a class="template-card template-card-live" href={link('/szablony/' + template.slug + '/')}>
-            <div class="template-thumb">
-              <span>{template.icon}</span>
-              <div></div><div></div><div></div>
-              <div class="template-mini-kpis">
-                <i></i><i></i><i></i>
-              </div>
+            <div class="template-card-top">
+              <span class="template-icon">{template.icon}</span>
+              <span class="template-status">XLSX</span>
             </div>
-            <div class="template-meta">
-              <span>{template.type}</span>
-              <b>{template.version}</b>
-            </div>
+            <span class="template-type">{template.type}</span>
             <h3>{template.title}</h3>
             <p>{template.description}</p>
-            <div class="template-card-footer">
-              <span>XLSX · Darmowy</span>
-              <strong>Zobacz i pobierz →</strong>
+            <div class="template-meta">
+              <span>{template.version}</span>
+              <b>Pobierz za darmo →</b>
             </div>
           </a>
         ))}
@@ -176,17 +276,19 @@ import { templateCatalog } from '../data/templateCatalog.js';
     </div>
   </section>
 
-  <section class="section promise-section">
-    <div class="wrap promise-box">
-      <div class="promise-copy">
-        <span class="section-kicker light">Jak działa ExcelNaLuzie</span>
-        <h2>Najpierw rozwiązanie.<br/>Potem wyjaśnienie.</h2>
-        <p>Nie musisz czytać trzech ekranów wstępu, żeby znaleźć formułę. Każdy poradnik zaczyna się od odpowiedzi, a dopiero później tłumaczy dlaczego działa.</p>
-      </div>
-      <div class="promise-list">
-        <div><span>01</span><p><strong>Gotowa odpowiedź</strong> na samej górze artykułu</p></div>
-        <div><span>02</span><p><strong>Prosty przykład</strong> na realnych danych</p></div>
-        <div><span>03</span><p><strong>Warianty rozwiązania</strong> dla różnych wersji Excela</p></div>
+  <section class="home-final-cta">
+    <div class="wrap">
+      <div class="home-final-box">
+        <div>
+          <span class="section-kicker light">Nie wiesz, gdzie zacząć?</span>
+          <h2>Po prostu wpisz problem.</h2>
+          <p>Wyszukiwarka przejrzy poradniki, funkcje, narzędzia i pozostałe strony serwisu.</p>
+        </div>
+        <button type="button" data-global-search-open>
+          <span>⌕</span>
+          <strong>Otwórz wyszukiwarkę</strong>
+          <kbd>Ctrl K</kbd>
+        </button>
       </div>
     </div>
   </section>
