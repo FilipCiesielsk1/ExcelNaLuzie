@@ -1309,6 +1309,294 @@ export const functionCatalog = [
         "/formuly/liczenie/"
       ]
     ]
+  },
+  {
+    "slug": "srednia",
+    "name": "ŚREDNIA",
+    "category": "Liczenie i sumowanie",
+    "description": "Oblicza średnią arytmetyczną podanych wartości liczbowych.",
+    "syntax": "=ŚREDNIA(liczba1;[liczba2];...)",
+    "example": "=ŚREDNIA(B2:B100)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba1",
+        "Pierwsza liczba lub zakres"
+      ],
+      [
+        "kolejne_liczby",
+        "Dodatkowe wartości i zakresy."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/average-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/suma/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "min",
+    "name": "MIN",
+    "category": "Liczenie i sumowanie",
+    "description": "Zwraca najmniejszą wartość liczbową z zakresu.",
+    "syntax": "=MIN(liczba1;[liczba2];...)",
+    "example": "=MIN(B2:B100)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba1",
+        "Pierwsza wartość lub zakres"
+      ],
+      [
+        "kolejne_liczby",
+        "Opcjonalne dodatkowe argumenty."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/min-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/suma/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "max",
+    "name": "MAX",
+    "category": "Liczenie i sumowanie",
+    "description": "Zwraca największą wartość liczbową w zestawie danych.",
+    "syntax": "=MAX(liczba1;[liczba2];...)",
+    "example": "=MAX(B2:B100)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba1",
+        "Pierwsza liczba lub obszar"
+      ],
+      [
+        "kolejne_liczby",
+        "Dodatkowe wartości lub zakresy."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/max-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/suma/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "ile-liczb",
+    "name": "ILE.LICZB",
+    "category": "Liczenie i sumowanie",
+    "description": "Zlicza komórki zawierające wartości liczbowe.",
+    "syntax": "=ILE.LICZB(wartość1;[wartość2];...)",
+    "example": "=ILE.LICZB(B2:B100)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "wartość1",
+        "Pierwszy zakres lub liczba"
+      ],
+      [
+        "kolejne_wartości",
+        "Opcjonalne następne argumenty."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/count-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/licz-jezeli/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "ile-niepustych",
+    "name": "ILE.NIEPUSTYCH",
+    "category": "Liczenie i sumowanie",
+    "description": "Zlicza wszystkie komórki mające zawartość, niezależnie od typu.",
+    "syntax": "=ILE.NIEPUSTYCH(wartość1;[wartość2];...)",
+    "example": "=ILE.NIEPUSTYCH(A2:A100)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "wartość1",
+        "Pierwszy zakres do sprawdzenia"
+      ],
+      [
+        "kolejne_wartości",
+        "Opcjonalne dodatkowe zakresy."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/counta-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/licz-jezeli/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "zaokr",
+    "name": "ZAOKR",
+    "category": "Liczenie i sumowanie",
+    "description": "Zaokrągla liczbę do wskazanej precyzji.",
+    "syntax": "=ZAOKR(liczba;liczba_cyfr)",
+    "example": "=ZAOKR(A2;2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba",
+        "Wartość do zaokrąglenia"
+      ],
+      [
+        "liczba_cyfr",
+        "Liczba pozycji dziesiętnych, zero lub liczba ujemna."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/round-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/suma/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "zaokr-gora",
+    "name": "ZAOKR.GÓRA",
+    "category": "Liczenie i sumowanie",
+    "description": "Zaokrągla liczbę od zera do wskazanej liczby cyfr.",
+    "syntax": "=ZAOKR.GÓRA(liczba;liczba_cyfr)",
+    "example": "=ZAOKR.GÓRA(A2;0)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba",
+        "Liczba do zaokrąglenia"
+      ],
+      [
+        "liczba_cyfr",
+        "Żądana liczba miejsc dziesiętnych."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/roundup-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/zaokr/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
+  },
+  {
+    "slug": "zaokr-dol",
+    "name": "ZAOKR.DÓŁ",
+    "category": "Liczenie i sumowanie",
+    "description": "Zaokrągla liczbę w kierunku zera.",
+    "syntax": "=ZAOKR.DÓŁ(liczba;liczba_cyfr)",
+    "example": "=ZAOKR.DÓŁ(A2;0)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "liczba",
+        "Liczba do zaokrąglenia"
+      ],
+      [
+        "liczba_cyfr",
+        "Liczba zachowanych miejsc dziesiętnych."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/rounddown-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/zaokr/"
+      ],
+      [
+        "Poradniki liczenia",
+        "/formuly/liczenie/"
+      ]
+    ]
   }
 ];
 
