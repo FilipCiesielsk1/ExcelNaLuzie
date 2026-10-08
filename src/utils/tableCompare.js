@@ -137,7 +137,7 @@ export function compareTables(left, right, {leftKey, rightKey, ignoreCase=false,
       emptyLeft:l.empty.length,emptyRight:r.empty.length,
       ambiguousKeys:dupKeys.size
     },
-    leftKey,rightKey,commonColumns,onlyLeftColumns,onlyRightColumns,
+    leftKey,rightKey,leftHeaders:left.headers,rightHeaders:right.headers,commonColumns,onlyLeftColumns,onlyRightColumns,
     onlyLeft,onlyRight,changed,duplicatesLeft:l.duplicates,
     duplicatesRight:r.duplicates,emptyLeft:l.empty,emptyRight:r.empty
   };
@@ -149,12 +149,13 @@ export function exportComparisonCsv(result) {
   const rows=[fields];
   for(const item of result.changed)
     for(const d of item.differences)rows.push(['Zmiana',item.key,item.leftRow,item.rightRow,d.column,d.before,d.after,'']);
-  for(const item of result.onlyLeft)rows.push(['Tylko w A',item.key,item.rowNumber,'','','','','']);
-  for(const item of result.onlyRight)rows.push(['Tylko w B',item.key,'',item.rowNumber,'','','','']);
+  const describe = (item,headers) => headers.map((name,i)=>name+': '+item.cells[i]).join(' | ');
+  for(const item of result.onlyLeft)rows.push(['Tylko w A',item.key,item.rowNumber,'','','','',describe(item,result.leftHeaders)]);
+  for(const item of result.onlyRight)rows.push(['Tylko w B',item.key,'',item.rowNumber,'','','',describe(item,result.rightHeaders)]);
   for(const item of result.duplicatesLeft)rows.push(['Duplikat A',item.key,'','','','','','Wiersze: '+item.rows.join(', ')]);
   for(const item of result.duplicatesRight)rows.push(['Duplikat B',item.key,'','','','','','Wiersze: '+item.rows.join(', ')]);
-  for(const item of result.emptyLeft)rows.push(['Pusty klucz A','',item.rowNumber,'','','','','']);
-  for(const item of result.emptyRight)rows.push(['Pusty klucz B','','',item.rowNumber,'','','','']);
+  for(const item of result.emptyLeft)rows.push(['Pusty klucz A','',item.rowNumber,'','','','',describe(item,result.leftHeaders)]);
+  for(const item of result.emptyRight)rows.push(['Pusty klucz B','','',item.rowNumber,'','','',describe(item,result.rightHeaders)]);
   const safe = val => {
     let s=String(val ?? '');
     if (/^\s*[=+\-@\t\r]/.test(s)) s="'"+s;

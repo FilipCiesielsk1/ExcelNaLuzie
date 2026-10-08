@@ -4,6 +4,7 @@ import { withBase as link } from '../../utils/paths.js';
 import { functionTranslations } from '../../data/functionTranslations.js';
 
 const toolItems = [
+  ['Porównywarka tabel Excel','porownywarka-tabel'],
   ['Analizator formuł','analizator-formul'],
   ['Konwerter WYSZUKAJ.PIONOWO → X.WYSZUKAJ','konwerter-wyszukaj-pionowo'],
   ['Generator JEŻELI','generator-jezeli'],
@@ -86,6 +87,12 @@ const schema = {
       </div>
 
       <div class="tools-grid">
+        <a class="tool-card priority live" href={link("/narzedzia/porownywarka-tabel/")}>
+          <div class="tool-card-top"><span class="tool-icon">A↔B</span><span class="tool-status">Nowe</span></div>
+          <h3>Porównywarka dwóch tabel Excel</h3>
+          <p>Wczytaj pliki XLSX lub wklej zakresy. Znajdź brakujące wiersze, zmiany i duplikaty po identyfikatorze.</p>
+          <div class="tool-tags"><span>XLSX / CSV</span><span>różnice</span><span>bez wysyłania danych</span></div>
+        </a>
         <a class="tool-card priority live" href={link("/narzedzia/analizator-formul/")}>
           <div class="tool-card-top"><span class="tool-icon">ƒx</span><span class="tool-status">Nowe</span></div>
           <h3>Analizator formuł Excela</h3>

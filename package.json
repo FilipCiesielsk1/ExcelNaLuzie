@@ -5,18 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate:content && npm run validate:relations && npm run test:tools && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
+    "build": "npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:tables && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
     "preview": "astro preview",
     "validate": "npm run validate:content && npm run validate:relations",
     "validate:content": "node scripts/validate-content.mjs",
     "validate:site": "node scripts/validate-built-site.mjs",
     "validate:relations": "node scripts/validate-relationships.mjs",
     "validate:ui": "node scripts/validate-ui.mjs",
-    "test:tools": "node --test scripts/test-formula-tools.mjs"
+    "test:tools": "node --test scripts/test-formula-tools.mjs",
+    "test:tables": "node --test scripts/test-table-compare.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "read-excel-file": "^9.3.10"
   },
   "devDependencies": {
     "pagefind": "^1.5.2"

@@ -123,6 +123,11 @@ export const toolRelationships = {
     title: 'Konwerter WYSZUKAJ.PIONOWO → X.WYSZUKAJ',
     functions: ['wyszukaj-pionowo', 'xwyszukaj'],
     articles: ['xwyszukaj-podstawy', 'indeks-podaj-pozycje']
+  },
+  'porownywarka-tabel': {
+    title: 'Porównywarka tabel Excel',
+    functions: ['xwyszukaj', 'licz-warunki'],
+    articles: ['jak-znalezc-wartosc-w-tabeli', 'xwyszukaj-podstawy']
   }
 };
 

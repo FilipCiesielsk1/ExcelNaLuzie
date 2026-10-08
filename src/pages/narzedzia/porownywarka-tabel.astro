@@ -259,6 +259,10 @@ const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t27
           }else if(entry.type==='onlyLeft'||entry.type==='onlyRight'){
             const left=entry.type==='onlyLeft';
             n=card((left?'Tylko w A: ':'Tylko w B: ')+item.key,'Wiersz '+item.rowNumber,left?'tc-removed':'tc-added');
+            const headers=left?r.leftHeaders:r.rightHeaders;
+            const keyColumn=left?r.leftKey:r.rightKey;
+            const preview=headers.map((name,i)=>name===keyColumn?'':name+': '+item.cells[i]).filter(Boolean).slice(0,3).join(' · ');
+            n.append(el('p',preview,'tc-record-preview'));
           }else if(entry.type.startsWith('duplicate')){
             const left=entry.type==='duplicateLeft';
             n=card('Duplikat '+(left?'A':'B')+': '+item.key,item.count+' wystąpienia · wiersze '+item.rows.join(', '),'tc-duplicate');
