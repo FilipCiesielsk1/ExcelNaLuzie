@@ -6,7 +6,7 @@ slug: "jezeli-data"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -66,6 +66,29 @@ Przy zadaniach z dokładną godziną lepiej porównywać wartość z funkcją TE
 Data wyglądająca jak data może być tekstem. Wtedy porównania mogą zwracać błędne wyniki. Sprawdź format i źródło danych, zwłaszcza po imporcie z plików CSV.
 
 JEŻELI z datami jest bardzo przydatne do terminów, SLA, ważności dokumentów i planów, ale zawsze upewnij się, że porównywane komórki zawierają prawdziwe wartości daty.
+
+## Przetestuj formułę niezależnie od dzisiejszej daty
+
+Dla pierwszego przykładu użyj dat odnoszących się do bieżącego dnia. Nie musisz wpisywać konkretnej daty kalendarzowej:
+
+| Wartość A2 | Wynik |
+|---|---|
+| Wczoraj (DZIŚ()-1) | Po terminie |
+| Dzisiaj (DZIŚ()) | Aktualne |
+| Jutro (DZIŚ()+1) | Aktualne |
+| Pusta komórka | Po terminie w pierwszej formule |
+
+To ostatnie zachowanie jest szczególnie ważne: pusta komórka może zostać porównana jak zero, dlatego do rzeczywistych zestawień terminów użyj wersji z kontrolą braku daty. Dzięki niej pusta wartość wyświetli **Brak terminu**.
+
+## Daty z godziną: pułapka na granicy dnia
+
+Funkcja **DZIŚ()** oznacza dzisiejszą datę o godzinie 00:00. Jeżeli termin jest zapisany razem z godziną, np. dzisiaj o 08:00, porównanie z DZIŚ() nie uzna go za przeszły nawet po południu.
+
+Do terminów, które mają wygasać o konkretnej godzinie, zastosuj:
+
+<div class="formula">=JEŻELI(A2="";"Brak terminu";JEŻELI(A2<TERAZ();"Po terminie";"Aktualne"))</div>
+
+Funkcja TERAZ() zwraca bieżącą datę i godzinę. Zwróć uwagę, że wynik zmienia się przy ponownym przeliczeniu arkusza, a nie bez przerwy co sekundę.
 
 ## Przykład: oznaczenie terminu płatności
 
