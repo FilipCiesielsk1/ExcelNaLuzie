@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:tables && npm run test:pivot && npm run test:inquiries && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
+    "build": "npm run generate:formatting-examples && npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:tables && npm run test:pivot && npm run test:inquiries && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
     "preview": "astro preview",
     "validate": "npm run validate:content && npm run validate:relations",
     "validate:content": "node scripts/validate-content.mjs",
@@ -15,7 +15,8 @@
     "test:tools": "node --test scripts/test-formula-tools.mjs",
     "test:tables": "node --test scripts/test-table-compare.mjs",
     "test:pivot": "node --test scripts/test-pivot-builder.mjs",
-    "test:inquiries": "node --test scripts/test-project-inquiry.mjs"
+    "test:inquiries": "node --test scripts/test-project-inquiry.mjs",
+    "generate:formatting-examples": "node scripts/generate-formatting-examples.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
