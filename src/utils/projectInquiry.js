@@ -30,6 +30,38 @@ export function createProjectInquiry(data={}) {
     description,'',
     'Wiadomość jest zapytaniem informacyjnym, nie zamówieniem ani akceptacją płatnej oferty.'
   ].join('\n');
-  const uri='mailto:'+serviceContact.email+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(message);
-  return {recipient:serviceContact.email,subject,message,mailto:uri.length<=1950?uri:null,tooLongForMailto:uri.length>1950};
+  return {
+    recipient: serviceContact.email,
+    subject,
+    message,
+    replyTo: email
+  };
+}
+
+
+/** Przesyłka JSON do FormSubmit — adres odbiorcy po stronie serwisu, nie od użytkownika. */
+export function getInquiryEndpoint(){
+  return 'https://formsubmit.co/ajax/'+encodeURIComponent(serviceContact.email);
+}
+
+export function buildInquiryPayload(data={}){
+  const inquiry=createProjectInquiry(data);
+  // FormSubmit dokumentuje dodatkowe pola _subject, _replyto, _honey, _template i _captcha.
+  // Honey pot chroni przed najprostszymi automatycznymi zgłoszeniami.
+  return {
+    name: clean(data.name,90) || 'Użytkownik ExcelNaLuzie',
+    email: inquiry.replyTo,
+    message: inquiry.message,
+    _subject: inquiry.subject,
+    _replyto: inquiry.replyTo,
+    _template: 'table',
+    _captcha: 'false',
+    _honey: clean(data._honey,80)
+  };
+}
+
+/** FormSubmit zwraca success zarówno jako boolean, jak i napis. */
+export function isInquiryAccepted(status, body){
+  if(status<200 || status>=300 || !body || typeof body!=='object')return false;
+  return body.success===true || body.success==='true';
 }

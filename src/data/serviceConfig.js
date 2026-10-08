@@ -1,7 +1,8 @@
 /** Konfiguracja kontaktu i statusu pozyskiwania zapytań. */
 export const serviceContact = {
-  email: 'kontakt@processxpert.pl',
+  email: 'excelnaluzie@gmail.com',
   page: '/uslugi/excel-vba/',
+  deliveryProvider: 'FormSubmit.co',
   status: 'zapytania',
   notice: 'Obecnie zbieramy informacje o zapotrzebowaniu na przyszłe realizacje. Nie przyjmujemy zamówień ani płatności za usługi. Realizacja odpłatnych projektów wymaga wznowienia działalności.'
 };
