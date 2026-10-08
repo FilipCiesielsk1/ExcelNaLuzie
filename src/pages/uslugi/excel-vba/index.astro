@@ -14,7 +14,7 @@ const schema={
       url:'https://excelnaluzie.pl/uslugi/excel-vba/',
       name:'Indywidualne rozwiązania Excel i VBA — konsultacja potrzeb',
       inLanguage:'pl-PL',
-      description:'Zgłoś potrzebę automatyzacji pracy w Excelu, budowy raportu lub naprawy skoroszytu. Formularz przygotowuje wiadomość e-mail.'
+      description:'Zgłoś potrzebę automatyzacji pracy w Excelu, budowy raportu lub naprawy skoroszytu. Formularz wysyła zapytanie bezpośrednio ze strony.'
     },
     {
       '@type':'BreadcrumbList',
@@ -29,7 +29,7 @@ const schema={
 
 <BaseLayout
   title="Automatyzacja Excel i VBA — indywidualne rozwiązania | ExcelNaLuzie"
-  description="Potrzebujesz makra VBA, automatycznego raportu lub naprawy arkusza Excel? Opisz problem i przygotuj zapytanie o przyszły projekt. Bez zobowiązań."
+  description="Potrzebujesz makra VBA, automatycznego raportu lub naprawy arkusza Excel? Opisz problem i wyślij zapytanie prosto ze strony, bez otwierania poczty."
   canonical={canonical}
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
@@ -101,7 +101,7 @@ const schema={
           <div class="service-contact-details">
             <strong>Wolisz napisać bez formularza?</strong>
             <a href={'mailto:'+serviceContact.email}>{serviceContact.email}</a>
-            <p>Wiadomość możesz wysłać bezpośrednio na publiczny adres kontaktowy ProcessXpert. Odpowiedzi dotyczące ewentualnej realizacji odpłatnej usługi będą uzależnione od wznowienia działalności.</p>
+            <p>Zapytania z formularza będą kierowane automatycznie na ten adres. Odpowiedzi dotyczące ewentualnej odpłatnej realizacji będą uzależnione od wznowienia działalności.</p>
           </div>
           <p class="service-contact-privacy">Nie przesyłaj od razu danych osobowych klientów, haseł ani poufnych skoroszytów. Na początek wystarczy opis i — ewentualnie — zanonimizowany przykład po ustaleniu dalszych kroków.</p>
         </div>
@@ -112,6 +112,7 @@ const schema={
             <strong>Bez konta i bez załączników</strong>
           </div>
           <form data-service-form>
+            <div class="service-honeypot" aria-hidden="true"><label for="s-company-website">Pozostaw to pole puste</label><input id="s-company-website" name="_honey" tabindex="-1" autocomplete="off"/></div>
             <div class="service-form-grid">
               <div class="service-field service-field-full">
                 <label for="s-category">Czego potrzebujesz? <span>*</span></label>
@@ -169,17 +170,11 @@ const schema={
               </div>
             </div>
 
-            <p class="service-form-disclaimer">Formularz przygotowuje treść wiadomości lokalnie w przeglądarce. Po kliknięciu otworzy się Twój program pocztowy — <strong>wiadomość nie zostanie wysłana automatycznie</strong>. Zapytanie nie oznacza zamówienia ani zgody na odpłatną realizację. Zobacz <a href={link('/polityka-prywatnosci/')}>zasady prywatności</a>.</p>
+            <p class="service-form-disclaimer">Po kliknięciu „Wyślij zapytanie” informacje wpisane do formularza zostaną przekazane przez <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">FormSubmit.co</a> na adres <strong>{serviceContact.email}</strong>. Nie otwieramy programu pocztowego. Wysyłka jest zapytaniem informacyjnym, nie zamówieniem ani zgodą na odpłatną realizację. Nie wpisuj informacji poufnych. Przeczytaj <a href={link('/polityka-prywatnosci/')}>politykę prywatności</a>.</p>
             <div class="service-form-actions">
-              <button type="submit" class="service-primary service-submit">Przygotuj wiadomość e-mail <span>→</span></button>
-              <button type="button" class="service-copy-button" data-copy>Skopiuj treść</button>
+              <button type="submit" class="service-primary service-submit">Wyślij zapytanie <span>→</span></button>
             </div>
-            <div class="service-form-message" data-message role="status" aria-live="polite">Możesz użyć formularza albo napisać bezpośrednio na adres podany obok.</div>
-            <div class="service-message-preview" data-preview-wrap hidden>
-              <label for="s-preview">Treść gotowa do skopiowania</label>
-              <textarea id="s-preview" data-preview rows="9" readonly></textarea>
-              <p>Gdy program pocztowy się nie otworzy, skopiuj treść i wyślij ją na <a href={'mailto:'+serviceContact.email}>{serviceContact.email}</a>.</p>
-            </div>
+            <div class="service-form-message" data-message role="status" aria-live="polite">Po wysłaniu formularza zobaczysz tutaj potwierdzenie przyjęcia zgłoszenia.</div>
           </form>
         </div>
       </div>
@@ -201,48 +196,57 @@ const schema={
   </div>
 
   <script>
-    import {createProjectInquiry} from '../../../utils/projectInquiry.js';
+    import {buildInquiryPayload,getInquiryEndpoint,isInquiryAccepted} from '../../../utils/projectInquiry.js';
     const form=document.querySelector('[data-service-form]');
     if(form){
-      const previewWrap=form.querySelector('[data-preview-wrap]');
-      const preview=form.querySelector('[data-preview]');
       const status=form.querySelector('[data-message]');
-      const prepare=()=>{
-        if(!form.reportValidity())return null;
+      const button=form.querySelector('[type="submit"]');
+      let pending=false;
+
+      form.addEventListener('submit',async event=>{
+        event.preventDefault();
+        if(pending || !form.reportValidity())return;
+
+        let payload;
         try{
-          const draft=createProjectInquiry(Object.fromEntries(new FormData(form).entries()));
-          preview.value='Temat: '+draft.subject+'\nDo: '+draft.recipient+'\n\n'+draft.message;
-          previewWrap.hidden=false;
-          status.classList.remove('service-message-error');
-          return draft;
+          payload=buildInquiryPayload(Object.fromEntries(new FormData(form).entries()));
+          // Honeypot: nie wysyłamy podejrzanych automatycznych zgłoszeń.
+          if(payload._honey){
+            status.textContent='Nie udało się przyjąć zgłoszenia. Odśwież stronę i spróbuj ponownie.';
+            status.classList.add('service-message-error');
+            return;
+          }
         }catch(error){
           status.textContent=error.message;
           status.classList.add('service-message-error');
-          return null;
+          return;
         }
-      };
-      form.addEventListener('submit',event=>{
-        event.preventDefault();
-        const draft=prepare();
-        if(!draft)return;
-        if(draft.mailto){
-          status.textContent='Przygotowano wiadomość. Sprawdź program pocztowy i wyślij ją samodzielnie. Jeśli nic się nie otworzy, użyj przycisku kopiowania.';
-          window.location.href=draft.mailto;
-        }else{
-          status.textContent='Opis jest zbyt długi na automatyczne otwarcie poczty. Skopiuj gotową treść i wyślij ją na podany adres.';
-          preview.focus();
-        }
-      });
-      form.querySelector('[data-copy]').addEventListener('click',async()=>{
-        const draft=prepare();
-        if(!draft)return;
+
+        pending=true;
+        button.disabled=true;
+        status.classList.remove('service-message-error');
+        status.textContent='Wysyłanie zgłoszenia…';
+        const controller=new AbortController();
+        const deadline=setTimeout(()=>controller.abort(),20000);
         try{
-          await navigator.clipboard.writeText('Temat: '+draft.subject+'\n\n'+draft.message);
-          status.textContent='Skopiowano treść zapytania. Wyślij ją na '+draft.recipient+'.';
-        }catch{
-          preview.focus();
-          preview.select();
-          status.textContent='Zaznaczono treść wiadomości — skopiuj ją ręcznie skrótem Ctrl+C.';
+          const response=await fetch(getInquiryEndpoint(),{
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body:JSON.stringify(payload),
+            signal:controller.signal
+          });
+          const result=await response.json();
+          if(!isInquiryAccepted(response.status,result))
+            throw new Error('Serwis wysyłkowy nie potwierdził przyjęcia zgłoszenia.');
+          form.reset();
+          status.textContent='Dziękujemy! Zgłoszenie zostało przyjęte przez serwis wysyłkowy. Odpowiemy na podany adres, gdy będzie to możliwe. Jeśli adres odbiorcy nie został jeszcze aktywowany w FormSubmit, dostarczanie wiadomości wymaga jego potwierdzenia.';
+        }catch(error){
+          status.classList.add('service-message-error');
+          status.textContent='Nie udało się potwierdzić wysłania zgłoszenia. Spróbuj ponownie później lub napisz bezpośrednio na excelnaluzie@gmail.com.';
+        }finally{
+          clearTimeout(deadline);
+          pending=false;
+          button.disabled=false;
         }
       });
     }
