@@ -65,7 +65,11 @@ const inferredNavSection = navSection || currentPath.split('/')[0] || null;
           '@type':'Organization',
           '@id':siteOrigin + '/#organization',
           name:'ExcelNaLuzie.pl',
-          url:siteOrigin + '/'
+          url:siteOrigin + '/',
+          logo:{
+            '@type':'ImageObject',
+            url:siteOrigin + '/favicon.svg'
+          }
         },
         {
           '@type':'WebSite',
