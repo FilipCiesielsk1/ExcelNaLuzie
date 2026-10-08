@@ -6,7 +6,7 @@ slug: "jezeli-blad"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -62,6 +62,26 @@ Jeżeli problem da się przewidzieć, czasem lepiej sprawdzić go jawnie. Przyk�
 <div class="formula">=JEŻELI(B2=0;"Brak dzielnika";A2/B2)</div>
 
 Taki zapis dokładnie mówi, dlaczego wynik nie został policzony.
+
+## Test: poprawne dzielenie a brak mianownika
+
+Wprowadź poniższe wartości do A2 i B2, korzystając z pierwszej formuły w artykule:
+
+| A — licznik | B — mianownik | Wynik |
+|---|---|---|
+| 12 | 3 | 4 |
+| 12 | 0 | Brak wyniku |
+| 0 | 4 | 0 |
+
+Ostatni przypadek pokazuje, że **wynik 0 jest poprawną liczbą**, a nie błędem. Funkcja JEŻELI.BŁĄD nie zmienia prawidłowych wyników, także tych równych zero.
+
+## Kiedy lepsza jest kontrola konkretnego błędu?
+
+Jeżeli wiesz, że źródłem problemu jest dzielenie przez zero, użyj jawnego sprawdzenia B2. Dzięki temu uszkodzone odwołania lub niepoprawne dane tekstowe nadal pokażą błąd, który warto naprawić. W przypadku wyszukiwania danych odróżniaj **brak dopasowania** od uszkodzonego zakresu. W nowych wersjach Excela czwarty argument X.WYSZUKAJ pozwala obsłużyć brak wartości bez zasłaniania wszystkich pozostałych błędów:
+
+<div class="formula">=X.WYSZUKAJ(F2;A2:A100;C2:C100;"Nie znaleziono")</div>
+
+Ten wariant wymaga wersji Excela obsługującej X.WYSZUKAJ. Przy pracy w Excelu 2016 lub 2019 zachowaj rozwiązanie z WYSZUKAJ.PIONOWO, ale przed ukryciem błędów sprawdź dane wejściowe.
 
 ## Dobra praktyka
 
