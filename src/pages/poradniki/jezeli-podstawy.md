@@ -6,7 +6,7 @@ slug: "jezeli-podstawy"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -62,6 +62,27 @@ To przykład prostego bonusu: dla wartości co najmniej 100 naliczane jest 5%, a
 Najczęściej problemem są brakujące cudzysłowy przy tekście, pomylony operator porównania albo nieprawidłowy separator argumentów. W polskiej wersji Excela zwykle używasz średników.
 
 Nie komplikuj JEŻELI od razu. Najpierw sprawdź, czy pojedynczy warunek działa poprawnie. Dopiero potem dodawaj ORAZ, LUB albo kolejne poziomy decyzji.
+
+## Sprawdź wynik na konkretnych danych
+
+Załóż, że w kolumnie B masz kwotę sprzedaży. W komórce C2 wpisz pierwszą formułę z tego poradnika, a potem przeciągnij ją w dół.
+
+| B — sprzedaż | C — wynik JEŻELI |
+|---|---|
+| 0 | NIE |
+| 99 | NIE |
+| 100 | TAK |
+| 125 | TAK |
+
+Najważniejszy jest wiersz ze 100: operator **>=** uwzględnia samą wartość graniczną. Gdy zmienisz go na **>**, dopiero 101 spełni warunek przy danych całkowitych. Jeżeli komórka B2 jest rzeczywiście pusta, porównanie liczbowe może potraktować ją jak zero, więc wynik również będzie NIE.
+
+## Jeśli brak danych nie powinien oznaczać NIE
+
+W raportach często warto odróżnić brak wpisanej sprzedaży od sprzedaży poniżej celu:
+
+<div class="formula">=JEŻELI(B2="";"Brak danych";JEŻELI(B2>=100;"TAK";"NIE"))</div>
+
+Dla pustej komórki zobaczysz **Brak danych**, dla 99 — **NIE**, a dla 100 — **TAK**. To przydatne, kiedy arkusz ma puste wiersze na przyszłe transakcje. Gdy wynik wygląda inaczej niż oczekujesz, sprawdź, czy w B2 znajduje się liczba, a nie tekst przypominający liczbę.
 
 ## Kiedy JEŻELI jest dobrym wyborem?
 
