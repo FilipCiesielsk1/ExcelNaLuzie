@@ -99,16 +99,25 @@ Powiązane funkcje:
 
 # Klaster 4 — JEŻELI i logika
 
-- [ ] JEŻELI — podstawowy przykład
-- [ ] JEŻELI z kilkoma warunkami
-- [ ] JEŻELI + ORAZ
-- [ ] JEŻELI + LUB
-- [ ] JEŻELI — komórka pusta
-- [ ] JEŻELI — komórka zawiera tekst
-- [ ] JEŻELI — data większa niż
-- [ ] kilka zagnieżdżonych JEŻELI
-- [ ] JEŻELI.BŁĄD
-- [ ] wynik TAK/NIE na podstawie warunku
+Status: ukończony i rozbudowany o praktyczne przykłady oraz przypadki graniczne (2026-10-08).
+
+- [x] JEŻELI — podstawowy przykład
+- [x] JEŻELI z kilkoma warunkami
+- [x] JEŻELI + ORAZ
+- [x] JEŻELI + LUB
+- [x] JEŻELI — komórka pusta
+- [x] JEŻELI — komórka zawiera tekst
+- [x] JEŻELI — data większa niż / terminy
+- [x] kilka zagnieżdżonych JEŻELI
+- [x] JEŻELI.BŁĄD
+- [x] wynik TAK/NIE na podstawie warunku
+- [x] warunki mieszane ORAZ/LUB
+- [x] JEŻELI i progi liczbowe
+- [x] diagnostyka błędów formuł
+
+Hub:
+- [x] Warunki i logika w Excelu — 11 powiązanych poradników
+- [x] Link do generatora JEŻELI i szybkie przejścia do powiązanych instrukcji
 
 ---
 
