@@ -1,0 +1,335 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+
+const demoA = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t250\tNowe\n1003\tOla\t180\tNowe';
+const demoB = 'ID\tKlient\tKwota\tStatus\n1001\tAnna\t120\tNowe\n1002\tPiotr\t270\tOpłacone\n1004\tEwa\t190\tNowe';
+---
+
+<ToolLayout
+  title="Porównaj dwie tabele Excel — różnice i duplikaty"
+  description="Porównaj dwie tabele XLSX, CSV lub zakresy skopiowane z Excela. Wykryj zmienione wartości, brakujące rekordy i duplikaty po identyfikatorze. Bez przesyłania danych."
+  slug="porownywarka-tabel"
+  functionName="Wyszukiwanie danych w Excelu"
+  functionHref="/formuly/wyszukiwanie/"
+  resourceLabel="Powiązany temat"
+  resourceAction="Poznaj formuły do porównywania →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Porównywanie danych · wszystko lokalnie</span>
+    <h2>Co zmieniło się między tabelami?</h2>
+    <p>Wczytaj dwa pliki <strong>.xlsx lub CSV</strong> albo wklej zakresy skopiowane z Excela. Wybierz kolumny identyfikatorów, a narzędzie pokaże rekordy tylko w jednej tabeli, zmiany w komórkach i duplikaty.</p>
+  </div>
+
+  <div class="tc-app" data-table-compare>
+    <div class="tc-import-grid">
+      <section class="tc-source" data-side="left" aria-labelledby="tc-title-a">
+        <div class="tc-source-heading"><span class="tc-source-marker">A</span><div><h3 id="tc-title-a">Tabela A</h3><p>Stan wcześniejszy</p></div></div>
+        <label for="tc-file-a" class="tc-field-label">Wczytaj plik XLSX, CSV lub TSV</label>
+        <input type="file" id="tc-file-a" data-file accept=".xlsx,.csv,.tsv,.txt" />
+        <div data-sheet-wrap class="tc-sheet-wrap" hidden>
+          <label for="tc-sheet-a">Arkusz w pliku Excel</label>
+          <select id="tc-sheet-a" data-sheet></select>
+        </div>
+        <div class="tc-or"><span>lub wklej dane z Excela</span></div>
+        <textarea data-paste id="tc-paste-a" aria-label="Dane tabeli A" rows="6" spellcheck="false">{demoA}</textarea>
+        <button type="button" class="tc-load-button" data-load-paste>Wczytaj wklejone dane</button>
+        <div class="tc-status" data-status aria-live="polite"></div>
+        <label class="tc-field-label" for="tc-key-a">Kolumna identyfikatora</label>
+        <select id="tc-key-a" data-key aria-label="Kolumna identyfikatora tabeli A"></select>
+      </section>
+
+      <section class="tc-source" data-side="right" aria-labelledby="tc-title-b">
+        <div class="tc-source-heading"><span class="tc-source-marker">B</span><div><h3 id="tc-title-b">Tabela B</h3><p>Stan nowszy</p></div></div>
+        <label for="tc-file-b" class="tc-field-label">Wczytaj plik XLSX, CSV lub TSV</label>
+        <input type="file" id="tc-file-b" data-file accept=".xlsx,.csv,.tsv,.txt" />
+        <div data-sheet-wrap class="tc-sheet-wrap" hidden>
+          <label for="tc-sheet-b">Arkusz w pliku Excel</label>
+          <select id="tc-sheet-b" data-sheet></select>
+        </div>
+        <div class="tc-or"><span>lub wklej dane z Excela</span></div>
+        <textarea data-paste id="tc-paste-b" aria-label="Dane tabeli B" rows="6" spellcheck="false">{demoB}</textarea>
+        <button type="button" class="tc-load-button" data-load-paste>Wczytaj wklejone dane</button>
+        <div class="tc-status" data-status aria-live="polite"></div>
+        <label class="tc-field-label" for="tc-key-b">Kolumna identyfikatora</label>
+        <select id="tc-key-b" data-key aria-label="Kolumna identyfikatora tabeli B"></select>
+      </section>
+    </div>
+
+    <div class="tc-options">
+      <div><h3>Ustawienia porównania</h3><p>Rekordy są dopasowywane po wskazanej kolumnie, niezależnie od kolejności wierszy.</p></div>
+      <label><input type="checkbox" data-ignore-case /> Ignoruj wielkość liter</label>
+      <label><input type="checkbox" data-trim /> Ignoruj spacje na końcach wartości</label>
+    </div>
+    <div class="tc-run-row">
+      <button type="button" class="tc-run" data-compare>Porównaj tabele <span aria-hidden="true">→</span></button>
+      <span data-message aria-live="polite">Przykładowe dane są już wypełnione. Możesz je porównać lub podmienić.</span>
+    </div>
+
+    <section class="tc-results" data-results hidden aria-labelledby="tc-results-title">
+      <div class="tc-results-head">
+        <div><span class="section-kicker">Wynik porównania</span><h2 id="tc-results-title">Różnice między tabelami</h2></div>
+        <button type="button" class="tc-export" data-export>Pobierz raport CSV ↓</button>
+      </div>
+      <div class="tc-kpis" data-kpis></div>
+      <p class="tc-notice" data-warning></p>
+      <div class="tc-filter-wrap">
+        <label for="tc-filter">Pokaż rekordy</label>
+        <select id="tc-filter" data-filter>
+          <option value="all">Wszystkie różnice</option>
+          <option value="changed">Zmodyfikowane</option>
+          <option value="onlyLeft">Tylko w tabeli A</option>
+          <option value="onlyRight">Tylko w tabeli B</option>
+          <option value="duplicates">Duplikaty kluczy</option>
+          <option value="empty">Puste identyfikatory</option>
+        </select>
+        <span data-count></span>
+      </div>
+      <div class="tc-result-list" data-result-list></div>
+    </section>
+  </div>
+
+  <div class="generator-help">
+    <h2>Jak prawidłowo porównać tabele?</h2>
+    <p>Pierwszy wiersz każdej tabeli musi zawierać <strong>unikalne nagłówki</strong>. Wybierz kolumnę, która identyfikuje rekord, np. ID, SKU lub numer faktury. Nazwy kolumn klucza mogą różnić się między tabelami. Pozostałe kolumny są porównywane na podstawie takich samych nazw nagłówków — ich kolejność nie ma znaczenia.</p>
+    <p>Jeśli ten sam identyfikator powtarza się więcej niż raz, narzędzie wyświetli duplikaty, ale <strong>nie zgadnie, który wiersz dopasować</strong>. Takie klucze są wyłączone z zestawienia zmian i braków, aby wynik nie był mylący.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Limity i prywatność</h2>
+    <p>Obsługiwane są pliki <strong>.xlsx</strong> (wybór arkusza), tekstowe CSV/TSV oraz tabele wklejone przez Ctrl+C i Ctrl+V. Limit to <strong>10 000 wierszy, 80 kolumn i 5 MB na plik</strong>. Stare pliki .xls trzeba najpierw zapisać jako .xlsx lub skopiować zakres.</p>
+    <p>Wszystkie dane są przetwarzane wyłącznie w Twojej przeglądarce, bez wysyłania plików do serwera. Narzędzie odczytuje zapisane wartości komórek, nie przelicza formuł Excela. Formatowanie wyświetlania (np. zera dodane formatem) nie zawsze jest częścią odczytanej wartości.</p>
+  </div>
+
+  <script>
+    import {parseDelimited,prepareTable,compareTables,exportComparisonCsv,MAX_FILE_BYTES} from '../../utils/tableCompare.js';
+
+    const app = document.querySelector('[data-table-compare]');
+    if (app) {
+      const state = {left:{table:null,sheets:null},right:{table:null,sheets:null},result:null,busy:false};
+      const dom = Object.fromEntries(['left','right'].map(side=>[side,app.querySelector('[data-side="'+side+'"]')]));
+      const message = app.querySelector('[data-message]');
+      const resultPanel=app.querySelector('[data-results]');
+      const el=(tag,text,cl='')=>{
+        const n=document.createElement(tag);
+        if(text!==undefined)n.textContent=String(text);
+        if(cl)n.className=cl;
+        return n;
+      };
+      const showStatus=(side,text,error=false)=>{
+        const target=dom[side].querySelector('[data-status]');
+        target.textContent=text;
+        target.classList.toggle('tc-error',error);
+      };
+      const invalidate=()=>{
+        state.result=null;
+        resultPanel.hidden=true;
+      };
+      const setTable=(side,table,label)=>{
+        state[side].table=table;
+        const select=dom[side].querySelector('[data-key]');
+        const selected=select.value;
+        select.replaceChildren();
+        for(const name of table.headers){
+          const option=el('option',name);
+          option.value=name;
+          select.append(option);
+        }
+        const preferred=table.headers.find(name=>/^(id|kod|sku|numer|nr|identyfikator)$/i.test(name.trim()));
+        select.value=table.headers.includes(selected)?selected:(preferred??table.headers[0]);
+        showStatus(side,label+' · '+table.rows.length.toLocaleString('pl-PL')+' wierszy · '+table.headers.length+' kolumn');
+        invalidate();
+      };
+      const loadSheet=(side)=>{
+        const select=dom[side].querySelector('[data-sheet]');
+        try {
+          const chosen=state[side].sheets?.[Number(select.value)];
+          if (!chosen) throw new Error('Wybierz istniejący arkusz.');
+          setTable(side,prepareTable(chosen.data),'Arkusz: '+chosen.sheet);
+        } catch (error) {
+          state[side].table=null;
+          showStatus(side,error.message,true);
+          invalidate();
+        }
+      };
+      const loadPaste=(side)=>{
+        state[side].sheets=null;
+        dom[side].querySelector('[data-sheet-wrap]').hidden=true;
+        try {
+          const text=dom[side].querySelector('[data-paste]').value;
+          setTable(side,prepareTable(parseDelimited(text)),'Wklejona tabela');
+        } catch (error) {
+          state[side].table=null;
+          showStatus(side,error.message,true);
+          invalidate();
+        }
+      };
+      const readTextFile=async file=>{
+        const data=await file.arrayBuffer();
+        try{return new TextDecoder('utf-8',{fatal:true}).decode(data);}
+        catch{return new TextDecoder('windows-1250').decode(data);}
+      };
+      const loadFile=async(side,file)=>{
+        if(!file)return;
+        invalidate();
+        if(file.size>MAX_FILE_BYTES){showStatus(side,'Plik przekracza limit 5 MB.',true);return;}
+        state.busy=true;
+        app.querySelector('[data-compare]').disabled=true;
+        showStatus(side,'Odczytywanie pliku…');
+        try {
+          if(/\.xlsx$/i.test(file.name)){
+            // Import opóźniony: biblioteka pobierana tylko po wyborze pliku XLSX.
+            const {default:readExcelFile}=await import('read-excel-file/browser');
+            const sheets=await readExcelFile(file);
+            state[side].sheets=sheets;
+            const sel=dom[side].querySelector('[data-sheet]');
+            sel.replaceChildren();
+            sheets.forEach((sheet,i)=>{
+              const opt=el('option',sheet.sheet);opt.value=i;sel.append(opt);
+            });
+            dom[side].querySelector('[data-sheet-wrap]').hidden=false;
+            loadSheet(side);
+          }else if(/\.(csv|tsv|txt)$/i.test(file.name)){
+            state[side].sheets=null;
+            dom[side].querySelector('[data-sheet-wrap]').hidden=true;
+            setTable(side,prepareTable(parseDelimited(await readTextFile(file))),file.name);
+          }else throw new Error('Wybierz .xlsx, .csv, .tsv lub .txt.');
+        } catch(error) {
+          state[side].table=null;
+          showStatus(side,'Nie udało się odczytać pliku: '+error.message,true);
+          invalidate();
+        } finally {
+          state.busy=false;
+          app.querySelector('[data-compare]').disabled=false;
+        }
+      };
+      for(const side of ['left','right']){
+        const root=dom[side];
+        root.querySelector('[data-load-paste]').addEventListener('click',()=>loadPaste(side));
+        root.querySelector('[data-file]').addEventListener('change',event=>loadFile(side,event.target.files?.[0]));
+        root.querySelector('[data-sheet]').addEventListener('change',()=>loadSheet(side));
+        root.querySelector('[data-paste]').addEventListener('input',()=>{
+          showStatus(side,'Dane w polu zostały zmienione — kliknij „Wczytaj wklejone dane”.');
+          invalidate();
+          state[side].table=null;
+        });
+        root.querySelector('[data-key]').addEventListener('change',invalidate);
+        loadPaste(side);
+      }
+
+      const card=(title,meta,cl)=>{
+        const n=el('article',undefined,'tc-record '+cl);
+        const head=el('div',undefined,'tc-record-heading');
+        head.append(el('strong',title),el('small',meta));
+        n.append(head);
+        return n;
+      };
+      const putLine=(parent,label,before,after)=>{
+        const row=el('div',undefined,'tc-cell-difference');
+        row.append(el('span',label));
+        const v=el('div');
+        v.append(el('del',before || '(puste)'),el('span','→'),el('ins',after || '(puste)'));
+        row.append(v);
+        parent.append(row);
+      };
+      const resultsAsList=()=>{
+        const r=state.result;
+        if(!r)return;
+        const filter=app.querySelector('[data-filter]').value;
+        const items=[];
+        if(filter==='all'||filter==='changed') for(const item of r.changed)items.push({type:'changed',data:item});
+        if(filter==='all'||filter==='onlyLeft') for(const item of r.onlyLeft)items.push({type:'onlyLeft',data:item});
+        if(filter==='all'||filter==='onlyRight') for(const item of r.onlyRight)items.push({type:'onlyRight',data:item});
+        if(filter==='all'||filter==='duplicates'){
+          for(const item of r.duplicatesLeft)items.push({type:'duplicateLeft',data:item});
+          for(const item of r.duplicatesRight)items.push({type:'duplicateRight',data:item});
+        }
+        if(filter==='all'||filter==='empty'){
+          for(const item of r.emptyLeft)items.push({type:'emptyLeft',data:item});
+          for(const item of r.emptyRight)items.push({type:'emptyRight',data:item});
+        }
+        const list=app.querySelector('[data-result-list]');
+        list.replaceChildren();
+        app.querySelector('[data-count]').textContent=items.length.toLocaleString('pl-PL')+' pozycji';
+        if(!items.length){list.append(el('p','Brak różnic dla wybranego filtra.','tc-empty'));return;}
+        for(const entry of items.slice(0,100)){
+          const item=entry.data;
+          let n;
+          if(entry.type==='changed'){
+            n=card('Zmieniono: '+item.key,'A: wiersz '+item.leftRow+' · B: wiersz '+item.rightRow,'tc-changed');
+            for(const difference of item.differences)putLine(n,difference.column,difference.before,difference.after);
+          }else if(entry.type==='onlyLeft'||entry.type==='onlyRight'){
+            const left=entry.type==='onlyLeft';
+            n=card((left?'Tylko w A: ':'Tylko w B: ')+item.key,'Wiersz '+item.rowNumber,left?'tc-removed':'tc-added');
+          }else if(entry.type.startsWith('duplicate')){
+            const left=entry.type==='duplicateLeft';
+            n=card('Duplikat '+(left?'A':'B')+': '+item.key,item.count+' wystąpienia · wiersze '+item.rows.join(', '),'tc-duplicate');
+          }else{
+            const left=entry.type==='emptyLeft';
+            n=card('Pusty identyfikator w tabeli '+(left?'A':'B'),'Wiersz '+item.rowNumber,'tc-duplicate');
+          }
+          list.append(n);
+        }
+        if(items.length>100)list.append(el('p','Pokazano pierwsze 100 pozycji. Pobierz CSV, aby zobaczyć wszystkie różnice.','tc-empty'));
+      };
+      const renderResults=()=>{
+        const result=state.result;
+        const s=result.summary;
+        const kpis=[
+          ['Bez zmian',s.unchanged],
+          ['Zmienione',s.changed],
+          ['Tylko w A',s.onlyLeft],
+          ['Tylko w B',s.onlyRight],
+          ['Duplikaty A',s.duplicateLeft],
+          ['Duplikaty B',s.duplicateRight]
+        ];
+        const target=app.querySelector('[data-kpis]');
+        target.replaceChildren();
+        for(const [name,value] of kpis){
+          const box=el('div');
+          box.append(el('small',name),el('strong',value.toLocaleString('pl-PL')));
+          target.append(box);
+        }
+        const warnings=[];
+        if(result.summary.ambiguousKeys)warnings.push(result.summary.ambiguousKeys+' identyfikatorów z duplikatami nie porównano, aby uniknąć fałszywych dopasowań.');
+        if(result.summary.emptyLeft+result.summary.emptyRight)warnings.push('Puste identyfikatory: A '+result.summary.emptyLeft+', B '+result.summary.emptyRight+'.');
+        if(result.onlyLeftColumns.length||result.onlyRightColumns.length)warnings.push('Kolumny bez odpowiednika pominięto: tylko A — '+(result.onlyLeftColumns.join(', ')||'brak')+'; tylko B — '+(result.onlyRightColumns.join(', ')||'brak')+'.');
+        if(!result.commonColumns.length)warnings.push('Brak wspólnych kolumn poza identyfikatorem: porównano wyłącznie obecność rekordów.');
+        app.querySelector('[data-warning]').textContent=warnings.join(' ');
+        app.querySelector('[data-warning]').hidden=!warnings.length;
+        resultPanel.hidden=false;
+        app.querySelector('[data-filter]').value='all';
+        resultsAsList();
+        resultPanel.scrollIntoView({behavior:'smooth',block:'start'});
+      };
+      app.querySelector('[data-compare]').addEventListener('click',()=>{
+        if(state.busy)return;
+        try{
+          const leftKey=dom.left.querySelector('[data-key]').value;
+          const rightKey=dom.right.querySelector('[data-key]').value;
+          state.result=compareTables(state.left.table,state.right.table,{
+            leftKey,rightKey,
+            ignoreCase:app.querySelector('[data-ignore-case]').checked,
+            trimValues:app.querySelector('[data-trim]').checked
+          });
+          message.textContent='Porównano '+state.result.summary.leftRows+' rekordów A i '+state.result.summary.rightRows+' rekordów B.';
+          message.classList.remove('tc-error');
+          renderResults();
+        }catch(error){
+          invalidate();
+          message.textContent=error.message;
+          message.classList.add('tc-error');
+        }
+      });
+      app.querySelector('[data-filter]').addEventListener('change',resultsAsList);
+      app.querySelectorAll('[data-ignore-case],[data-trim]').forEach(control=>control.addEventListener('change',invalidate));
+      app.querySelector('[data-export]').addEventListener('click',()=>{
+        if(!state.result)return;
+        const csv=exportComparisonCsv(state.result);
+        const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+        const url=URL.createObjectURL(blob);
+        const a=el('a');a.href=url;a.download='porownanie-tabel-excel.csv';
+        document.body.append(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+      });
+    }
+  </script>
+</ToolLayout>
