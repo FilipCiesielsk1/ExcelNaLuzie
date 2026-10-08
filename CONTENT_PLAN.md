@@ -123,31 +123,37 @@ Hub:
 
 # Klaster 5 — Liczenie i sumowanie
 
-- [ ] LICZ.JEŻELI — przykład
-- [ ] LICZ.WARUNKI — kilka warunków
-- [ ] policz unikalne wartości
-- [ ] policz niepuste komórki
-- [ ] policz komórki zawierające tekst
-- [ ] policz wystąpienia wartości
-- [ ] SUMA.JEŻELI — przykład
-- [ ] SUMA.WARUNKÓW — kilka warunków
-- [ ] suma tylko widocznych komórek
-- [ ] suma według miesiąca
+Status: zrealizowany w kodzie repozytorium (12 wpisów w src/data/articleClusters.js; aktualizacja planu 2026-10-08).
+
+- [x] LICZ.JEŻELI — podstawy, tekst, progi liczbowe
+- [x] LICZ.WARUNKI — wiele kryteriów
+- [x] SUMA.JEŻELI — podstawy
+- [x] SUMA.WARUNKÓW — wiele kryteriów, daty i tekst
+- [x] policz unikalne wartości
+- [x] policz niepuste komórki
+- [x] tabela przestawna — podstawy
+- [x] tabela przestawna — suma, średnia i licznik
+- [ ] suma tylko widocznych komórek (rozszerzenie)
+- [ ] suma według miesiąca (rozszerzenie)
+
+Hub: /formuly/liczenie/
 
 ---
 
 # Klaster 6 — Formuły dynamiczne
 
-- [ ] FILTRUJ — przykład
-- [ ] FILTRUJ — kilka warunków
-- [ ] UNIKATOWE
-- [ ] SORTUJ
-- [ ] SORTUJ.WEDŁUG
-- [ ] SEKWENCJA
-- [ ] dynamiczna lista bez duplikatów
-- [ ] filtrowanie danych po tekście
-- [ ] filtrowanie danych po dacie
-- [ ] dynamiczna lista rozwijana
+Status: zrealizowany w kodzie repozytorium (10 wpisów w src/data/articleClusters.js; aktualizacja planu 2026-10-08).
+
+- [x] FILTRUJ — przykład, wiele warunków, LUB
+- [x] UNIKATOWE — podstawy i kilka kolumn
+- [x] SORTUJ — podstawy
+- [x] SORTUJ.WEDŁUG
+- [x] SEKWENCJA
+- [x] zakres rozlany i operator #
+- [x] FILTRUJ + SORTUJ + UNIKATOWE
+- [ ] dynamiczna lista rozwijana (rozszerzenie)
+
+Hub: /formuly/dynamiczne/
 
 ---
 
@@ -173,16 +179,22 @@ Pliki: /downloads/przyklady/dane-duplikaty-czyszczenie.xlsx i /downloads/przykla
 
 # Klaster 8 — Formatowanie
 
-- [ ] kolor komórki na podstawie wartości
-- [ ] formatowanie warunkowe całego wiersza
-- [ ] formatowanie warunkowe dat
-- [ ] zaznacz przeterminowane daty
-- [ ] naprzemienne kolory wierszy
-- [ ] ukrywanie zer
-- [ ] liczba z jednostką
-- [ ] godziny powyżej 24
-- [ ] miesiąc słownie
-- [ ] własny format daty
+Status: formatowanie v1 opracowane 2026-10-08: 10 poradników, hub, generator reguł i 2 ćwiczenia XLSX.
+
+- [x] kolor komórki na podstawie wartości
+- [x] formatowanie warunkowe całego wiersza
+- [x] formatowanie warunkowe dat — terminy w 7 dni
+- [x] zaznacz przeterminowane daty (z kontrolą statusu)
+- [x] naprzemienne kolory wierszy
+- [x] ukrywanie zer
+- [x] liczba z jednostką
+- [x] godziny powyżej 24
+- [x] miesiąc słownie
+- [x] własny format daty
+
+Hub: /formuly/formatowanie/
+Generator: /narzedzia/generator-formatowania-warunkowego/
+Pliki: /downloads/przyklady/formatowanie-warunkowe-przyklady.xlsx oraz /downloads/przyklady/formatowanie-liczb-dat-przyklady.xlsx
 
 ---
 

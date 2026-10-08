@@ -4,6 +4,7 @@ import { withBase as link } from '../../utils/paths.js';
 import { functionTranslations } from '../../data/functionTranslations.js';
 
 const toolItems = [
+  ['Generator formatowania warunkowego','generator-formatowania-warunkowego'],
   ['Generator tabel przestawnych','generator-tabel-przestawnych'],
   ['Porównywarka tabel Excel','porownywarka-tabel'],
   ['Analizator formuł','analizator-formul'],
@@ -88,6 +89,12 @@ const schema = {
       </div>
 
       <div class="tools-grid">
+        <a class="tool-card priority live" href={link("/narzedzia/generator-formatowania-warunkowego/")}>
+          <div class="tool-card-top"><span class="tool-icon">◧</span><span class="tool-status">Nowe</span></div>
+          <h3>Generator formatowania warunkowego</h3>
+          <p>Utwórz regułę kolorowania komórek i całych wierszy według kwot, statusów, terminów lub duplikatów.</p>
+          <div class="tool-tags"><span>statusy</span><span>terminy</span><span>reguły Excel</span></div>
+        </a>
         <a class="tool-card priority live" href={link("/narzedzia/generator-tabel-przestawnych/")}>
           <div class="tool-card-top"><span class="tool-icon">Σ↔</span><span class="tool-status">Nowe</span></div>
           <h3>Generator tabel przestawnych</h3>

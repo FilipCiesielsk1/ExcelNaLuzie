@@ -85,6 +85,22 @@ export const articleClusters = {
       { slug: 'filtruj-sortuj-unikatowe', title: 'FILTRUJ + SORTUJ + UNIKATOWE', label: '3 funkcje' }
     ]
   },
+  'formuly/formatowanie': {
+    title: 'Formatowanie i formatowanie warunkowe',
+    hub: '/formuly/formatowanie/',
+    articles: [
+      { slug: 'formatowanie-warunkowe-kolor-komorki', title: 'Kolor komórki na podstawie wartości', label: 'próg' },
+      { slug: 'formatowanie-warunkowe-caly-wiersz', title: 'Kolor całego wiersza po statusie', label: '$D2' },
+      { slug: 'formatowanie-warunkowe-dat', title: 'Terminy w ciągu 7 dni', label: 'DZIŚ()' },
+      { slug: 'zaznacz-przeterminowane-daty', title: 'Przeterminowane daty i statusy', label: 'po terminie' },
+      { slug: 'naprzemienne-kolory-wierszy-excel', title: 'Naprzemienne kolory wierszy', label: 'MOD' },
+      { slug: 'ukrywanie-zer-format-niestandardowy', title: 'Ukrywanie zer bez usuwania wartości', label: '0;-0;;@' },
+      { slug: 'liczba-z-jednostka-format-excel', title: 'Liczba z jednostką: kg, szt., zł', label: 'jednostki' },
+      { slug: 'godziny-powyzej-24-excel', title: 'Godziny powyżej 24', label: '[g]:mm' },
+      { slug: 'miesiac-slownie-format-komorki', title: 'Miesiąc słownie', label: 'mmmm' },
+      { slug: 'wlasny-format-daty-excel', title: 'Własny format daty', label: 'dd.mm.rrrr' }
+    ]
+  },
   'formuly/daty': {
     title: 'Daty i czas',
     hub: '/formuly/daty/',

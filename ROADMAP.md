@@ -99,6 +99,9 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] rozbudować linkowanie wewnętrzne między artykułami (automatyczna nawigacja poprzedni / hub / następny)
 - [x] uzupełnić hub Formuły o wszystkie aktywne poradniki (dynamiczny katalog 30 poradników)
 
+- [x] zweryfikować faktyczny stan klastrów liczenie i formuły dynamiczne oraz zsynchronizować CONTENT_PLAN.md
+- [x] przygotować klaster formatowanie v1 (10 poradników + hub + generator + 2 pliki XLSX)
+
 ### Etap 2 — baza funkcji
 - [x] JEŻELI
 - [x] X.WYSZUKAJ
