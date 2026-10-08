@@ -40,7 +40,9 @@ export const articleFunctionOverrides = {
   'filtruj-sortuj-unikatowe': ['filtruj', 'unikatowe', 'sortuj'],
   'data-na-nazwe-miesiaca': ['tekst'],
   'jak-zrobic-tabele-przestawna-w-excelu': ['suma','srednia'],
+  'tabela-przestawna-suma-srednia-licznik': ['srednia','suma','ile-niepustych'],
   'jak-porownac-dwie-tabele-excel': ['xwyszukaj','licz-jezeli'],
+  'duplikaty-klucz-zlozony-porownywanie-tabel': ['licz-warunki','xwyszukaj'],
   'wyszukaj-pionowo-na-xwyszukaj': ['wyszukaj-pionowo','xwyszukaj'],
   'jak-sprawdzic-bledy-w-formule-excel': ['jezeli-blad','jezeli']
 };
@@ -66,7 +68,9 @@ export const articleToolOverrides = {
   'liczba-dni-roboczych': ['kalkulator-dat'],
   'data-na-nazwe-miesiaca': ['generator-formatow'],
   'jak-zrobic-tabele-przestawna-w-excelu': ['generator-tabel-przestawnych'],
+  'tabela-przestawna-suma-srednia-licznik': ['generator-tabel-przestawnych'],
   'jak-porownac-dwie-tabele-excel': ['porownywarka-tabel'],
+  'duplikaty-klucz-zlozony-porownywanie-tabel': ['porownywarka-tabel'],
   'wyszukaj-pionowo-na-xwyszukaj': ['konwerter-wyszukaj-pionowo'],
   'jak-sprawdzic-bledy-w-formule-excel': ['analizator-formul']
 };
@@ -135,12 +139,12 @@ export const toolRelationships = {
   'porownywarka-tabel': {
     title: 'Porównywarka tabel Excel',
     functions: ['xwyszukaj', 'licz-warunki'],
-    articles: ['jak-porownac-dwie-tabele-excel', 'xwyszukaj-podstawy']
+    articles: ['jak-porownac-dwie-tabele-excel', 'duplikaty-klucz-zlozony-porownywanie-tabel']
   },
   'generator-tabel-przestawnych': {
     title: 'Generator tabel przestawnych',
     functions: ['suma', 'srednia', 'ile-liczb'],
-    articles: ['jak-zrobic-tabele-przestawna-w-excelu', 'suma-warunkow-wiele-kryteriow']
+    articles: ['jak-zrobic-tabele-przestawna-w-excelu', 'tabela-przestawna-suma-srednia-licznik']
   }
 };
 

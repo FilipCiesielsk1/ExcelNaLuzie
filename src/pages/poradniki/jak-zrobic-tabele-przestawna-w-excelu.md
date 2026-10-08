@@ -80,6 +80,8 @@ Otwórz **[generator tabel przestawnych](/narzedzia/generator-tabel-przestawnych
 
 **Ważne:** pobrane Podsumowanie to raport statyczny, a nie natywna tabela przestawna. Aby utworzyć edytowalny obiekt, otwórz arkusz Dane i skorzystaj z instrukcji dodanej do skoroszytu.
 
+Więcej przykładów: **[Suma, średnia i licznik w tabeli przestawnej](/poradniki/tabela-przestawna-suma-srednia-licznik/)**.
+
 ## Najczęstsze problemy
 
 Jeżeli Excel zamiast sumy pokazuje licznik, sprawdź, czy kwoty są liczbami, a nie tekstem. Jeżeli nowo dopisane wiersze nie pojawiają się w raporcie, sprawdź zakres źródła i użyj Odśwież. Jeśli w raporcie występują podobne, ale oddzielne nazwy kategorii, skontroluj spacje w danych.

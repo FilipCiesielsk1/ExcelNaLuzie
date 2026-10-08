@@ -30,6 +30,7 @@ export const articleClusters = {
       { slug: 'indeks-podaj-pozycje', title: 'INDEKS + PODAJ.POZYCJĘ', label: 'INDEKS' },
       { slug: 'jak-znalezc-wartosc-w-tabeli', title: 'Jak znaleźć wartość w tabeli?', label: 'wybór metody' },
       { slug: 'jak-porownac-dwie-tabele-excel', title: 'Jak porównać dwie tabele Excel?', label: 'różnice' },
+      { slug: 'duplikaty-klucz-zlozony-porownywanie-tabel', title: 'Porównanie tabel po dwóch kolumnach', label: 'klucz złożony' },
       { slug: 'wyszukaj-pionowo-na-xwyszukaj', title: 'WYSZUKAJ.PIONOWO → X.WYSZUKAJ', label: 'zamiana formuły' }
     ]
   },
@@ -64,7 +65,8 @@ export const articleClusters = {
       { slug: 'suma-warunkow-tekst', title: 'SUMA.WARUNKÓW i tekst', label: 'tekst' },
       { slug: 'policz-unikalne-wartosci', title: 'Jak policzyć unikalne wartości?', label: 'UNIKATOWE' },
       { slug: 'policz-niepuste-komorki', title: 'Jak policzyć niepuste komórki?', label: '<>' },
-      { slug: 'jak-zrobic-tabele-przestawna-w-excelu', title: 'Jak zrobić tabelę przestawną?', label: 'raport Excel' }
+      { slug: 'jak-zrobic-tabele-przestawna-w-excelu', title: 'Jak zrobić tabelę przestawną?', label: 'raport Excel' },
+      { slug: 'tabela-przestawna-suma-srednia-licznik', title: 'Tabela przestawna: suma, średnia, licznik', label: 'agregacje' }
     ]
   },
   'formuly/dynamiczne': {

@@ -79,6 +79,8 @@ W **[porównywarce tabel Excel](/narzedzia/porownywarka-tabel/)** możesz wklei�
 
 Wyniki możesz pobrać jako CSV lub XLSX z osobnymi zakładkami. Obsługiwane jest również mapowanie kolumn o różnych nagłówkach i klucz złożony z kilku pól, np. numer zamówienia + pozycja.
 
+Jeśli rekordy są identyfikowane dopiero przez dwie lub więcej kolumn, sprawdź poradnik **[porównywanie tabel po kilku kolumnach](/poradniki/duplikaty-klucz-zlozony-porownywanie-tabel/)**.
+
 ## Uwaga na duplikaty i puste ID
 
 Jeżeli ten sam identyfikator występuje kilka razy, prosta formuła X.WYSZUKAJ może zwrócić pierwsze z kilku dopasowań. Porównywarka **nie zgaduje**, który wiersz należy sparować: zgłasza niejednoznaczne identyfikatory osobno.
