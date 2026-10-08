@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  parseDelimited, prepareTable, compareTables, exportComparisonCsv, MAX_ROWS
+  parseDelimited, prepareTable, compareTables, exportComparisonCsv, buildComparisonWorkbook, MAX_ROWS
 } from '../src/utils/tableCompare.js';
 
 const t=(text)=>prepareTable(parseDelimited(text));
@@ -33,8 +33,8 @@ test('prawidłowa liczba zmian i brakujących rekordów niezależnie od kolejno�
     [1,1,1,1]
   );
   assert.deepEqual(r.changed[0].differences,[
-    {column:'Kwota',before:'250',after:'270'},
-    {column:'Status',before:'Nowe',after:'Opłacone'}
+    {column:'Kwota',leftColumn:'Kwota',rightColumn:'Kwota',before:'250',after:'270'},
+    {column:'Status',leftColumn:'Status',rightColumn:'Status',before:'Nowe',after:'Opłacone'}
   ]);
 });
 
@@ -121,4 +121,107 @@ test('niebezpieczne wartości na początku osobnych pól CSV są neutralizowane'
   const right=t('ID\\tWartość\\nInny\\t10'.replaceAll('\\t','\t').replaceAll('\\n','\n'));
   const report=exportComparisonCsv(compare(left,right));
   assert.match(report, /"'=2\+3"/);
+});
+
+
+test('klucz złożony z dwóch kolumn rozróżnia wiele pozycji zamówienia',()=>{
+  const x=t('Zamówienie\tPozycja\tCena\nA\t1\t10\nA\t2\t20\nB\t1\t12');
+  const y=t('Zamówienie\tPozycja\tCena\nA\t1\t10\nA\t2\t25\nB\t1\t12');
+  const r=compareTables(x,y,{leftKeys:['Zamówienie','Pozycja'],rightKeys:['Zamówienie','Pozycja']});
+  assert.equal(r.summary.duplicateLeft,0);
+  assert.equal(r.summary.changed,1);
+  assert.equal(r.summary.unchanged,2);
+  assert.equal(r.changed[0].key,'A | 2');
+});
+
+test('pary kluczy mogą mieć inne nagłówki i kolejność w tabelach',()=>{
+  const x=t('Zamówienie\tPozycja\tOpis\nA\t1\tMleko\nA\t2\tKawa');
+  const y=t('Lp\tOpis\tNr zamówienia\n2\tKawa\tA\n1\tMleko\tA');
+  const r=compareTables(x,y,{leftKeys:['Zamówienie','Pozycja'],rightKeys:['Nr zamówienia','Lp']});
+  assert.equal(r.summary.unchanged,2);
+  assert.equal(r.summary.onlyLeft,0);
+});
+
+test('kompozytowe klucze bez kolizji nawet z separatorami',()=>{
+  const x=t('A\tB\tCena\nx | y\tz\t1\nx\ty | z\t2');
+  const y=t('A\tB\tCena\nx\ty | z\t2\nx | y\tz\t1');
+  const r=compareTables(x,y,{leftKeys:['A','B'],rightKeys:['A','B']});
+  assert.equal(r.summary.unchanged,2);
+});
+
+test('brak jednej składowej klucza jest raportowany jako pusty identyfikator',()=>{
+  const x=t('Nr\tPoz\tCena\nA\t\t1\nA\t2\t3');
+  const y=t('Nr\tPoz\tCena\nA\t2\t3');
+  const r=compareTables(x,y,{leftKeys:['Nr','Poz'],rightKeys:['Nr','Poz']});
+  assert.equal(r.summary.emptyLeft,1);
+  assert.equal(r.summary.unchanged,1);
+});
+
+test('mapowanie kolumn różnie nazwanych wykrywa różnicę',()=>{
+  const x=t('ID\tCena netto\tOpis\n1\t100\tProdukt');
+  const y=t('Kod\tNettopreis\tOpis\n1\t120\tProdukt');
+  const r=compareTables(x,y,{
+    leftKey:'ID',rightKey:'Kod',
+    columnMappings:[{left:'Cena netto',right:'Nettopreis'},{left:'Opis',right:'Opis'}]
+  });
+  assert.equal(r.summary.changed,1);
+  assert.equal(r.changed[0].differences[0].column,'Cena netto → Nettopreis');
+  assert.equal(r.changed[0].differences[0].before,'100');
+  assert.equal(r.changed[0].differences[0].after,'120');
+  assert.deepEqual(r.onlyLeftColumns,[]);
+  assert.deepEqual(r.onlyRightColumns,[]);
+});
+
+test('pominięte mapowanie usuwa kolumnę z porównania',()=>{
+  const x=t('ID\tKwota\tKomentarz\n1\t100\tA');
+  const y=t('ID\tKwota\tKomentarz\n1\t100\tB');
+  const r=compareTables(x,y,{
+    leftKey:'ID',rightKey:'ID',
+    columnMappings:[{left:'Kwota',right:'Kwota'}]
+  });
+  assert.equal(r.summary.unchanged,1);
+  assert.deepEqual(r.onlyLeftColumns,['Komentarz']);
+});
+
+test('mapowanie odrzuca dwukrotne użycie kolumny B oraz kluczy',()=>{
+  const x=t('ID\tKwota\tOpis\n1\t2\t3');
+  const y=t('ID\tWartość\tUwagi\n1\t2\t3');
+  const base={leftKey:'ID',rightKey:'ID'};
+  assert.throws(()=>compareTables(x,y,{...base,columnMappings:[{left:'Kwota',right:'Wartość'},{left:'Opis',right:'Wartość'}]}),/tylko raz/);
+  assert.throws(()=>compareTables(x,y,{...base,columnMappings:[{left:'ID',right:'Uwagi'}]}),/identyfikatora/);
+});
+
+test('powtórzona kolumna klucza i błędne liczby składowych są blokowane',()=>{
+  assert.throws(()=>compareTables(a,b,{leftKeys:['ID','ID'],rightKeys:['ID','Klient']}),/dwa razy/);
+  assert.throws(()=>compareTables(a,b,{leftKeys:['ID','Klient'],rightKeys:['ID']}),/takiej samej liczby/);
+});
+
+test('raport XLSX ma 7 arkuszy i zawiera wszystkie wartości z porównania',()=>{
+  const r=compare();
+  const sheets=buildComparisonWorkbook(r);
+  assert.deepEqual(sheets.map(sheet=>sheet.sheet),[
+    'Podsumowanie','Zmiany','Tylko w A','Tylko w B','Duplikaty','Puste klucze A','Puste klucze B'
+  ]);
+  const changes=sheets[1].data.map(row=>row.map(x=>x.value));
+  assert.ok(changes.some(row=>row.includes('Piotr')===false && row.includes('270')));
+  const missing=sheets[2].data.map(row=>row.map(x=>x.value));
+  assert.ok(missing.some(row=>row.includes('Ola')));
+  for(const sheet of sheets)assert.equal(sheet.stickyRowsCount,1);
+});
+
+test('XLSX jest prawdziwym plikiem ZIP z poprawnymi arkuszami',async()=>{
+  const {default:writeExcelFile}=await import('write-excel-file/node');
+  const {default:readExcelFile}=await import('read-excel-file/node');
+  const left=t('ID\tWartość\n=SUMA(1;2)\t+CMD\nK\t0');
+  const right=t('ID\tWartość\nK\t1');
+  const workbook=buildComparisonWorkbook(compare(left,right));
+  const binary=await writeExcelFile(workbook).toBuffer();
+  assert.equal(binary[0],0x50);
+  assert.equal(binary[1],0x4b);
+  const loaded=await readExcelFile(binary);
+  assert.equal(loaded.length,7);
+  assert.equal(loaded[0].sheet,'Podsumowanie');
+  assert.equal(loaded[2].sheet,'Tylko w A');
+  assert.equal(loaded[2].data[1][0],'=SUMA(1;2)');
+  assert.equal(loaded[2].data[1][loaded[2].data[0].indexOf('Wartość')],'+CMD');
 });
