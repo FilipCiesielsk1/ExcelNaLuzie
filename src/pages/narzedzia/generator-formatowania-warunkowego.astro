@@ -1,0 +1,159 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+<ToolLayout title="Generator formatowania warunkowego Excel" description="Wybierz warunek, status, termin lub duplikaty i skopiuj gotową formułę dla polskiego Excela. Bez wysyłania danych." slug="generator-formatowania-warunkowego" functionName="Formatowanie warunkowe" functionHref="/formuly/formatowanie/" resourceLabel="Powiązany dział" resourceAction="Zobacz 10 poradników →">
+  <div class="generator-intro">
+    <span class="section-kicker">Generator reguł</span>
+    <h2>Wybierz, co ma być podświetlone</h2>
+    <p>Podaj pierwszą komórkę zakresu, ustaw kryterium i skopiuj gotową formułę do <strong>Narzędzia główne → Formatowanie warunkowe → Nowa reguła → Użyj formuły</strong>.</p>
+  </div>
+
+  <div class="cformat-tool" data-cformat-tool>
+    <div class="cformat-grid">
+      <div class="generator-field cformat-wide">
+        <label for="cformat-type">Co chcesz wyróżnić?</label>
+        <select id="cformat-type" data-cf-type>
+          <option value="value">Liczby większe lub mniejsze od progu</option>
+          <option value="status">Wiersze o wybranym statusie</option>
+          <option value="soon">Terminy w najbliższych N dniach</option>
+          <option value="late">Przeterminowane zadania</option>
+          <option value="duplicates">Powtórzenia w kolumnie</option>
+          <option value="stripes">Co drugi wiersz</option>
+        </select>
+      </div>
+
+      <div class="generator-field">
+        <label for="cformat-col">Kolumna sprawdzanych danych</label>
+        <input id="cformat-col" data-cf-col value="C" maxlength="3" spellcheck="false" autocomplete="off" aria-describedby="cf-error" />
+      </div>
+      <div class="generator-field">
+        <label for="cformat-row">Pierwszy wiersz z danymi</label>
+        <input id="cformat-row" data-cf-row type="number" min="1" max="1048576" value="2" />
+      </div>
+      <div class="generator-field">
+        <label for="cformat-last">Ostatni wiersz</label>
+        <input id="cformat-last" data-cf-last type="number" min="1" max="1048576" value="100" />
+      </div>
+      <div class="generator-field" data-cf-for="value">
+        <label for="cformat-op">Warunek liczbowy</label>
+        <select id="cformat-op" data-cf-op>
+          <option value="&gt;">Większe od</option>
+          <option value="&gt;=">Co najmniej</option>
+          <option value="&lt;">Mniejsze od</option>
+          <option value="&lt;=">Co najwyżej</option>
+          <option value="=">Równe</option>
+          <option value="&lt;&gt;">Różne od</option>
+        </select>
+      </div>
+      <div class="generator-field" data-cf-for="value">
+        <label for="cformat-number">Próg liczbowy</label>
+        <input id="cformat-number" data-cf-number value="1000" inputmode="decimal" />
+      </div>
+      <div class="generator-field" data-cf-for="status late">
+        <label for="cformat-status-col">Kolumna statusu (np. D)</label>
+        <input id="cformat-status-col" data-cf-status-col value="D" maxlength="3" spellcheck="false" />
+      </div>
+      <div class="generator-field" data-cf-for="status late">
+        <label for="cformat-status">Status zakończony</label>
+        <input id="cformat-status" data-cf-status value="Gotowe" maxlength="80" />
+      </div>
+      <div class="generator-field" data-cf-for="soon">
+        <label for="cformat-days">Liczba dni naprzód</label>
+        <input id="cformat-days" data-cf-days type="number" min="0" max="365" value="7" />
+      </div>
+      <div class="generator-field cformat-wide">
+        <label class="cformat-checkbox"><input type="checkbox" data-cf-whole checked /> Podświetl cały wiersz (kolumny A–F), a nie tylko jedną komórkę</label>
+      </div>
+    </div>
+
+    <p class="cformat-error" id="cf-error" data-cf-error role="alert" hidden></p>
+    <div class="cformat-result">
+      <div><span>Gotowa reguła</span><p>Formułę wklej bezpośrednio do pola reguły w Excelu, nie do komórki arkusza.</p></div>
+      <code data-cf-formula aria-live="polite">=$C2&gt;1000</code>
+      <div class="cformat-actions"><button type="button" data-cf-copy>Kopiuj formułę</button><button type="button" data-cf-copy-range class="cformat-outline">Kopiuj zakres</button></div>
+      <p data-cf-apply>Zakres „Zastosuj do”: $A$2:$F$100</p>
+    </div>
+  </div>
+
+  <div class="generator-help">
+    <h2>Jak zastosować regułę?</h2>
+    <ol>
+      <li>Zaznacz wskazany zakres w arkuszu, rozpoczynający się od pierwszego wiersza danych.</li>
+      <li>Przejdź do <strong>Formatowanie warunkowe → Nowa reguła → Użyj formuły</strong>.</li>
+      <li>Wklej wynik generatora, wybierz kolor wypełnienia i zatwierdź.</li>
+      <li>W <strong>Zarządzaj regułami</strong> sprawdź zakres „Zastosuj do”. Zmień jedną komórkę testową i zweryfikuj reakcję koloru.</li>
+    </ol>
+    <p>Znaczenie znaków dolara: <strong>$D2</strong> blokuje kolumnę D, ale przesuwa numer wiersza. Upewnij się, że numery wierszy i litery kolumn odpowiadają Twojemu arkuszowi.</p>
+  </div>
+
+  <style>
+    .cformat-tool{margin:22px 0 28px;border:1px solid var(--line,#dfe7e1);border-radius:18px;overflow:hidden;background:#fff}
+    .cformat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;padding:24px}
+    .cformat-grid .generator-field{display:flex;flex-direction:column;gap:7px;min-width:0}
+    .cformat-grid label{font-size:.85rem;font-weight:750;color:#35453b}
+    .cformat-grid select,.cformat-grid input:not([type="checkbox"]){display:block;width:100%;min-width:0;padding:12px;border:1px solid #cbd8cf;border-radius:9px;background:white;color:#16251c;font:inherit}
+    .cformat-grid .cformat-wide{grid-column:1/-1}
+    .cformat-checkbox{display:flex;align-items:center;gap:10px;cursor:pointer}
+    .cformat-checkbox input{width:17px;height:17px;accent-color:#107c41}
+    .cformat-error{margin:0 24px 18px;padding:10px 12px;border-radius:8px;background:#fff3f1;color:#a12727;font-size:.87rem}
+    .cformat-result{padding:22px 24px;background:#0b2417;color:#e7f6ec}
+    .cformat-result>div:first-child span{font-size:.84rem;font-weight:850;text-transform:uppercase;letter-spacing:.07em;color:#addec0}
+    .cformat-result p{margin:5px 0 10px;font-size:.85rem;color:#d1e5d7}
+    .cformat-result code{display:block;overflow-x:auto;margin:16px 0;padding:15px 14px;border:1px solid #386247;border-radius:8px;font:750 .94rem/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap;word-break:break-word;background:#132e1f;color:white}
+    .cformat-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .cformat-actions button{border:1px solid #7fb497;border-radius:9px;padding:10px 15px;font-weight:750;cursor:pointer;background:#f5fff8;color:#0b5d31}
+    .cformat-actions button.cformat-outline{color:white;background:transparent}
+    .cformat-result>[data-cf-apply]{margin:16px 0 0;color:#cae1d1}
+    @media(max-width:640px){.cformat-grid{grid-template-columns:1fr;padding:16px}.cformat-result{padding:17px}.cformat-error{margin:0 16px 16px}}
+  </style>
+
+  <script>
+    const root=document.querySelector('[data-cformat-tool]');
+    if(root){
+      const get=(q)=>root.querySelector('[data-cf-'+q+']');
+      const els={type:get('type'),col:get('col'),row:get('row'),last:get('last'),op:get('op'),number:get('number'),statusCol:get('status-col'),status:get('status'),days:get('days'),whole:get('whole'),formula:get('formula'),apply:get('apply'),error:get('error'),copy:get('copy'),copyRange:get('copy-range')};
+      let result='',targetRange='';
+      const colNum=(c)=>[...c].reduce((n,ch)=>n*26+ch.charCodeAt(0)-64,0);
+      const column=(v)=>String(v||'').trim().toUpperCase();
+      const ref=(c,r,locked=false)=>(locked?'$':'')+c+r;
+      const quote=(v)=>'"'+v.replaceAll('"','""')+'"';
+      const update=()=>{
+        const type=els.type.value,start=Number(els.row.value),end=Number(els.last.value),c=column(els.col.value),s=column(els.statusCol.value),days=Number(els.days.value);
+        root.querySelectorAll('[data-cf-for]').forEach(el=>{el.hidden=!el.dataset.cfFor.split(' ').includes(type);});
+        let issue='';
+        if(!Number.isInteger(start)||start<1||start>1048576||!Number.isInteger(end)||end<start||end>1048576)issue='Wpisz prawidłowy zakres wierszy (1–1048576).';
+        if(!/^[A-Z]{1,3}$/.test(c)||colNum(c)>16384)issue='Kolumna musi mieścić się w zakresie A–XFD.';
+        if((type==='status'||type==='late')&&(!/^[A-Z]{1,3}$/.test(s)||colNum(s)>16384))issue='Kolumna statusu musi mieścić się w zakresie A–XFD.';
+        const rawNumber=String(els.number.value).trim().replace(',','.');
+        const val=Number(rawNumber);
+        if(type==='value'&&(!rawNumber||!Number.isFinite(val)))issue='Podaj poprawny próg liczbowy.';
+        if(type==='soon'&&(!Number.isInteger(days)||days<0||days>365))issue='Liczba dni musi być całkowita w zakresie 0–365.';
+        const status=els.status.value.trim();
+        if((type==='status'||type==='late')&&!status)issue='Podaj nazwę statusu.';
+        const whole=els.whole.checked;
+        targetRange=(whole?'$A$'+start+':$F$'+end:'$'+c+'$'+start+':$'+c+'$'+end);
+        const r=ref(c,start,whole),rLocked=ref(c,start,true),statusRef=ref(s,start,true);
+        switch(type){
+          case 'value':result='='+r+els.op.value+String(val);break;
+          case 'status':result='='+statusRef+'='+quote(status);break;
+          case 'soon':result='=ORAZ('+rLocked+'>=DZIŚ();'+rLocked+'<=DZIŚ()+'+days+')';break;
+          case 'late':result='=ORAZ('+rLocked+'<>"";'+rLocked+'<DZIŚ();'+statusRef+'<>'+quote(status)+')';break;
+          case 'duplicates':result='=ORAZ('+rLocked+'<>"";LICZ.JEŻELI($'+c+'$'+start+':$'+c+'$'+end+';'+rLocked+')>1)';break;
+          case 'stripes':result='=MOD(WIERSZ();2)=0';break;
+        }
+        els.error.hidden=!issue;els.error.textContent=issue;
+        els.formula.textContent=issue?'—':result;
+        els.apply.textContent=issue?'Popraw dane w formularzu.':'Zakres „Zastosuj do”: '+targetRange;
+        els.copy.disabled=!!issue;els.copyRange.disabled=!!issue;
+      };
+      root.querySelectorAll('input,select').forEach(el=>el.addEventListener('input',update));
+      const copy=async(value,btn)=>{
+        try{await navigator.clipboard.writeText(value);const old=btn.textContent;btn.textContent='Skopiowano ✓';setTimeout(()=>btn.textContent=old,1500);}
+        catch{btn.textContent='Zaznacz wynik i skopiuj ręcznie';setTimeout(()=>btn.textContent='Kopiuj',2600);}
+      };
+      els.copy.addEventListener('click',()=>copy(result,els.copy));
+      els.copyRange.addEventListener('click',()=>copy(targetRange,els.copyRange));
+      update();
+    }
+  </script>
+</ToolLayout>
