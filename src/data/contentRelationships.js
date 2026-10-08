@@ -38,7 +38,11 @@ export const articleFunctionOverrides = {
   'policz-unikalne-wartosci': ['unikatowe'],
   'sortuj-wedlug': ['sortuj-wedlug', 'sortuj'],
   'filtruj-sortuj-unikatowe': ['filtruj', 'unikatowe', 'sortuj'],
-  'data-na-nazwe-miesiaca': ['tekst']
+  'data-na-nazwe-miesiaca': ['tekst'],
+  'jak-zrobic-tabele-przestawna-w-excelu': ['suma','srednia'],
+  'jak-porownac-dwie-tabele-excel': ['xwyszukaj','licz-jezeli'],
+  'wyszukaj-pionowo-na-xwyszukaj': ['wyszukaj-pionowo','xwyszukaj'],
+  'jak-sprawdzic-bledy-w-formule-excel': ['jezeli-blad','jezeli']
 };
 
 export const articleToolRules = [
@@ -60,7 +64,11 @@ export const articleToolOverrides = {
   'liczba-dni-miedzy-datami': ['kalkulator-dat'],
   'liczba-miesiecy-miedzy-datami': ['kalkulator-dat'],
   'liczba-dni-roboczych': ['kalkulator-dat'],
-  'data-na-nazwe-miesiaca': ['generator-formatow']
+  'data-na-nazwe-miesiaca': ['generator-formatow'],
+  'jak-zrobic-tabele-przestawna-w-excelu': ['generator-tabel-przestawnych'],
+  'jak-porownac-dwie-tabele-excel': ['porownywarka-tabel'],
+  'wyszukaj-pionowo-na-xwyszukaj': ['konwerter-wyszukaj-pionowo'],
+  'jak-sprawdzic-bledy-w-formule-excel': ['analizator-formul']
 };
 
 export const toolRelationships = {
@@ -117,22 +125,22 @@ export const toolRelationships = {
   'analizator-formul': {
     title: 'Analizator formuł Excela',
     functions: ['jezeli', 'xwyszukaj'],
-    articles: ['jezeli-podstawy', 'xwyszukaj-podstawy']
+    articles: ['jak-sprawdzic-bledy-w-formule-excel', 'jezeli-podstawy']
   },
   'konwerter-wyszukaj-pionowo': {
     title: 'Konwerter WYSZUKAJ.PIONOWO → X.WYSZUKAJ',
     functions: ['wyszukaj-pionowo', 'xwyszukaj'],
-    articles: ['xwyszukaj-podstawy', 'indeks-podaj-pozycje']
+    articles: ['wyszukaj-pionowo-na-xwyszukaj', 'xwyszukaj-podstawy']
   },
   'porownywarka-tabel': {
     title: 'Porównywarka tabel Excel',
     functions: ['xwyszukaj', 'licz-warunki'],
-    articles: ['jak-znalezc-wartosc-w-tabeli', 'xwyszukaj-podstawy']
+    articles: ['jak-porownac-dwie-tabele-excel', 'xwyszukaj-podstawy']
   },
   'generator-tabel-przestawnych': {
     title: 'Generator tabel przestawnych',
     functions: ['suma', 'srednia', 'ile-liczb'],
-    articles: ['suma-warunkow-wiele-kryteriow', 'licz-warunki-wiele-kryteriow']
+    articles: ['jak-zrobic-tabele-przestawna-w-excelu', 'suma-warunkow-wiele-kryteriow']
   }
 };
 

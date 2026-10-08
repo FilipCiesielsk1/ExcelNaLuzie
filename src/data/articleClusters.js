@@ -28,7 +28,9 @@ export const articleClusters = {
       { slug: 'xwyszukaj-brak-wyniku', title: 'Co zrobić przy braku wyniku?', label: '#N/D' },
       { slug: 'wyszukaj-pionowo-dwa-warunki', title: 'WYSZUKAJ.PIONOWO z dwoma warunkami', label: 'WYSZUKAJ.PIONOWO' },
       { slug: 'indeks-podaj-pozycje', title: 'INDEKS + PODAJ.POZYCJĘ', label: 'INDEKS' },
-      { slug: 'jak-znalezc-wartosc-w-tabeli', title: 'Jak znaleźć wartość w tabeli?', label: 'wybór metody' }
+      { slug: 'jak-znalezc-wartosc-w-tabeli', title: 'Jak znaleźć wartość w tabeli?', label: 'wybór metody' },
+      { slug: 'jak-porownac-dwie-tabele-excel', title: 'Jak porównać dwie tabele Excel?', label: 'różnice' },
+      { slug: 'wyszukaj-pionowo-na-xwyszukaj', title: 'WYSZUKAJ.PIONOWO → X.WYSZUKAJ', label: 'zamiana formuły' }
     ]
   },
   'formuly/logika': {
@@ -44,7 +46,8 @@ export const articleClusters = {
       { slug: 'jezeli-tekst', title: 'JEŻELI i warunek tekstowy', label: 'tekst' },
       { slug: 'jezeli-data', title: 'JEŻELI i daty', label: 'daty' },
       { slug: 'jezeli-progi', title: 'JEŻELI i przedziały liczbowe', label: 'progi' },
-      { slug: 'jezeli-kilka-kryteriow', title: 'Kilka kryteriów w jednej formule', label: 'ORAZ / LUB' }
+      { slug: 'jezeli-kilka-kryteriow', title: 'Kilka kryteriów w jednej formule', label: 'ORAZ / LUB' },
+      { slug: 'jak-sprawdzic-bledy-w-formule-excel', title: 'Jak znaleźć błędy formuł?', label: 'diagnostyka' }
     ]
   },
   'formuly/liczenie': {
@@ -60,7 +63,8 @@ export const articleClusters = {
       { slug: 'suma-warunkow-daty', title: 'SUMA.WARUNKÓW i daty', label: 'daty' },
       { slug: 'suma-warunkow-tekst', title: 'SUMA.WARUNKÓW i tekst', label: 'tekst' },
       { slug: 'policz-unikalne-wartosci', title: 'Jak policzyć unikalne wartości?', label: 'UNIKATOWE' },
-      { slug: 'policz-niepuste-komorki', title: 'Jak policzyć niepuste komórki?', label: '<>' }
+      { slug: 'policz-niepuste-komorki', title: 'Jak policzyć niepuste komórki?', label: '<>' },
+      { slug: 'jak-zrobic-tabele-przestawna-w-excelu', title: 'Jak zrobić tabelę przestawną?', label: 'raport Excel' }
     ]
   },
   'formuly/dynamiczne': {
