@@ -1,7 +1,7 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { withBase as link } from '../../utils/paths.js';
-import { serviceContact, serviceCategories } from '../../data/serviceConfig.js';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+import { serviceContact, serviceCategories } from '../../../data/serviceConfig.js';
 
 const canonical='/uslugi/excel-vba/';
 const schema={
@@ -200,7 +200,7 @@ const schema={
   </div>
 
   <script>
-    import {createProjectInquiry} from '../../utils/projectInquiry.js';
+    import {createProjectInquiry} from '../../../utils/projectInquiry.js';
     const form=document.querySelector('[data-service-form]');
     if(form){
       const previewWrap=form.querySelector('[data-preview-wrap]');
