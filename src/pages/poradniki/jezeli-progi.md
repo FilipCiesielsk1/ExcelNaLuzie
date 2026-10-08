@@ -6,7 +6,7 @@ slug: "jezeli-progi"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Średni"
@@ -58,6 +58,28 @@ Jeżeli próg wynosi 500, przetestuj 499, 500 i 501. W ten sposób szybko wychwy
 Jeżeli progów jest dużo albo często się zmieniają, długa formuła staje się trudna w utrzymaniu. Lepszym rozwiązaniem może być tabela z progami i funkcja wyszukująca odpowiednią kategorię.
 
 To szczególnie ważne w arkuszach finansowych, gdzie stawki, limity lub poziomy premiowe są regularnie aktualizowane.
+
+## Wyniki dla wartości na granicach
+
+Załóż, że pierwsza formuła klasyfikuje obroty w B2. Przetestuj ją na wartościach leżących bezpośrednio przy progach:
+
+| B2 — obrót | Kategoria |
+|---|---|
+| 499 | Niski |
+| 500 | Średni |
+| 999 | Średni |
+| 1000 | Wysoki |
+| 1001 | Wysoki |
+
+Wynik **500** należy już do poziomu Średni, a **1000** do Wysoki. Przy porównywaniu zawsze ustal, czy granice mają być włączone do przedziału. Jeżeli omyłkowo użyjesz tylko **>**, wartości równe progom trafią do niższych kategorii.
+
+## Osobno ustal zasadę dla pustych i ujemnych wartości
+
+Pusta komórka jest często odczytywana jak zero w porównaniach liczbowych. Jeżeli nie chcesz nadawać jej kategorii Niski, dodaj kontrolę danych:
+
+<div class="formula">=JEŻELI(B2="";"Brak danych";JEŻELI(B2>=1000;"Wysoki";JEŻELI(B2>=500;"Średni";"Niski")))</div>
+
+Dla pustego pola formuła zwróci **Brak danych**, a dla zera kategorię **Niski**. Liczby ujemne także trafią do kategorii Niski, chyba że dodasz osobny warunek dla wartości niedopuszczalnych. Reguły walidacji powinny więc wynikać z rzeczywistego znaczenia danych, nie tylko z samej formuły.
 
 ## Progi a czytelność arkusza
 
