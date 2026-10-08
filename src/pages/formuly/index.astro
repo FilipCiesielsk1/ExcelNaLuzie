@@ -39,7 +39,7 @@ const schema = {
 
 <BaseLayout
   title="Formuły Excel — gotowe rozwiązania i przykłady | ExcelNaLuzie"
-  description="Praktyczne formuły Excel podzielone według problemów: tekst, daty, wyszukiwanie, warunki, liczenie i formuły dynamiczne."
+  description="Praktyczne formuły Excel podzielone według problemów: tekst, daty, wyszukiwanie, warunki, liczenie, formuły dynamiczne i praca z danymi."
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
@@ -107,6 +107,12 @@ const schema = {
           <h3>Formuły dynamiczne</h3>
           <p>FILTRUJ, UNIKATOWE, SORTUJ, SEKWENCJA i nowoczesne tablice dynamiczne.</p>
           <span class="hub-topic-link">{articleClusters['formuly/dynamiczne'].articles.length} poradników →</span>
+        </a>
+        <a class="hub-topic-card active" href={link("/formuly/dane/")}>
+          <span class="hub-topic-icon">▦</span><span class="hub-topic-count">Dane</span>
+          <h3>Dane i listy</h3>
+          <p>Duplikaty, listy rozwijane, konwersja tekstu na liczby i czyszczenie importów.</p>
+          <span class="hub-topic-link">{articleClusters['formuly/dane'].articles.length} poradników →</span>
         </a>
       </div>
     </div>

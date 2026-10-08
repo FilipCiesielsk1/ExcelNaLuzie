@@ -95,6 +95,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] ukończyć klaster: daty i czas (10 poradników + hub)
 - [x] ukończyć klaster: wyszukiwanie danych (10 poradników + hub)
 - [x] rozbudować klaster: JEŻELI i logika (11 poradników + hub + nawigacja do generatora)
+- [x] przygotować klaster: Dane i listy v1 (6 poradników + hub + 2 przykładowe XLSX)
 - [x] rozbudować linkowanie wewnętrzne między artykułami (automatyczna nawigacja poprzedni / hub / następny)
 - [x] uzupełnić hub Formuły o wszystkie aktywne poradniki (dynamiczny katalog 30 poradników)
 

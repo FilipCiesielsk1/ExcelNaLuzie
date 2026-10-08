@@ -228,7 +228,7 @@ const toolHighlights = [
           <a class="home-cluster-card" href={link(cluster.hub)}>
             <span class="home-cluster-index">{String(index + 1).padStart(2,'0')}</span>
             <div class="home-cluster-symbol">
-              {['Aa','⌕','✓','Σ','↯','31'][index] ?? 'ƒx'}
+              {['Aa','⌕','✓','Σ','↯','31','▦'][index] ?? 'ƒx'}
             </div>
             <h3>{cluster.title}</h3>
             <p>{cluster.articles.slice(0,3).map((article) => article.label).join(' · ')}</p>
