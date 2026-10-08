@@ -6,7 +6,7 @@ slug: "jezeli-oraz"
 category: "Warunki i logika"
 categorySlug: "formuly/logika"
 date: "2026-10-07"
-updated: "2026-10-07"
+updated: "2026-10-08"
 author: "Filip Ciesielski"
 readingTime: "5 min"
 difficulty: "Podstawowy"
@@ -54,6 +54,25 @@ Tutaj wymagamy odpowiedniej wartości w B2, tekstu TAK w C2 oraz niepustej komó
 Zwróć uwagę na różnicę między > i >=. Jeżeli próg wynosi dokładnie 100 i wartość 100 ma się kwalifikować, użyj >=100.
 
 Podobnie <> oznacza „różne od”. Zapis D2<>"" sprawdza, czy komórka nie jest pusta z punktu widzenia formuły.
+
+## Przetestuj ORAZ na czterech kombinacjach
+
+Wróć do przykładu z premią: B2 oznacza wynik liczbowy, a C2 decyzję przełożonego. W kolumnie D wpisz formułę:
+
+<div class="formula">=JEŻELI(ORAZ(B2>=100;C2="TAK");"Premia";"Brak")</div>
+
+| B — wynik | C — akceptacja | D — rezultat |
+|---|---|---|
+| 120 | TAK | Premia |
+| 99 | TAK | Brak |
+| 120 | NIE | Brak |
+| 100 | TAK | Premia |
+
+Wystarczy jeden fałszywy test, żeby otrzymać **Brak**. W ostatnim wierszu próg 100 jest osiągnięty dokładnie, więc warunek **>=100** pozostaje prawdziwy.
+
+## Uwaga na statusy po imporcie
+
+Jeżeli C2 wygląda na TAK, ale rezultat to Brak, sprawdź, czy w danych nie ma dodatkowych spacji, np. „TAK ”. Porównanie tekstu z końcową spacją nie będzie równe zapisowi „TAK”. Jeżeli puste C2 powinno oznaczać „do uzupełnienia”, dodaj osobny warunek na brak wpisu — sama funkcja ORAZ nie powie, **który** warunek nie został spełniony.
 
 ## ORAZ czy kilka JEŻELI?
 
