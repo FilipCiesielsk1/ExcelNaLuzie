@@ -426,6 +426,310 @@ export const functionCatalog = [
       ['TEKST.PO','/funkcje/tekst-po/'],
       ['Formuły tekstowe','/formuly/tekst/']
     ]
+  },
+  {
+    "slug": "lewy",
+    "name": "LEWY",
+    "category": "Tekst",
+    "description": "Zwraca określoną liczbę znaków z początku tekstu.",
+    "syntax": "=LEWY(tekst;[liczba_znaków])",
+    "example": "=LEWY(A2;3)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "tekst",
+        "Napis źródłowy."
+      ],
+      [
+        "liczba_znaków",
+        "Liczba znaków od lewej; domyślnie 1."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/left-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst-po/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "prawy",
+    "name": "PRAWY",
+    "category": "Tekst",
+    "description": "Zwraca końcowe znaki tekstu, np. numer zamówienia.",
+    "syntax": "=PRAWY(tekst;[liczba_znaków])",
+    "example": "=PRAWY(A2;4)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "tekst",
+        "Napis źródłowy."
+      ],
+      [
+        "liczba_znaków",
+        "Liczba znaków liczonych od końca."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/right-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst-po/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "fragment-tekstu",
+    "name": "FRAGMENT.TEKSTU",
+    "category": "Tekst",
+    "description": "Wyodrębnia fragment tekstu od wskazanej pozycji.",
+    "syntax": "=FRAGMENT.TEKSTU(tekst;liczba_początkowa;liczba_znaków)",
+    "example": "=FRAGMENT.TEKSTU(A2;4;5)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "tekst",
+        "Tekst wejściowy."
+      ],
+      [
+        "liczba_początkowa",
+        "Pozycja pierwszego znaku, od 1."
+      ],
+      [
+        "liczba_znaków",
+        "Liczba pobieranych znaków."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/mid-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst-po/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "dl",
+    "name": "DŁ",
+    "category": "Tekst",
+    "description": "Zlicza znaki w napisie, razem ze spacjami.",
+    "syntax": "=DŁ(tekst)",
+    "example": "=DŁ(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "tekst",
+        "Wartość, której długość sprawdzasz."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/len-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "podstaw",
+    "name": "PODSTAW",
+    "category": "Tekst",
+    "description": "Podmienia fragment tekstu na inny ciąg znaków.",
+    "syntax": "=PODSTAW(tekst;stary_tekst;nowy_tekst;[nr_wystąpienia])",
+    "example": "=PODSTAW(A2;\"-\";\"/\")",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "tekst",
+        "Napis wejściowy."
+      ],
+      [
+        "stary_tekst",
+        "Znajdowany fragment."
+      ],
+      [
+        "nowy_tekst",
+        "Napis zastępujący."
+      ],
+      [
+        "nr_wystąpienia",
+        "Opcjonalny numer wystąpienia do zamiany."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/substitute-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "zastap",
+    "name": "ZASTĄP",
+    "category": "Tekst",
+    "description": "Zamienia znaki na wybranej pozycji w napisie.",
+    "syntax": "=ZASTĄP(stary_tekst;liczba_początkowa;liczba_znaków;nowy_tekst)",
+    "example": "=ZASTĄP(A2;1;3;\"XXX\")",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "stary_tekst",
+        "Napis wyjściowy."
+      ],
+      [
+        "liczba_początkowa",
+        "Pierwsza pozycja zamiany."
+      ],
+      [
+        "liczba_znaków",
+        "Liczba usuwanych znaków."
+      ],
+      [
+        "nowy_tekst",
+        "Nowy ciąg znaków."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/replace-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "usun-zbedne-odstepy",
+    "name": "USUŃ.ZBĘDNE.ODSTĘPY",
+    "category": "Tekst",
+    "description": "Usuwa zbędne zwykłe spacje z tekstu.",
+    "syntax": "=USUŃ.ZBĘDNE.ODSTĘPY(tekst)",
+    "example": "=USUŃ.ZBĘDNE.ODSTĘPY(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "tekst",
+        "Napis z potencjalnymi nadmiarowymi spacjami."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/trim-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "znajdz",
+    "name": "ZNAJDŹ",
+    "category": "Tekst",
+    "description": "Znajduje pozycję frazy z rozróżnianiem wielkich liter.",
+    "syntax": "=ZNAJDŹ(szukany_tekst;tekst;[liczba_początkowa])",
+    "example": "=ZNAJDŹ(\"-\";A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "szukany_tekst",
+        "Szukany znak lub fraza."
+      ],
+      [
+        "tekst",
+        "Przeszukiwany napis."
+      ],
+      [
+        "liczba_początkowa",
+        "Opcjonalny początek szukania."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/find-function",
+    "related": [
+      [
+        "Powiązana funkcja",
+        "/funkcje/tekst-po/"
+      ],
+      [
+        "Poradniki tekstowe",
+        "/formuly/tekst/"
+      ]
+    ]
   }
 ];
 
