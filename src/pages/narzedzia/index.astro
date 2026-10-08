@@ -4,6 +4,8 @@ import { withBase as link } from '../../utils/paths.js';
 import { functionTranslations } from '../../data/functionTranslations.js';
 
 const toolItems = [
+  ['Analizator formuł','analizator-formul'],
+  ['Konwerter WYSZUKAJ.PIONOWO → X.WYSZUKAJ','konwerter-wyszukaj-pionowo'],
   ['Generator JEŻELI','generator-jezeli'],
   ['Generator X.WYSZUKAJ','generator-xwyszukaj'],
   ['Generator SUMA.WARUNKÓW','generator-suma-warunkow'],
@@ -59,7 +61,7 @@ const schema = {
         <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Narzędzia</strong></nav>
         <span class="hub-kicker">Narzędzia online</span>
         <h1>Nie pamiętasz składni?<br/><em>Nie musisz.</em></h1>
-        <p>Wybierasz, co chcesz osiągnąć, a narzędzie układa formułę za Ciebie. Bez instalacji i bez wysyłania plików na serwer.</p>
+        <p>Analizuj, konwertuj i generuj formuły po polsku. Bez instalacji i bez przesyłania danych na serwer.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#narzedzia">Zobacz narzędzia <span>↓</span></a>
           <a class="hub-secondary" href={link("/formuly/")}>Przeglądaj formuły</a>
@@ -84,6 +86,18 @@ const schema = {
       </div>
 
       <div class="tools-grid">
+        <a class="tool-card priority live" href={link("/narzedzia/analizator-formul/")}>
+          <div class="tool-card-top"><span class="tool-icon">ƒx</span><span class="tool-status">Nowe</span></div>
+          <h3>Analizator formuł Excela</h3>
+          <p>Wklej formułę i sprawdź nawiasy, separatory oraz zagnieżdżone funkcje.</p>
+          <div class="tool-tags"><span>diagnostyka</span><span>składnia PL</span><span>lokalnie</span></div>
+        </a>
+        <a class="tool-card priority live" href={link("/narzedzia/konwerter-wyszukaj-pionowo/")}>
+          <div class="tool-card-top"><span class="tool-icon">↗</span><span class="tool-status">Nowe</span></div>
+          <h3>WYSZUKAJ.PIONOWO → X.WYSZUKAJ</h3>
+          <p>Zamień dopasowanie dokładne na formułę X.WYSZUKAJ bez ręcznego liczenia kolumn.</p>
+          <div class="tool-tags"><span>konwerter</span><span>dokładne</span><span>Excel 2021+</span></div>
+        </a>
         <a class="tool-card priority live" href={link("/narzedzia/generator-jezeli/")}>
           <div class="tool-card-top"><span class="tool-icon">IF</span><span class="tool-status">Gotowe</span></div>
           <h3>Generator JEŻELI</h3>

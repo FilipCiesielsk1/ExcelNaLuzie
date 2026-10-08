@@ -4,11 +4,12 @@ import { withBase as link } from '../utils/paths.js';
 import { articleClusters } from '../data/articleClusters.js';
 import { functionCatalog } from '../data/functionCatalog.js';
 import { templateCatalog } from '../data/templateCatalog.js';
+import { toolRelationships } from '../data/contentRelationships.js';
 
 const clusters = Object.values(articleClusters);
 const articleCount = clusters.reduce((sum, cluster) => sum + cluster.articles.length, 0);
 const functionCount = functionCatalog.length;
-const toolCount = 10;
+const toolCount = Object.keys(toolRelationships).length;
 
 const functionSlugs = [
   'jezeli',
@@ -26,6 +27,18 @@ const popularFunctions = functionSlugs
   .filter(Boolean);
 
 const toolHighlights = [
+  {
+    title: 'Analizator formuł',
+    href: '/narzedzia/analizator-formul/',
+    icon: 'fx',
+    text: 'Sprawdź nawiasy, separatory i zagnieżdżenia funkcji.'
+  },
+  {
+    title: 'WYSZUKAJ.PIONOWO → X.WYSZUKAJ',
+    href: '/narzedzia/konwerter-wyszukaj-pionowo/',
+    icon: '↗',
+    text: 'Przepisz dokładne wyszukiwanie na nową formułę.'
+  },
   {
     title: 'Generator JEŻELI',
     href: '/narzedzia/generator-jezeli/',

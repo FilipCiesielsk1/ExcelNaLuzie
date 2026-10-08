@@ -113,6 +113,16 @@ export const toolRelationships = {
     title: 'Tłumacz funkcji PL ↔ EN',
     functions: [],
     articles: []
+  },
+  'analizator-formul': {
+    title: 'Analizator formuł Excela',
+    functions: ['jezeli', 'xwyszukaj'],
+    articles: ['jezeli-podstawy', 'xwyszukaj-podstawy']
+  },
+  'konwerter-wyszukaj-pionowo': {
+    title: 'Konwerter WYSZUKAJ.PIONOWO → X.WYSZUKAJ',
+    functions: ['wyszukaj-pionowo', 'xwyszukaj'],
+    articles: ['xwyszukaj-podstawy', 'indeks-podaj-pozycje']
   }
 };
 
