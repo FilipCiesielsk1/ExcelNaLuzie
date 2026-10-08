@@ -730,6 +730,310 @@ export const functionCatalog = [
         "/formuly/tekst/"
       ]
     ]
+  },
+  {
+    "slug": "szukaj-tekst",
+    "name": "SZUKAJ.TEKST",
+    "category": "Tekst",
+    "description": "Znajduje pozycję podciągu bez rozróżniania wielkich liter.",
+    "syntax": "=SZUKAJ.TEKST(szukany_tekst;tekst;[liczba_początkowa])",
+    "example": "=SZUKAJ.TEKST(\"excel\";A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "szukany_tekst",
+        "Fraza, której szukasz."
+      ],
+      [
+        "tekst",
+        "Tekst do przeszukania."
+      ],
+      [
+        "liczba_początkowa",
+        "Opcjonalny numer pozycji startowej."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/search-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/znajdz/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/tekst/"
+      ]
+    ]
+  },
+  {
+    "slug": "wyszukaj-pionowo",
+    "name": "WYSZUKAJ.PIONOWO",
+    "category": "Wyszukiwanie",
+    "description": "Wyszukuje klucz w pierwszej kolumnie tabeli i zwraca wynik z innej.",
+    "syntax": "=WYSZUKAJ.PIONOWO(szukana_wartość;tablica;nr_indeksu_kolumny;[przeszukiwany_zakres])",
+    "example": "=WYSZUKAJ.PIONOWO(F2;A2:C100;3;FAŁSZ)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "szukana_wartość",
+        "Wartość odnajdywana."
+      ],
+      [
+        "tablica",
+        "Tabela z kluczem w pierwszej kolumnie."
+      ],
+      [
+        "nr_indeksu_kolumny",
+        "Numer zwracanej kolumny."
+      ],
+      [
+        "przeszukiwany_zakres",
+        "FAŁSZ wymusza dopasowanie dokładne."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/vlookup-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/xwyszukaj/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/wyszukiwanie/"
+      ]
+    ]
+  },
+  {
+    "slug": "wyszukaj-poziomo",
+    "name": "WYSZUKAJ.POZIOMO",
+    "category": "Wyszukiwanie",
+    "description": "Szuka nagłówka poziomo i zwraca wartość z wybranego wiersza.",
+    "syntax": "=WYSZUKAJ.POZIOMO(szukana_wartość;tablica;nr_indeksu_wiersza;[przeszukiwany_zakres])",
+    "example": "=WYSZUKAJ.POZIOMO(F2;B1:G4;3;FAŁSZ)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "szukana_wartość",
+        "Wartość z nagłówka."
+      ],
+      [
+        "tablica",
+        "Zakres z nagłówkami w pierwszym wierszu."
+      ],
+      [
+        "nr_indeksu_wiersza",
+        "Numer wiersza wyniku we wskazanym zakresie."
+      ],
+      [
+        "przeszukiwany_zakres",
+        "FAŁSZ oznacza dokładne dopasowanie."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/hlookup-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/xwyszukaj/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/wyszukiwanie/"
+      ]
+    ]
+  },
+  {
+    "slug": "wybierz",
+    "name": "WYBIERZ",
+    "category": "Wyszukiwanie",
+    "description": "Wybiera jedną z podanych wartości według numeru.",
+    "syntax": "=WYBIERZ(nr_indeksu;wartość1;[wartość2];...)",
+    "example": "=WYBIERZ(A2;\"Niski\";\"Średni\";\"Wysoki\")",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "nr_indeksu",
+        "Numer od 1 wskazujący wybraną pozycję."
+      ],
+      [
+        "wartość1",
+        "Pierwsza możliwa wartość."
+      ],
+      [
+        "wartość2",
+        "Opcjonalne następne wartości."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/choose-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/indeks/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/wyszukiwanie/"
+      ]
+    ]
+  },
+  {
+    "slug": "czy-pusta",
+    "name": "CZY.PUSTA",
+    "category": "Logika",
+    "description": "Sprawdza, czy komórka rzeczywiście nie zawiera wartości ani formuły.",
+    "syntax": "=CZY.PUSTA(wartość)",
+    "example": "=CZY.PUSTA(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "wartość",
+        "Badana komórka lub odwołanie."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/isblank-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/jezeli/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/logika/"
+      ]
+    ]
+  },
+  {
+    "slug": "czy-liczba",
+    "name": "CZY.LICZBA",
+    "category": "Logika",
+    "description": "Sprawdza, czy argument jest liczbą, a nie tekstem.",
+    "syntax": "=CZY.LICZBA(wartość)",
+    "example": "=CZY.LICZBA(A2)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "wartość",
+        "Wartość, komórka lub wynik innej funkcji."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/isnumber-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/jezeli/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/logika/"
+      ]
+    ]
+  },
+  {
+    "slug": "data",
+    "name": "DATA",
+    "category": "Daty i czas",
+    "description": "Tworzy rzeczywistą datę z roku, miesiąca i dnia.",
+    "syntax": "=DATA(rok;miesiąc;dzień)",
+    "example": "=DATA(2026;10;15)",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "rok",
+        "Rok daty."
+      ],
+      [
+        "miesiąc",
+        "Numer miesiąca."
+      ],
+      [
+        "dzień",
+        "Numer dnia."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/date-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/daty/"
+      ]
+    ]
+  },
+  {
+    "slug": "dzis",
+    "name": "DZIŚ",
+    "category": "Daty i czas",
+    "description": "Zwraca bieżącą datę systemową bez części godzinowej.",
+    "syntax": "=DZIŚ()",
+    "example": "=DZIŚ()",
+    "versions": [
+      "Microsoft 365",
+      "Excel 2024",
+      "Excel 2021",
+      "Excel 2019",
+      "Excel 2016"
+    ],
+    "arguments": [
+      [
+        "brak",
+        "Nie przyjmuje argumentów, ale wymaga nawiasów."
+      ]
+    ],
+    "docs": "https://support.microsoft.com/pl-pl/excel/functions/today-function",
+    "related": [
+      [
+        "Zobacz także",
+        "/funkcje/data-roznica/"
+      ],
+      [
+        "Poradniki z tematu",
+        "/formuly/daty/"
+      ]
+    ]
   }
 ];
 
