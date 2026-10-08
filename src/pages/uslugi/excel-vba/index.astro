@@ -170,7 +170,7 @@ const schema={
               </div>
             </div>
 
-            <p class="service-form-disclaimer">Po kliknięciu „Wyślij zapytanie” informacje wpisane do formularza zostaną przekazane przez <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">FormSubmit.co</a> na adres <strong>{serviceContact.email}</strong>. Nie otwieramy programu pocztowego. Wysyłka jest zapytaniem informacyjnym, nie zamówieniem ani zgodą na odpłatną realizację. Nie wpisuj informacji poufnych. Przeczytaj <a href={link('/polityka-prywatnosci/')}>politykę prywatności</a>.</p>
+            <p class="service-form-disclaimer">Po kliknięciu „Wyślij zapytanie” informacje wpisane do formularza zostaną przekazane na adres <strong>{serviceContact.email}</strong>. Wysyłka jest zapytaniem informacyjnym, nie zamówieniem ani zgodą na odpłatną realizację. Nie wpisuj informacji poufnych. Przeczytaj <a href={link('/polityka-prywatnosci/')}>politykę prywatności</a>.</p>
             <div class="service-form-actions">
               <button type="submit" class="service-primary service-submit">Wyślij zapytanie <span>→</span></button>
             </div>
@@ -202,6 +202,42 @@ const schema={
       const status=form.querySelector('[data-message]');
       const button=form.querySelector('[type="submit"]');
       let pending=false;
+
+      // Komunikaty walidacji przeglądarki w języku polskim.
+      const setPolishValidation = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
+        const clearValidation = () => field.setCustomValidity('');
+        field.addEventListener('input', clearValidation);
+        field.addEventListener('change', clearValidation);
+
+        field.addEventListener('invalid', () => {
+          // Wyczyść poprzedni komunikat przed sprawdzeniem bieżącej przyczyny.
+          field.setCustomValidity('');
+
+          if (field.validity.valueMissing) {
+            if (field.name === 'category') {
+              field.setCustomValidity('Wybierz rodzaj problemu.');
+            } else if (field.name === 'email') {
+              field.setCustomValidity('Podaj adres e-mail.');
+            } else if (field.name === 'description') {
+              field.setCustomValidity('Opisz problem.');
+            } else {
+              field.setCustomValidity('Wypełnij to pole.');
+            }
+            return;
+          }
+
+          if (field.validity.typeMismatch && field.name === 'email') {
+            field.setCustomValidity('Podaj prawidłowy adres e-mail.');
+            return;
+          }
+
+          if (field.validity.tooShort && field.name === 'description') {
+            field.setCustomValidity('Opis problemu musi mieć co najmniej 30 znaków.');
+          }
+        });
+      };
+
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea').forEach(setPolishValidation);
 
       form.addEventListener('submit',async event=>{
         event.preventDefault();
@@ -239,7 +275,7 @@ const schema={
           if(!isInquiryAccepted(response.status,result))
             throw new Error('Serwis wysyłkowy nie potwierdził przyjęcia zgłoszenia.');
           form.reset();
-          status.textContent='Dziękujemy! Zgłoszenie zostało przyjęte przez serwis wysyłkowy. Odpowiemy na podany adres, gdy będzie to możliwe. Jeśli adres odbiorcy nie został jeszcze aktywowany w FormSubmit, dostarczanie wiadomości wymaga jego potwierdzenia.';
+          status.textContent='Dziękujemy! Zgłoszenie zostało wysłane. Odpowiemy na podany adres, gdy będzie to możliwe.';
         }catch(error){
           status.classList.add('service-message-error');
           status.textContent='Nie udało się potwierdzić wysłania zgłoszenia. Spróbuj ponownie później lub napisz bezpośrednio na excelnaluzie@gmail.com.';
