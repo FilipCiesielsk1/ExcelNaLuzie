@@ -20,7 +20,7 @@ const articles = cluster.articles;
         <p>Od prostego JEŻELI po kilka kryteriów, daty, tekst i obsługę błędów. Każdy poradnik zaczyna się od gotowej formuły.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#poradniki">Zobacz poradniki <span>↓</span></a>
-          <a class="hub-secondary" href={link("/formuly/")}>Wszystkie formuły</a>
+          <a class="hub-secondary" href={link("/narzedzia/generator-jezeli/")}>Generator JEŻELI →</a>
         </div>
       </div>
       <div class="formula-stack" aria-hidden="true">
@@ -35,7 +35,7 @@ const articles = cluster.articles;
     <div class="wrap">
       <div class="hub-section-head">
         <div><span class="section-kicker">{articles.length} poradników</span><h2>Jaki warunek chcesz zbudować?</h2></div>
-        <p>Wybierz rezultat: pojedynczy test, kilka kryteriów, puste komórki, daty, tekst albo czytelny komunikat zamiast błędu.</p>
+        <p>Wybierz rezultat: pojedynczy test, kilka kryteriów, puste komórki, daty, tekst albo czytelny komunikat zamiast błędu. Każdy poradnik zawiera przykłady i wyniki dla konkretnych danych.</p>
       </div>
       <div class="hub-article-list">
         {articles.map((item,index) => (
@@ -57,9 +57,9 @@ const articles = cluster.articles;
         <p>Większość problemów logicznych staje się prosta, gdy zapiszesz je zwykłym zdaniem: „jeśli A i B, pokaż X; w przeciwnym razie pokaż Y”.</p>
       </div>
       <div class="reference-steps">
-        <div><span>01</span><strong>Jeden test</strong><p>Użyj JEŻELI, gdy decyzja zależy od jednego warunku.</p></div>
-        <div><span>02</span><strong>Kilka warunków naraz</strong><p>Połącz je funkcją ORAZ, jeśli wszystkie muszą być prawdziwe, albo LUB, jeśli wystarczy jeden.</p></div>
-        <div><span>03</span><strong>Błędy i braki</strong><p>Obsłuż puste komórki i błędy jawnie, żeby raport nie pokazywał przypadkowych komunikatów.</p></div>
+        <div><span>01</span><strong>Jeden test</strong><p>Użyj JEŻELI, gdy decyzja zależy od jednego warunku. <a href={link("/poradniki/jezeli-podstawy/")}>Przykłady z wynikami →</a></p></div>
+        <div><span>02</span><strong>Kilka warunków naraz</strong><p>Wszystkie kryteria: <a href={link("/poradniki/jezeli-oraz/")}>JEŻELI + ORAZ</a>. Wystarczy jeden: <a href={link("/poradniki/jezeli-lub/")}>JEŻELI + LUB</a>.</p></div>
+        <div><span>03</span><strong>Błędy i braki</strong><p>Najpierw rozpoznaj <a href={link("/poradniki/jezeli-pusta-komorka/")}>puste komórki</a> lub <a href={link("/poradniki/jezeli-blad/")}>błędy formuł</a>, żeby nie ukrywać problemów z danymi.</p></div>
       </div>
     </div>
   </section>
