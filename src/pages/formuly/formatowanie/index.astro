@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../../utils/paths.js';
+import { articleClusters } from '../../../data/articleClusters.js';
+
+const articles=articleClusters['formuly/formatowanie'].articles;
+const groups=[
+  {title:'Kolory i reguły warunkowe',description:'Wyróżnianie wartości, całych wierszy, dat oraz naprzemiennych pasów.',start:0,end:5},
+  {title:'Formaty liczb, czasu i dat',description:'Zmiana wyglądu bez utraty wartości potrzebnych do obliczeń.',start:5,end:10}
+];
+const schema={
+  '@context':'https://schema.org','@graph':[
+  {'@type':'CollectionPage',name:'Formatowanie Excel — praktyczne poradniki',url:'https://excelnaluzie.pl/formuly/formatowanie/',inLanguage:'pl-PL',mainEntity:{'@type':'ItemList',numberOfItems:articles.length,itemListElement:articles.map((a,i)=>({'@type':'ListItem',position:i+1,name:a.title,url:'https://excelnaluzie.pl/poradniki/'+a.slug+'/'}))}},
+  {'@type':'BreadcrumbList',itemListElement:[
+    {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+    {'@type':'ListItem',position:2,name:'Formuły',item:'https://excelnaluzie.pl/formuly/'},
+    {'@type':'ListItem',position:3,name:'Formatowanie',item:'https://excelnaluzie.pl/formuly/formatowanie/'}]}
+  ]
+};
+---
+<BaseLayout navSection="formuly" title="Formatowanie warunkowe Excel — 10 poradników i XLSX | ExcelNaLuzie" description="Kolory komórek i wierszy, terminy, ukrywanie zer, jednostki, czas ponad 24 godziny i własne formaty dat. Przykłady i darmowe XLSX.">
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  <section class="hub-hero hub-formulas">
+    <div class="wrap hub-hero-grid">
+      <div>
+        <nav class="hub-breadcrumbs"><a href={link('/')}>ExcelNaLuzie</a><span>›</span><a href={link('/formuly/')}>Formuły</a><span>›</span><strong>Formatowanie</strong></nav>
+        <span class="hub-kicker">Formatowanie Excel</span>
+        <h1>Kolory i daty.<br/><em>Wyróżnij to, co ważne.</em></h1>
+        <p>Reguły dla terminów, statusów i kwot oraz niestandardowe formaty liczb. Konkrety dla polskiego Excela 2016 i nowszych.</p>
+        <div class="hub-actions">
+          <a class="hub-primary" href="#poradniki">10 poradników <span>↓</span></a>
+          <a class="hub-secondary" href="#pliki">Pobierz ćwiczenia XLSX</a>
+        </div>
+      </div>
+      <div class="formula-stack" aria-hidden="true">
+        <div class="formula-stack-card one"><span>Status zadania</span><code>=$D2="Gotowe"</code></div>
+        <div class="formula-stack-card two"><span>Terminy</span><code>=B2&lt;DZIŚ()</code></div>
+        <div class="formula-stack-card three"><span>Czas pracy</span><code>[g]:mm</code></div>
+      </div>
+    </div>
+  </section>
+  <section class="hub-section" id="poradniki"><div class="wrap">
+    <div class="hub-section-head"><div><span class="section-kicker">10 rozwiązań</span><h2>Co chcesz sformatować?</h2></div><p>Znajdź konkretny przypadek, skopiuj regułę lub kod formatu i zobacz przykładowy wynik w arkuszu.</p></div>
+    {groups.map(group=><section class="formula-directory-group">
+      <header class="formula-directory-head"><div><div><small>Excel 2016–365</small><h3>{group.title}</h3></div></div><span>{group.description}</span></header>
+      <div class="formula-directory-links">{articles.slice(group.start,group.end).map((a,i)=><a href={link('/poradniki/'+a.slug+'/')}><span>{String(group.start+i+1).padStart(2,'0')}</span><strong>{a.title}</strong><b>→</b></a>)}</div>
+    </section>)}
+  </div></section>
+  <section class="hub-section hub-section-alt" id="pliki"><div class="wrap">
+    <div class="hub-section-head"><div><span class="section-kicker">Darmowe ćwiczenia</span><h2>Dwa skoroszyty XLSX</h2></div><p>W każdym pliku znajdziesz przykładowe dane i instrukcję. Pliki nie zawierają makr.</p></div>
+    <div class="reference-steps">
+      <div><span>01</span><strong>Reguły warunkowe</strong><p>Statusy, terminy, kwoty i kolory całych wierszy — zmieniaj dane i obserwuj efekt.</p><p><a href={link('/downloads/przyklady/formatowanie-warunkowe-przyklady.xlsx')} download>Pobierz przykład XLSX →</a></p></div>
+      <div><span>02</span><strong>Formaty liczb i dat</strong><p>Ukrywanie zer, jednostki, miesiąc słownie, daty i czas pracy powyżej doby.</p><p><a href={link('/downloads/przyklady/formatowanie-liczb-dat-przyklady.xlsx')} download>Pobierz przykład XLSX →</a></p></div>
+      <div><span>03</span><strong>Generator reguł</strong><p>Skonfiguruj własny warunek, zobacz formułę i skopiuj ją bez przepisywania.</p><p><a href={link('/narzedzia/generator-formatowania-warunkowego/')}>Otwórz generator →</a></p></div>
+    </div>
+  </div></section>
+  <section class="hub-cta-section"><div class="wrap hub-cta"><div><span class="section-kicker light">Formatuj jeszcze szybciej</span><h2>Przygotuj kod w przeglądarce</h2><p>Generator formatów niestandardowych pomaga z datami, liczbami, walutami i jednostkami.</p></div><a href={link('/narzedzia/generator-formatow/')}>Generator formatów →</a></div></section>
+</BaseLayout>
