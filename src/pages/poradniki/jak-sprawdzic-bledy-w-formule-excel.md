@@ -83,6 +83,22 @@ Po imporcie CSV wartości wyglądające jak liczby mogą być tekstem. Sprawdź 
 
 Wynik FAŁSZ pomaga wyjaśnić część problemów z sumowaniem i porównywaniem. Sama zmiana formatu komórki na Liczbowy nie zawsze zamienia tekst na liczbę.
 
+## Szybka diagnoza: który problem sprawdzić najpierw?
+
+| Objaw w Excelu | Najczęstsza przyczyna | Pierwsze działanie |
+|---|---|---|
+| #N/D | Brak dopasowania w wyszukiwaniu | Porównaj szukany kod z tabelą źródłową |
+| #DZIEL/0! | Dzielenie przez zero lub pusty mianownik | Sprawdź komórkę mianownika |
+| #NAZWA? | Literówka w funkcji lub nieznana nazwa | Sprawdź nazwę funkcji w polskiej wersji |
+| #ADR! | Usunięta komórka lub uszkodzone odwołanie | Sprawdź, czy zakres nadal istnieje |
+| #ARG! | Nieodpowiedni typ argumentu | Sprawdź, czy liczba nie jest tekstem |
+
+Takie rozróżnienie zapobiega stosowaniu **JEŻELI.BŁĄD** jako uniwersalnej „naprawy”. Funkcja może ukryć komunikat, ale nie naprawi nieprawidłowego zakresu ani nie uzupełni brakujących danych. Jeśli chcesz przeanalizować długą formułę krok po kroku, zaznacz komórkę i skorzystaj w Excelu z **Formuły → Szacuj formułę**.
+
+## Najpierw minimalny przykład, potem pełny arkusz
+
+Gdy nie wiesz, która część powoduje błąd, skopiuj problematyczną formułę do testowego skoroszytu z dwoma lub trzema przykładowymi wierszami. Sprawdź oddzielnie funkcję wewnętrzną, porównanie logiczne i dopiero gotową konstrukcję. Ułatwia to odróżnienie błędu składni od nieoczekiwanej zawartości komórki, np. spacji, tekstowej daty lub liczby zapisanej jako tekst.
+
 ## Co potrafi analizator online?
 
 Wklej formułę do **[analizatora formuł Excel](/narzedzia/analizator-formul/)**. Zobaczysz wykryte funkcje, zagnieżdżenia, błędy nawiasów i cudzysłowów oraz ostrzeżenia o możliwych separatorach z angielskich przykładów. Przy rozpoznanych funkcjach pojawią się linki do ich opisów.
