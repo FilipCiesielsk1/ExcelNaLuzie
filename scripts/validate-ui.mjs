@@ -172,6 +172,20 @@ if(fs.existsSync(funcsPage)) {
   if ((html.match(/<a class="function-card"/g)||[]).length < 10) errors.push('Feedback: pełne kafelki funkcji nie są linkami');
 }
 
+// Online Tools v2: every interactive page must be built, indexable and wired to its client app.
+for (const [slug, marker] of [
+  ['czyszczenie-danych','data-cleaner'],
+  ['tekst-na-kolumny','data-splitter'],
+  ['usuwanie-duplikatow','data-deduper'],
+  ['kalkulator-czasu-pracy','data-worktime']
+]) {
+  const page=pageFile('/narzedzia/'+slug+'/');
+  if (!fs.existsSync(page)) { errors.push('Narzędzia v2: brak trasy '+slug); continue; }
+  const html=fs.readFileSync(page,'utf8');
+  if (!html.includes(marker) || !html.includes('data-pagefind-body')) errors.push('Narzędzia v2: brak interakcji lub indeksowania '+slug);
+  if (!html.includes('WebApplication') || !html.includes('BreadcrumbList')) errors.push('Narzędzia v2: brak danych SEO '+slug);
+}
+
 const cssAssets = files.filter((file) => file.endsWith('.css') && file.includes(path.sep + '_astro' + path.sep));
 const jsAssets = files.filter((file) => file.endsWith('.js') && file.includes(path.sep + '_astro' + path.sep));
 const largestCss = cssAssets.map((file)=>({file:path.relative(root,file),bytes:gzipSync(fs.readFileSync(file),{level:9}).length}))
