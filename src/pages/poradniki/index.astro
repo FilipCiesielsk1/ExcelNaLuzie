@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../utils/paths.js';
+import { articleClusters } from '../../data/articleClusters.js';
+import { vbaCatalog } from '../../data/vbaCatalog.js';
+
+const groups = [
+  ...Object.entries(articleClusters).map(([key, cluster]) => ({
+    id:key.split('/').at(-1),
+    title:cluster.title,
+    hub:cluster.hub,
+    kind:'Excel',
+    items:cluster.articles.map(article=>({...article,url:'/poradniki/'+article.slug+'/' }))
+  })),
+  {
+    id:'vba',
+    title:'Makra i automatyzacje VBA',
+    hub:'/vba/',
+    kind:'VBA',
+    items:vbaCatalog.map(article=>({ title: article.shortTitle, url:'/vba/'+article.slug+'/' }))
+  }
+];
+const count=groups.reduce((sum,group)=>sum+group.items.length,0);
+const schema = {
+  '@context':'https://schema.org','@graph': [
+    {'@type':'CollectionPage',name:'Wszystkie poradniki Excel i VBA',url:'https://excelnaluzie.pl/poradniki/',inLanguage:'pl-PL',mainEntity:{'@type':'ItemList',numberOfItems:count,itemListElement:groups.flatMap(group=>group.items).map((a,i)=>({'@type':'ListItem',position:i+1,name:a.title,url:'https://excelnaluzie.pl'+a.url}))}},
+    {'@type':'BreadcrumbList',itemListElement:[
+      {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+      {'@type':'ListItem',position:2,name:'Poradniki',item:'https://excelnaluzie.pl/poradniki/'}
+    ]}
+  ]
+};
+---
+<BaseLayout navSection="poradniki" title="Poradniki Excel i VBA — wszystkie tematy | ExcelNaLuzie" description="Praktyczne poradniki Excel i VBA po polsku. Wyszukaj temat, filtruj według zagadnienia i przejdź do rozwiązania krok po kroku.">
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  <section class="guide-directory-hero">
+    <div class="wrap">
+      <nav class="hub-breadcrumbs" aria-label="Okruszki"><a href={link('/')}>ExcelNaLuzie</a><span>›</span><strong>Poradniki</strong></nav>
+      <span class="section-kicker">Biblioteka poradników</span>
+      <h1>Znajdź rozwiązanie <em>swojego problemu w Excelu.</em></h1>
+      <p>Od prostych formuł, przez analizę danych, po gotowe makra VBA. Wyszukaj temat lub wybierz kategorię — bez przeglądania setek wyników.</p>
+      <div class="guide-directory-search">
+        <label for="guide-search">Szukaj poradnika</label>
+        <input id="guide-search" type="search" placeholder="np. daty, wyszukiwanie, formatowanie..." autocomplete="off" data-guide-search />
+      </div>
+    </div>
+  </section>
+  <section class="hub-section guide-directory-section" data-guide-root>
+    <div class="wrap">
+      <div class="guide-directory-toolbar">
+        <div>
+          <span class="section-kicker">Przeglądaj według zagadnienia</span>
+          <h2>Wszystkie poradniki</h2>
+        </div>
+        <p data-guide-status role="status" aria-live="polite">{count} poradników w {groups.length} działach</p>
+      </div>
+      <div class="guide-directory-filters" role="group" aria-label="Wybierz kategorię poradników">
+        <button type="button" data-guide-filter="all" aria-pressed="true">Wszystkie</button>
+        {groups.map(group=><button type="button" data-guide-filter={group.id} aria-pressed="false">{group.title}</button>)}
+      </div>
+      <div class="guide-directory-groups">
+        {groups.map(group=>(
+          <section class="guide-directory-group" data-guide-group={group.id}>
+            <div class="guide-directory-heading">
+              <div>
+                <small>{group.kind} · {group.items.length} materiałów</small>
+                <h3>{group.title}</h3>
+              </div>
+              <a href={link(group.hub)}>Przegląd działu →</a>
+            </div>
+            <div class="guide-directory-list">
+              {group.items.map((a,i)=>(
+                <a data-guide-item href={link(a.url)}>
+                  <span>{String(i+1).padStart(2,'0')}</span><strong>{a.title}</strong><b aria-hidden="true">→</b>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+      <p class="guide-directory-empty" hidden data-guide-empty>Nie znaleziono poradników. Spróbuj krótszego hasła albo wybierz „Wszystkie”.</p>
+    </div>
+  </section>
+  <section class="hub-cta-section"><div class="wrap hub-cta">
+    <div><span class="section-kicker light">Wolisz gotowe rozwiązania?</span><h2>Wypróbuj narzędzia online</h2><p>Generatory formuł, porównywanie tabel i pobieranie przykładowych skoroszytów.</p></div>
+    <a href={link('/narzedzia/')}>Przeglądaj narzędzia →</a>
+  </div></section>
+  <script>
+    const root=document.querySelector('[data-guide-root]');
+    const search=document.querySelector('[data-guide-search]');
+    if(root && search){
+      const buttons=[...root.querySelectorAll('[data-guide-filter]')];
+      const sections=[...root.querySelectorAll('[data-guide-group]')];
+      const status=root.querySelector('[data-guide-status]');
+      const empty=root.querySelector('[data-guide-empty]');
+      let chosen='all';
+      const normalize=(value)=>String(value||'').toLocaleLowerCase('pl').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      const filter=()=>{
+        const q=normalize(search.value.trim());
+        let shown=0;
+        let visibleGroups=0;
+        sections.forEach(section=>{
+          let matched=0;
+          const inCategory=chosen==='all'||chosen===section.dataset.guideGroup;
+          section.querySelectorAll('[data-guide-item]').forEach(item=>{
+            const visible=inCategory && (!q || normalize(item.textContent).includes(q));
+            item.hidden=!visible;
+            if(visible){matched++;shown++;}
+          });
+          section.hidden=matched===0;
+          if(matched)visibleGroups++;
+        });
+        buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.guideFilter===chosen)));
+        if(status)status.textContent=shown+' '+(shown===1?'poradnik':shown%10>=2&&shown%10<=4&&(shown%100<12||shown%100>14)?'poradniki':'poradników')+' · '+visibleGroups+' działów';
+        if(empty)empty.hidden=shown!==0;
+      };
+      root.addEventListener('click',(event)=>{
+        const btn=event.target.closest('[data-guide-filter]');
+        if(!btn)return;
+        chosen=btn.dataset.guideFilter;
+        filter();
+      });
+      search.addEventListener('input',filter);
+    }
+  </script>
+</BaseLayout>
