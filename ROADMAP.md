@@ -176,6 +176,54 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 
 ---
 
+## Strategia dalszego rozwoju — aktualizacja 2026-10-09
+
+### Cel: dwa uzupełniające się kanały
+1. **Ruch organiczny:** praktyczne poradniki, funkcje, narzędzia online i darmowe szablony.
+2. **Pozyskiwanie zapytań o współpracę:** portfolio demonstracyjne, jasna oferta usług i ścieżka kontaktu.
+
+**Stan wyjściowy:** brak projektów klientowskich, które można opublikować. Budujemy portfolio od podstaw na **autentycznie działających projektach demonstracyjnych**. Nie przedstawiamy ich jako zleceń wykonanych dla klientów i nie wymyślamy opinii, oszczędności, wdrożeń ani wyników biznesowych.
+
+### Priorytet P0 — portfolio demonstracyjne (następny etap)
+- [ ] Zaprojektować katalog `/realizacje/` oraz szablon podstrony case study: problem, dla kogo, funkcje, przebieg, zrzuty z działającej aplikacji, demo, ograniczenia, CTA.
+- [ ] Stworzyć **Demo 1: Dashboard sprzedaży i KPI** (Excel 2016+, fikcyjne dane, filtr okresu, cele, marża, dokumentacja i testy).
+- [ ] Stworzyć **Demo 2: Automatyzacja raportowania VBA** (import CSV z folderu, walidacja danych, podsumowanie, log błędów, instrukcja, testy w Excelu Windows).
+- [ ] Stworzyć **Demo 3: Planowanie transportu i zasobów** (kierowcy, pojazdy, dostępność, konflikty, harmonogram, raport; fikcyjne dane).
+- [ ] Dla każdego projektu przygotować rzeczywiste zrzuty ekranu, opis architektury i funkcji, instrukcję oraz plik demonstracyjny po weryfikacji.
+- [ ] Dodać wyraźną etykietę „Projekt demonstracyjny — nie realizacja klientowska” na kartach i podstronach.
+- [ ] Dodać linki „Realizacje” w nawigacji, stronie głównej, sekcji Współpraca i stopce oraz CTA „Zamów podobne rozwiązanie”.
+- [ ] Dodać unikatowe SEO (title, description, canonical, BreadcrumbList), linkowanie z powiązanymi poradnikami i testy builda.
+
+**Definicja ukończenia:** trzy działające, samodzielnie zweryfikowane projekty, trzy czytelne case studies i sprawna ścieżka do formularza. Żadnych fikcyjnych klientów.
+
+### Priorytet P1 — oferta i konwersja
+- [ ] Uporządkować ofertę usług: Excel, VBA, raportowanie, automatyzacje, SQL i integracje — tylko rzeczywiście oferowane kompetencje.
+- [ ] Dodać przykładowy proces współpracy: opis problemu → zakres → wycena → prototyp → testy → przekazanie.
+- [ ] Doprecyzować formularz zapytania: problem, pliki/przykłady, wersja Excela, termin i opcjonalny budżet; nie wymagać przesyłania poufnych danych.
+- [ ] Mierzyć wyświetlenia portfolio, przejścia do kontaktu i wysłane zapytania z poszanowaniem prywatności.
+- [ ] Dopiero po realnych danych rozważyć cennik, pakiety i sposoby monetyzacji; **rozliczenia podatkowe i wznowienie działalności odłożone do decyzji użytkownika**.
+
+### Priorytet P2 — rozwój treści i narzędzi
+- [ ] Rozbudowywać poradniki i narzędzia wokół problemów pokazywanych w portfolio: dashboardy, raportowanie, CSV, walidacja, magazyn, logistyka.
+- [ ] Dodawać użyteczne przykłady, testy i linki „Poradnik → Narzędzie → Demo → Współpraca”, bez nadmiernych CTA.
+- [ ] Rozwijać nowe narzędzia online tylko wtedy, gdy rozwiązują odrębny problem użytkownika i mają testy.
+- [ ] Monitorować indeksowanie, wyświetlenia, CTR i zapytania w Google Search Console; decyzje contentowe podejmować na podstawie danych.
+
+### Priorytet P3 — biblioteka szablonów po testach
+- [ ] Zaczekać na testy sześciu Szablonów PRO przez użytkownika; **do tego czasu nie modyfikować plików XLSX ani ich generatora**.
+- [ ] Po testach poprawić zgłoszone błędy, zweryfikować kompatybilność Excel 2016/2021 i dopiero wtedy rozbudować linkowanie poradników do szablonów.
+- [ ] Nie zmieniać logo V1 ani obecnej zielonej identyfikacji wizualnej bez wyraźnej decyzji.
+
+### Zasady jakości portfolio
+- Demo musi działać; nie publikujemy samej makiety jako ukończonego systemu.
+- Każdy przykład wykorzystuje wyłącznie dane syntetyczne lub jawnie dopuszczone do publikacji.
+- Nie używamy nazw, logotypów, referencji i historii prawdziwych klientów bez ich zgody.
+- Korzyści opisujemy jakościowo; liczby tylko gdy są zmierzone i opatrzone metodologią.
+- Przed wdrożeniem: testy, build, przegląd mobilny, dostępność, SEO i kontrola linków.
+- Rozwój portfolio nie blokuje obecnej publikacji poradników i narzędzi.
+
+---
+
 ## Zasady rozwoju
 
 1. GitHub jest źródłem prawdy projektu.
