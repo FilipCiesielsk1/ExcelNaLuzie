@@ -123,6 +123,14 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] kalkulator dat Excel
 - [x] generator formatów niestandardowych
 
+### Narzędzia online v2 — 2026-10-09
+- [x] czyszczenie tekstu i generowanie formuły Excel 2016+
+- [x] konwerter tekstu CSV/TSV na kolumny z podglądem
+- [x] usuwanie duplikatów po całym wierszu lub kolumnie klucza
+- [x] kalkulator czasu pracy, przerw i zmian przez północ
+- [x] katalog 19 narzędzi, linkowanie z poradnikami, indeksowanie w Pagefind
+- [x] testy danych i zabezpieczenie CSV przed interpretacją formuł
+
 ### Etap 4 — sekcja VBA
 - [x] ostatni wiersz
 - [x] ostatnia kolumna
