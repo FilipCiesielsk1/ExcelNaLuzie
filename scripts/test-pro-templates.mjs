@@ -22,9 +22,12 @@ for(const [slug,expectedSheets] of templates){
   const sheets=await readXlsxFile(file);
   assert.deepEqual(sheets.map(s=>s.sheet),expectedSheets);
   assert.ok(sheets[0].data.length>4,'dashboard is empty');
-  assert.ok(sheets[1].data.length>=20,'data entry lacks available input rows');
+  assert.ok(sheets[1].data.length>=6,'data entry sheet lacks demonstration rows');
   assert.ok(sheets[3].data.length>=6,'instructions are missing');
   const dash=xml(file,1),records=xml(file,2);
+  const expectedMinRow={ 'dashboard-sprzedazy':122, 'harmonogram-gantta':81, 'magazyn-stany':71, 'kontrola-faktur':121, 'crm-sprzedaz':121, 'kalkulator-ofert':26 }[slug];
+  const rowNums=[...records.matchAll(/<row\b[^>]*\br="(\d+)"/g)].map(m=>Number(m[1]));
+  assert.ok(Math.max(...rowNums)>=expectedMinRow,'missing prepared input and formula rows through '+expectedMinRow);
   assert.ok((dash.match(/<f(?:\s[^>]*)?>/g)||[]).length>=3,'dashboard lacks formula-driven KPIs');
   assert.ok((records.match(/<f(?:\s[^>]*)?>/g)||[]).length>=20,'records lack computed columns');
   assert.ok(records.includes('dataValidation')||records.includes('conditionalFormatting'),'no functional input guidance');
