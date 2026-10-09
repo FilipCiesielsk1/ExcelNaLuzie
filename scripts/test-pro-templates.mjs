@@ -31,6 +31,7 @@ for(const [slug,expectedSheets] of templates){
   assert.ok((dash.match(/<f(?:\s[^>]*)?>/g)||[]).length>=3,'dashboard lacks formula-driven KPIs');
   assert.ok((records.match(/<f(?:\s[^>]*)?>/g)||[]).length>=20,'records lack computed columns');
   assert.ok(records.includes('dataValidation')||records.includes('conditionalFormatting'),'no functional input guidance');
+  if (slug !== 'kontrola-faktur') assert.ok(records.includes('dataValidation'),'missing editable dropdown/number validation');
   assert.ok(!records.includes('#REF!'),'broken formula reference');
  });
 }
