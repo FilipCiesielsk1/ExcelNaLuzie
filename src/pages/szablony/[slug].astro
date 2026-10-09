@@ -14,6 +14,7 @@ const { template } = Astro.props;
 const canonical = '/szablony/' + template.slug + '/';
 const absoluteUrl = 'https://excelnaluzie.pl' + canonical;
 const downloadUrl = 'https://excelnaluzie.pl' + template.file;
+const suggestions = templateCatalog.filter(item => item.slug !== template.slug && (item.type === template.type || item.pro)).slice(0,3);
 
 const schema = {
   '@context':'https://schema.org',
@@ -35,6 +36,12 @@ const schema = {
         encodingFormat:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       }
     },
+    ...(template.faq ? [{
+      '@type':'FAQPage',
+      mainEntity:template.faq.map(([question,answer])=>({
+        '@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}
+      }))
+    }] : []),
     {
       '@type':'BreadcrumbList',
       itemListElement:[
@@ -70,10 +77,12 @@ const schema = {
           <div class="template-badges">
             <span>XLSX</span>
             <span>Darmowy</span>
+            {template.pro && <span>PRO</span>}
             <span>{template.version}</span>
           </div>
           <h1>{template.title}</h1>
           <p>{template.description}</p>
+          {template.audience && <p class="pro-template-audience">{template.audience}</p>}
           <div class="template-detail-actions">
             <a class="template-download-primary" href={link(template.file)} download>
               Pobierz XLSX <span>↓</span>
@@ -138,6 +147,19 @@ const schema = {
           ))}
         </div>
       </section>
+
+      {template.faq && <section class="template-detail-section pro-template-faq" aria-labelledby="template-faq-title">
+        <div class="template-detail-heading"><span class="section-kicker">Najczęstsze pytania</span><h2 id="template-faq-title">Przed pobraniem</h2></div>
+        <div class="pro-template-faq-list">{template.faq.map(([question,answer])=>(
+          <details><summary>{question}</summary><p>{answer}</p></details>
+        ))}</div>
+      </section>}
+      {template.pro && <section class="template-detail-section pro-template-related">
+        <div class="template-detail-heading"><span class="section-kicker">Może Ci się przydać</span><h2>Podobne szablony Excel</h2></div>
+        <div class="pro-template-related-grid">{suggestions.map(other=>(
+          <a href={link('/szablony/'+other.slug+'/')}><strong>{other.title}</strong><span>Podgląd i pobranie →</span></a>
+        ))}</div>
+      </section>}
 
       <section class="template-requirements">
         <div>

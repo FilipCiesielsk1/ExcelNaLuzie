@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run generate:formatting-examples && npm run test:formatting-examples && npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:tables && npm run test:pivot && npm run test:inquiries && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
+    "build": "npm run generate:pro-templates && npm run test:pro-templates && npm run generate:formatting-examples && npm run test:formatting-examples && npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:tables && npm run test:pivot && npm run test:inquiries && astro build && npm run validate:site && npm run validate:ui && pagefind --site dist",
     "preview": "astro preview",
     "validate": "npm run validate:content && npm run validate:relations",
     "validate:content": "node scripts/validate-content.mjs",
@@ -17,13 +17,16 @@
     "test:pivot": "node --test scripts/test-pivot-builder.mjs",
     "test:inquiries": "node --test scripts/test-project-inquiry.mjs",
     "generate:formatting-examples": "node scripts/generate-formatting-examples.mjs",
-    "test:formatting-examples": "node --test scripts/test-formatting-examples.mjs"
+    "test:formatting-examples": "node --test scripts/test-formatting-examples.mjs",
+    "generate:pro-templates": "node scripts/generate-pro-templates.mjs",
+    "test:pro-templates": "node --test scripts/test-pro-templates.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^7.3.5",
     "read-excel-file": "^9.3.10",
-    "write-excel-file": "^4.1.1"
+    "write-excel-file": "^4.1.1",
+    "@onparallel/write-excel-file-data-validation": "^1.0.0"
   },
   "devDependencies": {
     "pagefind": "^1.5.2"

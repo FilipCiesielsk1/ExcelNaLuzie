@@ -628,3 +628,17 @@
   .contact-landing { padding:38px 0 65px; }
   .contact-options { grid-template-columns:1fr; }
 }
+
+
+/* PRO template library: local scoped enhancements, brand V1 unchanged */
+.pro-template-audience { display:block; max-width:580px; padding:8px 12px; border-left:3px solid #107c41; color:#316646; background:#eff7f1; font-size:.92rem; border-radius:0 7px 7px 0; }
+.pro-template-faq-list { display:grid; gap:12px; }
+.pro-template-faq-list details { border:1px solid #d3e4d8; background:#fff; border-radius:12px; overflow:hidden; }
+.pro-template-faq-list summary { display:list-item; min-height:48px; margin:0; padding:15px 18px; cursor:pointer; font-weight:800; color:#154d2b; }
+.pro-template-faq-list details[open] summary { border-bottom:1px solid #dfebe2; background:#f4faf6; }
+.pro-template-faq-list details p { padding:0 18px 17px; color:#53695a; line-height:1.6; margin:14px 0 0; }
+.pro-template-related-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.pro-template-related-grid a { display:flex; flex-direction:column; justify-content:space-between; gap:18px; min-height:105px; padding:17px; border:1px solid #d3e4d8; border-radius:12px; background:#f8fcf9; color:#17462a; }
+.pro-template-related-grid a:hover { background:#e9f5ed; }
+.pro-template-related-grid a span { font-size:.82rem; font-weight:750; color:#107c41; }
+@media(max-width:700px){ .pro-template-related-grid{grid-template-columns:1fr;} }

@@ -142,6 +142,13 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] oznaczenie wymaganej wersji Excela
 - [x] instrukcja użycia przy każdym pliku
 
+### Biblioteka Szablonów PRO v1 — 2026-10-09
+- [x] przygotować generator sześciu profesjonalnych skoroszytów Excel z formułami, walidacjami i alertami
+- [x] dodać sześć kart katalogu i sześć odrębnych podstron SEO z unikatowymi FAQ
+- [x] dodać darmowe pobieranie, podglądy, przykładowe dane i instrukcje
+- [x] walidować generowane skoroszyty w CI przed budową i publikacją
+- [ ] rozbudować bibliotekę po danych z ruchu i uwagach użytkowników
+
 ### Etap 6 — produkcyjne SEO
 - [x] podpiąć domenę ExcelNaLuzie.pl
 - [x] Google Search Console
