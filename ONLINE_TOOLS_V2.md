@@ -17,6 +17,7 @@ Cztery nowe narzędzia, działające całkowicie w przeglądarce i bez konta:
 - Testy jednostkowe: \`npm run test:data-tools\`
 - Pełny pipeline: \`npm run build\` (testy, walidacja treści i linków, budowa Astro, SEO, Pagefind).
 - Nowe strony mają własne tytuły i opisy SEO oraz WebApplication + BreadcrumbList JSON-LD.
+- Wszystkie 19 narzędzi jest teraz uwzględnionych w lokalnej wyszukiwarce Pagefind.
 - Katalog narzędzi liczy teraz 19 pozycji, z kategoriami i filtrowaniem.
 - Narzędzia połączone z pasującymi poradnikami i funkcjami.
 
