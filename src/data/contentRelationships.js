@@ -6,6 +6,15 @@ import { functionBySlug } from './functionCatalog.js';
  * Reguły działają automatycznie także dla przyszłych artykułów o podobnych slugach.
  * Wyjątki dotyczą artykułów, dla których prosty prefiks byłby mylący.
  */
+export const contextualArticleLinks = {
+  'suma-warunkow-wiele-kryteriow': ['jak-zrobic-tabele-przestawna-w-excelu'],
+  'suma-warunkow-daty': ['liczba-dni-roboczych'],
+  'jak-zrobic-tabele-przestawna-w-excelu': ['suma-warunkow-wiele-kryteriow'],
+  'formatowanie-warunkowe-dat': ['zaznacz-przeterminowane-daty'],
+  'jak-porownac-dwie-tabele-excel': ['duplikaty-klucz-zlozony-porownywanie-tabel'],
+  'wyszukaj-pionowo-na-xwyszukaj': ['xwyszukaj-podstawy']
+};
+
 export const articleFunctionRules = [
   { prefix: 'xwyszukaj-', slugs: ['xwyszukaj'] },
   { prefix: 'jezeli-', slugs: ['jezeli'] },
@@ -235,6 +244,7 @@ export const getArticleNextSteps = ({ slug, categorySlug, related = [] }) => {
       url: item.url,
       category: item.category || 'Poradnik'
     })),
+    ...(contextualArticleLinks[slug] || []).map(articleLink),
     ...siblingSlugs.map(articleLink),
     ...getArticleFunctionSlugs(slug).slice(1).map(functionLink),
     cluster ? { title: cluster.title, url: cluster.hub, category: 'Cały temat' } : null
