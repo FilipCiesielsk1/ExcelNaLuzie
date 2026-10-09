@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run generate:pro-templates && npm run test:pro-templates && npm run generate:formatting-examples && npm run test:formatting-examples && npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:tables && npm run test:pivot && npm run test:inquiries && astro build && npm run validate:site && npm run validate:ui && npm run audit:seo && pagefind --site dist",
+    "build": "npm run generate:pro-templates && npm run test:pro-templates && npm run generate:formatting-examples && npm run test:formatting-examples && npm run validate:content && npm run validate:relations && npm run test:tools && npm run test:data-tools && npm run test:tables && npm run test:pivot && npm run test:inquiries && astro build && npm run validate:site && npm run validate:ui && npm run audit:seo && pagefind --site dist",
     "preview": "astro preview",
     "validate": "npm run validate:content && npm run validate:relations",
     "validate:content": "node scripts/validate-content.mjs",
@@ -20,7 +20,8 @@
     "test:formatting-examples": "node --test scripts/test-formatting-examples.mjs",
     "generate:pro-templates": "node scripts/generate-pro-templates.mjs",
     "test:pro-templates": "node --test scripts/test-pro-templates.mjs",
-    "audit:seo": "node scripts/audit-seo-technical.mjs"
+    "audit:seo": "node scripts/audit-seo-technical.mjs",
+    "test:data-tools": "node --test scripts/test-data-tools.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
