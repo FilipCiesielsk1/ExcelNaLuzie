@@ -17,6 +17,7 @@ test('cleaning preserves lines while removing NBSP, controls and repeated spaces
 test('cleaning options and Excel 2016 formula are consistent',()=>{
   assert.equal(cleanCell('  A  B  ',{spaces:false}),'  A  B  ');
   assert.equal(cleanCell('A\u00a0B',{nbsp:false}),'A\u00a0B');
+  assert.equal(cleanCell('\u00a0 A \u00a0',{nbsp:false}),'\u00a0 A \u00a0');
   assert.equal(cleaningFormula(),'=USUŃ.ZBĘDNE.ODSTĘPY(OCZYŚĆ(PODSTAW(A2;ZNAK(160);" ")))');
   assert.equal(cleaningFormula({nbsp:false,controls:false,spaces:false}),'=A2');
   assert.throws(()=>cleaningFormula({},'not-cell'),/komórki/);
