@@ -18,6 +18,8 @@ const pageFile = (route) => path.join(root, route.replace(/^\//, ''), 'index.htm
 const pages = [
   {route:'/', minOpeners:2},
   {route:'/formuly/', minOpeners:3},
+  {route:'/poradniki/', minOpeners:1},
+  {route:'/kontakt/', minOpeners:1},
   {route:'/vba/', minOpeners:3},
   {route:'/szablony/', minOpeners:2},
   {route:'/poradniki/xwyszukaj-podstawy/', minOpeners:2},
@@ -124,6 +126,50 @@ const sampleArticleHtml = fs.existsSync(pageFile('/poradniki/xwyszukaj-podstawy/
   ? fs.readFileSync(pageFile('/poradniki/xwyszukaj-podstawy/'), 'utf8') : '';
 if (!sampleArticleHtml.includes('data-article-toc-mobile-links')) {
   errors.push('UX v1: mobilny spis treści nie został wyrenderowany w artykule');
+}
+
+
+/* UX feedback 2026-10-09: user-reviewed fixes for guides, contact, navigation and usability. */
+const feedbackCss = uxCssSource;
+const readSrc=(path)=>fs.readFileSync(path,'utf8');
+const headerMarkup=readSrc('src/components/Header.astro');
+const footerMarkup=readSrc('src/components/Footer.astro');
+const functionsMarkup=readSrc('src/pages/funkcje/index.astro');
+const toolsMarkup=readSrc('src/pages/narzedzia/index.astro');
+const vbaMarkup=readSrc('src/pages/vba/index.astro');
+const serviceMarkup=readSrc('src/pages/uslugi/excel-vba/index.astro');
+const homepageMarkup=readSrc('src/pages/index.astro');
+const templatesMarkup=readSrc('src/pages/szablony/index.astro');
+if (!headerMarkup.includes("href: '/poradniki/'") ||
+    !headerMarkup.includes('nav-item-featured') ||
+    !headerMarkup.includes('nav-item-collab')) errors.push('Feedback: brak Poradników lub wyróżnienia nawigacji');
+if (!footerMarkup.includes('link("/kontakt/")')) errors.push('Feedback: brak Kontaktu w stopce');
+if (!functionsMarkup.includes('<a class="function-card"') ||
+    functionsMarkup.includes("highlighted: fn.slug") ||
+    functionsMarkup.includes('Jak czytać bazę')) errors.push('Feedback: kafelki funkcji nie są spójne i w całości klikalne');
+if (vbaMarkup.includes('Standard poradników') || toolsMarkup.includes('Od pól do gotowej formuły')) errors.push('Feedback: zbędna sekcja nadal widoczna');
+if (toolsMarkup.includes('Bez instalacji i bez przesyłania danych na serwer.') ||
+    toolsMarkup.includes('Wszystko liczy się lokalnie w przeglądarce.')) errors.push('Feedback: zbędne komunikaty na Narzędziach');
+if (!templatesMarkup.includes('Każdy plik zawiera przykładowe dane i osobny arkusz z instrukcją.')) errors.push('Feedback: błędny opis szablonów');
+if (serviceMarkup.includes('Nie musisz znać nazw funkcji ani technologii.') ||
+    serviceMarkup.includes('Bez konta i bez załączników') ||
+    serviceMarkup.includes('Zapytania z formularza będą kierowane automatycznie na ten adres.')) errors.push('Feedback: nieusunięte komunikaty usługi');
+if (!serviceMarkup.includes('service-hero-primary') ||
+    !homepageMarkup.includes('Potrzebujesz własnego rozwiązania w Excelu?') ||
+    !feedbackCss.includes('.service-home-strip h2')) errors.push('Feedback: brak wyróżnienia współpracy');
+if (!feedbackCss.includes('.article-content a[href$=".xlsx"]')) errors.push('Feedback: brak globalnego stylu pobierania XLSX');
+for(const route of ['/kontakt/','/poradniki/']) {
+  const htmlFile=pageFile(route);
+  if (!fs.existsSync(htmlFile)) continue;
+  const html=fs.readFileSync(htmlFile,'utf8');
+  if (!html.includes('application/ld+json')) errors.push('Feedback: brak danych strukturalnych na '+route);
+  if (route==='/kontakt/' && !html.includes('mailto:excelnaluzie@gmail.com')) errors.push('Feedback: nieprawidłowy link e-mail w Kontakcie');
+  if (route==='/poradniki/' && !html.includes('data-guide-search')) errors.push('Feedback: brak filtrowania poradników');
+}
+const funcsPage=pageFile('/funkcje/');
+if(fs.existsSync(funcsPage)) {
+  const html=fs.readFileSync(funcsPage,'utf8');
+  if ((html.match(/<a class="function-card"/g)||[]).length < 10) errors.push('Feedback: pełne kafelki funkcji nie są linkami');
 }
 
 const cssAssets = files.filter((file) => file.endsWith('.css') && file.includes(path.sep + '_astro' + path.sep));
