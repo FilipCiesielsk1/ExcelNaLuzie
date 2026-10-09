@@ -19,7 +19,7 @@
 - Biblioteka i strony SEO: `src/data/templateCatalog.js`, `src/pages/szablony/[slug].astro`
 - Wersja kompatybilności: Microsoft Excel 2016+
 - Formuły zapisane w pliku XLSX są po angielsku zgodnie z formatem OOXML; po otwarciu polski Excel wyświetla lokalne nazwy i średniki.
-- Dane demonstracyjne są fikcyjne. Żaden szablon nie uruchamia makr ani nie przesyła danych.
+- Podglądy kart prezentują ilustracyjne wartości i układ, a nie dokładny zrzut danych obliczonych z demo. Dane demonstracyjne są fikcyjne. Żaden szablon nie uruchamia makr ani nie przesyła danych.
 
 ## Zakres i świadome ograniczenia
 
