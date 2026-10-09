@@ -8,7 +8,7 @@ export function cleanCell(value, {nbsp=true,controls=true,spaces=true}={}) {
   let text=String(value ?? '');
   if (nbsp) text=text.replace(/\u00a0/g,' ');
   if (controls) text=text.replace(/[\x00-\x1f\x7f]/g,'');
-  if (spaces) text=text.replace(/ +/g,' ').trim();
+  if (spaces) text=text.replace(/ +/g,' ').replace(/^ +| +$/g,'');
   return text;
 }
 
