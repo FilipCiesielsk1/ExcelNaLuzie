@@ -27,6 +27,8 @@ const pages = [
   {route:'/narzedzia/konwerter-wyszukaj-pionowo/', minOpeners:1},
   {route:'/narzedzia/porownywarka-tabel/', minOpeners:1},
   {route:'/narzedzia/generator-tabel-przestawnych/', minOpeners:1},
+  {route:'/formuly/formatowanie/', minOpeners:1},
+  {route:'/narzedzia/generator-formatowania-warunkowego/', minOpeners:1},
   {route:'/uslugi/excel-vba/', minOpeners:1}
 ];
 
@@ -84,6 +86,42 @@ const required = [
   ['przewijanie podglądu szablonu', /\.xlsx-preview-tabs\s*\{[^}]*overflow-x:\s*auto/s.test(cssSource)]
 ];
 for (const [description, ok] of required) if (!ok) errors.push('Kontrola mobilna: ' + description);
+
+// Polish v1 smoke checks: mobile navigation, functional directory filtering and legible guidance.
+const articleLayoutSource = fs.readFileSync('src/layouts/ArticleLayout.astro', 'utf8');
+const toolsDirectorySource = fs.readFileSync('src/pages/narzedzia/index.astro', 'utf8');
+if (!/\@media\s*\(max-width:\s*720px\)[\s\S]*?\.header-search\s*\{\s*display:\s*inline-flex;/.test(headerSource)) {
+  errors.push('UX v1: wyszukiwarka musi pozostać widoczna na telefonie');
+}
+if (!articleLayoutSource.includes('data-article-toc-mobile') ||
+    !articleLayoutSource.includes("mobileTocLinks.appendChild") ||
+    !cssSource.includes('.article-toc-mobile nav a')) {
+  errors.push('UX v1: brak aktywnego mobilnego spisu treści');
+}
+const cardGroups = [...toolsDirectorySource.matchAll(/data-tool-card data-tool-category="(formula|data|format)"/g)];
+if (cardGroups.length !== 15 || new Set(cardGroups.map((match) => match[1])).size !== 3) {
+  errors.push('UX v1: katalog narzędzi musi zawierać 15 sklasyfikowanych kart');
+}
+if (!toolsDirectorySource.includes('data-tool-filter') ||
+    !toolsDirectorySource.includes('aria-pressed') ||
+    !toolsDirectorySource.includes("card.hidden = !match")) {
+  errors.push('UX v1: przyciski filtrowania narzędzi nie są prawidłowo podłączone');
+}
+if (!cssSource.includes(':focus-visible') ||
+    !cssSource.includes('prefers-reduced-motion') ||
+    !cssSource.includes('.article-meta>span')) {
+  errors.push('UX v1: brak podstawowych usprawnień czytelności i dostępności');
+}
+const toolsPageHtml = fs.existsSync(pageFile('/narzedzia/'))
+  ? fs.readFileSync(pageFile('/narzedzia/'), 'utf8') : '';
+if ((toolsPageHtml.match(/data-tool-card(?=[\s>])/g) || []).length !== 15) {
+  errors.push('UX v1: po buildzie brakuje 15 kart z filtrowaniem');
+}
+const sampleArticleHtml = fs.existsSync(pageFile('/poradniki/xwyszukaj-podstawy/'))
+  ? fs.readFileSync(pageFile('/poradniki/xwyszukaj-podstawy/'), 'utf8') : '';
+if (!sampleArticleHtml.includes('data-article-toc-mobile-links')) {
+  errors.push('UX v1: mobilny spis treści nie został wyrenderowany w artykule');
+}
 
 const cssAssets = files.filter((file) => file.endsWith('.css') && file.includes(path.sep + '_astro' + path.sep));
 const jsAssets = files.filter((file) => file.endsWith('.js') && file.includes(path.sep + '_astro' + path.sep));
