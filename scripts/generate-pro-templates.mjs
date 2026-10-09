@@ -88,7 +88,8 @@ function gantt(){
  const ganttSheet={
  sheet:'Harmonogram',columns:widths(31,17,17,17,14,...Array(35).fill(5)),stickyRowsCount:1,
  data:[[...h('Zadanie','Start','Koniec','Status','Postęp'),...timeline],...tasks],
- dataValidation:[list(2,4,81,statuses)]
+ dataValidation:[list(2,4,81,statuses)],
+ conditionalFormatting:[shade(2,4,81,4,'$D2="Blokada"',AMBER)]
  };
  const db=dashboard('Harmonogram i status projektu',[
   h('KPI','Wynik','KPI','Wynik','KPI','Wynik'),
