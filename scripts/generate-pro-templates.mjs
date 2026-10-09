@@ -40,7 +40,18 @@ const dashboard=(title,rows,cols=[38,25,24,23,25,25])=>({
 const save=async(name,sheets)=>{
  const file=join(DIR,name+'.xlsx');
  console.log('PRO_START',name,sheets.map(x=>[x.sheet,x.conditionalFormatting?.length||0]));
- await writeExcelFile(sheets,{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(file);
+ try {
+   await writeExcelFile(sheets,{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(file);
+ } catch(error) {
+   console.error('PRO_FAILURE',name,error.message);
+   for (const [i,sub] of sheets.entries()) {
+     try {
+       await writeExcelFile([sub],{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(join(DIR,'debug-'+name+'-'+i+'.xlsx'));
+       console.log('PRO_DEBUG_SHEET_OK',i,sub.sheet);
+     } catch(inner) {console.error('PRO_DEBUG_SHEET_FAIL',i,sub.sheet,inner.message);}
+   }
+   throw error;
+ }
  const size=(await stat(file)).size;
  if(size<4500)throw Error('XLSX podejrzanie mały: '+file+' '+size);
  console.log('PRO_TEMPLATE',file,size);
