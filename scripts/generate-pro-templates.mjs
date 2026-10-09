@@ -26,7 +26,9 @@ const info=(title,steps)=>({sheet:'Instrukcja',columns:widths(92),data:[
  [{value:'Przykłady i dokumentacja: https://excelnaluzie.pl/szablony/',wrap:true,height:30}]
 ]});
 const sheet=(name,headers,data,w,validations=[],conditionalFormatting=[])=>({
- sheet:name,data:[h(...headers),...data],columns:widths(...w),stickyRowsCount:1,dataValidation:validations,conditionalFormatting
+ sheet:name,data:[h(...headers),...data],columns:widths(...w),stickyRowsCount:1,
+ ...(validations.length?{dataValidation:validations}:{}),
+ ...(conditionalFormatting.length?{conditionalFormatting}:{})
 });
 const dashboard=(title,rows,cols=[38,25,24,23,25,25])=>({
  sheet:'Dashboard',
@@ -40,18 +42,7 @@ const dashboard=(title,rows,cols=[38,25,24,23,25,25])=>({
 const save=async(name,sheets)=>{
  const file=join(DIR,name+'.xlsx');
  console.log('PRO_START',name,sheets.map(x=>[x.sheet,x.conditionalFormatting?.length||0]));
- try {
-   await writeExcelFile(sheets,{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(file);
- } catch(error) {
-   console.error('PRO_FAILURE',name,error.message);
-   for (const [i,sub] of sheets.entries()) {
-     try {
-       await writeExcelFile([sub],{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(join(DIR,'debug-'+name+'-'+i+'.xlsx'));
-       console.log('PRO_DEBUG_SHEET_OK',i,sub.sheet);
-     } catch(inner) {console.error('PRO_DEBUG_SHEET_FAIL',i,sub.sheet,inner.message);}
-   }
-   throw error;
- }
+ await writeExcelFile(sheets,{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(file);
  const size=(await stat(file)).size;
  if(size<4500)throw Error('XLSX podejrzanie mały: '+file+' '+size);
  console.log('PRO_TEMPLATE',file,size);
@@ -100,7 +91,12 @@ function gantt(){
  sheet:'Harmonogram',columns:widths(31,17,17,17,14,...Array(35).fill(5)),stickyRowsCount:1,
  data:[[...h('Zadanie','Start','Koniec','Status','Postęp'),...timeline],...tasks],
  dataValidation:[list(2,4,81,statuses)],
- conditionalFormatting:[shade(2,4,81,4,'$D2="Blokada"',AMBER)]
+ conditionalFormatting:[
+  shade(2,6,81,40,'AND(F$1>=$B2,F$1<=$C2,$D2="Gotowe")',PALE),
+  shade(2,6,81,40,'AND(F$1>=$B2,F$1<=$C2,$D2<>"Gotowe")',BLUE),
+  shade(2,1,81,5,'AND($A2<>"",$C2<TODAY(),$D2<>"Gotowe")',RED),
+  shade(2,4,81,4,'$D2="Blokada"',AMBER)
+ ]
  };
  const db=dashboard('Harmonogram i status projektu',[
   h('KPI','Wynik','KPI','Wynik','KPI','Wynik'),
