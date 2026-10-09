@@ -110,33 +110,19 @@ const schema = {
             </div>
             <div class="function-grid">
               {group.functions.map((fn) => (
-                <article class:list={['function-card', {highlighted: fn.slug === 'xwyszukaj'}]}>
+                <a class="function-card" href={link('/funkcje/' + fn.slug + '/')} aria-label={'Otwórz funkcję ' + fn.name}>
                   <div>
                     <span class="function-symbol">{fn.name}</span>
                     <small>{fn.category}</small>
                   </div>
                   <p>{fn.description}</p>
                   <code>{fn.example}</code>
-                  <a href={link('/funkcje/' + fn.slug + '/')}>Otwórz funkcję →</a>
-                </article>
+                  <span class="function-card-action">Otwórz funkcję →</span>
+                </a>
               ))}
             </div>
           </section>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="hub-section hub-section-alt">
-    <div class="wrap">
-      <div class="hub-section-head">
-        <div><span class="section-kicker">Jak czytać bazę</span><h2>Jedna funkcja, jeden schemat</h2></div>
-        <p>Każda strona jest zbudowana tak samo, żeby potrzebną informację dało się znaleźć od razu.</p>
-      </div>
-      <div class="reference-steps">
-        <div><span>01</span><strong>Składnia i argumenty</strong><p>Najpierw dokładny zapis funkcji i krótki opis każdego argumentu.</p></div>
-        <div><span>02</span><strong>Prosty przykład</strong><p>Minimalna formuła pokazująca, co faktycznie robi funkcja.</p></div>
-        <div><span>03</span><strong>Praktyczne użycie</strong><p>Najczęstsze warianty, pułapki i przejście do powiązanych poradników.</p></div>
       </div>
     </div>
   </section>
