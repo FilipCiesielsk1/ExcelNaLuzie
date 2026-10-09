@@ -37,7 +37,7 @@ const schema = {
 <BaseLayout
   navSection="szablony"
   title="Szablony Excel — darmowe pliki XLSX | ExcelNaLuzie"
-  description="Darmowe szablony Excel XLSX: budżet domowy, lista zadań i ewidencja czasu pracy. Podgląd, instrukcja i gotowy plik do pobrania."
+  description="Darmowe szablony Excel XLSX: dashboard sprzedaży, Gantt, magazyn, faktury, CRM, kalkulator ofert i inne. Podgląd, instrukcja i pobieranie."
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
@@ -47,7 +47,7 @@ const schema = {
         <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Szablony</strong></nav>
         <span class="hub-kicker">Gotowe pliki XLSX</span>
         <h1>Nie buduj arkusza<br/><em>od zera.</em></h1>
-        <p>Darmowe skoroszyty do codziennej pracy. Każdy plik możesz najpierw obejrzeć, sprawdzić wymaganą wersję Excela i dopiero wtedy pobrać.</p>
+        <p>{templateCatalog.length} darmowych skoroszytów do codziennej pracy: od prostych planów po rozbudowane dashboardy i automatyzację obliczeń. Sprawdź zawartość i pobierz XLSX.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#biblioteka">Zobacz {templateCatalog.length} szablony <span>↓</span></a>
           <a class="hub-secondary" href={link("/narzedzia/")}>Narzędzia online</a>
@@ -66,7 +66,7 @@ const schema = {
     <div class="wrap">
       <div class="hub-section-head">
         <div><span class="section-kicker">Biblioteka</span><h2>Darmowe szablony Excel</h2></div>
-        <p>Każdy plik zawiera przykładowe dane i osobny arkusz z instrukcją.</p>
+        <p>Wybierz gotowy arkusz i sprawdź szczegółowy opis, podgląd danych oraz instrukcję. {templateCatalog.filter(t=>t.pro).length} zaawansowanych szablonów PRO jest również całkowicie darmowych.</p>
       </div>
 
       <div class="template-grid template-grid-live">
@@ -80,7 +80,7 @@ const schema = {
               </div>
             </div>
             <div class="template-meta">
-              <span>{template.type}</span>
+              <span>{template.pro ? "PRO · " : ""}{template.type}</span>
               <b>{template.version}</b>
             </div>
             <h3>{template.title}</h3>
@@ -111,7 +111,7 @@ const schema = {
 
   <section class="hub-cta-section">
     <div class="wrap hub-cta">
-      <div><span class="section-kicker light">Potrzebujesz czegoś innego?</span><h2>Biblioteka będzie rosnąć.</h2><p>Kolejne szablony dołożymy na podstawie realnych problemów użytkowników i danych z wyszukiwarki.</p></div>
+      <div><span class="section-kicker light">Potrzebujesz czegoś innego?</span><h2>Biblioteka będzie rosnąć.</h2><p>Możesz skorzystać z gotowca lub znaleźć poradnik i zbudować własną wersję.</p></div>
       <button type="button" data-global-search-open aria-haspopup="dialog">Szukaj rozwiązania <span>→</span></button>
     </div>
   </section>
