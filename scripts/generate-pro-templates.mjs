@@ -80,18 +80,15 @@ function gantt(){
  const base=new Date(Date.UTC(2026,9,1));
  const timeline=Array.from({length:35},(_,i)=>({value:new Date(base.getTime()+i*86400000),type:Date,format:'dd',backgroundColor:GREEN,textColor:'#FFF',fontWeight:'bold'}));
  const statuses=['Nowe','W toku','Blokada','Gotowe'];
+ const letter=(value)=>{let out='';while(value>0){out=String.fromCharCode(65+(value-1)%26)+out;value=Math.floor((value-1)/26);}return out;};
  const tasks=Array.from({length:80},(_,i)=>{
  const r=i+2,active=i<14,start=1+(i*2)%25,finish=start+2+(i%6),status=statuses[i%4],progress=[0,0.3,0.5,1][i%4];
- return [active?'Zadanie '+(i+1):null,active?date(2026,10,start):null,active?date(2026,10,Math.min(31,finish)):null,active?status:null,active?n(progress,PCT):null,...Array(35).fill(null)];
+ return [active?'Zadanie '+(i+1):null,active?date(2026,10,start):null,active?date(2026,10,Math.min(31,finish)):null,active?status:null,active?n(progress,PCT):null,...Array.from({length:35},(_,k)=>{const col=letter(k+6);return f('=IF(OR($B'+r+'="",$C'+r+'=""),"",IF(AND('+col+'$1>=$B'+r+','+col+'$1<=$C'+r+'),IF($D'+r+'="Gotowe","●","■"),""))','@');})];
  });
  const ganttSheet={
  sheet:'Harmonogram',columns:widths(31,17,17,17,14,...Array(35).fill(5)),stickyRowsCount:1,
  data:[[...h('Zadanie','Start','Koniec','Status','Postęp'),...timeline],...tasks],
- dataValidation:[list(2,4,81,statuses)],
- conditionalFormatting:[
-  shade(2,6,81,40,'=AND(F$1>=$B2,F$1<=$C2)',BLUE),
-  shade(2,1,81,5,'=AND($A2<>"",$C2<TODAY(),$D2<>"Gotowe")',RED)
- ]
+ dataValidation:[list(2,4,81,statuses)]
  };
  const db=dashboard('Harmonogram i status projektu',[
   h('KPI','Wynik','KPI','Wynik','KPI','Wynik'),
@@ -99,14 +96,14 @@ function gantt(){
   ['Średni postęp',f('=IFERROR(AVERAGE(\'Harmonogram\'!$E$2:$E$81),0)',PCT),'W toku',f('=COUNTIF(\'Harmonogram\'!$D$2:$D$81,"W toku")',NUMBER),'Zablokowane',f('=COUNTIF(\'Harmonogram\'!$D$2:$D$81,"Blokada")',NUMBER)],
   [null,null,null,null,null,null],
   h('Legenda','Znaczenie','Wskazówka','Użycie',null,null),
-  ['Niebieskie dni','Aktywny zakres','Kolorowe pasy','Reguła oparta na datach',null,null],
-  ['Zielone dni','Ukończone','Czerwony wiersz','Opóźniony termin',null,null],
+  ['■','Aktywny zakres','Oś czasu','Symbole zależne od dat',null,null],
+  ['●','Ukończone','Opóźnienia','Licznik w Dashboardzie',null,null],
   ['Oś czasu','1–35 października 2026','Edycja zakresu','Sprawdź harmonogram',null,null]
  ]);
  return [db,ganttSheet, sheet('Zespół',['Osoba','Rola','Obszar'],[['Anna','Kierownik','Projekt'],['Piotr','Analityk','Dane'],['Marek','Developer','VBA'],['Ewa','Tester','QA']],[20,25,30]),info('Harmonogram Gantta',[
  'W arkuszu Harmonogram wpisuj nazwę zadania, datę startu, datę końca, status i postęp 0–100%.',
- 'Paski terminów w osi czasu kolorowane są automatycznie na podstawie dat.',
- 'Zmień status na Gotowe, aby pasek stał się zielony. Po terminie zobaczysz czerwony alert.',
+ 'Symbole w osi czasu pojawiają się automatycznie w dniach od startu do końca zadania.',
+ 'Zmień status na Gotowe, aby symbole zmieniły się na kółka. Opóźnienia sprawdzisz w Dashboardzie.',
  'Dashboard liczy zadania, postęp i opóźnienia; przygotowano 80 wierszy.',
  'Oś czasu obejmuje 35 dni od 1 października 2026; rozszerz daty osi dla innych terminów.'
  ])];
