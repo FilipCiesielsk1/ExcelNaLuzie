@@ -34,6 +34,8 @@ const popularFunctions = functionSlugs
   .filter(Boolean);
 
 const toolHighlights = [
+  {title:'Czyszczenie danych Excel',href:'/narzedzia/czyszczenie-danych/',icon:'Aa',text:'Usuń zbędne spacje i niewidoczne znaki z tekstu.'},
+  {title:'Usuwanie duplikatów',href:'/narzedzia/usuwanie-duplikatow/',icon:'≠',text:'Usuń powtarzające się rekordy z tabeli po wybranym kluczu.'},
   {
     title: 'Generator formatowania warunkowego',
     href: '/narzedzia/generator-formatowania-warunkowego/',
@@ -206,8 +208,8 @@ const toolHighlights = [
           <span class="home-path-number">03</span>
           <div class="home-path-icon">⚙</div>
           <span class="home-path-label">Chcę gotowca</span>
-          <h3>Wygeneruj formułę</h3>
-          <p>{toolCount} generatorów i kalkulatorów. Podajesz dane, kopiujesz wynik i wracasz do arkusza.</p>
+          <h3>Użyj narzędzia online</h3>
+          <p>{toolCount} narzędzi: generatory, czyszczenie danych, kalkulatory i konwertery. Kopiujesz wynik i wracasz do arkusza.</p>
           <b>Przejdź do narzędzi →</b>
         </a>
       </div>
@@ -303,6 +305,8 @@ const toolHighlights = [
 
       <div class="home-tools-grid">
         {toolHighlights.filter((tool) => [
+          '/narzedzia/czyszczenie-danych/',
+          '/narzedzia/usuwanie-duplikatow/',
           '/narzedzia/generator-formatowania-warunkowego/',
           '/narzedzia/generator-tabel-przestawnych/',
           '/narzedzia/porownywarka-tabel/',
