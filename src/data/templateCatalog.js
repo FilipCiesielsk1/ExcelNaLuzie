@@ -182,9 +182,9 @@ export const templateCatalog = [
     "Instrukcja"
   ],
   "features": [
-    "Automatycznie kolorowana oś czasu z datami realizacji zadań",
+    "Dynamiczna oś czasu z symbolami okresów realizacji zadań",
     "80 miejsc na zadania, daty rozpoczęcia i zakończenia oraz postęp",
-    "Alerty opóźnień i oznaczanie zadań ukończonych lub zablokowanych",
+    "Licznik opóźnień i odróżnienie zadań ukończonych od trwających",
     "Dashboard liczby zadań, średniego postępu i zaległości"
   ],
   "steps": [
