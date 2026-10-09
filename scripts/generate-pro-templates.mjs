@@ -16,6 +16,8 @@ const blank=()=>null;
 const range=(r1,c1,r2,c2)=>({from:{row:r1,column:c1},to:{row:r2,column:c2}});
 const list=(r1,c1,r2,values)=>({cellRange:range(r1,c1,r2,c1),validation:{type:'list',values,allowBlank:true,error:'Wybierz wartość z listy.'}});
 const integer=(r1,c1,r2)=>({cellRange:range(r1,c1,r2,c1),validation:{type:'integer',operator:'>=',value:0,error:'Wpisz liczbę nieujemną.'}});
+const nonnegative=(r1,c1,r2)=>({cellRange:range(r1,c1,r2,c1),validation:{type:'decimal',operator:'>=',value:0,error:'Wpisz nieujemną wartość liczbową.'}});
+const fraction=(r1,c1,r2)=>({cellRange:range(r1,c1,r2,c1),validation:{type:'decimal',operator:'...',value:0,value2:1,error:'Podaj wartość od 0% do 100%.'}});
 const shade=(r1,c1,r2,c2,formula,color)=>({cellRange:range(r1,c1,r2,c2),condition:{formula},style:{backgroundColor:color}});
 const widths=(...v)=>v.map(width=>({width}));
 const info=(title,steps)=>({sheet:'Instrukcja',columns:widths(92),data:[
@@ -90,7 +92,7 @@ function gantt(){
  const ganttSheet={
  sheet:'Harmonogram',columns:widths(31,17,17,17,14,...Array(35).fill(5)),stickyRowsCount:1,
  data:[[...h('Zadanie','Start','Koniec','Status','Postęp'),...timeline],...tasks],
- dataValidation:[list(2,4,81,statuses)],
+ dataValidation:[list(2,4,81,statuses),fraction(2,5,81)],
  conditionalFormatting:[
   shade(2,6,81,40,'AND(F$1>=$B2,F$1<=$C2,$D2="Gotowe")',PALE),
   shade(2,6,81,40,'AND(F$1>=$B2,F$1<=$C2,$D2<>"Gotowe")',BLUE),
@@ -142,7 +144,7 @@ function warehouse(){
  ]);
  return [db,
  sheet('Produkty',['SKU','Produkt','Kategoria','Stan pocz.','Próg min.','Cena netto','Przyjęcia','Wydania','Stan bieżący','Wartość','Status'],prodRows,[18,28,20,16,14,16,15,15,17,20,17],
- [integer(2,4,71),integer(2,5,71)],[shade(2,9,71,11,'AND($A2<>"",$I2<=$E2)',AMBER),shade(2,9,71,11,'AND($A2<>"",$I2<0)',RED)]),
+ [integer(2,4,71),integer(2,5,71)],[shade(2,9,71,11,'AND($A2<>"",$I2<0)',RED),shade(2,9,71,11,'AND($A2<>"",$I2<=$E2)',AMBER)]),
  sheet('Ruchy',['Data','SKU','Rodzaj','Ilość','Uwagi'],movements,[19,18,20,14,42],[list(2,3,131,['Przyjęcie','Wydanie']),integer(2,4,131)]),
  info('Magazyn i stany',[
  'W arkuszu Produkty uzupełnij SKU, nazwę, stan początkowy, próg zapasu i cenę netto.',
@@ -156,8 +158,10 @@ function invoices(){
  const clients=['Alfa','Beta','Gamma','Delta','Omega','Sigma'];
  const data=Array.from({length:120},(_,i)=>{
  const r=i+2,active=i<26,paid=i%5===0;
+ const net=1200+i%7*450,vat=i%5===0?0.08:0.23;
+ const paidAmount=paid?Math.round(net*(1+vat)*100)/100:(i%4===0?500:0);
  return [active?'FV/2026/'+String(i+1).padStart(3,'0'):null,active?date(2026,1+i%9,4+(i%20)):null,active?date(2026,1+i%9,14+(i%13)):null,active?clients[i%6]:null,active?n(1200+i%7*450):null,active?n(i%5===0?0.08:0.23,PCT):null,
- f('=IF(E'+r+'="","",ROUND(E'+r+'*(1+F'+r+'),2))'),active?n(paid?1200+i%7*450+(1200+i%7*450)*(i%5===0?0.08:0.23):i%4===0?500:0):null,
+ f('=IF(E'+r+'="","",ROUND(E'+r+'*(1+F'+r+'),2))'),active?n(paidAmount):null,
  f('=IF(G'+r+'="","",MAX(0,G'+r+'-H'+r+'))'),
  f('=IF(A'+r+'="","",IF(I'+r+'<=0,"Opłacona",IF(C'+r+'<TODAY(),"Przeterminowana","Do zapłaty")))'),
  f('=IF(J'+r+'="Przeterminowana",TODAY()-C'+r+',0)',NUMBER)
@@ -172,7 +176,7 @@ function invoices(){
  ['Do 7 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,">="&TODAY(),\'Faktury\'!$C$2:$C$121,"<="&TODAY()+7)'), 'Powyżej 30 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,"<"&TODAY()-30)'),null,null],
  ['8–30 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,">"&TODAY()+7,\'Faktury\'!$C$2:$C$121,"<="&TODAY()+30)'), 'Bez zaległości',f('=COUNTIF(\'Faktury\'!$J$2:$J$121,"Opłacona")',NUMBER),null,null]
  ]);
- return [db, sheet('Faktury',['Numer','Data wyst.','Termin','Kontrahent','Netto','VAT %','Brutto','Zapłacono','Pozostało','Status','Dni po terminie'],data,[20,18,18,21,17,14,18,18,18,20,19],[],[shade(2,9,121,11,'$J2="Przeterminowana"',RED),shade(2,9,121,11,'$J2="Opłacona"',PALE)]),
+ return [db, sheet('Faktury',['Numer','Data wyst.','Termin','Kontrahent','Netto','VAT %','Brutto','Zapłacono','Pozostało','Status','Dni po terminie'],data,[20,18,18,21,17,14,18,18,18,20,19],[nonnegative(2,5,121),fraction(2,6,121),nonnegative(2,8,121)],[shade(2,9,121,11,'$J2="Przeterminowana"',RED),shade(2,9,121,11,'$J2="Opłacona"',PALE)]),
  sheet('Kontrahenci',['Firma','E-mail','Uwagi'],clients.map((c,i)=>[c,c.toLowerCase()+'@example.com','Przykładowy kontrahent '+(i+1)]),[26,35,44]),
  info('Kontrola faktur i płatności',[
  'W arkuszu Faktury uzupełnij numer, datę wystawienia, termin, kontrahenta, kwotę netto i stawkę VAT.',
@@ -242,7 +246,7 @@ function quotes(){
  ['Podgląd marży','Sprawdź koszty i rabaty przed wysłaniem',null,null,null,null]
  ]);
  return [db,
- sheet('Kalkulator',['Kod','Pozycja','Ilość','Cena netto','Rabat','Koszt jedn.','Netto po rabacie','Koszt sum.','Marża netto','VAT %','Brutto'],items,[17,28,14,20,14,19,24,19,20,14,20],[list(2,1,26,prices.map(r=>r[0])),integer(2,3,26)],[shade(2,9,26,9,'AND($A2<>"",$I2<0)',RED)]),
+ sheet('Kalkulator',['Kod','Pozycja','Ilość','Cena netto','Rabat','Koszt jedn.','Netto po rabacie','Koszt sum.','Marża netto','VAT %','Brutto'],items,[17,28,14,20,14,19,24,19,20,14,20],[list(2,1,26,prices.map(r=>r[0])),integer(2,3,26),fraction(2,5,26),fraction(2,10,26)],[shade(2,9,26,9,'AND($A2<>"",$I2<0)',RED)]),
  sheet('Cennik',['Kod','Pozycja','Cena netto','Koszt jedn.'],prices,[18,29,23,23]),
  info('Kalkulator ofert / wycen',[
  'W arkuszu Cennik zmieniaj ceny netto i koszty usług lub produktów.',

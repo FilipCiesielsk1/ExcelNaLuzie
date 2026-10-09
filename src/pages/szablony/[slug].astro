@@ -95,7 +95,7 @@ const schema = {
           <div class="xlsx-preview-top">
             <div><i></i><i></i><i></i></div>
             <strong>{template.title}.xlsx</strong>
-            <span>Podgląd</span>
+            <span>Podgląd przykładowy</span>
           </div>
           <div class="xlsx-preview-bar"><b>fx</b><span>=PODSUMOWANIE()</span></div>
           <div class="xlsx-preview-body">
@@ -112,6 +112,7 @@ const schema = {
               ))}
             </div>
           </div>
+          <p class="xlsx-preview-note">Wartości w tym podglądzie są ilustracyjne. Pobierany XLSX zawiera własne dane przykładowe i formuły.</p>
           <div class="xlsx-preview-tabs">
             {template.sheets.map((sheet, index) => <span class:list={{active:index===0}}>{sheet}</span>)}
           </div>
