@@ -39,6 +39,7 @@ test('delimiter detection ignores quoted delimiters',()=>{
   assert.equal(detectDelimiter('a;b;"c,d"\n1;2;3'),';');
   assert.equal(detectDelimiter('a|b|c\n1|2|3'),'|');
   assert.equal(detectDelimiter('a\tb\n1\t2'),'\t');
+  assert.equal(detectDelimiter('A;B;C\n1,20;2,30;3,40\n4,50;5,60;6,70'),';');
 });
 test('serialization roundtrips delimiters, quotes, newlines and protects Excel',()=>{
   const rows=[['A','B'],['one;two','a "quote"'],['line\nbreak','hello']];
