@@ -106,7 +106,7 @@ function gantt(){
   h('Legenda','Znaczenie','Wskazówka','Użycie',null,null),
   ['■','Aktywny zakres','Oś czasu','Symbole zależne od dat',null,null],
   ['●','Ukończone','Opóźnienia','Licznik w Dashboardzie',null,null],
-  ['Oś czasu','1–35 października 2026','Edycja zakresu','Sprawdź harmonogram',null,null]
+  ['Oś czasu','35 dni od 1.10.2026','Edycja zakresu','Sprawdź harmonogram',null,null]
  ]);
  return [db,ganttSheet, sheet('Zespół',['Osoba','Rola','Obszar'],[['Anna','Kierownik','Projekt'],['Piotr','Analityk','Dane'],['Marek','Developer','VBA'],['Ewa','Tester','QA']],[20,25,30]),info('Harmonogram Gantta',[
  'W arkuszu Harmonogram wpisuj nazwę zadania, datę startu, datę końca, status i postęp 0–100%.',
