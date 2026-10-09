@@ -4,8 +4,8 @@ import { withBase as link } from '../utils/paths.js';
 const { activeSection = null } = Astro.props;
 
 const items = [
-  { key: 'formuly', label: 'Formuły', href: '/formuly/' },
-  { key: 'funkcje', label: 'Funkcje', href: '/funkcje/' },
+  { key: 'formuly', label: 'Formuły', href: '/formuly/', hint: 'Poradniki krok po kroku według problemu' },
+  { key: 'funkcje', label: 'Funkcje', href: '/funkcje/', hint: 'Składnia i argumenty konkretnych funkcji' },
   { key: 'vba', label: 'VBA', href: '/vba/' },
   { key: 'narzedzia', label: 'Narzędzia', href: '/narzedzia/' },
   { key: 'szablony', label: 'Szablony', href: '/szablony/' },
@@ -27,6 +27,7 @@ const items = [
         <a
           href={link(item.href)}
           class:list={{ active: activeSection === item.key }}
+          title={item.hint}
           aria-current={activeSection === item.key ? 'page' : undefined}
         >
           {item.label}
@@ -41,8 +42,8 @@ const items = [
       aria-label="Otwórz wyszukiwarkę"
       aria-haspopup="dialog"
     >
-      <span aria-hidden="true">⌕</span>
-      <span>Szukaj</span>
+      <span class="header-search-glyph" aria-hidden="true">⌕</span>
+      <span class="header-search-text">Szukaj</span>
       <kbd>Ctrl K</kbd>
     </button>
 
@@ -60,6 +61,7 @@ const items = [
           <a
             href={link(item.href)}
             class:list={{ active: activeSection === item.key }}
+            title={item.hint}
             aria-current={activeSection === item.key ? 'page' : undefined}
           >
             <span>{item.label}</span>
@@ -673,8 +675,24 @@ const items = [
   }
 
   @media (max-width: 720px) {
+    /* Wyszukiwanie jest dostępne bez otwierania menu mobilnego. */
     .header-search {
+      display: inline-flex;
+      flex: 0 0 44px;
+      justify-content: center;
+      min-width: 44px;
+      min-height: 44px;
+      margin-left: auto;
+      padding: 0;
+      border-radius: 12px;
+    }
+    .header-search .header-search-text,
+    .header-search kbd {
       display: none;
+    }
+    .header-search-glyph {
+      font-size: 24px;
+      line-height: 1;
     }
 
     .global-search-layer {
