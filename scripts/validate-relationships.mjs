@@ -3,6 +3,7 @@ import path from 'node:path';
 import { articleClusters } from '../src/data/articleClusters.js';
 import { functionCatalog, functionBySlug } from '../src/data/functionCatalog.js';
 import {
+  contextualArticleLinks,
   articleFunctionRules,
   articleFunctionOverrides,
   articleToolRules,
@@ -37,6 +38,11 @@ const checkArticleSlugs = (slugs, context) => {
   for (const slug of slugs) if (!articleSlugs.has(slug))
     errors.push(context + ': brak poradnika ' + slug);
 };
+
+for (const [slug, targets] of Object.entries(contextualArticleLinks)) {
+  checkArticleSlugs([slug], 'link kontekstowy źródło');
+  checkArticleSlugs(targets, 'link kontekstowy ' + slug);
+}
 
 for (const rule of articleFunctionRules)
   checkFunctionSlugs(rule.slugs, 'reguła funkcji ' + rule.prefix);
