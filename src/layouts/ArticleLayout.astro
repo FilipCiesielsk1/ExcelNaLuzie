@@ -103,6 +103,14 @@ const schema = {
           </div>
         </header>
 
+        <details class="article-toc-mobile" data-article-toc-mobile>
+          <summary>
+            <span>Spis treści poradnika</span>
+            <span class="article-toc-mobile-count" data-article-toc-count></span>
+          </summary>
+          <nav data-article-toc-mobile-links aria-label="Spis treści poradnika"></nav>
+        </details>
+
         <div class="article-content">
           <slot/>
         </div>
@@ -186,12 +194,16 @@ const schema = {
   <script is:inline>
     const article = document.querySelector('[data-article-body]');
     const toc = document.querySelector('#article-toc');
+    const mobileToc = document.querySelector('[data-article-toc-mobile]');
+    const mobileTocLinks = document.querySelector('[data-article-toc-mobile-links]');
+    const mobileTocCount = document.querySelector('[data-article-toc-count]');
 
     if (article && toc) {
       const headings = [...article.querySelectorAll('.article-content h2, .article-content h3')];
 
       if (!headings.length) {
         toc.closest('.toc-card')?.remove();
+        mobileToc?.remove();
       } else {
         const slugify = (text) => text
           .toLowerCase()
@@ -200,15 +212,29 @@ const schema = {
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/^-+|-+$/g, '');
 
+        const usedIds = new Set([...article.querySelectorAll('[id]')].map((item) => item.id).filter(Boolean));
         headings.forEach((heading, index) => {
-          if (!heading.id) heading.id = slugify(heading.textContent) || 'sekcja-' + (index + 1);
+          if (!heading.id) {
+            const base = slugify(heading.textContent) || 'sekcja-' + (index + 1);
+            let id = base;
+            let suffix = 2;
+            while (usedIds.has(id)) id = base + '-' + suffix++;
+            heading.id = id;
+          }
+          usedIds.add(heading.id);
 
           const a = document.createElement('a');
           a.href = '#' + heading.id;
           a.textContent = heading.textContent;
           if (heading.tagName === 'H3') a.classList.add('toc-sub');
           toc.appendChild(a);
+          if (mobileTocLinks) {
+            const mobileLink = a.cloneNode(true);
+            mobileLink.addEventListener('click', () => { if (mobileToc) mobileToc.open = false; });
+            mobileTocLinks.appendChild(mobileLink);
+          }
         });
+        if (mobileTocCount) mobileTocCount.textContent = headings.length + ' sekcji';
       }
 
       article.querySelectorAll('.formula').forEach((box) => {

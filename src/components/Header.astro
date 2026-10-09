@@ -4,8 +4,8 @@ import { withBase as link } from '../utils/paths.js';
 const { activeSection = null } = Astro.props;
 
 const items = [
-  { key: 'formuly', label: 'Formuły', href: '/formuly/' },
-  { key: 'funkcje', label: 'Funkcje', href: '/funkcje/' },
+  { key: 'formuly', label: 'Formuły', href: '/formuly/', hint: 'Poradniki krok po kroku według problemu' },
+  { key: 'funkcje', label: 'Funkcje', href: '/funkcje/', hint: 'Składnia i argumenty konkretnych funkcji' },
   { key: 'vba', label: 'VBA', href: '/vba/' },
   { key: 'narzedzia', label: 'Narzędzia', href: '/narzedzia/' },
   { key: 'szablony', label: 'Szablony', href: '/szablony/' },
@@ -27,6 +27,7 @@ const items = [
         <a
           href={link(item.href)}
           class:list={{ active: activeSection === item.key }}
+          title={item.hint}
           aria-current={activeSection === item.key ? 'page' : undefined}
         >
           {item.label}
@@ -41,8 +42,8 @@ const items = [
       aria-label="Otwórz wyszukiwarkę"
       aria-haspopup="dialog"
     >
-      <span aria-hidden="true">⌕</span>
-      <span>Szukaj</span>
+      <span class="header-search-glyph" aria-hidden="true">⌕</span>
+      <span class="header-search-text">Szukaj</span>
       <kbd>Ctrl K</kbd>
     </button>
 
@@ -60,6 +61,7 @@ const items = [
           <a
             href={link(item.href)}
             class:list={{ active: activeSection === item.key }}
+            title={item.hint}
             aria-current={activeSection === item.key ? 'page' : undefined}
           >
             <span>{item.label}</span>
@@ -386,340 +388,3 @@ const items = [
   });
 </script>
 
-<style is:global>
-  html.search-open {
-    overflow: hidden;
-  }
-
-  .header-search {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    border: 1px solid rgba(20, 29, 39, .11);
-    background: rgba(255,255,255,.72);
-    color: inherit;
-    border-radius: 999px;
-    padding: 8px 11px;
-    cursor: pointer;
-    font: inherit;
-  }
-
-  .header-search:hover {
-    background: #fff;
-    border-color: rgba(16,124,65,.26);
-  }
-
-  .header-search kbd {
-    font-size: 10px;
-    opacity: .5;
-    border: 1px solid rgba(20,29,39,.12);
-    border-radius: 5px;
-    padding: 2px 5px;
-    background: rgba(20,29,39,.035);
-  }
-
-  .mobile-search-button {
-    width: 100%;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font: inherit;
-    padding: 12px 0;
-    cursor: pointer;
-    text-align: left;
-  }
-
-  .global-search-layer[hidden] {
-    display: none !important;
-  }
-
-  .global-search-layer {
-    position: fixed;
-    inset: 0;
-    z-index: 5000;
-    display: grid;
-    place-items: start center;
-    padding: min(10vh, 90px) 20px 24px;
-    opacity: 0;
-    transition: opacity .16s ease;
-  }
-
-  .global-search-layer.open {
-    opacity: 1;
-  }
-
-  .global-search-backdrop {
-    position: absolute;
-    inset: 0;
-    border: 0;
-    background: rgba(10, 18, 14, .58);
-    backdrop-filter: blur(7px);
-    cursor: default;
-  }
-
-  .global-search-dialog {
-    position: relative;
-    z-index: 1;
-    width: min(760px, 100%);
-    max-height: min(760px, calc(100vh - 110px));
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background: rgba(255,255,255,.985);
-    border: 1px solid rgba(255,255,255,.7);
-    border-radius: 22px;
-    box-shadow: 0 28px 90px rgba(0,0,0,.28);
-    transform: translateY(-8px) scale(.99);
-    transition: transform .16s ease;
-  }
-
-  .global-search-layer.open .global-search-dialog {
-    transform: translateY(0) scale(1);
-  }
-
-  .global-search-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 18px;
-    padding: 22px 24px 10px;
-  }
-
-  .global-search-head h2 {
-    margin: 2px 0 0;
-    font-size: clamp(23px, 3vw, 31px);
-    line-height: 1.1;
-  }
-
-  .global-search-kicker {
-    display: block;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: #107c41;
-  }
-
-  .global-search-close {
-    flex: 0 0 auto;
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(20,29,39,.1);
-    border-radius: 50%;
-    background: rgba(20,29,39,.035);
-    font-size: 24px;
-    line-height: 1;
-    cursor: pointer;
-  }
-
-  .global-search-input-wrap {
-    margin: 8px 24px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 2px solid rgba(16,124,65,.2);
-    background: #fff;
-    border-radius: 15px;
-    padding: 0 13px;
-    box-shadow: 0 5px 18px rgba(20,29,39,.055);
-  }
-
-  .global-search-input-wrap:focus-within {
-    border-color: rgba(16,124,65,.65);
-    box-shadow: 0 0 0 4px rgba(16,124,65,.08);
-  }
-
-  .global-search-input-wrap > span {
-    font-size: 22px;
-    color: #107c41;
-  }
-
-  .global-search-input-wrap input {
-    min-width: 0;
-    flex: 1;
-    height: 54px;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    font-size: 16px;
-  }
-
-  .global-search-input-wrap kbd,
-  .global-search-footer kbd {
-    border: 1px solid rgba(20,29,39,.12);
-    background: rgba(20,29,39,.04);
-    border-radius: 6px;
-    padding: 2px 6px;
-    font-size: 10px;
-  }
-
-  .global-search-hints {
-    display: flex;
-    gap: 7px;
-    flex-wrap: wrap;
-    padding: 13px 24px 0;
-  }
-
-  .global-search-hints[hidden] {
-    display: none;
-  }
-
-  .global-search-hints button {
-    border: 1px solid rgba(20,29,39,.1);
-    border-radius: 999px;
-    background: #fff;
-    padding: 6px 9px;
-    color: inherit;
-    cursor: pointer;
-    font-size: 12px;
-  }
-
-  .global-search-hints button:hover {
-    border-color: rgba(16,124,65,.3);
-    background: rgba(16,124,65,.05);
-  }
-
-  .global-search-status {
-    padding: 13px 24px 9px;
-    color: rgba(20,29,39,.58);
-    font-size: 12px;
-  }
-
-  .global-search-status.error {
-    color: #a32929;
-  }
-
-  .global-search-results {
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: 0 14px 10px;
-    scrollbar-width: thin;
-  }
-
-  .global-search-result {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 14px;
-    padding: 12px 12px 13px;
-  }
-
-  .global-search-result + .global-search-result {
-    border-top-color: rgba(20,29,39,.06);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-
-  .global-search-result:hover,
-  .global-search-result.active {
-    background: rgba(16,124,65,.065);
-    border-color: rgba(16,124,65,.12);
-  }
-
-  .global-search-result-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 4px;
-  }
-
-  .global-search-result-category {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    color: #107c41;
-  }
-
-  .global-search-result strong {
-    display: block;
-    font-size: 15px;
-    line-height: 1.3;
-  }
-
-  .global-search-result p {
-    margin: 4px 0 0;
-    font-size: 12px;
-    line-height: 1.45;
-    color: rgba(20,29,39,.62);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .global-search-footer {
-    flex: 0 0 auto;
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
-    border-top: 1px solid rgba(20,29,39,.07);
-    padding: 10px 24px 12px;
-    color: rgba(20,29,39,.48);
-    font-size: 10px;
-  }
-
-  @media (max-width: 900px) {
-    .header-search kbd {
-      display: none;
-    }
-  }
-
-  @media (max-width: 720px) {
-    .header-search {
-      display: none;
-    }
-
-    .global-search-layer {
-      padding:
-        max(10px, env(safe-area-inset-top))
-        10px
-        10px;
-      place-items: start center;
-    }
-
-    .global-search-dialog {
-      width: 100%;
-      max-height: calc(100dvh - max(20px, env(safe-area-inset-top)));
-      border-radius: 15px 15px 22px 22px;
-    }
-
-    .global-search-head {
-      padding: 18px 17px 8px;
-    }
-
-    .global-search-input-wrap {
-      margin: 8px 17px 0;
-    }
-
-    .global-search-input-wrap kbd {
-      display: none;
-    }
-
-    .global-search-hints,
-    .global-search-status {
-      padding-left: 17px;
-      padding-right: 17px;
-    }
-
-    .global-search-results {
-      padding-left: 7px;
-      padding-right: 7px;
-    }
-
-    .global-search-result {
-      padding: 12px 10px;
-    }
-
-    .global-search-footer {
-      display: none;
-    }
-  }
-</style>

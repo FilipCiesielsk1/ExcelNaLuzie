@@ -27,6 +27,8 @@ const pages = [
   {route:'/narzedzia/konwerter-wyszukaj-pionowo/', minOpeners:1},
   {route:'/narzedzia/porownywarka-tabel/', minOpeners:1},
   {route:'/narzedzia/generator-tabel-przestawnych/', minOpeners:1},
+  {route:'/formuly/formatowanie/', minOpeners:1},
+  {route:'/narzedzia/generator-formatowania-warunkowego/', minOpeners:1},
   {route:'/uslugi/excel-vba/', minOpeners:1}
 ];
 
@@ -74,9 +76,10 @@ for (const file of sourceFiles) {
   }
 }
 const cssSource = fs.readFileSync('src/styles/global.css','utf8');
+const uxCssSource = fs.readFileSync('public/css/ux-polish-v1.css','utf8');
 const headerSource = fs.readFileSync('src/components/Header.astro','utf8');
 const required = [
-  ['mobilny panel od góry', /\.global-search-layer\s*\{[^}]*place-items:\s*start center/s.test(headerSource)],
+  ['mobilny panel od góry', /\.global-search-layer\s*\{[^}]*place-items:\s*start center/s.test(uxCssSource)],
   ['obsługa klawiatury w oknie wyszukiwania', /searchLayer\?\.addEventListener\('keydown'/.test(headerSource)],
   ['układ jednokolumnowy klastrów', /\.home-paths-grid,\.home-cluster-grid,\.home-tools-grid\{grid-template-columns:1fr\}/.test(cssSource)],
   ['mobilny układ formularza', /\.criteria-row\s*\{\s*grid-template-columns:\s*minmax\(0,\s*1fr\)\s+minmax\(0,\s*100px\)/.test(cssSource)],
@@ -84,6 +87,44 @@ const required = [
   ['przewijanie podglądu szablonu', /\.xlsx-preview-tabs\s*\{[^}]*overflow-x:\s*auto/s.test(cssSource)]
 ];
 for (const [description, ok] of required) if (!ok) errors.push('Kontrola mobilna: ' + description);
+
+// Polish v1 smoke checks: mobile navigation, functional directory filtering and legible guidance.
+const baseLayoutSource = fs.readFileSync('src/layouts/BaseLayout.astro','utf8');
+if (!baseLayoutSource.includes('/css/ux-polish-v1.css')) errors.push('UX v1: brak linku do arkusza wyszukiwania i czytelności');
+const articleLayoutSource = fs.readFileSync('src/layouts/ArticleLayout.astro', 'utf8');
+const toolsDirectorySource = fs.readFileSync('src/pages/narzedzia/index.astro', 'utf8');
+if (!/\@media\s*\(max-width:\s*720px\)[\s\S]*?\.site-header\s+\.header-search\s*\{\s*display:\s*inline-flex;/.test(uxCssSource)) {
+  errors.push('UX v1: wyszukiwarka musi pozostać widoczna na telefonie');
+}
+if (!articleLayoutSource.includes('data-article-toc-mobile') ||
+    !articleLayoutSource.includes("mobileTocLinks.appendChild") ||
+    !uxCssSource.includes('.article-toc-mobile nav a')) {
+  errors.push('UX v1: brak aktywnego mobilnego spisu treści');
+}
+const cardGroups = [...toolsDirectorySource.matchAll(/data-tool-card data-tool-category="(formula|data|format)"/g)];
+if (cardGroups.length !== 15 || new Set(cardGroups.map((match) => match[1])).size !== 3) {
+  errors.push('UX v1: katalog narzędzi musi zawierać 15 sklasyfikowanych kart');
+}
+if (!toolsDirectorySource.includes('data-tool-filter') ||
+    !toolsDirectorySource.includes('aria-pressed') ||
+    !toolsDirectorySource.includes("card.hidden = !match")) {
+  errors.push('UX v1: przyciski filtrowania narzędzi nie są prawidłowo podłączone');
+}
+if (!uxCssSource.includes(':focus-visible') ||
+    !uxCssSource.includes('prefers-reduced-motion') ||
+    !uxCssSource.includes('.article-meta>span')) {
+  errors.push('UX v1: brak podstawowych usprawnień czytelności i dostępności');
+}
+const toolsPageHtml = fs.existsSync(pageFile('/narzedzia/'))
+  ? fs.readFileSync(pageFile('/narzedzia/'), 'utf8') : '';
+if ((toolsPageHtml.match(/data-tool-card(?=[\s>])/g) || []).length !== 15) {
+  errors.push('UX v1: po buildzie brakuje 15 kart z filtrowaniem');
+}
+const sampleArticleHtml = fs.existsSync(pageFile('/poradniki/xwyszukaj-podstawy/'))
+  ? fs.readFileSync(pageFile('/poradniki/xwyszukaj-podstawy/'), 'utf8') : '';
+if (!sampleArticleHtml.includes('data-article-toc-mobile-links')) {
+  errors.push('UX v1: mobilny spis treści nie został wyrenderowany w artykule');
+}
 
 const cssAssets = files.filter((file) => file.endsWith('.css') && file.includes(path.sep + '_astro' + path.sep));
 const jsAssets = files.filter((file) => file.endsWith('.js') && file.includes(path.sep + '_astro' + path.sep));
