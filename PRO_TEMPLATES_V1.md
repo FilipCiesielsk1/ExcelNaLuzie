@@ -5,7 +5,7 @@
 | Szablon | Plik | Arkusze | Użytkowe funkcje |
 |---|---|---|---|
 | Dashboard sprzedaży | dashboard-sprzedazy.xlsx | Dashboard / Sprzedaż / Cele / Instrukcja | SUMIFS, marża, cele miesięczne, filtr roku |
-| Harmonogram Gantta | harmonogram-gantta.xlsx | Dashboard / Harmonogram / Zespół / Instrukcja | Oś czasu i terminy, automatyczne statusy |
+| Harmonogram Gantta | harmonogram-gantta.xlsx | Dashboard / Harmonogram / Zespół / Instrukcja | Dynamiczne symbole osi czasu i terminy, automatyczne statusy |
 | Magazyn i stany | magazyn-stany.xlsx | Dashboard / Produkty / Ruchy / Instrukcja | Ruchy po SKU, progi minimalne, alerty |
 | Faktury | kontrola-faktur.xlsx | Dashboard / Faktury / Kontrahenci / Instrukcja | VAT, płatności częściowe, zaległości |
 | CRM | crm-sprzedaz.xlsx | Dashboard / Szanse / Kontakty / Instrukcja | Etapy, prognoza ważona, pilne kontakty |
@@ -23,7 +23,7 @@
 
 ## Zakres i świadome ograniczenia
 
-- Dashboardy zawierają **dynamiczne zestawienia KPI**, a harmonogram Gantta używa kolorowania komórek jako widoku osi czasu.
+- Dashboardy zawierają **dynamiczne zestawienia KPI**, a harmonogram Gantta używa dynamicznych formuł tworzących symbole okresów na osi czasu.
 - Zamiast makr lub zależności od Microsoft 365 zastosowano klasyczne formuły (m.in. SUMIFS, COUNTIFS, IF, VLOOKUP).
 - Wersja v1 nie zawiera wykresów osadzonych w obiektach Excel (są zestawienia i warunkowe formatowanie); można je dodać w kolejnej iteracji.
 - Obliczenia z formułą TODAY odświeżają się po otwarciu pliku w Excelu.
