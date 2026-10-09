@@ -83,7 +83,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
           const name=root.querySelector('[data-header]').checked?(rows[0]?.[i]||'Kolumna '+(i+1)):'Kolumna '+(i+1);
           key.add(new Option((i+1)+'. '+name,String(i)));
         }
-        key.value=previous==='all'||Number(previous)<width?previous:'all';
+        key.value=previous==='all'||(previous!==''&&Number(previous)<width)?previous:'all';
         const output=removeDuplicates(rows,{
           keyColumns:key.value==='all'?null:[Number(key.value)],
           hasHeader:root.querySelector('[data-header]').checked,
