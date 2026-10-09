@@ -45,7 +45,7 @@ const schema={
           <h1>Masz problem w Excelu?<br/><em>Zaprojektujmy rozwiązanie.</em></h1>
           <p>Powtarzalne kopiowanie danych, rozbudowane skoroszyty, raporty przygotowywane ręcznie albo makro, które przestało działać? Możesz opisać swój proces i zapytać o możliwość przygotowania dedykowanego rozwiązania.</p>
           <div class="service-hero-actions">
-            <a href="#zapytanie" class="service-primary">Opisz swój projekt <span>→</span></a>
+            <a href="#zapytanie" class="service-primary service-hero-primary"><span aria-hidden="true">✉</span> Przejdź do formularza kontaktowego <span>→</span></a>
             <a href="#zakres" class="service-secondary">Zobacz obszary pomocy ↓</a>
           </div>
         </div>
@@ -96,11 +96,11 @@ const schema={
         <div class="service-contact-copy">
           <span class="section-kicker">Kontakt bez zobowiązań</span>
           <h2>Opisz swój problem w Excelu</h2>
-          <p>Nie musisz znać nazw funkcji ani technologii. Wystarczy informacja, co chcesz uprościć, jakie masz dane i jaki powinien być efekt.</p>
+          <p>Napisz, co chcesz uprościć, jakie masz dane i jaki powinien być efekt.</p>
           <div class="service-contact-details">
             <strong>Wolisz napisać bez formularza?</strong>
             <a href={'mailto:'+serviceContact.email}>{serviceContact.email}</a>
-            <p>Zapytania z formularza będą kierowane automatycznie na ten adres. Odpowiedzi dotyczące ewentualnej odpłatnej realizacji będą uzależnione od wznowienia działalności.</p>
+            
           </div>
           <p class="service-contact-privacy">Nie przesyłaj od razu danych osobowych klientów, haseł ani poufnych skoroszytów. Na początek wystarczy opis i — ewentualnie — zanonimizowany przykład po ustaleniu dalszych kroków.</p>
         </div>
@@ -108,7 +108,7 @@ const schema={
         <div class="service-form-shell">
           <div class="service-form-head">
             <span>Formularz zapytania</span>
-            <strong>Bez konta i bez załączników</strong>
+            
           </div>
           <form data-service-form>
             <div class="service-honeypot" aria-hidden="true"><label for="s-company-website">Pozostaw to pole puste</label><input id="s-company-website" name="_honey" tabindex="-1" autocomplete="off"/></div>
