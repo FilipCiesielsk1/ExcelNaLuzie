@@ -296,13 +296,20 @@ const toolHighlights = [
       <div class="home-section-head">
         <div>
           <span class="section-kicker">Nie wpisuj formuły ręcznie</span>
-          <h2>Narzędzia, które robią część pracy</h2>
+          <h2>Najpopularniejsze rodzaje zadań? Skorzystaj z narzędzi</h2>
         </div>
         <a class="section-link" href={link("/narzedzia/")}>Wszystkie narzędzia <span>→</span></a>
       </div>
 
       <div class="home-tools-grid">
-        {toolHighlights.map((tool) => (
+        {toolHighlights.filter((tool) => [
+          '/narzedzia/generator-formatowania-warunkowego/',
+          '/narzedzia/generator-tabel-przestawnych/',
+          '/narzedzia/porownywarka-tabel/',
+          '/narzedzia/generator-jezeli/',
+          '/narzedzia/generator-xwyszukaj/',
+          '/narzedzia/kalkulator-dat/'
+        ].includes(tool.href)).map((tool) => (
           <a class="home-tool-card" href={link(tool.href)}>
             <span>{tool.icon}</span>
             <div>
