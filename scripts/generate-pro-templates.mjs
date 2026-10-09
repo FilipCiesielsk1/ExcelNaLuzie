@@ -39,6 +39,7 @@ const dashboard=(title,rows,cols=[38,25,24,23,25,25])=>({
 });
 const save=async(name,sheets)=>{
  const file=join(DIR,name+'.xlsx');
+ console.log('PRO_START',name,sheets.map(x=>[x.sheet,x.conditionalFormatting?.length||0]));
  await writeExcelFile(sheets,{fontFamily:'Aptos',fontSize:11,features:[dataValidation]}).toFile(file);
  const size=(await stat(file)).size;
  if(size<4500)throw Error('XLSX podejrzanie mały: '+file+' '+size);
@@ -88,9 +89,8 @@ function gantt(){
  data:[[...h('Zadanie','Start','Koniec','Status','Postęp'),...timeline],...tasks],
  dataValidation:[list(2,4,81,statuses)],
  conditionalFormatting:[
-  shade(2,6,81,40,'AND(F$1>=$B2,F$1<=$C2,$D2="Gotowe")',PALE),
-  shade(2,6,81,40,'AND(F$1>=$B2,F$1<=$C2,$D2<>"Gotowe")',BLUE),
-  shade(2,1,81,5,'AND($A2<>"",$C2<TODAY(),$D2<>"Gotowe")',RED)
+  shade(2,6,81,40,'=AND(F$1>=$B2,F$1<=$C2)',BLUE),
+  shade(2,1,81,5,'=AND($A2<>"",$C2<TODAY(),$D2<>"Gotowe")',RED)
  ]
  };
  const db=dashboard('Harmonogram i status projektu',[
