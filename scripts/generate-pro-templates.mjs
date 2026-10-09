@@ -164,7 +164,7 @@ function invoices(){
  ['Liczba faktur',f('=COUNTA(\'Faktury\'!$A$2:$A$121)',NUMBER),'Przeterminowane',f('=COUNTIF(\'Faktury\'!$J$2:$J$121,"Przeterminowana")',NUMBER),'Opłacone',f('=COUNTIF(\'Faktury\'!$J$2:$J$121,"Opłacona")',NUMBER)],
  [null,null,null,null,null,null],
  h('Grupa','Należności','Grupa','Należności',null,null),
- ['Do 7 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,">="&TODAY(),\'Faktury\'!$C$2:$C$121,"<="&TODAY()+7)'), 'Powyżej 30 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,"<"&TODAY()-30)',null,null],
+ ['Do 7 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,">="&TODAY(),\'Faktury\'!$C$2:$C$121,"<="&TODAY()+7)'), 'Powyżej 30 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,"<"&TODAY()-30)'),null,null],
  ['8–30 dni',f('=SUMIFS(\'Faktury\'!$I$2:$I$121,\'Faktury\'!$C$2:$C$121,">"&TODAY()+7,\'Faktury\'!$C$2:$C$121,"<="&TODAY()+30)'), 'Bez zaległości',f('=COUNTIF(\'Faktury\'!$J$2:$J$121,"Opłacona")',NUMBER),null,null]
  ]);
  return [db, sheet('Faktury',['Numer','Data wyst.','Termin','Kontrahent','Netto','VAT %','Brutto','Zapłacono','Pozostało','Status','Dni po terminie'],data,[20,18,18,21,17,14,18,18,18,20,19],[],[shade(2,9,121,11,'$J2="Przeterminowana"',RED),shade(2,9,121,11,'$J2="Opłacona"',PALE)]),
