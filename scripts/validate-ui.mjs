@@ -79,7 +79,7 @@ const cssSource = fs.readFileSync('src/styles/global.css','utf8');
 const uxCssSource = fs.readFileSync('public/css/ux-polish-v1.css','utf8');
 const headerSource = fs.readFileSync('src/components/Header.astro','utf8');
 const required = [
-  ['mobilny panel od góry', /\.global-search-layer\s*\{[^}]*place-items:\s*start center/s.test(headerSource)],
+  ['mobilny panel od góry', /\.global-search-layer\s*\{[^}]*place-items:\s*start center/s.test(uxCssSource)],
   ['obsługa klawiatury w oknie wyszukiwania', /searchLayer\?\.addEventListener\('keydown'/.test(headerSource)],
   ['układ jednokolumnowy klastrów', /\.home-paths-grid,\.home-cluster-grid,\.home-tools-grid\{grid-template-columns:1fr\}/.test(cssSource)],
   ['mobilny układ formularza', /\.criteria-row\s*\{\s*grid-template-columns:\s*minmax\(0,\s*1fr\)\s+minmax\(0,\s*100px\)/.test(cssSource)],
@@ -89,9 +89,11 @@ const required = [
 for (const [description, ok] of required) if (!ok) errors.push('Kontrola mobilna: ' + description);
 
 // Polish v1 smoke checks: mobile navigation, functional directory filtering and legible guidance.
+const baseLayoutSource = fs.readFileSync('src/layouts/BaseLayout.astro','utf8');
+if (!baseLayoutSource.includes('/css/ux-polish-v1.css')) errors.push('UX v1: brak linku do arkusza wyszukiwania i czytelności');
 const articleLayoutSource = fs.readFileSync('src/layouts/ArticleLayout.astro', 'utf8');
 const toolsDirectorySource = fs.readFileSync('src/pages/narzedzia/index.astro', 'utf8');
-if (!/\@media\s*\(max-width:\s*720px\)[\s\S]*?\.header-search\s*\{\s*display:\s*inline-flex;/.test(headerSource)) {
+if (!/\@media\s*\(max-width:\s*720px\)[\s\S]*?\.site-header\s+\.header-search\s*\{\s*display:\s*inline-flex;/.test(uxCssSource)) {
   errors.push('UX v1: wyszukiwarka musi pozostać widoczna na telefonie');
 }
 if (!articleLayoutSource.includes('data-article-toc-mobile') ||
