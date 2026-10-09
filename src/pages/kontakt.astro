@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase as link } from '../utils/paths.js';
+import { serviceContact } from '../data/serviceConfig.js';
+const schema={
+  '@context':'https://schema.org',
+  '@graph': [
+    {'@type':'ContactPage',name:'Kontakt — ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/kontakt/',inLanguage:'pl-PL'},
+    {'@type':'BreadcrumbList',itemListElement:[
+      {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:'https://excelnaluzie.pl/'},
+      {'@type':'ListItem',position:2,name:'Kontakt',item:'https://excelnaluzie.pl/kontakt/'}
+    ]}
+  ]
+};
+---
+<BaseLayout navSection="kontakt" title="Kontakt — napisz do ExcelNaLuzie.pl" description="Masz pytanie o ExcelNaLuzie, zauważyłeś błąd w poradniku lub potrzebujesz narzędzia Excel/VBA? Skontaktuj się z nami.">
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  <section class="contact-landing">
+    <div class="wrap contact-landing-wrap">
+      <nav class="hub-breadcrumbs" aria-label="Okruszki"><a href={link('/')}>ExcelNaLuzie</a><span>›</span><strong>Kontakt</strong></nav>
+      <span class="section-kicker">Kontakt z ExcelNaLuzie</span>
+      <h1>Masz pytanie?<br/><em>Napisz do mnie.</em></h1>
+      <p class="contact-lead">Zgłoś pomysł na poradnik, błąd na stronie albo zapytaj o możliwość przygotowania własnego rozwiązania Excel lub VBA.</p>
+      <div class="contact-options">
+        <article class="contact-option contact-option-featured">
+          <span class="contact-option-icon" aria-hidden="true">✉</span>
+          <h2>Kontakt e-mail</h2>
+          <p>Uwagi dotyczące strony, pytania i propozycje nowych tematów.</p>
+          <a class="contact-option-link" href={'mailto:'+serviceContact.email}>{serviceContact.email} <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="contact-option">
+          <span class="contact-option-icon" aria-hidden="true">▦</span>
+          <h2>Indywidualny projekt Excel / VBA</h2>
+          <p>Opisz zadanie, które chcesz zautomatyzować lub uprościć. Formularz pomaga przekazać szczegóły.</p>
+          <a class="contact-option-link" href={link('/uslugi/excel-vba/')+'#zapytanie'}>Przejdź do formularza →</a>
+        </article>
+      </div>
+      <p class="contact-note">Nie wysyłaj w pierwszej wiadomości poufnych danych ani haseł. Zapytanie nie jest zamówieniem odpłatnej usługi. <a href={link('/polityka-prywatnosci/')}>Zobacz politykę prywatności</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
