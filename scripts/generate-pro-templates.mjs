@@ -54,18 +54,15 @@ function sales(){
  const targets=Array.from({length:12},(_,m)=>[n(m+1,NUMBER),n(16000+3500*(m%4)),f('=SUMIFS(\'Sprzedaż\'!$G$2:$G$122,\'Sprzedaż\'!$A$2:$A$122,">="&DATE(Dashboard!$B$5,A'+(m+2)+',1),\'Sprzedaż\'!$A$2:$A$122,"<"&DATE(Dashboard!$B$5,A'+(m+2)+'+1,1))'),f('=IF(B'+(m+2)+'=0,0,C'+(m+2)+'/B'+(m+2)+')',PCT)]);
  const months=Array.from({length:12},(_,m)=>{const r=10+m;return [n(m+1,NUMBER),f('=SUMIFS(\'Sprzedaż\'!$G$2:$G$122,\'Sprzedaż\'!$A$2:$A$122,">="&DATE($B$5,A'+r+',1),\'Sprzedaż\'!$A$2:$A$122,"<"&DATE($B$5,A'+r+'+1,1))'),f('=IFERROR(VLOOKUP(A'+r+',\'Cele\'!$A$2:$B$13,2,FALSE),0)'),f('=B'+r+'-C'+r),f('=SUMIFS(\'Sprzedaż\'!$J$2:$J$122,\'Sprzedaż\'!$A$2:$A$122,">="&DATE($B$5,A'+r+',1),\'Sprzedaż\'!$A$2:$A$122,"<"&DATE($B$5,A'+r+'+1,1))')];});
  const db=dashboard('Sprzedaż / wynik i realizacja celu',[
- h('Parametry','Wartość','Wyniki roczne','Wartość','Kontrola','Wartość'),
- ['Rok analizy',n(2026,NUMBER),'Przychód',f('=SUM(B10:B21)'),'Marża brutto',f('=SUM(E10:E21)')],
- ['Liczba transakcji',f('=COUNTIFS(\'Sprzedaż\'!$A$2:$A$122,">="&DATE(B5,1,1),\'Sprzedaż\'!$A$2:$A$122,"<"&DATE(B5+1,1,1))',NUMBER),'Realizacja celu',f('=IFERROR(D5/SUM(C10:C21),0)',PCT),'Średni koszyk',f('=IFERROR(D5/B6,0)')],
- [{value:'Miesiąc',...HEADER},{value:'Przychód',...HEADER},{value:'Cel',...HEADER},{value:'Odchylenie',...HEADER},{value:'Marża',...HEADER},blank()],
- ...months
+  h('Parametry','Wartość','Wyniki roczne','Wartość','Kontrola','Wartość'),
+  [{value:'Rok →',textColor:DARK},null,null,null,null,null],
+  ['Rok analizy',n(2026,NUMBER),'Przychód',f('=SUM(B10:B21)'),'Marża brutto',f('=SUM(E10:E21)')],
+  ['Liczba transakcji',f('=COUNTIFS(\'Sprzedaż\'!$A$2:$A$122,">="&DATE(B5,1,1),\'Sprzedaż\'!$A$2:$A$122,"<"&DATE(B5+1,1,1))',NUMBER),'Realizacja celu',f('=IFERROR(D5/SUM(C10:C21),0)',PCT),'Średni koszyk',f('=IFERROR(D5/B6,0)')],
+  [null,null,null,null,null,null],
+  [null,null,null,null,null,null],
+  h('Miesiąc','Przychód','Cel','Odchylenie','Marża',''),
+  ...months
  ]);
- // Dashboard columns actual positions: year B5 (row 4? two top rows + heading row3 + "Rok analizy" row4) -> adjust year in row4
- // Insert spacer so year is intentionally at row 5.
- db.data.splice(3,0,[{value:'Ustaw rok poniżej',textColor:DARK},...Array(5).fill(null)]);
- // after insert: header row3, note row4, actual year row5; months table currently rows? original header row6 becomes row7; first data row8. Keep formulas row10:21 by inserting 2 blanks before monthly heading.
- db.data.splice(5,0,[null,null,null,null,null,null],[null,null,null,null,null,null]);
- // dashboard positions: row1 top,row2 helper,row3 headers,row4 spacer,row5 year,row6 counts,row7 blank,row8 blank,row9 monthheader,row10 first data
  const shSales=sheet('Sprzedaż',['Data','Handlowiec','Klient','Produkt','Ilość','Cena jedn.','Przychód','Koszt jedn.','Koszt','Marża','Region'],data,[18,17,23,23,13,18,19,18,18,18,15],
   [list(2,2,122,reps),list(2,4,122,products),list(2,11,122,regions),integer(2,5,122)],
   [shade(2,10,122,10,'$J2<0',RED)]);
@@ -198,7 +195,7 @@ function crm(){
  ['Wartość lejka',f('=SUM(\'Szanse\'!$E$2:$E$121)'),'Pilne kontakty',f('=COUNTIF(\'Szanse\'!$K$2:$K$121,"Pilny kontakt")',NUMBER),'Przegrane',f('=COUNTIF(\'Szanse\'!$D$2:$D$121,"Przegrana")',NUMBER)],
  [null,null,null,null,null,null],
  h('Etap','Liczba','Suma wartości','Prognoza',null,null),
- ...stages.map((v,i)=>{const r=9+i;return [v,f('=COUNTIF(\'Szanse\'!$D$2:$D$121,A'+r+')',NUMBER),f('=SUMIF(\'Szanse\'!$D$2:$D$121,A'+r+',\'Szanse\'!$E$2:$E$121)'),f('=SUMIF(\'Szanse\'!$D$2:$D$121,A'+r+',\'Szanse\'!$G$2:$G$121)'),null,null]})
+ ...stages.map((v,i)=>{const r=8+i;return [v,f('=COUNTIF(\'Szanse\'!$D$2:$D$121,A'+r+')',NUMBER),f('=SUMIF(\'Szanse\'!$D$2:$D$121,A'+r+',\'Szanse\'!$E$2:$E$121)'),f('=SUMIF(\'Szanse\'!$D$2:$D$121,A'+r+',\'Szanse\'!$G$2:$G$121)'),null,null]})
  ]);
  return [db, sheet('Szanse',['ID','Klient','Opiekun','Etap','Wartość','Prawdop.','Prognoza','Zamknięcie','Następny krok','Termin kontaktu','Alert'],data,[18,24,18,17,20,16,19,19,28,20,21],[list(2,4,121,stages)],[shade(2,10,121,11,'$K2="Pilny kontakt"',RED),shade(2,10,121,11,'$K2="Zamknięte"',PALE)]),
  sheet('Kontakty',['Klient','E-mail','Telefon','Notatka'],names.map((x,i)=>[x,'kontakt'+i+'@example.com','555-000-'+String(i+1).padStart(3,'0'),'Przykładowy klient']),[26,34,23,42]),
@@ -231,7 +228,7 @@ function quotes(){
  const db=dashboard('Kalkulator ofert i marży',[
  h('Parametr','Wartość','Suma netto','Wartość','Marża','Wartość'),
  ['Numer oferty','OF/2026/001','Wartość netto',f('=SUM(\'Kalkulator\'!$G$2:$G$26)'),'Marża zł',f('=SUM(\'Kalkulator\'!$I$2:$I$26)')],
- ['Klient','Klient przykładowy','Wartość brutto',f('=SUM(\'Kalkulator\'!$K$2:$K$26)'),'Marża %',f('=IFERROR(F5/D5,0)',PCT)],
+ ['Klient','Klient przykładowy','Wartość brutto',f('=SUM(\'Kalkulator\'!$K$2:$K$26)'),'Marża %',f('=IFERROR(F4/D4,0)',PCT)],
  ['Data oferty',date(2026,10,9),'Koszt',f('=SUM(\'Kalkulator\'!$H$2:$H$26)'),'Rabat łącznie',f('=SUMPRODUCT(\'Kalkulator\'!$C$2:$C$26,\'Kalkulator\'!$D$2:$D$26,\'Kalkulator\'!$E$2:$E$26)')],
  [null,null,null,null,null,null],
  [{value:'Wskazówka',...HEADER},{value:'Opis',...HEADER},null,null,null,null],
