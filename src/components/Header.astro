@@ -5,6 +5,7 @@ const { activeSection = null } = Astro.props;
 
 const items = [
   { key: 'formuly', label: 'Formuły', href: '/formuly/', hint: 'Poradniki krok po kroku według problemu' },
+  { key: 'poradniki', label: 'Poradniki', href: '/poradniki/', hint: 'Przeglądaj całą bibliotekę poradników' },
   { key: 'funkcje', label: 'Funkcje', href: '/funkcje/', hint: 'Składnia i argumenty konkretnych funkcji' },
   { key: 'vba', label: 'VBA', href: '/vba/' },
   { key: 'narzedzia', label: 'Narzędzia', href: '/narzedzia/' },
@@ -26,7 +27,7 @@ const items = [
       {items.map((item) => (
         <a
           href={link(item.href)}
-          class:list={{ active: activeSection === item.key }}
+          class:list={["nav-item", { active: activeSection === item.key, "nav-item-featured": item.key === "szablony", "nav-item-collab": item.key === "uslugi" }]}
           title={item.hint}
           aria-current={activeSection === item.key ? 'page' : undefined}
         >
