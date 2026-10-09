@@ -76,6 +76,7 @@ for (const file of sourceFiles) {
   }
 }
 const cssSource = fs.readFileSync('src/styles/global.css','utf8');
+const uxCssSource = fs.readFileSync('public/css/ux-polish-v1.css','utf8');
 const headerSource = fs.readFileSync('src/components/Header.astro','utf8');
 const required = [
   ['mobilny panel od góry', /\.global-search-layer\s*\{[^}]*place-items:\s*start center/s.test(headerSource)],
@@ -95,7 +96,7 @@ if (!/\@media\s*\(max-width:\s*720px\)[\s\S]*?\.header-search\s*\{\s*display:\s*
 }
 if (!articleLayoutSource.includes('data-article-toc-mobile') ||
     !articleLayoutSource.includes("mobileTocLinks.appendChild") ||
-    !cssSource.includes('.article-toc-mobile nav a')) {
+    !uxCssSource.includes('.article-toc-mobile nav a')) {
   errors.push('UX v1: brak aktywnego mobilnego spisu treści');
 }
 const cardGroups = [...toolsDirectorySource.matchAll(/data-tool-card data-tool-category="(formula|data|format)"/g)];
@@ -107,9 +108,9 @@ if (!toolsDirectorySource.includes('data-tool-filter') ||
     !toolsDirectorySource.includes("card.hidden = !match")) {
   errors.push('UX v1: przyciski filtrowania narzędzi nie są prawidłowo podłączone');
 }
-if (!cssSource.includes(':focus-visible') ||
-    !cssSource.includes('prefers-reduced-motion') ||
-    !cssSource.includes('.article-meta>span')) {
+if (!uxCssSource.includes(':focus-visible') ||
+    !uxCssSource.includes('prefers-reduced-motion') ||
+    !uxCssSource.includes('.article-meta>span')) {
   errors.push('UX v1: brak podstawowych usprawnień czytelności i dostępności');
 }
 const toolsPageHtml = fs.existsSync(pageFile('/narzedzia/'))
