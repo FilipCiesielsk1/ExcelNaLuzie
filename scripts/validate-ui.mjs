@@ -104,8 +104,8 @@ if (!articleLayoutSource.includes('data-article-toc-mobile') ||
   errors.push('UX v1: brak aktywnego mobilnego spisu treści');
 }
 const cardGroups = [...toolsDirectorySource.matchAll(/data-tool-card data-tool-category="(formula|data|format)"/g)];
-if (cardGroups.length !== 15 || new Set(cardGroups.map((match) => match[1])).size !== 3) {
-  errors.push('UX v1: katalog narzędzi musi zawierać 15 sklasyfikowanych kart');
+if (cardGroups.length !== 19 || new Set(cardGroups.map((match) => match[1])).size !== 3) {
+  errors.push('UX v1: katalog narzędzi musi zawierać 19 sklasyfikowanych kart');
 }
 if (!toolsDirectorySource.includes('data-tool-filter') ||
     !toolsDirectorySource.includes('aria-pressed') ||
@@ -119,8 +119,8 @@ if (!uxCssSource.includes(':focus-visible') ||
 }
 const toolsPageHtml = fs.existsSync(pageFile('/narzedzia/'))
   ? fs.readFileSync(pageFile('/narzedzia/'), 'utf8') : '';
-if ((toolsPageHtml.match(/data-tool-card(?=[\s>])/g) || []).length !== 15) {
-  errors.push('UX v1: po buildzie brakuje 15 kart z filtrowaniem');
+if ((toolsPageHtml.match(/data-tool-card(?=[\s>])/g) || []).length !== 19) {
+  errors.push('UX v2: po buildzie brakuje 19 kart z filtrowaniem');
 }
 const sampleArticleHtml = fs.existsSync(pageFile('/poradniki/xwyszukaj-podstawy/'))
   ? fs.readFileSync(pageFile('/poradniki/xwyszukaj-podstawy/'), 'utf8') : '';
@@ -170,6 +170,20 @@ const funcsPage=pageFile('/funkcje/');
 if(fs.existsSync(funcsPage)) {
   const html=fs.readFileSync(funcsPage,'utf8');
   if ((html.match(/<a class="function-card"/g)||[]).length < 10) errors.push('Feedback: pełne kafelki funkcji nie są linkami');
+}
+
+// Online Tools v2: every interactive page must be built, indexable and wired to its client app.
+for (const [slug, marker] of [
+  ['czyszczenie-danych','data-cleaner'],
+  ['tekst-na-kolumny','data-splitter'],
+  ['usuwanie-duplikatow','data-deduper'],
+  ['kalkulator-czasu-pracy','data-worktime']
+]) {
+  const page=pageFile('/narzedzia/'+slug+'/');
+  if (!fs.existsSync(page)) { errors.push('Narzędzia v2: brak trasy '+slug); continue; }
+  const html=fs.readFileSync(page,'utf8');
+  if (!html.includes(marker) || !html.includes('data-pagefind-body')) errors.push('Narzędzia v2: brak interakcji lub indeksowania '+slug);
+  if (!html.includes('WebApplication') || !html.includes('BreadcrumbList')) errors.push('Narzędzia v2: brak danych SEO '+slug);
 }
 
 const cssAssets = files.filter((file) => file.endsWith('.css') && file.includes(path.sep + '_astro' + path.sep));

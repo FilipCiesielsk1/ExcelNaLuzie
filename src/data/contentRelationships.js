@@ -92,10 +92,34 @@ export const articleToolOverrides = {
   'duplikaty-klucz-zlozony-porownywanie-tabel': ['porownywarka-tabel'],
   'wyszukaj-pionowo-na-xwyszukaj': ['konwerter-wyszukaj-pionowo'],
   'jak-sprawdzic-bledy-w-formule-excel': ['analizator-formul'],
-  'jak-znalezc-duplikaty-excel': ['porownywarka-tabel']
+  'jak-znalezc-duplikaty-excel': ['usuwanie-duplikatow'],
+  'jak-usunac-duplikaty-excel': ['usuwanie-duplikatow'],
+  'jak-usunac-zbedne-spacje-excel': ['czyszczenie-danych'],
+  'podziel-tekst-po-przecinku': ['tekst-na-kolumny'],
+  'godziny-powyzej-24-excel': ['kalkulator-czasu-pracy']
 };
 
 export const toolRelationships = {
+  'czyszczenie-danych': {
+    title: 'Czyszczenie danych Excel',
+    functions: ['podstaw'],
+    articles: ['jak-usunac-zbedne-spacje-excel','zamien-fragment-tekstu']
+  },
+  'tekst-na-kolumny': {
+    title: 'Tekst na kolumny CSV / TSV',
+    functions: ['tekst-przed','tekst-po'],
+    articles: ['podziel-tekst-po-przecinku','tekst-po-znaku']
+  },
+  'usuwanie-duplikatow': {
+    title: 'Usuwanie duplikatów',
+    functions: ['unikatowe'],
+    articles: ['jak-usunac-duplikaty-excel','jak-znalezc-duplikaty-excel']
+  },
+  'kalkulator-czasu-pracy': {
+    title: 'Kalkulator czasu pracy',
+    functions: [],
+    articles: ['godziny-powyzej-24-excel','roznica-miedzy-datami']
+  },
   'generator-formatowania-warunkowego': {
     title: 'Generator formatowania warunkowego',
     functions: [],

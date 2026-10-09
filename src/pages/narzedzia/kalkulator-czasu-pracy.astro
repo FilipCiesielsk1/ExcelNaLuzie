@@ -1,0 +1,104 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+<ToolLayout
+  title="Kalkulator czasu pracy — godziny i przerwy"
+  description="Oblicz czas pracy z godziny rozpoczęcia i zakończenia, odejmij przerwę i sprawdź nadgodziny. Obsługa zmian przez północ oraz formuły Excel."
+  slug="kalkulator-czasu-pracy"
+  functionName="Poradniki o datach i czasie"
+  functionHref="/formuly/daty/"
+  resourceLabel="Powiązany temat"
+  resourceAction="Zobacz daty i czas →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Czas i godziny</span>
+    <h2>Policz przepracowane godziny i przerwy</h2>
+    <p>Wpisz początek i koniec zmiany. Kalkulator uwzględnia przejście przez północ i pokazuje formuły do Excela.</p>
+  </div>
+  <div class="data-v2" data-worktime>
+    <div class="data-v2-grid">
+      <div class="generator-field">
+        <label for="time-start">Początek pracy</label>
+        <input id="time-start" type="time" data-start value="08:00"/>
+      </div>
+      <div class="generator-field">
+        <label for="time-end">Koniec pracy</label>
+        <input id="time-end" type="time" data-end value="16:30"/>
+      </div>
+      <div class="generator-field">
+        <label for="time-break">Przerwa (minuty)</label>
+        <input id="time-break" type="number" data-break value="30" min="0" max="1440" step="1"/>
+      </div>
+      <div class="generator-field">
+        <label for="time-standard">Norma (godziny)</label>
+        <input id="time-standard" type="number" data-standard value="8" min="0" max="24" step="0.25"/>
+      </div>
+    </div>
+    <p class="data-v2-error" data-error role="alert" hidden></p>
+    <div class="data-v2-kpis" data-results aria-live="polite">
+      <div><span>Czas brutto</span><strong data-elapsed>—</strong></div>
+      <div><span>Po odjęciu przerwy</span><strong data-net>—</strong></div>
+      <div><span>Godziny dziesiętne</span><strong data-decimal>—</strong></div>
+      <div><span>Powyżej normy</span><strong data-overtime>—</strong></div>
+    </div>
+    <p class="data-v2-stat" data-overnight role="status"></p>
+    <div class="generator-output">
+      <div><span>Czas netto w godzinach (Excel)</span><small>A2 = start, B2 = koniec, C2 = przerwa w minutach.</small></div>
+      <code data-formula></code>
+      <button type="button" data-copy>Kopiuj formułę</button>
+    </div>
+    <div class="generator-output">
+      <div><span>Godziny ponad normę (Excel)</span><small>D2 = norma godzin dziennie.</small></div>
+      <code data-overtime-formula></code>
+      <button type="button" data-copy-overtime>Kopiuj formułę</button>
+    </div>
+    <p class="data-v2-note">Zmiana może trwać maksymalnie 23 godz. 59 min. Równe godziny początku i końca oznaczają 0 minut, a nie pełne 24 godziny. Wynik to obliczenie czasu, nie kwalifikacja prawna nadgodzin.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Jak liczyć zmianę przez północ?</h2>
+    <p>Na przykład od 22:00 do 06:00 upływa 8 godzin. Formuła MOD(B2-A2;1) radzi sobie z przejściem przez północ, którego zwykłe odejmowanie godzin może nie uwzględniać.</p>
+    <h2>Dlaczego 7 godz. 30 min to 7,5, a nie 7,30?</h2>
+    <p>Godzina ma 60 minut. Dlatego 30 minut to 0,5 godziny. Kalkulator pokazuje czas w godzinach i minutach oraz liczbę dziesiętną przydatną do sumowania w Excelu.</p>
+  </div>
+  <script>
+    import {calculateShift,formatMinutes} from '../../utils/dataTools.js';
+    const root=document.querySelector('[data-worktime]'),error=root.querySelector('[data-error]');
+    const render=()=>{
+      error.hidden=true;error.textContent='';
+      try{
+        const breakInput=root.querySelector('[data-break]').value;
+        const standardInput=root.querySelector('[data-standard]').value;
+        if(breakInput===''||standardInput==='') throw new Error('Uzupełnij przerwę i normę godzin.');
+        const data=calculateShift({
+          start:root.querySelector('[data-start]').value,
+          end:root.querySelector('[data-end]').value,
+          breakMinutes:Number(breakInput),
+          standardHours:Number(standardInput)
+        });
+        root.querySelector('[data-elapsed]').textContent=formatMinutes(data.elapsed);
+        root.querySelector('[data-net]').textContent=formatMinutes(data.minutes);
+        root.querySelector('[data-decimal]').textContent=data.hours.toLocaleString('pl-PL',{maximumFractionDigits:2})+' godz.';
+        root.querySelector('[data-overtime]').textContent=data.overtime.toLocaleString('pl-PL',{maximumFractionDigits:2})+' godz.';
+        root.querySelector('[data-overnight]').textContent=data.overnight?'Zmiana przechodzi przez północ (następny dzień).':'Początek i koniec przypadają tego samego dnia.';
+        root.querySelector('[data-formula]').textContent=data.formula;
+        root.querySelector('[data-overtime-formula]').textContent=data.overtimeFormula;
+      }catch(err){
+        error.textContent=err.message;error.hidden=false;
+        for(const selector of ['[data-elapsed]','[data-net]','[data-decimal]','[data-overtime]'])root.querySelector(selector).textContent='—';
+        root.querySelector('[data-overnight]').textContent='';
+        root.querySelector('[data-formula]').textContent='';
+        root.querySelector('[data-overtime-formula]').textContent='';
+      }
+      root.querySelector('[data-copy]').disabled=!root.querySelector('[data-formula]').textContent;
+      root.querySelector('[data-copy-overtime]').disabled=!root.querySelector('[data-overtime-formula]').textContent;
+    };
+    const copy=async(value,button)=>{
+      try{await navigator.clipboard.writeText(value);button.textContent='Skopiowano ✓';}
+      catch{error.textContent='Nie udało się skopiować. Zaznacz formułę ręcznie.';error.hidden=false;}
+    };
+    root.addEventListener('input',render);root.addEventListener('change',render);
+    root.querySelector('[data-copy]').addEventListener('click',e=>copy(root.querySelector('[data-formula]').textContent,e.currentTarget));
+    root.querySelector('[data-copy-overtime]').addEventListener('click',e=>copy(root.querySelector('[data-overtime-formula]').textContent,e.currentTarget));
+    render();
+  </script>
+</ToolLayout>

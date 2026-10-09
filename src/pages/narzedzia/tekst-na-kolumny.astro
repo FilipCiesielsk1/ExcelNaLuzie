@@ -1,0 +1,98 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+<ToolLayout
+  title="Tekst na kolumny online — CSV i TSV do Excela"
+  description="Rozdziel tekst CSV, TSV lub dane z separatorami średnik, przecinek i pionowa kreska. Podgląd tabeli, kopiowanie do Excela i pobieranie CSV."
+  slug="tekst-na-kolumny"
+  functionName="Poradniki: tekst w Excelu"
+  functionHref="/formuly/tekst/"
+  resourceLabel="Dowiedz się więcej"
+  resourceAction="Poradniki o tekście →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Dane tabelaryczne</span>
+    <h2>Rozdziel tekst na kolumny</h2>
+    <p>Wklej CSV lub TSV, wybierz separator i zobacz gotową tabelę. Cudzysłowy, przecinki wewnątrz pól i podwójne cudzysłowy są obsługiwane.</p>
+  </div>
+  <div class="data-v2" data-splitter>
+    <div class="generator-field">
+      <label for="split-source">Dane źródłowe</label>
+      <textarea id="split-source" data-input rows="7" spellcheck="false">Imię;Miasto;Uwagi
+Anna;Warszawa;"ul. Polna, 5"
+Jan;Kraków;"Powiedział ""cześć"""</textarea>
+    </div>
+    <div class="generator-field">
+      <label for="split-separator">Separator</label>
+      <select id="split-separator" data-delimiter>
+        <option value="auto">Wykryj automatycznie</option>
+        <option value="semicolon">Średnik (;)</option>
+        <option value="comma">Przecinek (,)</option>
+        <option value="tab">Tabulator</option>
+        <option value="pipe">Pionowa kreska (|)</option>
+      </select>
+    </div>
+    <p class="data-v2-stat" data-stats role="status" aria-live="polite"></p>
+    <p class="data-v2-error" data-error role="alert" hidden></p>
+    <div class="data-v2-table-wrap">
+      <table data-preview aria-label="Podgląd rozdzielonych kolumn"><tbody></tbody></table>
+    </div>
+    <div class="data-v2-actions">
+      <button type="button" data-copy>Kopiuj jako tabelę do Excela</button>
+      <button type="button" class="secondary" data-download>Pobierz CSV UTF-8</button>
+    </div>
+    <p class="data-v2-note">Podgląd pokazuje maksymalnie 10 pierwszych wierszy. Kopiowanie obejmuje wszystkie wiersze. Dla bezpieczeństwa tekst zaczynający się od =, +, - lub @ jest chroniony przed interpretacją jako formuła w Excelu.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Jak wkleić wynik do Excela?</h2>
+    <p>Kliknij „Kopiuj jako tabelę do Excela”, otwórz pusty arkusz i wklej wynik do A1. Dane będą rozdzielone tabulatorami. Przy plikach CSV wybierz „Pobierz CSV UTF-8”; plik zawiera znacznik BOM, który ułatwia rozpoznawanie polskich znaków.</p>
+    <h2>Co zrobić, gdy separator jest błędny?</h2>
+    <p>Jeśli automatyczne wykrywanie nie rozpozna formatu, wskaż ręcznie średnik, przecinek, tabulator lub pionową kreskę. Puste komórki zostają zachowane.</p>
+  </div>
+  <script>
+    import {parseDelimited,serializeDelimited} from '../../utils/dataTools.js';
+    const root=document.querySelector('[data-splitter]'),source=root.querySelector('[data-input]');
+    const preview=root.querySelector('[data-preview] tbody'),error=root.querySelector('[data-error]');
+    let rows=[],separator='\t';
+    const render=()=>{
+      error.hidden=true;error.textContent='';preview.replaceChildren();
+      try {
+        if(source.value.length>1000000) throw new Error('Limit danych to 1 000 000 znaków.');
+        const parsed=parseDelimited(source.value,root.querySelector('[data-delimiter]').value);
+        rows=parsed.rows;separator=parsed.delimiter;
+        if(rows.length>5000) throw new Error('Limit to 5000 wierszy.');
+        const width=Math.max(0,...rows.map(r=>r.length));
+        root.querySelector('[data-stats]').textContent='Wiersze: '+rows.length+' · Kolumny: '+width+' · Separator: '+(separator==='\t'?'tabulator':separator);
+        rows.slice(0,10).forEach((row,i)=>{
+          const tr=document.createElement('tr');
+          for(let j=0;j<width;j++){
+            const td=document.createElement(i===0?'th':'td');
+            td.textContent=row[j]??'';
+            if(i===0) td.scope='col';
+            tr.append(td);
+          }
+          preview.append(tr);
+        });
+      } catch(err){
+        rows=[];error.textContent=err.message;error.hidden=false;
+        root.querySelector('[data-stats]').textContent='Nie udało się rozdzielić danych.';
+      }
+      root.querySelector('[data-copy]').disabled=!rows.length;
+      root.querySelector('[data-download]').disabled=!rows.length;
+    };
+    root.addEventListener('input',render);
+    root.addEventListener('change',render);
+    root.querySelector('[data-copy]').addEventListener('click',async e=>{
+      const value=serializeDelimited(rows,'\t');
+      try {await navigator.clipboard.writeText(value);e.currentTarget.textContent='Skopiowano ✓';}
+      catch {error.textContent='Przeglądarka zablokowała schowek. Użyj przycisku Pobierz CSV.';error.hidden=false;}
+    });
+    root.querySelector('[data-download]').addEventListener('click',()=>{
+      const csv='\ufeff'+serializeDelimited(rows,';');
+      const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+      const link=document.createElement('a');link.href=url;link.download='tekst-na-kolumny.csv';
+      document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
+    render();
+  </script>
+</ToolLayout>

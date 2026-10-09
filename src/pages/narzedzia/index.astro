@@ -4,6 +4,10 @@ import { withBase as link } from '../../utils/paths.js';
 import { functionTranslations } from '../../data/functionTranslations.js';
 
 const toolItems = [
+  ['Czyszczenie danych Excel','czyszczenie-danych'],
+  ['Tekst na kolumny CSV / TSV','tekst-na-kolumny'],
+  ['Usuwanie duplikatów','usuwanie-duplikatow'],
+  ['Kalkulator czasu pracy','kalkulator-czasu-pracy'],
   ['Generator formatowania warunkowego','generator-formatowania-warunkowego'],
   ['Generator tabel przestawnych','generator-tabel-przestawnych'],
   ['Porównywarka tabel Excel','porownywarka-tabel'],
@@ -29,7 +33,7 @@ const toolFilters = [
 ];
 const toolCategory = (slug) => {
   if (['generator-formatowania-warunkowego','generator-formatow'].includes(slug)) return 'format';
-  if (['generator-tabel-przestawnych','porownywarka-tabel','kolumna-numer-litera','kalkulator-dat'].includes(slug)) return 'data';
+  if (['generator-tabel-przestawnych','porownywarka-tabel','kolumna-numer-litera','kalkulator-dat','czyszczenie-danych','tekst-na-kolumny','usuwanie-duplikatow','kalkulator-czasu-pracy'].includes(slug)) return 'data';
   return 'formula';
 };
 
@@ -66,7 +70,7 @@ const schema = {
 <BaseLayout
   navSection="narzedzia"
   title="Narzędzia Excel — generatory i kalkulatory | ExcelNaLuzie"
-  description="Darmowe narzędzia do Excela działające w przeglądarce: generatory formuł, konwertery i kalkulatory."
+  description="19 darmowych narzędzi Excel online: generatory formuł, czyszczenie danych, usuwanie duplikatów, CSV na kolumny i kalkulator czasu pracy."
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
@@ -76,7 +80,7 @@ const schema = {
         <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Narzędzia</strong></nav>
         <span class="hub-kicker">Narzędzia online</span>
         <h1>Nie pamiętasz składni?<br/><em>Nie musisz.</em></h1>
-        <p>Analizuj, konwertuj i generuj formuły po polsku.</p>
+        <p>Analizuj, porządkuj dane, konwertuj CSV i generuj formuły po polsku.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#narzedzia">Zobacz narzędzia <span>↓</span></a>
           <a class="hub-secondary" href={link("/formuly/")}>Przeglądaj formuły</a>
@@ -97,7 +101,7 @@ const schema = {
     <div class="wrap">
       <div class="hub-section-head">
         <div><span class="section-kicker">Mini-aplikacje</span><h2>{toolItems.length} narzędzi już działa</h2></div>
-        <p>Zbuduj formułę, skopiuj wynik jednym kliknięciem i wklej go do Excela.</p>
+        <p>Generuj formuły, czyść dane i pobieraj wyniki bezpośrednio z przeglądarki.</p>
       </div>
 
       <div class="tool-directory-filters" role="group" aria-label="Filtruj narzędzia według zastosowania" data-tool-filters>
@@ -111,6 +115,32 @@ const schema = {
       <p class="tool-directory-count" data-tool-count role="status" aria-live="polite">Wyświetlane narzędzia: {toolItems.length} z {toolItems.length}</p>
 
       <div class="tools-grid">
+
+        <a class="tool-card priority live" href={link("/narzedzia/czyszczenie-danych/")} data-tool-card data-tool-category="data">
+          <div class="tool-card-top"><span class="tool-icon">Aa</span><span class="tool-status">Nowe</span></div>
+          <h3>Czyszczenie danych Excel</h3>
+          <p>Usuń twarde spacje, podwójne odstępy i niewidoczne znaki. Skopiuj wynik lub formułę do Excela.</p>
+          <div class="tool-tags"><span>spacje</span><span>tekst</span><span>Excel 2016+</span></div>
+        </a>
+        <a class="tool-card priority live" href={link("/narzedzia/tekst-na-kolumny/")} data-tool-card data-tool-category="data">
+          <div class="tool-card-top"><span class="tool-icon">⇥</span><span class="tool-status">Nowe</span></div>
+          <h3>Tekst na kolumny CSV / TSV</h3>
+          <p>Rozdziel wklejone dane na kolumny, zobacz podgląd tabeli i pobierz wynik jako CSV.</p>
+          <div class="tool-tags"><span>CSV</span><span>TSV</span><span>podgląd</span></div>
+        </a>
+        <a class="tool-card priority live" href={link("/narzedzia/usuwanie-duplikatow/")} data-tool-card data-tool-category="data">
+          <div class="tool-card-top"><span class="tool-icon">≠</span><span class="tool-status">Nowe</span></div>
+          <h3>Usuwanie duplikatów</h3>
+          <p>Wybierz kolumnę klucza, usuń powtarzające się rekordy i skopiuj oczyszczoną tabelę.</p>
+          <div class="tool-tags"><span>rekordy</span><span>klucze</span><span>CSV</span></div>
+        </a>
+        <a class="tool-card priority live" href={link("/narzedzia/kalkulator-czasu-pracy/")} data-tool-card data-tool-category="data">
+          <div class="tool-card-top"><span class="tool-icon">24h</span><span class="tool-status">Nowe</span></div>
+          <h3>Kalkulator czasu pracy</h3>
+          <p>Policz godziny, przerwy, nadgodziny i zmianę przez północ. Skopiuj formułę Excela.</p>
+          <div class="tool-tags"><span>czas</span><span>przerwy</span><span>nadgodziny</span></div>
+        </a>
+
         <a class="tool-card priority live" href={link("/narzedzia/generator-formatowania-warunkowego/")} data-tool-card data-tool-category="format">
           <div class="tool-card-top"><span class="tool-icon">◧</span><span class="tool-status">Nowe</span></div>
           <h3>Generator formatowania warunkowego</h3>

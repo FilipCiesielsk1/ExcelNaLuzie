@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import '../styles/tools-v2.css';
 import { withBase as link } from '../utils/paths.js';
 import { getToolNextSteps } from '../data/contentRelationships.js';
 
@@ -54,7 +55,7 @@ const schema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
-  <div class="tool-page">
+  <div class="tool-page" data-pagefind-body>
     <div class="tool-page-wrap">
       <nav class="breadcrumbs" aria-label="Okruszki">
         <a href={link("/")}>ExcelNaLuzie</a>

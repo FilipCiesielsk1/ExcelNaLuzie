@@ -1,0 +1,79 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+<ToolLayout
+  title="Czyszczenie danych Excel — usuń zbędne spacje i znaki"
+  description="Wklej tekst z Excela i usuń podwójne spacje, twarde spacje oraz niewidoczne znaki. Zobacz wynik i skopiuj formułę dla Excela 2016+."
+  slug="czyszczenie-danych"
+  functionName="Funkcje tekstowe"
+  functionHref="/formuly/tekst/"
+  resourceLabel="Powiązane poradniki"
+  resourceAction="Praca z tekstem w Excelu →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Porządkowanie tekstu</span>
+    <h2>Usuń zbędne spacje i niewidoczne znaki</h2>
+    <p>Wklej wartości, po jednej w wierszu. Podgląd pokazuje wynik, a poniżej znajdziesz formułę do zastosowania w Excelu.</p>
+  </div>
+  <div class="data-v2" data-cleaner>
+    <div class="generator-field">
+      <label for="clean-source">Tekst do oczyszczenia</label>
+      <textarea id="clean-source" data-input rows="7" spellcheck="false">  Anna   Kowalska  
+Jan   Nowak
+  Kraków  </textarea>
+    </div>
+    <fieldset class="data-v2-options">
+      <legend>Co poprawić?</legend>
+      <label><input type="checkbox" data-nbsp checked/> Zamień twarde spacje (ZNAK(160)) na zwykłe</label>
+      <label><input type="checkbox" data-controls checked/> Usuń niedrukowalne znaki ASCII</label>
+      <label><input type="checkbox" data-spaces checked/> Usuń spacje z brzegów i powtórzenia</label>
+    </fieldset>
+    <div class="data-v2-stat" data-stats role="status" aria-live="polite"></div>
+    <div class="generator-field">
+      <label for="clean-result">Oczyszczony tekst</label>
+      <textarea id="clean-result" data-result rows="7" readonly spellcheck="false"></textarea>
+    </div>
+    <div class="data-v2-actions">
+      <button type="button" data-copy-result>Kopiuj wynik</button>
+      <button type="button" class="secondary" data-clear>Wyczyść</button>
+    </div>
+    <div class="generator-output">
+      <div><span>Formuła Excel 2016+</span><small>Załóż, że tekst źródłowy jest w komórce A2. Skopiuj formułę w dół.</small></div>
+      <code data-formula aria-live="polite"></code>
+      <button type="button" data-copy-formula>Kopiuj formułę</button>
+    </div>
+    <p class="data-v2-note">Każdy wiersz traktowany jest jako osobna wartość. Formuła OCZYŚĆ usuwa znaki ASCII 0–31; nie usuwa wszystkich możliwych znaków Unicode.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Dlaczego USUŃ.ZBĘDNE.ODSTĘPY nie zawsze wystarcza?</h2>
+    <p>Tekst skopiowany ze stron internetowych często zawiera twardą spację o kodzie 160. Zwykła funkcja USUŃ.ZBĘDNE.ODSTĘPY jej nie usuwa. Dlatego najpierw zamieniamy ją przez PODSTAW, potem czyścimy znaki sterujące funkcją OCZYŚĆ i na końcu redukujemy odstępy.</p>
+    <h2>Jak użyć formuły w arkuszu?</h2>
+    <p>Wpisz źródłowy tekst do A2, wklej wygenerowaną formułę do B2 i przeciągnij w dół. Jeśli potrzebujesz wartości zamiast formuł, skopiuj wyniki i wybierz Wklej specjalnie → Wartości.</p>
+  </div>
+  <script>
+    import {cleanLines,cleaningFormula} from '../../utils/dataTools.js';
+    const root=document.querySelector('[data-cleaner]');
+    const input=root.querySelector('[data-input]'),result=root.querySelector('[data-result]');
+    const options=()=>({
+      nbsp:root.querySelector('[data-nbsp]').checked,
+      controls:root.querySelector('[data-controls]').checked,
+      spaces:root.querySelector('[data-spaces]').checked
+    });
+    const render=()=>{
+      const data=cleanLines(input.value,options());
+      result.value=data.text;
+      root.querySelector('[data-stats]').textContent='Wiersze: '+data.total+' · Zmienione: '+data.changed+' · Usunięte znaki: '+data.removed;
+      root.querySelector('[data-formula]').textContent=cleaningFormula(options());
+    };
+    const copy=async(value,button,fallback)=>{
+      try {await navigator.clipboard.writeText(value);button.textContent='Skopiowano ✓';}
+      catch {fallback?.focus();fallback?.select();button.textContent='Zaznaczono do kopiowania';}
+    };
+    root.addEventListener('input',render);
+    root.addEventListener('change',render);
+    root.querySelector('[data-clear]').addEventListener('click',()=>{input.value='';render();input.focus();});
+    root.querySelector('[data-copy-result]').addEventListener('click',e=>copy(result.value,e.currentTarget,result));
+    root.querySelector('[data-copy-formula]').addEventListener('click',e=>copy(root.querySelector('[data-formula]').textContent,e.currentTarget));
+    render();
+  </script>
+</ToolLayout>

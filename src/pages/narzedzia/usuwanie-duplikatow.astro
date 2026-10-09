@@ -1,0 +1,124 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+---
+<ToolLayout
+  title="Usuwanie duplikatów Excel online — tabela i CSV"
+  description="Wklej tabelę z Excela, wybierz kolumnę identyfikatora i usuń powtarzające się rekordy. Porównanie bez rozróżniania wielkości liter, podgląd i CSV."
+  slug="usuwanie-duplikatow"
+  functionName="Poradnik: znajdź duplikaty"
+  functionHref="/poradniki/jak-znalezc-duplikaty-excel/"
+  resourceLabel="Powiązany poradnik"
+  resourceAction="Jak znaleźć duplikaty? →"
+>
+  <div class="generator-intro">
+    <span class="section-kicker">Porządkowanie tabel</span>
+    <h2>Znajdź i usuń powtarzające się wiersze</h2>
+    <p>Wklej tabelę z Excela lub dane CSV. Wybierz, czy duplikat ma oznaczać taki sam cały wiersz, czy taką samą wartość w jednej kolumnie.</p>
+  </div>
+  <div class="data-v2" data-deduper>
+    <div class="generator-field">
+      <label for="dedupe-source">Tabela źródłowa</label>
+      <textarea id="dedupe-source" data-input rows="8" spellcheck="false">ID;Klient;Miasto
+101;Anna;Warszawa
+102;Jan;Kraków
+101;Anna;Warszawa
+103;Ewa;Gdańsk
+102;Jan;Poznań</textarea>
+    </div>
+    <div class="data-v2-grid">
+      <div class="generator-field">
+        <label for="dedupe-delimiter">Separator</label>
+        <select id="dedupe-delimiter" data-delimiter>
+          <option value="auto">Automatycznie</option>
+          <option value="tab">Tabulator</option>
+          <option value="semicolon">Średnik</option>
+          <option value="comma">Przecinek</option>
+          <option value="pipe">Pionowa kreska</option>
+        </select>
+      </div>
+      <div class="generator-field">
+        <label for="dedupe-key">Klucz porównania</label>
+        <select id="dedupe-key" data-key><option value="all">Cały wiersz</option></select>
+      </div>
+    </div>
+    <fieldset class="data-v2-options">
+      <legend>Ustawienia porównania</legend>
+      <label><input type="checkbox" data-header checked/> Pierwszy wiersz to nagłówki</label>
+      <label><input type="checkbox" data-trim checked/> Ignoruj spacje na brzegach</label>
+      <label><input type="checkbox" data-case/> Rozróżniaj wielkie i małe litery</label>
+    </fieldset>
+    <div class="data-v2-stat" data-stats role="status" aria-live="polite"></div>
+    <p class="data-v2-error" data-error role="alert" hidden></p>
+    <div class="data-v2-table-wrap">
+      <table data-preview aria-label="Tabela po usunięciu duplikatów"><tbody></tbody></table>
+    </div>
+    <div class="data-v2-actions">
+      <button type="button" data-copy>Kopiuj wynik do Excela</button>
+      <button type="button" class="secondary" data-download>Pobierz wynik CSV</button>
+    </div>
+    <p class="data-v2-note">Narzędzie zachowuje pierwsze wystąpienie rekordu. Przy porównaniu po jednej kolumnie inne wartości z późniejszych powtórzeń zostają pominięte. Dane nie są wysyłane na serwer.</p>
+  </div>
+  <div class="generator-help">
+    <h2>Duplikat całego wiersza czy duplikat ID?</h2>
+    <p>Jeśli wybierzesz „Cały wiersz”, dwa rekordy są duplikatami dopiero wtedy, gdy wszystkie ich pola są takie same. Jeśli wybierzesz „ID”, narzędzie pozostawi tylko pierwszy rekord dla każdego identyfikatora — nawet gdy pozostałe kolumny są różne.</p>
+    <h2>Co z dużymi i małymi literami?</h2>
+    <p>Domyślnie „anna” i „Anna” traktowane są jako ta sama wartość. Zaznacz rozróżnianie liter, jeśli wielkość znaków ma znaczenie dla Twojego klucza.</p>
+  </div>
+  <script>
+    import {parseDelimited,removeDuplicates,serializeDelimited} from '../../utils/dataTools.js';
+    const root=document.querySelector('[data-deduper]'),source=root.querySelector('[data-input]');
+    const key=root.querySelector('[data-key]'),error=root.querySelector('[data-error]');
+    const preview=root.querySelector('[data-preview] tbody');
+    let unique=[];
+    const render=()=>{
+      preview.replaceChildren();error.hidden=true;error.textContent='';
+      try{
+        if(source.value.length>1000000) throw new Error('Limit danych to 1 000 000 znaków.');
+        const {rows}=parseDelimited(source.value,root.querySelector('[data-delimiter]').value);
+        if(rows.length>5000) throw new Error('Limit to 5000 wierszy.');
+        const width=Math.max(0,...rows.map(row=>row.length));
+        const previous=key.value;
+        key.replaceChildren(new Option('Cały wiersz','all'));
+        for(let i=0;i<width;i++){
+          const name=root.querySelector('[data-header]').checked?(rows[0]?.[i]||'Kolumna '+(i+1)):'Kolumna '+(i+1);
+          key.add(new Option((i+1)+'. '+name,String(i)));
+        }
+        key.value=previous==='all'||(previous!==''&&Number(previous)<width)?previous:'all';
+        const output=removeDuplicates(rows,{
+          keyColumns:key.value==='all'?null:[Number(key.value)],
+          hasHeader:root.querySelector('[data-header]').checked,
+          trim:root.querySelector('[data-trim]').checked,
+          caseSensitive:root.querySelector('[data-case]').checked
+        });
+        unique=output.unique;
+        root.querySelector('[data-stats]').textContent='Wiersze wejściowe: '+Math.max(0,rows.length-(root.querySelector('[data-header]').checked?1:0))+
+          ' · Usunięte duplikaty: '+output.removed+
+          ' · Pozostałe rekordy: '+Math.max(0,unique.length-(root.querySelector('[data-header]').checked?1:0));
+        unique.slice(0,10).forEach((row,i)=>{
+          const tr=document.createElement('tr');
+          for(let j=0;j<width;j++){
+            const td=document.createElement(i===0&&root.querySelector('[data-header]').checked?'th':'td');
+            td.textContent=row[j]??'';
+            if(td.tagName==='TH')td.scope='col';
+            tr.append(td);
+          }
+          preview.append(tr);
+        });
+      }catch(err){unique=[];error.textContent=err.message;error.hidden=false;root.querySelector('[data-stats]').textContent='Sprawdź dane wejściowe.';}
+      root.querySelector('[data-copy]').disabled=!unique.length;
+      root.querySelector('[data-download]').disabled=!unique.length;
+    };
+    root.addEventListener('input',render);
+    root.addEventListener('change',render);
+    root.querySelector('[data-copy]').addEventListener('click',async e=>{
+      try{await navigator.clipboard.writeText(serializeDelimited(unique,'\t'));e.currentTarget.textContent='Skopiowano ✓';}
+      catch{error.textContent='Nie można użyć schowka. Pobierz CSV.';error.hidden=false;}
+    });
+    root.querySelector('[data-download]').addEventListener('click',()=>{
+      const url=URL.createObjectURL(new Blob(['\ufeff'+serializeDelimited(unique,';')],{type:'text/csv;charset=utf-8'}));
+      const a=document.createElement('a');a.href=url;a.download='bez-duplikatow.csv';document.body.append(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    });
+    render();
+  </script>
+</ToolLayout>
