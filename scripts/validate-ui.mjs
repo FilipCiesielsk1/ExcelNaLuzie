@@ -150,7 +150,7 @@ if (!functionsMarkup.includes('<a class="function-card"') ||
 if (vbaMarkup.includes('Standard poradników') || toolsMarkup.includes('Od pól do gotowej formuły')) errors.push('Feedback: zbędna sekcja nadal widoczna');
 if (toolsMarkup.includes('Bez instalacji i bez przesyłania danych na serwer.') ||
     toolsMarkup.includes('Wszystko liczy się lokalnie w przeglądarce.')) errors.push('Feedback: zbędne komunikaty na Narzędziach');
-if (!templatesMarkup.includes('Każdy plik zawiera przykładowe dane i osobny arkusz z instrukcją.')) errors.push('Feedback: błędny opis szablonów');
+if (!templatesMarkup.includes('templateCatalog.filter(t=>t.pro).length') || !templatesMarkup.includes('zaawansowanych szablonów PRO jest również całkowicie darmowych.')) errors.push('Feedback: nieaktualny opis biblioteki szablonów');
 if (serviceMarkup.includes('Nie musisz znać nazw funkcji ani technologii.') ||
     serviceMarkup.includes('Bez konta i bez załączników') ||
     serviceMarkup.includes('Zapytania z formularza będą kierowane automatycznie na ten adres.')) errors.push('Feedback: nieusunięte komunikaty usługi');
