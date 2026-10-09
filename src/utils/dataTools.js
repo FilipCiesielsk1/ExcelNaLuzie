@@ -64,7 +64,7 @@ export function parseDelimited(input,delimiter='auto') {
 export function detectDelimiter(input) {
   const sample=String(input ?? '').slice(0,10000);
   const scores=new Map(Object.values(DELIMITERS).map(sep=>[sep,0]));
-  let quoted=false,lines=0;
+  let quoted=false,lines=0,decimalCommas=0;
   for(let i=0;i<sample.length&&lines<6;i++){
     const ch=sample[i];
     if(ch==='"'){
@@ -73,8 +73,11 @@ export function detectDelimiter(input) {
     } else if(!quoted){
       if(ch==='\n') lines++;
       if(scores.has(ch)) scores.set(ch,scores.get(ch)+1);
+      if(ch===','&&/\d/.test(sample[i-1]??'')&&/\d/.test(sample[i+1]??'')) decimalCommas++;
     }
   }
+  // Polish numeric values use decimal commas even when fields are separated by semicolons.
+  if(scores.get(';')>0&&decimalCommas>0) scores.set(',',Math.max(0,scores.get(',')-decimalCommas));
   const ranked=[...scores.entries()].sort((a,b)=>b[1]-a[1]);
   return ranked[0][1]>0?ranked[0][0]:'\t';
 }
