@@ -1,0 +1,4 @@
+﻿ID transakcji;Data;Numer zamówienia;Klient;Produkt;Kategoria;Region;Handlowiec;Ilość;Cena netto jednostkowa;Rabat %;Koszt jednostkowy netto
+TEST-NEW-001;2026-10-10;ZAM-TEST;Klient DEMO 076;Notatnik Vela 01;Biuro;Północ;Ada Welnicka;10;34;10%;22.34
+TEST-NEW-002;2026-10-10;"ZAM; ""DEMO""
+część 2";Klient DEMO 077;Notatnik Vela 01;Biuro;Północ;Ada Welnicka;10;34;10%;22.34
