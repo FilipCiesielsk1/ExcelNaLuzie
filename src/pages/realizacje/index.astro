@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase as link } from '../../utils/paths.js';
+import '../../styles/portfolio.css';
+const site='https://excelnaluzie.pl';
+const schema={
+  '@context':'https://schema.org',
+  '@graph':[
+    {'@type':'CollectionPage','@id':site+'/realizacje/#page',name:'Realizacje Excel i VBA — autorskie rozwiązania',url:site+'/realizacje/',inLanguage:'pl-PL',
+      description:'Zobacz autorskie rozwiązania Excel i VBA: dashboardy, raportowanie, automatyzacje i narzędzia analityczne.',
+      mainEntity:{'@type':'ItemList',numberOfItems:1,itemListElement:[
+        {'@type':'ListItem',position:1,name:'Sales Performance Dashboard PRO',url:site+'/realizacje/sales-performance-dashboard/'}
+      ]}},
+    {'@type':'BreadcrumbList','itemListElement':[
+      {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:site+'/'},
+      {'@type':'ListItem',position:2,name:'Realizacje',item:site+'/realizacje/'}
+    ]}
+  ]
+};
+---
+<BaseLayout
+  title="Realizacje Excel i VBA — portfolio | ExcelNaLuzie"
+  description="Autorskie realizacje Excel i VBA: dashboardy, analiza sprzedaży, automatyzacje i raportowanie. Zobacz funkcje, technologie i możliwości współpracy."
+  canonical="/realizacje/"
+  navSection="realizacje"
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+  <div class="portfolio-page" data-pagefind-body>
+    <section class="portfolio-intro">
+      <div class="wrap">
+        <nav class="breadcrumbs" aria-label="Okruszki">
+          <a href={link('/')}>ExcelNaLuzie</a><span>›</span><strong>Realizacje</strong>
+        </nav>
+        <span class="portfolio-eyebrow">Portfolio Excel / VBA</span>
+        <h1>Od danych do <em>gotowych narzędzi biznesowych.</em></h1>
+        <p>Poznaj rozwiązania, które łączą analitykę, automatyzację i intuicyjny interfejs. Każdy projekt opisuję od strony funkcjonalnej — co robi, jak działa i do jakich zadań może się przydać.</p>
+        <div class="portfolio-actions">
+          <a class="primary" href={link('/realizacje/sales-performance-dashboard/')}>Zobacz pierwszą realizację →</a>
+          <a class="secondary" href={link('/uslugi/excel-vba/')+'#zapytanie'}>Zapytaj o własne rozwiązanie</a>
+        </div>
+      </div>
+    </section>
+    <section class="portfolio-section">
+      <div class="wrap">
+        <span class="portfolio-eyebrow">01 / Analityka sprzedaży</span>
+        <div class="portfolio-feature" style="margin-top:18px;">
+          <div>
+            <h2>Sales Performance Dashboard PRO</h2>
+            <p>Rozbudowana aplikacja w Excelu z centralnym dashboardem KPI, analizą marży, wynikami regionów, celami handlowymi i automatyzacją VBA.</p>
+            <ul>
+              <li>8 wskaźników KPI i 5 wykresów zarządczych</li>
+              <li>Filtry rok / miesiąc / region</li>
+              <li>Import danych CSV i eksport raportu PDF</li>
+              <li>7 arkuszy, tabele danych i model analityczny</li>
+            </ul>
+            <div class="portfolio-tech"><span>Excel</span><span>VBA</span><span>Dashboard</span><span>CSV</span><span>PDF</span></div>
+            <div class="portfolio-actions">
+              <a class="primary" href={link('/realizacje/sales-performance-dashboard/')}>Poznaj projekt →</a>
+            </div>
+          </div>
+          <div class="portfolio-dashboard" aria-label="Podgląd metryk dashboardu dla sierpnia 2026 i regionu Północ">
+            <div class="portfolio-dashboard-top"><strong>SALES PERFORMANCE DASHBOARD</strong><small>ANALITYKA SPRZEDAŻY · PLN</small></div>
+            <div class="portfolio-dashboard-filters"><span>Rok: 2026</span><span>Okres: sierpień</span><span>Region: Północ</span></div>
+            <div class="portfolio-kpis">
+              <div class="portfolio-kpi"><small>PRZYCHÓD NETTO</small><strong>46 751 zł</strong></div>
+              <div class="portfolio-kpi"><small>MARŻA KWOTOWA</small><strong>13 304 zł</strong></div>
+              <div class="portfolio-kpi"><small>MARŻA %</small><strong>28,46%</strong></div>
+              <div class="portfolio-kpi"><small>TRANSAKCJE</small><strong>21</strong></div>
+            </div>
+            <div class="portfolio-chart-preview">
+              <div><h3>Analiza miesięczna</h3><div class="portfolio-columns" aria-hidden="true"><span style="--bar:54%"></span><span style="--bar:77%"></span><span style="--bar:68%"></span><span style="--bar:93%"></span><span style="--bar:62%"></span><span style="--bar:82%"></span><span style="--bar:100%"></span></div></div>
+              <div><h3>Analiza regionów</h3><div class="portfolio-rank"><div><span>Północ</span><b style="--bar:72%"></b></div><div><span>Południe</span><b style="--bar:95%"></b></div><div><span>Centrum</span><b style="--bar:64%"></b></div><div><span>Wschód</span><b style="--bar:45%"></b></div></div></div>
+            </div>
+            <small class="portfolio-preview-note">Podgląd układu; pokazane wartości KPI odczytano z arkusza.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="portfolio-section">
+      <div class="wrap">
+        <h2 class="portfolio-heading">Jakie rozwiązania można zbudować w Excelu?</h2>
+        <p class="portfolio-subheading">Dobrze zaprojektowany arkusz może pełnić funkcję systemu raportowania, aplikacji operacyjnej lub narzędzia automatyzującego powtarzalne czynności.</p>
+        <div class="portfolio-grid">
+          <article class="portfolio-card"><span class="symbol">Σ</span><h3>Raporty i KPI</h3><p>Analiza sprzedaży, kosztów, realizacji celów i rentowności z czytelną prezentacją wyników.</p></article>
+          <article class="portfolio-card"><span class="symbol">↺</span><h3>Automatyzacje VBA</h3><p>Przetwarzanie plików, uzupełnianie raportów, walidacja danych i powtarzalne procesy uruchamiane przyciskiem.</p></article>
+          <article class="portfolio-card"><span class="symbol">⇄</span><h3>Import i eksport danych</h3><p>Praca z CSV, raportami PDF, tabelami źródłowymi oraz uporządkowanymi danymi wejściowymi.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="portfolio-section">
+      <div class="wrap">
+        <div class="portfolio-cta">
+          <div><h2>Potrzebujesz podobnego narzędzia?</h2><p>Opisz swoje dane, aktualny sposób raportowania i oczekiwany wynik. Sprawdzimy, jak zaprojektować rozwiązanie dopasowane do procesu.</p></div>
+          <a href={link('/uslugi/excel-vba/')+'#zapytanie'}>Przejdź do współpracy →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
