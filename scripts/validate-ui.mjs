@@ -31,7 +31,9 @@ const pages = [
   {route:'/narzedzia/generator-tabel-przestawnych/', minOpeners:1},
   {route:'/formuly/formatowanie/', minOpeners:1},
   {route:'/narzedzia/generator-formatowania-warunkowego/', minOpeners:1},
-  {route:'/uslugi/excel-vba/', minOpeners:1}
+  {route:'/uslugi/excel-vba/', minOpeners:1},
+  {route:'/realizacje/', minOpeners:1},
+  {route:'/realizacje/sales-performance-dashboard/', minOpeners:1}
 ];
 
 let checkedHtml = 0;
@@ -185,6 +187,32 @@ for (const [slug, marker] of [
   if (!html.includes(marker) || !html.includes('data-pagefind-body')) errors.push('Narzędzia v2: brak interakcji lub indeksowania '+slug);
   if (!html.includes('WebApplication') || !html.includes('BreadcrumbList')) errors.push('Narzędzia v2: brak danych SEO '+slug);
 }
+
+// Portfolio v1: real workbook-based feature descriptions, discoverability and import file.
+for (const route of ['/realizacje/','/realizacje/sales-performance-dashboard/']) {
+  const file = pageFile(route);
+  if (!fs.existsSync(file)) {errors.push('Portfolio: missing '+route);continue;}
+  const html=fs.readFileSync(file,'utf8');
+  if (!html.includes('data-pagefind-body')) errors.push('Portfolio: Pagefind is missing from '+route);
+  if (!html.includes('BreadcrumbList')) errors.push('Portfolio: structured breadcrumbs missing from '+route);
+  if (/projekt fikcyjny|fikcyjna realizacja|zrealizowano dla klienta/i.test(html))
+    errors.push('Portfolio: unsupported client attribution or description on '+route);
+}
+const csvPortfolio=path.join(root,'downloads/realizacje/sales-performance-import.csv');
+if (!fs.existsSync(csvPortfolio)) errors.push('Portfolio: supplied CSV is missing');
+else {
+  const csvText=fs.readFileSync(csvPortfolio,'utf8');
+  if (!csvText.includes('ID transakcji;Data;Numer zamówienia') || !csvText.includes('TEST-NEW-002'))
+    errors.push('Portfolio: CSV content was changed');
+}
+const linksToPortfolio=[
+  ['src/components/Header.astro',"/realizacje/"],
+  ['src/components/Footer.astro',"/realizacje/"],
+  ['src/pages/index.astro',"/realizacje/sales-performance-dashboard/"],
+  ['src/pages/uslugi/excel-vba/index.astro',"/realizacje/sales-performance-dashboard/"]
+];
+for(const [src,target] of linksToPortfolio) if(!fs.readFileSync(src,'utf8').includes(target))
+  errors.push('Portfolio: missing internal link '+src+' -> '+target);
 
 const cssAssets = files.filter((file) => file.endsWith('.css') && file.includes(path.sep + '_astro' + path.sep));
 const jsAssets = files.filter((file) => file.endsWith('.js') && file.includes(path.sep + '_astro' + path.sep));
