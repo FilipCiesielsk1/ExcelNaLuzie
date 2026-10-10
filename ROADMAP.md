@@ -187,9 +187,13 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 ### Priorytet P0 — portfolio demonstracyjne (następny etap)
 - [x] Utworzyć katalog `/realizacje/` i pierwszą podstronę projektu: problem, funkcje, przepływ pracy, wizualizacja KPI, CSV i CTA.
 - [ ] Dodać rzeczywiste zrzuty ekranowe z Excela (obecnie dostępny jest podgląd HTML oparty na KPI) i ujednolicić szablon kolejnych realizacji.
+- [ ] **Portfolio #1 — poprawa prezentacji Sales Performance Dashboard PRO (odłożone):** zastąpić schematyczny podgląd HTML autentycznymi zrzutami ekranu z dostarczonego XLSM. Wymagane kadry: pełny DASHBOARD, zmiana filtrów i KPI, arkusz SPRZEDAŻ, import CSV lub eksport PDF. Zastosować zoptymalizowany format WebP/AVIF, responsywną galerię z powiększaniem, opisy alt i stabilne proporcje zdjęć; nie dopisywać wyników niepotwierdzonych w pliku.
+- [ ] **Portfolio #1 — opcjonalne krótkie demo:** osadzić nagranie 20–40 s pokazujące zmianę filtrów, import i eksport, dopiero po dostarczeniu rzeczywistego nagrania działania aplikacji; bez automatycznego odtwarzania z dźwiękiem.
+- [ ] **Portfolio #1 — dystrybucja XLSM:** pozostawić pełną aplikację poza publicznym pobieraniem do osobnej decyzji. Preferować galerię i wezwanie do kontaktu; ewentualnie opublikować specjalną, świadomie okrojoną wersję demo.
 - [x] Przygotować **Projekt 1: Sales Performance Dashboard PRO** i opublikować opis funkcji w portfolio (dostarczony skoroszyt XLSM i próbny CSV).
 - [ ] Zweryfikować działanie przycisków, importu CSV, eksportu PDF i filtrów w desktopowym Excelu przed udostępnieniem skoroszytu do publicznego pobrania.
-- [ ] Stworzyć **Demo 2: Automatyzacja raportowania VBA** (import CSV z folderu, walidacja danych, podsumowanie, log błędów, instrukcja, testy w Excelu Windows).
+- [ ] **Projekt 2 — ReportFlow PRO:** zbudować w ChatGPT ASTRA kompletny system raportowania z wielu CSV (import całego folderu, wykrywanie separatora i kodowania, mapowanie nagłówków, staging/walidacja, deduplikacja, zbiorczy raport, dziennik błędów, eksport PDF) dla Excel 2016/2021/365. Dostarczyć osobne moduły .bas, a `mod_setup.Instalacja` ma utworzyć całość jednym uruchomieniem i dać się usunąć po instalacji bez wpływu na pracę pozostałych modułów.
+- [ ] **Projekt 2 — odbiór:** test instalacji i ponownej instalacji, obsługa błędnych plików i ponownego importu, test działania po usunięciu `mod_setup`, porównanie sum z plikami CSV, zapis XLSM oraz udokumentowanie w portfolio po weryfikacji.
 - [ ] Stworzyć **Demo 3: Planowanie transportu i zasobów** (kierowcy, pojazdy, dostępność, konflikty, harmonogram, raport; fikcyjne dane).
 - [ ] Dla każdego projektu przygotować rzeczywiste zrzuty ekranu, opis architektury i funkcji, instrukcję oraz plik demonstracyjny po weryfikacji.
 - [ ] Dodać wyraźną etykietę „Projekt demonstracyjny — nie realizacja klientowska” na kartach i podstronach.
