@@ -185,14 +185,17 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 **Stan wyjściowy:** brak projektów klientowskich, które można opublikować. Budujemy portfolio od podstaw na **autentycznie działających projektach demonstracyjnych**. Nie przedstawiamy ich jako zleceń wykonanych dla klientów i nie wymyślamy opinii, oszczędności, wdrożeń ani wyników biznesowych.
 
 ### Priorytet P0 — portfolio demonstracyjne (następny etap)
-- [ ] Zaprojektować katalog `/realizacje/` oraz szablon podstrony case study: problem, dla kogo, funkcje, przebieg, zrzuty z działającej aplikacji, demo, ograniczenia, CTA.
-- [ ] Stworzyć **Demo 1: Dashboard sprzedaży i KPI** (Excel 2016+, fikcyjne dane, filtr okresu, cele, marża, dokumentacja i testy).
+- [x] Utworzyć katalog `/realizacje/` i pierwszą podstronę projektu: problem, funkcje, przepływ pracy, wizualizacja KPI, CSV i CTA.
+- [ ] Dodać rzeczywiste zrzuty ekranowe z Excela (obecnie dostępny jest podgląd HTML oparty na KPI) i ujednolicić szablon kolejnych realizacji.
+- [x] Przygotować **Projekt 1: Sales Performance Dashboard PRO** i opublikować opis funkcji w portfolio (dostarczony skoroszyt XLSM i próbny CSV).
+- [ ] Zweryfikować działanie przycisków, importu CSV, eksportu PDF i filtrów w desktopowym Excelu przed udostępnieniem skoroszytu do publicznego pobrania.
 - [ ] Stworzyć **Demo 2: Automatyzacja raportowania VBA** (import CSV z folderu, walidacja danych, podsumowanie, log błędów, instrukcja, testy w Excelu Windows).
 - [ ] Stworzyć **Demo 3: Planowanie transportu i zasobów** (kierowcy, pojazdy, dostępność, konflikty, harmonogram, raport; fikcyjne dane).
 - [ ] Dla każdego projektu przygotować rzeczywiste zrzuty ekranu, opis architektury i funkcji, instrukcję oraz plik demonstracyjny po weryfikacji.
 - [ ] Dodać wyraźną etykietę „Projekt demonstracyjny — nie realizacja klientowska” na kartach i podstronach.
-- [ ] Dodać linki „Realizacje” w nawigacji, stronie głównej, sekcji Współpraca i stopce oraz CTA „Zamów podobne rozwiązanie”.
-- [ ] Dodać unikatowe SEO (title, description, canonical, BreadcrumbList), linkowanie z powiązanymi poradnikami i testy builda.
+- [x] Dodać linki „Realizacje” w nawigacji, stronie głównej, sekcji Współpraca i stopce oraz CTA „Zamów podobne rozwiązanie”.
+- [x] Dodać unikatowe SEO (title, description, canonical, BreadcrumbList), linkowanie ze stroną Współpraca i testy builda.
+- [ ] Rozwinąć połączenia kontekstowe z powiązanymi poradnikami o raportach i KPI.
 
 **Definicja ukończenia:** trzy działające, samodzielnie zweryfikowane projekty, trzy czytelne case studies i sprawna ścieżka do formularza. Żadnych fikcyjnych klientów.
 
