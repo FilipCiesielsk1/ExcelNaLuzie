@@ -61,21 +61,47 @@ const schema={
       </div>
     </section>
 
-    <section class="service-section" id="portfolio">
+    <section class="service-section service-projects-section" id="portfolio">
       <div class="wrap">
         <div class="service-section-head">
-          <span class="section-kicker">Zobacz działające rozwiązanie</span>
-          <h2>Sales Performance Dashboard PRO</h2>
-          <p>Autorski projekt Excel/VBA: dashboard KPI, analiza sprzedaży i marży, filtry oraz import danych CSV. Zobacz, jak można połączyć prezentację wyników z automatyzacją raportowania.</p>
+          <span class="section-kicker">Przykłady zastosowań Excel i VBA</span>
+          <h2>Zobacz, co można zbudować</h2>
+          <p>Od analityki sprzedaży po narzędzia operacyjne: prezentuję projekty wraz z funkcjami i materiałami pokazującymi ich działanie. Dostępne realizacje można obejrzeć w portfolio, a kolejne są w przygotowaniu.</p>
         </div>
-        <div class="service-how-grid">
-          <div><span>01</span><h3>8 wskaźników KPI</h3><p>Przychód, marża, cele i wyniki sprzedaży w przejrzystym panelu.</p></div>
-          <div><span>02</span><h3>5 wykresów i filtry</h3><p>Analiza czasu, regionów, produktów i porównanie wyników z planem.</p></div>
-          <div><span>03</span><h3>Automatyzacja VBA</h3><p>Import CSV, odświeżanie i eksport raportu do PDF.</p></div>
+        <div class="service-projects-grid">
+          <article class="service-project-card service-project-card-live">
+            <a class="service-project-card-image" href={link('/realizacje/sales-performance-dashboard/')} aria-label="Otwórz realizację Sales Performance Dashboard PRO">
+              <img src={link('/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp')} width="1920" height="1032" loading="lazy" decoding="async" alt="Sales Performance Dashboard PRO — ekran Excela z KPI, wykresami i filtrami raportu"/>
+            </a>
+            <div class="service-project-card-body">
+              <span class="service-project-state service-project-state-ready">Zobacz realizację</span>
+              <h3>Sales Performance Dashboard PRO</h3>
+              <p>System analizy sprzedaży: KPI, filtry okresu i regionu, wykresy, import CSV oraz eksport PDF.</p>
+              <a class="service-project-link" href={link('/realizacje/sales-performance-dashboard/')}>Zdjęcia i nagrania projektu <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="service-project-card service-project-card-soon">
+            <div class="service-project-card-art" aria-hidden="true"><span>↗</span></div>
+            <div class="service-project-card-body">
+              <span class="service-project-state">W przygotowaniu</span>
+              <h3>Transport Planner PRO</h3>
+              <p>Planowanie transportów, przypisywanie kierowców i pojazdów oraz kontrola konfliktów i dostępności.</p>
+              <span class="service-project-category">Planowanie zasobów · Excel / VBA</span>
+            </div>
+          </article>
+          <article class="service-project-card service-project-card-soon">
+            <div class="service-project-card-art" aria-hidden="true"><span>+</span></div>
+            <div class="service-project-card-body">
+              <span class="service-project-state">Kolejne miejsce w portfolio</span>
+              <h3>Następny projekt</h3>
+              <p>Nowe rozwiązania będą prezentowane tutaj razem z opisem funkcjonalności i ekranami aplikacji.</p>
+              <span class="service-project-category">Nowa realizacja · W przygotowaniu</span>
+            </div>
+          </article>
         </div>
-        <div class="service-hero-actions" style="margin-top:24px;">
-          <a class="service-primary" href={link('/realizacje/sales-performance-dashboard/')}>Zobacz pełny opis realizacji →</a>
-          <a class="service-secondary" href="#zapytanie">Zapytaj o podobne rozwiązanie ↓</a>
+        <div class="service-hero-actions service-projects-actions">
+          <a class="service-primary" href={link('/realizacje/')}>Przejrzyj portfolio realizacji →</a>
+          <a class="service-secondary" href="#zapytanie">Zapytaj o własne rozwiązanie ↓</a>
         </div>
       </div>
     </section>
