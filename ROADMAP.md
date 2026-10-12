@@ -185,6 +185,10 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 **Stan wyjściowy:** brak projektów klientowskich, które można opublikować. Budujemy portfolio od podstaw na **autentycznie działających projektach demonstracyjnych**. Nie przedstawiamy ich jako zleceń wykonanych dla klientów i nie wymyślamy opinii, oszczędności, wdrożeń ani wyników biznesowych.
 
 ### Priorytet P0 — portfolio demonstracyjne (następny etap)
+- [x] Przygotować katalog `/realizacje/` pod rosnącą liczbę projektów: karty aktualnych realizacji, osobno czytelnie oznaczone miejsca „W przygotowaniu”, bez nieaktywnych odsyłaczy i bez sugerowania gotowego projektu.
+- [x] Przebudować sekcję realizacji na stronie Współpraca do wieloprojektowej galerii, z jednym aktywnym projektem, miejscem na Transport Planner PRO i miejscem na kolejną realizację.
+- [x] Wyróżnić na telefonach i tabletach pozycje „Szablony” oraz „Współpraca” w rozwijanym menu.
+- [x] Dodać do Sales Performance Dashboard PRO widoczną informację, że wszystkie dane w aplikacji są demonstracyjne.
 - [x] Utworzyć katalog `/realizacje/` i pierwszą podstronę projektu: problem, funkcje, przepływ pracy, wizualizacja KPI, CSV i CTA.
 - [x] Dodać 7 rzeczywistych zrzutów ekranu z Excela, główny kadr, responsywną galerię z powiększeniem i alt; zastosować wzorzec do kolejnych realizacji.
 - [x] **Portfolio #1 — poprawa prezentacji Sales Performance Dashboard PRO:** zastąpić schematyczne podglądy HTML oryginalnym ujęciem dashboardu i autentycznymi zrzutami pozostałych ekranów. Galeria ma powiększanie, responsywny układ, oryginalne WebP i opisy alt.
@@ -197,7 +201,7 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [ ] **Projekt 2 — odbiór:** test instalacji i ponownej instalacji, obsługa błędnych plików i ponownego importu, test działania po usunięciu `mod_setup`, porównanie sum z plikami CSV, zapis XLSM oraz udokumentowanie w portfolio po weryfikacji.
 - [ ] Stworzyć **Demo 3: Planowanie transportu i zasobów** (kierowcy, pojazdy, dostępność, konflikty, harmonogram, raport; fikcyjne dane).
 - [ ] Dla każdego projektu przygotować rzeczywiste zrzuty ekranu, opis architektury i funkcji, instrukcję oraz plik demonstracyjny po weryfikacji.
-- [ ] Dodać wyraźną etykietę „Projekt demonstracyjny — nie realizacja klientowska” na kartach i podstronach.
+- [x] Rozdzielić gotowe realizacje od projektów „W przygotowaniu” i jawnie oznaczyć demonstracyjny charakter danych Sales Performance Dashboard PRO, bez przypisywania nieistniejących klientów.
 - [x] Dodać linki „Realizacje” w nawigacji, stronie głównej, sekcji Współpraca i stopce oraz CTA „Zamów podobne rozwiązanie”.
 - [x] Dodać unikatowe SEO (title, description, canonical, BreadcrumbList), linkowanie ze stroną Współpraca i testy builda.
 - [ ] Rozwinąć połączenia kontekstowe z powiązanymi poradnikami o raportach i KPI.
