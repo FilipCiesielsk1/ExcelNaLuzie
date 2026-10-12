@@ -236,6 +236,28 @@ if(!caseHtml.includes('portfolio-lightbox')||!caseHtml.includes('data-portfolio-
 if(caseHtml.includes('download')&&caseHtml.includes('.xlsm'))
   errors.push('Portfolio: nie wolno publikować XLSM przed dostarczeniem wersji demo');
 
+// Portfolio v3: scalable listing, clear future-project status and mobile conversion links.
+const catalogue=fs.readFileSync(pageFile('/realizacje/'),'utf8');
+const servicesPage=fs.readFileSync(pageFile('/uslugi/excel-vba/'),'utf8');
+if(!catalogue.includes('id="projekty"')||!catalogue.includes('portfolio-upcoming-grid'))
+  errors.push('Portfolio v3: brak skalowalnego katalogu projektów');
+if(!catalogue.includes('Transport Planner PRO')||!catalogue.includes('W przygotowaniu'))
+  errors.push('Portfolio v3: brak oznaczonego miejsca na kolejny projekt');
+if(!servicesPage.includes('service-projects-grid')||!servicesPage.includes('Transport Planner PRO'))
+  errors.push('Współpraca v3: brak uniwersalnej galerii projektów');
+if(!servicesPage.includes('href="/realizacje/"')||!servicesPage.includes('Sales Performance Dashboard PRO'))
+  errors.push('Współpraca v3: brak przejścia do portfolio i aktywnej realizacji');
+if(!caseHtml.includes('Wszystkie dane wykorzystane w tej realizacji są demonstracyjne'))
+  errors.push('Dashboard: brak informacji o demonstracyjnych danych');
+const mobileHeader=fs.readFileSync('src/components/Header.astro','utf8');
+const mobileNavPart=mobileHeader.split('class="mobile-menu-panel"')[1]?.split('</nav>')[0]||'';
+if(!mobileNavPart.includes('"nav-item-featured"')||!mobileNavPart.includes('"nav-item-collab"'))
+  errors.push('Menu mobilne: brak wyróżnienia Szablonów i Współpracy');
+const mobileCss=fs.readFileSync('public/css/ux-polish-v1.css','utf8');
+if(!mobileCss.includes('.site-header .mobile-menu-panel a.nav-item-featured')||
+   !mobileCss.includes('.site-header .mobile-menu-panel a.nav-item-collab'))
+  errors.push('Menu mobilne: brak stylów wyróżnienia ważnych linków');
+
 const csvPortfolio=path.join(root,'downloads/realizacje/sales-performance-import.csv');
 if (!fs.existsSync(csvPortfolio)) errors.push('Portfolio: supplied CSV is missing');
 else {
