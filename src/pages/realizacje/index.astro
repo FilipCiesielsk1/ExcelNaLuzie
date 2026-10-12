@@ -34,68 +34,99 @@ const schema={
         </nav>
         <span class="portfolio-eyebrow">Portfolio Excel / VBA</span>
         <h1>Od danych do <em>gotowych narzędzi biznesowych.</em></h1>
-        <p>Poznaj rozwiązania, które łączą analitykę, automatyzację i intuicyjny interfejs. Każdy projekt opisuję od strony funkcjonalnej — co robi, jak działa i do jakich zadań może się przydać.</p>
+        <p>Poznaj rozwiązania, które łączą analitykę, automatyzację i intuicyjny interfejs. Od raportowania wyników po planowanie zasobów i procesów firmowych.</p>
         <div class="portfolio-actions">
           <a class="primary" href="#projekty">Przeglądaj realizacje ↓</a>
           <a class="secondary" href={link('/uslugi/excel-vba/')+'#zapytanie'}>Zapytaj o własne rozwiązanie</a>
         </div>
       </div>
     </section>
-    <section class="portfolio-section" id="projekty">
+    <section class="portfolio-section portfolio-gallery-section" id="projekty" aria-labelledby="portfolio-gallery-heading">
       <div class="wrap">
-        <div class="portfolio-projects-head">
+        <div class="portfolio-gallery-heading">
           <div>
-            <span class="portfolio-eyebrow">Portfolio projektów</span>
-            <h2 class="portfolio-heading">Rozwiązania Excel i VBA</h2>
-            <p class="portfolio-subheading">Przy każdym projekcie znajdziesz opis zastosowania, ekranów i najważniejszych funkcji. Kolejne realizacje będą pojawiać się w tym samym katalogu.</p>
+            <span class="portfolio-eyebrow">Wybrane rozwiązania</span>
+            <h2 class="portfolio-heading" id="portfolio-gallery-heading">Portfolio Excel / VBA</h2>
+            <p class="portfolio-subheading">Systemy do analizy, planowania i zarządzania procesami biznesowymi. Zobacz różne możliwości zastosowania Excela poza zwykłym arkuszem.</p>
           </div>
         </div>
-        <span class="portfolio-eyebrow">01 / Analityka sprzedaży</span>
-        <div class="portfolio-feature" style="margin-top:18px;">
-          <div>
-            <h2>Sales Performance Dashboard PRO</h2>
-            <p>Rozbudowana aplikacja w Excelu z centralnym dashboardem KPI, analizą marży, wynikami regionów, celami handlowymi i automatyzacją VBA.</p>
-            <ul>
-              <li>8 wskaźników KPI i 5 wykresów zarządczych</li>
-              <li>Filtry rok / miesiąc / region</li>
-              <li>Import danych CSV i eksport raportu PDF</li>
-              <li>7 arkuszy, tabele danych i model analityczny</li>
-            </ul>
-            <div class="portfolio-tech"><span>Excel</span><span>VBA</span><span>Dashboard</span><span>CSV</span><span>PDF</span></div>
-            <div class="portfolio-actions">
-              <a class="primary" href={link('/realizacje/sales-performance-dashboard/')}>Poznaj projekt →</a>
-            </div>
-          </div>
-          <figure class="portfolio-listing-preview">
-            <a href={link('/realizacje/sales-performance-dashboard/')} aria-label="Zobacz Sales Performance Dashboard PRO i nagrania jego działania">
-              <img src={link('/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp')} width="1920" height="1032" alt="Prawdziwy zrzut ekranu Sales Performance Dashboard PRO z ośmioma KPI, wykresami i filtrami w Excelu" loading="lazy" decoding="async"/>
-              <span>Zobacz zrzuty i nagrania →</span>
+        <div class="portfolio-showcase-grid">
+          <article class="portfolio-showcase-card">
+            <a class="portfolio-showcase-media portfolio-showcase-media-link" href={link('/realizacje/sales-performance-dashboard/')} aria-label="Zobacz Sales Performance Dashboard PRO">
+              <img src={link('/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp')} width="1920" height="1032" alt="Ekran Sales Performance Dashboard PRO z KPI, filtrami i wykresami" loading="lazy" decoding="async"/>
             </a>
-          </figure>
-        </div>
-      </div>
-    </section>
-    <section class="portfolio-section portfolio-upcoming-section" aria-labelledby="portfolio-next-heading">
-      <div class="wrap">
-        <span class="portfolio-eyebrow">Kolejne pozycje w portfolio</span>
-        <h2 class="portfolio-heading" id="portfolio-next-heading">Miejsce na następne realizacje</h2>
-        <p class="portfolio-subheading">Przygotowuję kolejne projekty. Poniższe karty pokazują planowane obszary — nie są jeszcze opublikowanymi realizacjami.</p>
-        <div class="portfolio-upcoming-grid">
-          <article class="portfolio-upcoming-card">
-            <span class="portfolio-upcoming-status">W przygotowaniu</span>
-            <div class="portfolio-upcoming-symbol" aria-hidden="true">↗</div>
-            <h3>Transport Planner PRO</h3>
-            <p>System do planowania transportów, przydzielania kierowców i pojazdów oraz kontroli konfliktów zasobów.</p>
-            <span class="portfolio-upcoming-category">Planowanie operacyjne · Excel / VBA</span>
+            <div class="portfolio-showcase-body">
+              <span class="portfolio-showcase-category">01 / Dashboard i analityka</span>
+              <h3><a href={link('/realizacje/sales-performance-dashboard/')}>Sales Performance Dashboard PRO</a></h3>
+              <p>Panel KPI, analiza przychodów i marży, porównanie wyników z celami sprzedaży, import CSV oraz eksport PDF.</p>
+              <div class="portfolio-showcase-tags"><span>Excel</span><span>VBA</span><span>Raportowanie</span></div>
+              <a class="portfolio-showcase-link" href={link('/realizacje/sales-performance-dashboard/')}>Zobacz szczegóły <span aria-hidden="true">→</span></a>
+            </div>
           </article>
-          <article class="portfolio-upcoming-card portfolio-upcoming-card-empty">
-            <span class="portfolio-upcoming-status">Miejsce na kolejny projekt</span>
-            <div class="portfolio-upcoming-symbol" aria-hidden="true">+</div>
-            <h3>Następna realizacja</h3>
-            <p>Tutaj pojawi się kolejny projekt wraz z opisem działania, zdjęciami i prezentacją najważniejszych funkcji.</p>
-            <span class="portfolio-upcoming-category">Nowy projekt · Wkrótce</span>
+
+          <article class="portfolio-showcase-card">
+            <div class="portfolio-showcase-media portfolio-visual-transport" role="img" aria-label="Koncepcyjny podgląd tygodniowego planu transportów z tabelą kierowców i tras">
+              <div class="pv-top"><strong>TRANSPORT PLANNER</strong><span>PLAN TYGODNIOWY</span></div>
+              <div class="pv-sub"><span>‹</span><b>Tydzień 42 / 2026</b><span>›</span></div>
+              <div class="pv-timeline">
+                <div class="pv-days"><span>Kierowca</span><span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span></div>
+                <div class="pv-driver"><b>K-014</b><span class="pv-span pv-span-a">Bydgoszcz – Berlin</span><i></i><i></i></div>
+                <div class="pv-driver"><b>K-021</b><i></i><span class="pv-span pv-span-b">Hamburg</span><i></i></div>
+                <div class="pv-driver"><b>K-008</b><span class="pv-span pv-span-c">Warszawa – Praga</span><i></i><i></i></div>
+                <div class="pv-driver"><b>K-019</b><i></i><i></i><span class="pv-span pv-span-d">Rotterdam</span></div>
+              </div>
+              <div class="pv-footer"><span>● Przydzielono</span><span>● Dostępność</span><span>● Konflikt</span></div>
+            </div>
+            <div class="portfolio-showcase-body">
+              <span class="portfolio-showcase-category">02 / Logistyka i harmonogramowanie</span>
+              <h3>Transport Planner PRO</h3>
+              <p>Tygodniowy harmonogram transportów, przydzielanie kierowców, pojazdów i naczep oraz kontrola konfliktów zasobów.</p>
+              <div class="portfolio-showcase-tags"><span>Excel</span><span>VBA</span><span>Planowanie</span></div>
+            </div>
+          </article>
+
+          <article class="portfolio-showcase-card">
+            <div class="portfolio-showcase-media portfolio-visual-stock" role="img" aria-label="Koncepcyjny panel magazynu z zestawieniem stanów i progami dostępności produktów">
+              <div class="pv-top"><strong>INVENTORY CONTROL</strong><span>STANY MAGAZYNOWE</span></div>
+              <div class="pv-stock-stats">
+                <div><small>Produkty</small><strong>148</strong></div>
+                <div><small>Do zamówienia</small><strong>12</strong></div>
+                <div><small>Ruchy</small><strong>86</strong></div>
+              </div>
+              <div class="pv-stock-table">
+                <div class="pv-stock-head"><span>Produkt</span><span>Dostępność</span><span>Stan</span></div>
+                <div><span>Artykuł A-024</span><i><b style="width:83%"></b></i><em>OK</em></div>
+                <div><span>Artykuł B-018</span><i><b style="width:28%" class="low"></b></i><em class="low">Niski</em></div>
+                <div><span>Artykuł C-046</span><i><b style="width:59%"></b></i><em>OK</em></div>
+              </div>
+            </div>
+            <div class="portfolio-showcase-body">
+              <span class="portfolio-showcase-category">03 / Magazyn i kontrola stanów</span>
+              <h3>Inventory Control PRO</h3>
+              <p>Ewidencja produktów, operacje przyjęć i wydań, kontrola stanów minimalnych oraz alerty braków.</p>
+              <div class="portfolio-showcase-tags"><span>Excel</span><span>VBA</span><span>Magazyn</span></div>
+            </div>
+          </article>
+
+          <article class="portfolio-showcase-card">
+            <div class="portfolio-showcase-media portfolio-visual-crm" role="img" aria-label="Koncepcyjny podgląd tablicy szans sprzedaży z trzema etapami obsługi klientów">
+              <div class="pv-top"><strong>CRM WORKFLOW</strong><span>LEJEK SPRZEDAŻY</span></div>
+              <div class="pv-crm-columns">
+                <div><strong>Nowe <small>4</small></strong><span>Zapytanie #104</span><span>Zapytanie #109</span></div>
+                <div><strong>W trakcie <small>3</small></strong><span>Oferta #078</span><span>Oferta #083</span></div>
+                <div><strong>Finalizacja <small>2</small></strong><span>Projekt #056</span><span>Projekt #061</span></div>
+              </div>
+              <div class="pv-crm-bottom"><span>Kontakty</span><span>Szanse</span><span>Zadania</span></div>
+            </div>
+            <div class="portfolio-showcase-body">
+              <span class="portfolio-showcase-category">04 / Zarządzanie sprzedażą</span>
+              <h3>CRM Workflow PRO</h3>
+              <p>Baza kontaktów, lejek sprzedażowy, zadania handlowców oraz organizacja pracy z zapytaniami klientów.</p>
+              <div class="portfolio-showcase-tags"><span>Excel</span><span>VBA</span><span>CRM</span></div>
+            </div>
           </article>
         </div>
+        <p class="portfolio-showcase-context">Karty bez odnośników prezentują koncepcje kolejnych projektów. Ich podstrony i rzeczywiste materiały zostaną dodane po ukończeniu realizacji.</p>
       </div>
     </section>
     <section class="portfolio-section">
