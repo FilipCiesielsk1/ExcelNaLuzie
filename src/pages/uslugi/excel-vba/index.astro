@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import '../../../styles/services.css';
+import '../../../styles/portfolio.css';
 import { withBase as link } from '../../../utils/paths.js';
 import { serviceContact, serviceCategories } from '../../../data/serviceConfig.js';
 
@@ -64,41 +65,77 @@ const schema={
     <section class="service-section service-projects-section" id="portfolio">
       <div class="wrap">
         <div class="service-section-head">
-          <span class="section-kicker">Przykłady zastosowań Excel i VBA</span>
-          <h2>Zobacz, co można zbudować</h2>
-          <p>Od analityki sprzedaży po narzędzia operacyjne: prezentuję projekty wraz z funkcjami i materiałami pokazującymi ich działanie. Dostępne realizacje można obejrzeć w portfolio, a kolejne są w przygotowaniu.</p>
+          <span class="section-kicker">Portfolio Excel / VBA</span>
+          <h2>Rozwiązania, które możesz zobaczyć w naszym portfolio</h2>
+          <p>Raportowanie sprzedaży, planowanie transportu, kontrola magazynu i obsługa procesów handlowych — poznaj przykłady zastosowań Excela i VBA.</p>
         </div>
         <div class="service-projects-grid">
           <article class="service-project-card service-project-card-live">
-            <a class="service-project-card-image" href={link('/realizacje/sales-performance-dashboard/')} aria-label="Otwórz realizację Sales Performance Dashboard PRO">
-              <img src={link('/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp')} width="1920" height="1032" loading="lazy" decoding="async" alt="Sales Performance Dashboard PRO — ekran Excela z KPI, wykresami i filtrami raportu"/>
+            <a class="service-project-card-image" href={link('/realizacje/sales-performance-dashboard/')} aria-label="Otwórz Sales Performance Dashboard PRO">
+              <img src={link('/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp')} width="1920" height="1032" loading="lazy" decoding="async" alt="Dashboard Excel z wykresami przychodów, kartami KPI i filtrowaniem sprzedaży"/>
             </a>
             <div class="service-project-card-body">
-              <span class="service-project-state service-project-state-ready">Zobacz realizację</span>
-              <h3>Sales Performance Dashboard PRO</h3>
-              <p>System analizy sprzedaży: KPI, filtry okresu i regionu, wykresy, import CSV oraz eksport PDF.</p>
-              <a class="service-project-link" href={link('/realizacje/sales-performance-dashboard/')}>Zdjęcia i nagrania projektu <span aria-hidden="true">→</span></a>
+              <span class="service-project-category">Dashboard i analityka</span>
+              <h3><a href={link('/realizacje/sales-performance-dashboard/')}>Sales Performance Dashboard PRO</a></h3>
+              <p>Wskaźniki KPI, analiza marży, filtry regionów i miesięcy, import CSV oraz eksport PDF.</p>
+              <a class="service-project-link" href={link('/realizacje/sales-performance-dashboard/')}>Zobacz realizację <span aria-hidden="true">→</span></a>
             </div>
           </article>
-          <article class="service-project-card service-project-card-soon">
-            <div class="service-project-card-art" aria-hidden="true"><span>↗</span></div>
+          <article class="service-project-card">
+            <div class="service-project-card-art portfolio-visual-transport" role="img" aria-label="Koncepcyjny podgląd tygodniowego harmonogramu transportów">
+              <div class="pv-top"><strong>TRANSPORT PLANNER</strong><span>HARMONOGRAM</span></div>
+              <div class="pv-sub"><span>‹</span><b>Tydzień 42 / 2026</b><span>›</span></div>
+              <div class="pv-timeline">
+                <div class="pv-days"><span>Kierowca</span><span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span></div>
+                <div class="pv-driver"><b>K-014</b><span class="pv-span pv-span-a">Bydgoszcz – Berlin</span><i></i><i></i></div>
+                <div class="pv-driver"><b>K-021</b><i></i><span class="pv-span pv-span-b">Hamburg</span><i></i></div>
+                <div class="pv-driver"><b>K-008</b><span class="pv-span pv-span-c">Warszawa – Praga</span><i></i><i></i></div>
+              </div>
+            </div>
             <div class="service-project-card-body">
-              <span class="service-project-state">W przygotowaniu</span>
+              <span class="service-project-category">Logistyka i harmonogramowanie</span>
               <h3>Transport Planner PRO</h3>
-              <p>Planowanie transportów, przypisywanie kierowców i pojazdów oraz kontrola konfliktów i dostępności.</p>
-              <span class="service-project-category">Planowanie zasobów · Excel / VBA</span>
+              <p>Planowanie przewozów, harmonogram zasobów i wykrywanie kolizji przy przydzielaniu kierowców oraz pojazdów.</p>
             </div>
           </article>
-          <article class="service-project-card service-project-card-soon">
-            <div class="service-project-card-art" aria-hidden="true"><span>+</span></div>
+          <article class="service-project-card">
+            <div class="service-project-card-art portfolio-visual-stock" role="img" aria-label="Koncepcyjny ekran stanów magazynowych">
+              <div class="pv-top"><strong>INVENTORY CONTROL</strong><span>MAGAZYN</span></div>
+              <div class="pv-stock-stats">
+                <div><small>Produkty</small><strong>148</strong></div>
+                <div><small>Do zamówienia</small><strong>12</strong></div>
+                <div><small>Ruchy</small><strong>86</strong></div>
+              </div>
+              <div class="pv-stock-table">
+                <div class="pv-stock-head"><span>Produkt</span><span>Dostępność</span><span>Stan</span></div>
+                <div><span>Artykuł A-024</span><i><b style="width:83%"></b></i><em>OK</em></div>
+                <div><span>Artykuł B-018</span><i><b style="width:28%" class="low"></b></i><em class="low">Niski</em></div>
+              </div>
+            </div>
             <div class="service-project-card-body">
-              <span class="service-project-state">Kolejne miejsce w portfolio</span>
-              <h3>Następny projekt</h3>
-              <p>Nowe rozwiązania będą prezentowane tutaj razem z opisem funkcjonalności i ekranami aplikacji.</p>
-              <span class="service-project-category">Nowa realizacja · W przygotowaniu</span>
+              <span class="service-project-category">Magazyn i kontrola stanów</span>
+              <h3>Inventory Control PRO</h3>
+              <p>Przyjęcia i wydania, ewidencja produktów, kontrola dostępności i sygnalizowanie braków.</p>
+            </div>
+          </article>
+          <article class="service-project-card">
+            <div class="service-project-card-art portfolio-visual-crm" role="img" aria-label="Koncepcyjny podgląd tablicy CRM z etapami obsługi szans sprzedaży">
+              <div class="pv-top"><strong>CRM WORKFLOW</strong><span>SPRZEDAŻ</span></div>
+              <div class="pv-crm-columns">
+                <div><strong>Nowe <small>4</small></strong><span>Zapytanie #104</span><span>Zapytanie #109</span></div>
+                <div><strong>W trakcie <small>3</small></strong><span>Oferta #078</span><span>Oferta #083</span></div>
+                <div><strong>Finalizacja <small>2</small></strong><span>Projekt #056</span><span>Projekt #061</span></div>
+              </div>
+              <div class="pv-crm-bottom"><span>Kontakty</span><span>Szanse</span><span>Zadania</span></div>
+            </div>
+            <div class="service-project-card-body">
+              <span class="service-project-category">Organizacja pracy handlowej</span>
+              <h3>CRM Workflow PRO</h3>
+              <p>Kontakty, oferty, zadania i uporządkowany proces prowadzenia klientów przez kolejne etapy sprzedaży.</p>
             </div>
           </article>
         </div>
+        <p class="service-project-concept-note">Podglądy kart bez linków przedstawiają koncepcje przyszłych realizacji, a nie gotowe ekrany aplikacji.</p>
         <div class="service-hero-actions service-projects-actions">
           <a class="service-primary" href={link('/realizacje/')}>Przejrzyj portfolio realizacji →</a>
           <a class="service-secondary" href="#zapytanie">Zapytaj o własne rozwiązanie ↓</a>
