@@ -36,13 +36,20 @@ const schema={
         <h1>Od danych do <em>gotowych narzędzi biznesowych.</em></h1>
         <p>Poznaj rozwiązania, które łączą analitykę, automatyzację i intuicyjny interfejs. Każdy projekt opisuję od strony funkcjonalnej — co robi, jak działa i do jakich zadań może się przydać.</p>
         <div class="portfolio-actions">
-          <a class="primary" href={link('/realizacje/sales-performance-dashboard/')}>Zobacz pierwszą realizację →</a>
+          <a class="primary" href="#projekty">Przeglądaj realizacje ↓</a>
           <a class="secondary" href={link('/uslugi/excel-vba/')+'#zapytanie'}>Zapytaj o własne rozwiązanie</a>
         </div>
       </div>
     </section>
-    <section class="portfolio-section">
+    <section class="portfolio-section" id="projekty">
       <div class="wrap">
+        <div class="portfolio-projects-head">
+          <div>
+            <span class="portfolio-eyebrow">Portfolio projektów</span>
+            <h2 class="portfolio-heading">Rozwiązania Excel i VBA</h2>
+            <p class="portfolio-subheading">Przy każdym projekcie znajdziesz opis zastosowania, ekranów i najważniejszych funkcji. Kolejne realizacje będą pojawiać się w tym samym katalogu.</p>
+          </div>
+        </div>
         <span class="portfolio-eyebrow">01 / Analityka sprzedaży</span>
         <div class="portfolio-feature" style="margin-top:18px;">
           <div>
@@ -65,6 +72,29 @@ const schema={
               <span>Zobacz zrzuty i nagrania →</span>
             </a>
           </figure>
+        </div>
+      </div>
+    </section>
+    <section class="portfolio-section portfolio-upcoming-section" aria-labelledby="portfolio-next-heading">
+      <div class="wrap">
+        <span class="portfolio-eyebrow">Kolejne pozycje w portfolio</span>
+        <h2 class="portfolio-heading" id="portfolio-next-heading">Miejsce na następne realizacje</h2>
+        <p class="portfolio-subheading">Przygotowuję kolejne projekty. Poniższe karty pokazują planowane obszary — nie są jeszcze opublikowanymi realizacjami.</p>
+        <div class="portfolio-upcoming-grid">
+          <article class="portfolio-upcoming-card">
+            <span class="portfolio-upcoming-status">W przygotowaniu</span>
+            <div class="portfolio-upcoming-symbol" aria-hidden="true">↗</div>
+            <h3>Transport Planner PRO</h3>
+            <p>System do planowania transportów, przydzielania kierowców i pojazdów oraz kontroli konfliktów zasobów.</p>
+            <span class="portfolio-upcoming-category">Planowanie operacyjne · Excel / VBA</span>
+          </article>
+          <article class="portfolio-upcoming-card portfolio-upcoming-card-empty">
+            <span class="portfolio-upcoming-status">Miejsce na kolejny projekt</span>
+            <div class="portfolio-upcoming-symbol" aria-hidden="true">+</div>
+            <h3>Następna realizacja</h3>
+            <p>Tutaj pojawi się kolejny projekt wraz z opisem działania, zdjęciami i prezentacją najważniejszych funkcji.</p>
+            <span class="portfolio-upcoming-category">Nowy projekt · Wkrótce</span>
+          </article>
         </div>
       </div>
     </section>

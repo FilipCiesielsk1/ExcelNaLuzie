@@ -644,3 +644,37 @@
 @media(max-width:700px){ .pro-template-related-grid{grid-template-columns:1fr;} }
 
 .xlsx-preview-note { margin:0; padding:8px 13px; background:#f1f7f2; border-top:1px solid #dce8df; color:#627568; font-size:.73rem; line-height:1.4; }
+
+
+/* Mobile navigation: distinguish free templates and business cooperation. */
+@media(max-width:1180px){
+  .site-header .mobile-menu-panel a.nav-item-featured{
+    background:#e6f5e9;
+    border:1px solid #a6d5b3;
+    color:#0b6635;
+    font-weight:900;
+    margin-top:5px;
+  }
+  .site-header .mobile-menu-panel a.nav-item-featured b{color:#0b6635}
+  .site-header .mobile-menu-panel a.nav-item-featured:is(:hover,:focus-visible,.active){
+    background:#d5ecd9;
+    border-color:#7bbd90;
+    color:#084e29;
+  }
+  .site-header .mobile-menu-panel a.nav-item-collab{
+    background:#0b6635;
+    border:1px solid #0b6635;
+    color:#fff;
+    font-weight:900;
+    margin-top:5px;
+    box-shadow:0 4px 12px rgba(11,102,53,.16);
+  }
+  .site-header .mobile-menu-panel a.nav-item-collab b{color:#fff}
+  .site-header .mobile-menu-panel a.nav-item-collab:is(:hover,:focus-visible,.active){
+    background:#074c28;
+    border-color:#074c28;
+    color:#fff;
+  }
+  .site-header .mobile-menu-panel a:focus-visible{outline:3px solid #4eb47b;outline-offset:2px}
+}
+

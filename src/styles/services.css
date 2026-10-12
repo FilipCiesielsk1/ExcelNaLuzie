@@ -93,3 +93,27 @@
 /* Honeypot stays accessible to basic bots, outside the visible viewport for users. */
 .service-honeypot{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .service-submit:disabled{opacity:.6;cursor:wait}
+
+
+/* Expandable project showcase for cooperation landing. */
+.service-projects-section{background:#f5faf6}
+.service-projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.service-project-card{display:flex;flex-direction:column;min-width:0;border:1px solid #d6e5db;border-radius:17px;background:#fff;overflow:hidden;box-shadow:0 12px 30px rgba(20,73,40,.045)}
+.service-project-card-image{display:block;aspect-ratio:16/9;overflow:hidden;background:#edf5ee}
+.service-project-card-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform .2s}
+.service-project-card-image:hover img{transform:scale(1.025)}
+.service-project-card-image:focus-visible{outline:3px solid #248d51;outline-offset:-3px}
+.service-project-card-art{display:grid;place-items:center;aspect-ratio:16/9;background:linear-gradient(140deg,#e5f3ea,#f6faf7);color:#1c7340;font-size:3.2rem;font-weight:800}
+.service-project-card-soon .service-project-card-art{background:linear-gradient(140deg,#eff5f0,#f9fbf9)}
+.service-project-card-body{padding:20px 21px 23px;display:flex;flex-direction:column;align-items:flex-start;gap:12px;flex:1}
+.service-project-state{padding:6px 10px;font-size:.73rem;font-weight:850;background:#edf2ef;color:#52715e;border-radius:99px;line-height:1.2}
+.service-project-state-ready{background:#e4f4e9;color:#08662e}
+.service-project-card h3{font-size:1.16rem;line-height:1.35;color:#123d29;margin:0}
+.service-project-card p{font-size:.88rem;line-height:1.7;color:#557262;margin:0;flex:1}
+.service-project-link{display:inline-flex;gap:10px;align-items:center;color:#0d7239;font-weight:850;font-size:.87rem;line-height:1.4;text-underline-offset:3px}
+.service-project-category{font-size:.78rem;font-weight:750;color:#718678;line-height:1.5}
+.service-projects-actions{margin-top:28px}
+@media(max-width:980px){.service-projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.service-projects-grid{grid-template-columns:1fr}.service-project-card-art{aspect-ratio:16/6}.service-project-card-image{aspect-ratio:16/8}}
+@media(prefers-reduced-motion:reduce){.service-project-card-image img{transition:none}}
+
