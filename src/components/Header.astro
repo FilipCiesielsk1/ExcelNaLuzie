@@ -62,7 +62,7 @@ const items = [
         {items.map((item) => (
           <a
             href={link(item.href)}
-            class:list={{ active: activeSection === item.key }}
+            class:list={{ active: activeSection === item.key, "nav-item-featured": item.key === "szablony", "nav-item-collab": item.key === "uslugi" }}
             title={item.hint}
             aria-current={activeSection === item.key ? 'page' : undefined}
           >
