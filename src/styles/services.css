@@ -117,3 +117,13 @@
 @media(max-width:600px){.service-projects-grid{grid-template-columns:1fr}.service-project-card-art{aspect-ratio:16/6}.service-project-card-image{aspect-ratio:16/8}}
 @media(prefers-reduced-motion:reduce){.service-project-card-image img{transition:none}}
 
+
+
+/* Same polished project gallery language as the portfolio directory. */
+.service-projects-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.service-project-card-art[class*="portfolio-visual-"]{aspect-ratio:16/9;min-height:0}
+.service-project-card-body h3 a{color:inherit;text-decoration:none}
+.service-project-card-body h3 a:hover{color:#107c41}
+.service-project-card-body .service-project-category{color:#177143;font-size:.76rem;font-weight:850}
+.service-project-concept-note{font-size:.76rem;color:#708275;line-height:1.6;margin:18px 0 0}
+@media(max-width:600px){.service-projects-grid{grid-template-columns:1fr}.service-project-card-art[class*="portfolio-visual-"]{aspect-ratio:16/9}}
