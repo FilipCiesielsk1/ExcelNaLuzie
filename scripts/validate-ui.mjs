@@ -236,17 +236,33 @@ if(!caseHtml.includes('portfolio-lightbox')||!caseHtml.includes('data-portfolio-
 if(caseHtml.includes('download')&&caseHtml.includes('.xlsm'))
   errors.push('Portfolio: nie wolno publikować XLSM przed dostarczeniem wersji demo');
 
-// Portfolio v3: scalable listing, clear future-project status and mobile conversion links.
+// Portfolio v4: four complete-looking cards, no placeholder CTAs or dead links.
 const catalogue=fs.readFileSync(pageFile('/realizacje/'),'utf8');
 const servicesPage=fs.readFileSync(pageFile('/uslugi/excel-vba/'),'utf8');
-if(!catalogue.includes('id="projekty"')||!catalogue.includes('portfolio-upcoming-grid'))
-  errors.push('Portfolio v3: brak skalowalnego katalogu projektów');
-if(!catalogue.includes('Transport Planner PRO')||!catalogue.includes('W przygotowaniu'))
-  errors.push('Portfolio v3: brak oznaczonego miejsca na kolejny projekt');
-if(!servicesPage.includes('service-projects-grid')||!servicesPage.includes('Transport Planner PRO'))
-  errors.push('Współpraca v3: brak uniwersalnej galerii projektów');
+const projects=['Sales Performance Dashboard PRO','Transport Planner PRO','Inventory Control PRO','CRM Workflow PRO'];
+if(!catalogue.includes('id="projekty"')||!catalogue.includes('portfolio-showcase-grid'))
+  errors.push('Portfolio v4: brak galerii projektów');
+for(const project of projects){
+  if(!catalogue.includes(project))errors.push('Portfolio v4: brak projektu w katalogu '+project);
+  if(!servicesPage.includes(project))errors.push('Współpraca v4: brak karty projektu '+project);
+}
+if((catalogue.match(/class="portfolio-showcase-card"/g)||[]).length!==4)
+  errors.push('Portfolio v4: oczekiwano czterech kompletnych kart');
+if((servicesPage.match(/class="service-project-card(?: service-project-card-live)?"/g)||[]).length!==4)
+  errors.push('Współpraca v4: oczekiwano czterech kompletnych kart');
+if(/Miejsce na następne realizacje|Następna realizacja|Miejsce na kolejny projekt|W przygotowaniu/.test(catalogue))
+  errors.push('Portfolio v4: usunąć techniczne placeholdery z prezentacji');
+if(!catalogue.includes('Karty bez odnośników prezentują koncepcje')||
+   !servicesPage.includes('Podglądy kart bez linków przedstawiają koncepcje'))
+  errors.push('Portfolio v4: brak oznaczenia podglądów koncepcyjnych');
+if(!catalogue.includes('portfolio-visual-transport')||!catalogue.includes('portfolio-visual-stock')||!catalogue.includes('portfolio-visual-crm'))
+  errors.push('Portfolio v4: brak odrębnych podglądów graficznych dla kolejnych projektów');
 if(!servicesPage.includes('href="/realizacje/"')||!servicesPage.includes('Sales Performance Dashboard PRO'))
-  errors.push('Współpraca v3: brak przejścia do portfolio i aktywnej realizacji');
+  errors.push('Współpraca v4: brak przejścia do katalogu i gotowej realizacji');
+const catalogSource=fs.readFileSync('src/pages/realizacje/index.astro','utf8');
+const serviceSource=fs.readFileSync('src/pages/uslugi/excel-vba/index.astro','utf8');
+if(/href=\{link\('\/realizacje\/(?:transport|inventory|crm)/.test(catalogSource+serviceSource))
+  errors.push('Portfolio v4: niedozwolony link do niewydanego projektu');
 if(!caseHtml.includes('Wszystkie dane wykorzystane w tej realizacji są demonstracyjne'))
   errors.push('Dashboard: brak informacji o demonstracyjnych danych');
 const mobileHeader=fs.readFileSync('src/components/Header.astro','utf8');
