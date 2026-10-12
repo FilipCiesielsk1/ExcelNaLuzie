@@ -185,8 +185,8 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 **Stan wyjściowy:** brak projektów klientowskich, które można opublikować. Budujemy portfolio od podstaw na **autentycznie działających projektach demonstracyjnych**. Nie przedstawiamy ich jako zleceń wykonanych dla klientów i nie wymyślamy opinii, oszczędności, wdrożeń ani wyników biznesowych.
 
 ### Priorytet P0 — portfolio demonstracyjne (następny etap)
-- [x] Przygotować katalog `/realizacje/` pod rosnącą liczbę projektów: karty aktualnych realizacji, osobno czytelnie oznaczone miejsca „W przygotowaniu”, bez nieaktywnych odsyłaczy i bez sugerowania gotowego projektu.
-- [x] Przebudować sekcję realizacji na stronie Współpraca do wieloprojektowej galerii, z jednym aktywnym projektem, miejscem na Transport Planner PRO i miejscem na kolejną realizację.
+- [x] Przygotować katalog `/realizacje/` w docelowym układzie czterech pełnych kart: Sales Performance Dashboard PRO, Transport Planner PRO, Inventory Control PRO i CRM Workflow PRO; jedynym aktywnym odnośnikiem jest ukończony dashboard, pozostałe mają wizualizacje koncepcji bez pustych podstron.
+- [x] Ujednolicić Współpracę z docelową galerią czterech projektów i miniaturami interfejsów zamiast technicznych placeholderów.
 - [x] Wyróżnić na telefonach i tabletach pozycje „Szablony” oraz „Współpraca” w rozwijanym menu.
 - [x] Dodać do Sales Performance Dashboard PRO widoczną informację, że wszystkie dane w aplikacji są demonstracyjne.
 - [x] Utworzyć katalog `/realizacje/` i pierwszą podstronę projektu: problem, funkcje, przepływ pracy, wizualizacja KPI, CSV i CTA.
@@ -197,9 +197,9 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [ ] **Portfolio #1 — wersja próbna XLSM:** użytkownik dośle gotowy plik. Dopiero po otrzymaniu, weryfikacji i świadomym zatwierdzeniu dodać pobieranie. Planowany limit 24h od pierwszego uruchomienia, nie od pobrania (sam statyczny GitHub Pages nie ustali wiarygodnie momentu pobrania); podać jasne wymagania Excela i ostrzeżenie o makrach. Nie publikować pliku produkcyjnego bez zgody.
 - [x] Przygotować **Projekt 1: Sales Performance Dashboard PRO** i opublikować opis funkcji w portfolio (dostarczony skoroszyt XLSM i próbny CSV).
 - [ ] Zweryfikować działanie przycisków, importu CSV, eksportu PDF i filtrów w desktopowym Excelu przed udostępnieniem skoroszytu do publicznego pobrania.
-- [ ] **Projekt 2 — ReportFlow PRO:** zbudować w ChatGPT ASTRA kompletny system raportowania z wielu CSV (import całego folderu, wykrywanie separatora i kodowania, mapowanie nagłówków, staging/walidacja, deduplikacja, zbiorczy raport, dziennik błędów, eksport PDF) dla Excel 2016/2021/365. Dostarczyć osobne moduły .bas, a `mod_setup.Instalacja` ma utworzyć całość jednym uruchomieniem i dać się usunąć po instalacji bez wpływu na pracę pozostałych modułów.
-- [ ] **Projekt 2 — odbiór:** test instalacji i ponownej instalacji, obsługa błędnych plików i ponownego importu, test działania po usunięciu `mod_setup`, porównanie sum z plikami CSV, zapis XLSM oraz udokumentowanie w portfolio po weryfikacji.
-- [ ] Stworzyć **Demo 3: Planowanie transportu i zasobów** (kierowcy, pojazdy, dostępność, konflikty, harmonogram, raport; fikcyjne dane).
+- [x] **ReportFlow PRO — pomysł odrzucony:** koncepcyjnie zbyt zbliżony do Sales Performance Dashboard PRO. Nie wdrażać bez nowej decyzji.
+- [ ] **Transport Planner PRO — odbiór:** test instalacji i ponownej instalacji, walidacja konfliktów zasobów, tygodni ISO, formularzy i skinów, test działania po usunięciu `mod_setup`, zapis XLSM oraz udokumentowanie projektu w portfolio po weryfikacji.
+- [ ] **Transport Planner PRO — aktualny priorytet:** ukończyć system planowania kierowców, pojazdów i naczep z harmonogramem, blokadami dostępności, walidacją konfliktów i wyborem skinów. Tworzenie w ChatGPT ASTRA; instalacja z `mod_setup.Instalacja`, późniejsze usunięcie modułu bez wpływu na produkcyjne VBA.
 - [ ] Dla każdego projektu przygotować rzeczywiste zrzuty ekranu, opis architektury i funkcji, instrukcję oraz plik demonstracyjny po weryfikacji.
 - [x] Rozdzielić gotowe realizacje od projektów „W przygotowaniu” i jawnie oznaczyć demonstracyjny charakter danych Sales Performance Dashboard PRO, bez przypisywania nieistniejących klientów.
 - [x] Dodać linki „Realizacje” w nawigacji, stronie głównej, sekcji Współpraca i stopce oraz CTA „Zamów podobne rozwiązanie”.
