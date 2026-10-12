@@ -31,7 +31,7 @@ const showcases=[
 ];
 const recordings=[
  {file:'01_zmiana_miesiaca.webm',title:'Zmiana miesiąca',description:'Zmiana okresu raportowania i aktualizacja widocznych wyników.',poster:'01_dashboard_glowny.webp'},
- {file:'02_zmiana_regionu.webm',title:'Zmiana regionu',description:'Wybór innego regionu i porównanie wskaźników.',poster:'02_dashboard_filtry.webp'},
+ {file:'02_zmiana_regionu.webm',title:'Zmiana regionu',description:'Wybór innego regionu i porównanie wskaźników.',poster:'01_dashboard_glowny.webp'},
  {file:'03_import_csv.webm',title:'Import danych CSV',description:'Wczytanie dodatkowych transakcji i komunikat o rezultacie.',poster:'06_import_csv.webp'},
  {file:'04_eksport_pdf.webm',title:'Eksport raportu PDF',description:'Przygotowanie i otwarcie gotowego raportu.',poster:'07_raport_pdf.webp'}
 ];
@@ -62,7 +62,7 @@ const features=[
         </nav>
         <span class="portfolio-eyebrow">Excel / VBA / Analityka sprzedaży</span>
         <h1>Sales Performance <em>Dashboard PRO</em></h1>
-        <p>Autorska aplikacja do monitorowania wyników sprzedaży: wskaźniki KPI, rentowność, realizacja planów, analizy regionalne i import danych CSV w jednym skoroszycie. Poniżej zobaczysz rzeczywiste ekrany i nagrania działania.</p>
+        <p>Autorska aplikacja do monitorowania wyników sprzedaży: wskaźniki KPI, rentowność, realizacja planów, analizy regionalne i import danych CSV w jednym skoroszycie.</p>
         <div class="portfolio-stats">
           <span>7 arkuszy</span>
           <span>8 KPI</span>
@@ -87,7 +87,7 @@ const features=[
             <img src={media('01_dashboard_glowny.webp')} width="1920" height="1032" alt="Pełny ekran Excel Sales Performance Dashboard PRO: filtry roku 2026, sierpnia i regionu Północ, KPI, pięć wykresów i przyciski VBA" fetchpriority="high" decoding="async"/>
             <span aria-hidden="true" class="portfolio-media-zoom">↗ Powiększ</span>
           </button>
-          <figcaption>Główny ekran aplikacji w Microsoft Excel — rzeczywisty zrzut, bez makiety.</figcaption>
+          <figcaption>Główny ekran aplikacji w Microsoft Excel.</figcaption>
         </figure>
       </div>
     </section>
@@ -122,7 +122,6 @@ const features=[
             </figure>
           ))}
         </div>
-        <p class="portfolio-note">Każdy film można zatrzymać, przewinąć i odtworzyć ponownie. Materiały nie uruchamiają się automatycznie.</p>
       </div>
     </section>
 
@@ -130,7 +129,7 @@ const features=[
       <div class="wrap">
         <span class="portfolio-eyebrow">Galeria aplikacji</span>
         <h2 class="portfolio-heading">Zajrzyj do środka skoroszytu</h2>
-        <p class="portfolio-subheading">Od filtrów i wykresów po transakcje, cele, import danych i raport PDF. Wszystkie kadry pochodzą z działającego systemu.</p>
+        <p class="portfolio-subheading">Od filtrów i wykresów po transakcje, cele, import danych i raport PDF.</p>
         <div class="portfolio-screenshot-grid">
           {showcases.map((shot)=>(
             <figure class:list={['portfolio-shot-card',{wide:shot.wide}]}>
