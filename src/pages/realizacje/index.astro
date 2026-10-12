@@ -22,6 +22,7 @@ const schema={
   title="Realizacje Excel i VBA — portfolio | ExcelNaLuzie"
   description="Autorskie realizacje Excel i VBA: dashboardy, analiza sprzedaży, automatyzacje i raportowanie. Zobacz funkcje, technologie i możliwości współpracy."
   canonical="/realizacje/"
+  image="/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp"
   navSection="realizacje"
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
@@ -58,21 +59,13 @@ const schema={
               <a class="primary" href={link('/realizacje/sales-performance-dashboard/')}>Poznaj projekt →</a>
             </div>
           </div>
-          <div class="portfolio-dashboard" aria-label="Podgląd metryk dashboardu dla sierpnia 2026 i regionu Północ">
-            <div class="portfolio-dashboard-top"><strong>SALES PERFORMANCE DASHBOARD</strong><small>ANALITYKA SPRZEDAŻY · PLN</small></div>
-            <div class="portfolio-dashboard-filters"><span>Rok: 2026</span><span>Okres: sierpień</span><span>Region: Północ</span></div>
-            <div class="portfolio-kpis">
-              <div class="portfolio-kpi"><small>PRZYCHÓD NETTO</small><strong>46 751 zł</strong></div>
-              <div class="portfolio-kpi"><small>MARŻA KWOTOWA</small><strong>13 304 zł</strong></div>
-              <div class="portfolio-kpi"><small>MARŻA %</small><strong>28,46%</strong></div>
-              <div class="portfolio-kpi"><small>TRANSAKCJE</small><strong>21</strong></div>
-            </div>
-            <div class="portfolio-chart-preview">
-              <div><h3>Analiza miesięczna</h3><div class="portfolio-columns" aria-hidden="true"><span style="--bar:54%"></span><span style="--bar:77%"></span><span style="--bar:68%"></span><span style="--bar:93%"></span><span style="--bar:62%"></span><span style="--bar:82%"></span><span style="--bar:100%"></span></div></div>
-              <div><h3>Analiza regionów</h3><div class="portfolio-rank"><div><span>Północ</span><b style="--bar:72%"></b></div><div><span>Południe</span><b style="--bar:95%"></b></div><div><span>Centrum</span><b style="--bar:64%"></b></div><div><span>Wschód</span><b style="--bar:45%"></b></div></div></div>
-            </div>
-            <small class="portfolio-preview-note">Podgląd układu; pokazane wartości KPI odczytano z arkusza.</small>
-          </div>
+          <figure class="portfolio-listing-preview">
+            <a href={link('/realizacje/sales-performance-dashboard/')} aria-label="Zobacz Sales Performance Dashboard PRO i nagrania jego działania">
+              <img src={link('/media/realizacje/sales-performance-dashboard/01_dashboard_glowny.webp')} width="1920" height="1032" alt="Prawdziwy zrzut ekranu Sales Performance Dashboard PRO z ośmioma KPI, wykresami i filtrami w Excelu" loading="lazy" decoding="async"/>
+              <span>Zobacz zrzuty i nagrania →</span>
+            </a>
+            <figcaption>Rzeczywisty widok aplikacji Microsoft Excel.</figcaption>
+          </figure>
         </div>
       </div>
     </section>

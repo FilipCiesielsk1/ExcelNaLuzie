@@ -2,13 +2,17 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../../utils/paths.js';
 import '../../../styles/portfolio.css';
+
+const root='/media/realizacje/sales-performance-dashboard/';
+const media=(name)=>link(root+name);
 const site='https://excelnaluzie.pl';
 const url=site+'/realizacje/sales-performance-dashboard/';
 const schema={
   '@context':'https://schema.org',
   '@graph':[
     {'@type':'WebPage','@id':url+'#page',url,name:'Sales Performance Dashboard PRO — realizacja Excel i VBA',inLanguage:'pl-PL',
-      description:'Dashboard sprzedaży w Excelu: 8 KPI, 5 wykresów, filtry regionu i czasu, import CSV, eksport PDF i automatyzacje VBA.',
+      description:'Zobacz prawdziwe ekrany i nagrania dashboardu sprzedaży w Excelu: KPI, pięć wykresów, filtry regionów, import CSV i eksport PDF.',
+      primaryImageOfPage:{'@type':'ImageObject',url:site+root+'01_dashboard_glowny.webp'},
       isPartOf:{'@id':site+'/#website'}},
     {'@type':'BreadcrumbList',itemListElement:[
       {'@type':'ListItem',position:1,name:'ExcelNaLuzie',item:site+'/'},
@@ -17,26 +21,35 @@ const schema={
     ]}
   ]
 };
-const kpis=[
-  {label:'Przychód netto',value:'46 751,41 zł'},
-  {label:'Marża kwotowa',value:'13 304,34 zł'},
-  {label:'Marża procentowa',value:'28,46%'},
-  {label:'Liczba transakcji',value:'21'}
+const showcases=[
+ {file:'02_dashboard_filtry.webp',alt:'Panel sterowania z przyciskami odświeżania, importu CSV, eksportu PDF i filtrami roku, miesiąca oraz regionu',label:'Filtry i panel sterowania',text:'Zmiana roku, okresu i regionu w jednym miejscu.',width:1768,height:206,wide:true},
+ {file:'03_dashboard_wykresy.webp',alt:'Pięć wykresów Excel: przychód miesięczny, realizacja celu, marża, ranking regionów i TOP 10 produktów',label:'Pięć wykresów',text:'Trendy, cele, marża, regiony i produkty.',width:1778,height:439,wide:true},
+ {file:'04_dane_sprzedazy.webp',alt:'Arkusz SPRZEDAŻ z tabelą transakcji, cenami, rabatami, kosztami i formułami marży',label:'Baza sprzedaży',text:'Tabela transakcyjna z danymi wejściowymi i formułami.',width:1920,height:1032},
+ {file:'05_cele_sprzedazowe.webp',alt:'Arkusz CELE z planami przychodowymi i marżowymi w rozbiciu na lata, miesiące i regiony',label:'Plany sprzedażowe',text:'Cele w podziale na miesiące i regiony.',width:1920,height:1032},
+ {file:'06_import_csv.webp',alt:'Komunikat Microsoft Excel po imporcie CSV: dwa rekordy zaimportowane, zero duplikatów i błędów',label:'Import CSV',text:'Rezultat działania mechanizmu importu.',width:1919,height:1031},
+ {file:'07_raport_pdf.webp',alt:'Otwarty w przeglądarce raport PDF wyeksportowany z dashboardu sprzedaży',label:'Eksport PDF',text:'Gotowe zestawienie przeznaczone do udostępnienia.',width:1920,height:1032}
+];
+const recordings=[
+ {file:'01_zmiana_miesiaca.webm',title:'Zmiana miesiąca',description:'Zmiana okresu raportowania i aktualizacja widocznych wyników.',poster:'01_dashboard_glowny.webp'},
+ {file:'02_zmiana_regionu.webm',title:'Zmiana regionu',description:'Wybór innego regionu i porównanie wskaźników.',poster:'02_dashboard_filtry.webp'},
+ {file:'03_import_csv.webm',title:'Import danych CSV',description:'Wczytanie dodatkowych transakcji i komunikat o rezultacie.',poster:'06_import_csv.webp'},
+ {file:'04_eksport_pdf.webm',title:'Eksport raportu PDF',description:'Przygotowanie i otwarcie gotowego raportu.',poster:'07_raport_pdf.webp'}
 ];
 const features=[
-  {symbol:'01',title:'Panel KPI',description:'Przychód netto, marża kwotowa i procentowa, liczba transakcji, średnia wartość zamówienia, realizacja celu, zmiana przychodu i najlepszy handlowiec.'},
-  {symbol:'02',title:'Wykresy zarządcze',description:'Przychód miesięczny, przychód względem celu, marża miesięczna, ranking regionów oraz dziesięć najważniejszych produktów.'},
-  {symbol:'03',title:'Filtry raportu',description:'Wybór roku, miesiąca i regionu pozwala analizować dane z różnych perspektyw, bez ręcznego filtrowania tabel źródłowych.'},
-  {symbol:'04',title:'Import CSV',description:'Możliwość dołączenia nowych danych sprzedażowych z pliku tekstowego, z uwzględnieniem pól ujętych w cudzysłowy.'},
-  {symbol:'05',title:'Raport PDF',description:'Przygotowanie widoku dashboardu do eksportu, z zachowaniem aktualnego kontekstu analizy.'},
-  {symbol:'06',title:'Modułowa budowa VBA',description:'Oddzielne moduły obsługujące funkcje użytkowe, pracę z danymi oraz operacje automatyzujące raportowanie.'}
+  {symbol:'01',title:'Panel KPI',description:'Przychód netto, marża kwotowa i procentowa, liczba i średnia wartość transakcji, realizacja celu, dynamika przychodu i najlepszy handlowiec.'},
+  {symbol:'02',title:'Wykresy zarządcze',description:'Przychód miesięczny, przychód względem celu, marża miesięczna, ranking regionów oraz TOP 10 produktów.'},
+  {symbol:'03',title:'Filtry raportu',description:'Wybór roku, miesiąca i regionu pozwala analizować dane z różnych perspektyw.'},
+  {symbol:'04',title:'Import CSV',description:'Dodawanie transakcji z pliku tekstowego z kontrolą liczby zaimportowanych rekordów, duplikatów i błędów.'},
+  {symbol:'05',title:'Raport PDF',description:'Eksport bieżącego zestawienia bez ręcznego kopiowania wykresów i wskaźników.'},
+  {symbol:'06',title:'Automatyzacja VBA',description:'Przyciski do odświeżania, nawigacji, importu danych i tworzenia raportu.'}
 ];
 ---
 <BaseLayout
   title="Dashboard sprzedaży Excel VBA — Sales Performance PRO | ExcelNaLuzie"
-  description="Autorska realizacja dashboardu sprzedaży Excel i VBA. 8 KPI, 5 wykresów, analiza regionów, cele sprzedażowe, import CSV i raport PDF. Zobacz projekt."
+  description="Zobacz rzeczywiste zrzuty ekranu i cztery nagrania działania Sales Performance Dashboard PRO. 8 KPI, 5 wykresów, filtry, import CSV i PDF."
   canonical="/realizacje/sales-performance-dashboard/"
   navSection="realizacje"
+  image={root+'01_dashboard_glowny.webp'}
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
   <div class="portfolio-page" data-pagefind-body>
@@ -49,62 +62,102 @@ const features=[
         </nav>
         <span class="portfolio-eyebrow">Excel / VBA / Analityka sprzedaży</span>
         <h1>Sales Performance <em>Dashboard PRO</em></h1>
-        <p>Autorska aplikacja do monitorowania wyników sprzedaży: wskaźniki KPI, rentowność, realizacja planów, analizy regionalne i obsługa danych CSV w jednym skoroszycie Excel.</p>
+        <p>Autorska aplikacja do monitorowania wyników sprzedaży: wskaźniki KPI, rentowność, realizacja planów, analizy regionalne i import danych CSV w jednym skoroszycie. Poniżej zobaczysz rzeczywiste ekrany i nagrania działania.</p>
         <div class="portfolio-stats">
           <span>7 arkuszy</span>
           <span>8 KPI</span>
           <span>5 wykresów</span>
-          <span>2 435 pozycji w tabeli sprzedaży</span>
+          <span>2 435 pozycji sprzedaży</span>
           <span>Excel + VBA</span>
         </div>
         <div class="portfolio-actions">
-          <a class="primary" href="#funkcje">Poznaj funkcjonalność ↓</a>
+          <a class="primary" href="#zobacz-dashboard">Zobacz aplikację ↓</a>
           <a class="secondary" href={link('/uslugi/excel-vba/')+'#zapytanie'}>Zamów podobny dashboard →</a>
         </div>
       </div>
     </section>
-    <section class="portfolio-section">
-      <div class="wrap portfolio-feature">
-        <div>
-          <span class="portfolio-project-kicker">Cel rozwiązania</span>
-          <h2>Jedno miejsce do analizy przychodów, marży i realizacji celów</h2>
-          <p>Zamiast ręcznego łączenia kilku zestawień raport prezentuje najważniejsze informacje w centralnym panelu, a szczegóły pozostawia w ustrukturyzowanych tabelach źródłowych.</p>
-          <ul class="portfolio-points">
-            <li>Wybór roku, miesiąca i regionu.</li>
-            <li>Porównywanie wyników z odpowiednim wcześniejszym okresem.</li>
-            <li>Kontrola sprzedaży i marży w podziale na regiony, handlowców i produkty.</li>
-            <li>Osobne tabele transakcji i celów, słowniki oraz model analityczny.</li>
-          </ul>
-          <p class="portfolio-note">Liczby w podglądzie odpowiadają zapisanemu stanowi skoroszytu dla sierpnia 2026 i regionu Północ.</p>
+
+    <section class="portfolio-section portfolio-media-section" id="zobacz-dashboard">
+      <div class="wrap">
+        <span class="portfolio-eyebrow">Rzeczywisty widok aplikacji</span>
+        <h2 class="portfolio-heading">Tak wygląda dashboard w Excelu</h2>
+        <p class="portfolio-subheading">W jednym ekranie: osiem KPI, pięć wykresów i szybki dostęp do importu danych oraz eksportu raportu. Kliknij obraz, aby powiększyć.</p>
+        <figure class="portfolio-hero-screen">
+          <button type="button" class="portfolio-media-open" data-portfolio-open data-image={media('01_dashboard_glowny.webp')} data-alt="Pełny widok Sales Performance Dashboard PRO w Excelu z ośmioma KPI, pięcioma wykresami, filtrami i przyciskami" data-title="Dashboard — widok główny" aria-label="Powiększ zrzut całego dashboardu">
+            <img src={media('01_dashboard_glowny.webp')} width="1920" height="1032" alt="Pełny ekran Excel Sales Performance Dashboard PRO: filtry roku 2026, sierpnia i regionu Północ, KPI, pięć wykresów i przyciski VBA" fetchpriority="high" decoding="async"/>
+            <span aria-hidden="true" class="portfolio-media-zoom">↗ Powiększ</span>
+          </button>
+          <figcaption>Główny ekran aplikacji w Microsoft Excel — rzeczywisty zrzut, bez makiety.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="portfolio-section" id="nagrania">
+      <div class="wrap">
+        <span class="portfolio-eyebrow">Zobacz funkcje w akcji</span>
+        <h2 class="portfolio-heading">Cztery krótkie nagrania działania</h2>
+        <p class="portfolio-subheading">Rzeczywiste nagrania z aplikacji: zmiana filtrów, import CSV i eksport PDF. Uruchom wybrany film przyciskiem odtwarzania; nagrania są bez dźwięku.</p>
+        <div class="portfolio-video-grid">
+          {recordings.map((clip,index)=>(
+            <figure class="portfolio-video-card">
+              <div class="portfolio-video-frame">
+                <video
+                  controls
+                  playsinline
+                  muted
+                  loop
+                  preload="none"
+                  poster={media(clip.poster)}
+                  aria-label={'Nagranie '+(index+1)+': '+clip.title}
+                >
+                  <source src={media(clip.file)} type="video/webm"/>
+                  Twoja przeglądarka nie obsługuje wideo WebM.
+                  <a href={media(clip.file)}>Otwórz nagranie</a>
+                </video>
+              </div>
+              <figcaption>
+                <strong><span>{String(index+1).padStart(2,'0')}</span> {clip.title}</strong>
+                <p>{clip.description}</p>
+              </figcaption>
+            </figure>
+          ))}
         </div>
-        <div class="portfolio-dashboard" aria-label="Podgląd danych dashboardu">
-          <div class="portfolio-dashboard-top"><strong>SALES PERFORMANCE DASHBOARD PRO</strong><small>ANALITYKA SPRZEDAŻY · PLN</small></div>
-          <div class="portfolio-dashboard-filters"><span>2026</span><span>08 Sierpień</span><span>Północ</span></div>
-          <div class="portfolio-kpis">
-            {kpis.map(kpi=>(
-              <div class="portfolio-kpi"><small>{kpi.label.toUpperCase()}</small><strong>{kpi.value}</strong></div>
-            ))}
-          </div>
-          <div class="portfolio-chart-preview">
-            <div><h3>Przychód miesięczny</h3><div class="portfolio-columns" aria-hidden="true">
-              <span style="--bar:54%"></span><span style="--bar:77%"></span><span style="--bar:68%"></span><span style="--bar:93%"></span><span style="--bar:62%"></span><span style="--bar:82%"></span><span style="--bar:100%"></span>
-            </div></div>
-            <div><h3>Regiony</h3><div class="portfolio-rank">
-              <div><span>Północ</span><b style="--bar:72%"></b></div>
-              <div><span>Południe</span><b style="--bar:95%"></b></div>
-              <div><span>Centrum</span><b style="--bar:64%"></b></div>
-              <div><span>Wschód</span><b style="--bar:45%"></b></div>
-            </div></div>
-          </div>
-          <small class="portfolio-preview-note">Wizualny podgląd układu raportu. Wykresy są ilustracją układu; wartości kart pochodzą ze skoroszytu.</small>
+        <p class="portfolio-note">Każdy film można zatrzymać, przewinąć i odtworzyć ponownie. Materiały nie uruchamiają się automatycznie.</p>
+      </div>
+    </section>
+
+    <section class="portfolio-section" id="galeria">
+      <div class="wrap">
+        <span class="portfolio-eyebrow">Galeria aplikacji</span>
+        <h2 class="portfolio-heading">Zajrzyj do środka skoroszytu</h2>
+        <p class="portfolio-subheading">Od filtrów i wykresów po transakcje, cele, import danych i raport PDF. Wszystkie kadry pochodzą z działającego systemu.</p>
+        <div class="portfolio-screenshot-grid">
+          {showcases.map((shot)=>(
+            <figure class:list={['portfolio-shot-card',{wide:shot.wide}]}>
+              <button
+                type="button"
+                class="portfolio-media-open"
+                data-portfolio-open
+                data-image={media(shot.file)}
+                data-alt={shot.alt}
+                data-title={shot.label}
+                aria-label={'Powiększ obraz: '+shot.label}
+              >
+                <img src={media(shot.file)} width={shot.width} height={shot.height} loading="lazy" decoding="async" alt={shot.alt}/>
+                <span aria-hidden="true" class="portfolio-media-zoom">↗ Powiększ</span>
+              </button>
+              <figcaption><strong>{shot.label}</strong><span>{shot.text}</span></figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>
+
     <section class="portfolio-section" id="funkcje">
       <div class="wrap">
         <span class="portfolio-eyebrow">Zakres projektu</span>
         <h2 class="portfolio-heading">Co potrafi aplikacja?</h2>
-        <p class="portfolio-subheading">Oprócz prezentacji wyników skoroszyt zawiera zaplecze danych i zestaw działań dostępnych z poziomu interfejsu Excel.</p>
+        <p class="portfolio-subheading">Oprócz prezentacji wyników skoroszyt ma zaplecze danych i zestaw działań dostępnych z poziomu interfejsu Excel.</p>
         <div class="portfolio-grid">
           {features.map(item=>(
             <article class="portfolio-card"><span class="symbol">{item.symbol}</span><h3>{item.title}</h3><p>{item.description}</p></article>
@@ -112,12 +165,13 @@ const features=[
         </div>
       </div>
     </section>
+
     <section class="portfolio-section">
       <div class="wrap portfolio-details">
         <div>
           <span class="portfolio-eyebrow">Organizacja danych</span>
           <h2 class="portfolio-heading" style="margin-top:10px;">Struktura skoroszytu</h2>
-          <p class="portfolio-subheading">Siedem arkuszy rozdziela interfejs, dane operacyjne i konfigurację. Dzięki temu dashboard nie wymaga ręcznego układania raportów po każdej aktualizacji danych.</p>
+          <p class="portfolio-subheading">Siedem głównych arkuszy rozdziela interfejs, dane operacyjne i konfigurację.</p>
           <div class="portfolio-table-scroll">
             <table class="portfolio-table">
               <thead><tr><th>Arkusz</th><th>Przeznaczenie</th></tr></thead>
@@ -126,7 +180,7 @@ const features=[
                 <tr><td>SPRZEDAŻ</td><td>Rejestr transakcji i obliczenia</td></tr>
                 <tr><td>CELE</td><td>Plany miesięczne i regionalne</td></tr>
                 <tr><td>SŁOWNIKI</td><td>Regiony, produkty, handlowcy i klienci</td></tr>
-                <tr><td>ANALIZA</td><td>Model pomocniczy do KPI i wykresów</td></tr>
+                <tr><td>ANALIZA</td><td>Zaplecze obliczeniowe KPI i wykresów</td></tr>
                 <tr><td>USTAWIENIA</td><td>Konfiguracja aplikacji</td></tr>
                 <tr><td>INSTRUKCJA</td><td>Obsługa i diagnostyka</td></tr>
               </tbody>
@@ -137,23 +191,24 @@ const features=[
           <span class="portfolio-eyebrow">Przepływ pracy</span>
           <h2 class="portfolio-heading" style="margin-top:10px;">Od pliku CSV do raportu</h2>
           <div class="portfolio-steps">
-            <div class="portfolio-step"><b>01</b><div><strong>Wprowadzenie danych</strong><p>Dane z tabeli SPRZEDAŻ lub nowy plik CSV, zgodny ze strukturą importu.</p></div></div>
-            <div class="portfolio-step"><b>02</b><div><strong>Przetwarzanie i agregacja</strong><p>Przeliczenie wartości sprzedaży, kosztów, marży i realizacji celów.</p></div></div>
+            <div class="portfolio-step"><b>01</b><div><strong>Wprowadzenie danych</strong><p>Dane z tabeli SPRZEDAŻ lub pliku CSV zgodnego ze strukturą importu.</p></div></div>
+            <div class="portfolio-step"><b>02</b><div><strong>Przetwarzanie</strong><p>Przeliczenie wartości sprzedaży, kosztów, marży i realizacji celów.</p></div></div>
             <div class="portfolio-step"><b>03</b><div><strong>Analiza wyników</strong><p>Zmiana filtrów roku, miesiąca i regionu oraz odczyt wskaźników.</p></div></div>
-            <div class="portfolio-step"><b>04</b><div><strong>Udostępnienie raportu</strong><p>Eksport podsumowania do formatu PDF.</p></div></div>
+            <div class="portfolio-step"><b>04</b><div><strong>Raport PDF</strong><p>Eksport podsumowania w czytelnym układzie.</p></div></div>
           </div>
         </div>
       </div>
     </section>
+
     <section class="portfolio-section">
       <div class="wrap">
         <span class="portfolio-eyebrow">Dane wejściowe</span>
-        <h2 class="portfolio-heading" style="margin-top:10px;">Przykład pliku CSV do importu</h2>
-        <p class="portfolio-subheading">Format wejściowy obejmuje 12 kolumn, od identyfikatora transakcji i daty po rabat i koszt jednostkowy. Plik zawiera także pole wielowierszowe i separator wewnątrz cudzysłowu, co ułatwia sprawdzenie parsera.</p>
+        <h2 class="portfolio-heading" style="margin-top:10px;">Przykładowy CSV do importu</h2>
+        <p class="portfolio-subheading">Format wejściowy obejmuje 12 kolumn, od identyfikatora transakcji i daty po rabat i koszt jednostkowy. Plik zawiera również pole wielowierszowe oraz separator wewnątrz cudzysłowu, dzięki czemu pozwala przetestować parser.</p>
         <div class="portfolio-actions" style="margin-top:0;">
           <a class="secondary" href={link('/downloads/realizacje/sales-performance-import.csv')} download>Pobierz przykładowy CSV ↓</a>
         </div>
-        <p class="portfolio-note">CSV jest plikiem tekstowym UTF-8. Obsługa importu odbywa się w skoroszycie Excel z aktywnymi makrami VBA. Makra włączaj wyłącznie w zaufanym pliku.</p>
+        <p class="portfolio-note">Plik CSV można odczytać tekstowo lub zaimportować w Excelu. Makra należy uruchamiać wyłącznie w zaufanych plikach.</p>
       </div>
     </section>
     <section class="portfolio-section">
@@ -165,4 +220,31 @@ const features=[
       </div>
     </section>
   </div>
+
+  <dialog class="portfolio-lightbox" data-portfolio-lightbox aria-label="Powiększone zdjęcie aplikacji">
+    <div class="portfolio-lightbox-head">
+      <strong data-portfolio-lightbox-title></strong>
+      <button type="button" data-portfolio-close aria-label="Zamknij powiększenie">Zamknij ×</button>
+    </div>
+    <img data-portfolio-lightbox-image alt=""/>
+    <p class="portfolio-lightbox-tip">Naciśnij Esc lub Zamknij, aby wrócić do galerii.</p>
+  </dialog>
+  <script>
+    const dialog=document.querySelector('[data-portfolio-lightbox]');
+    const photo=dialog?.querySelector('[data-portfolio-lightbox-image]');
+    const title=dialog?.querySelector('[data-portfolio-lightbox-title]');
+    if(dialog && photo && title){
+      document.querySelectorAll('[data-portfolio-open]').forEach(button=>{
+        button.addEventListener('click',()=>{
+          photo.src=button.dataset.image;
+          photo.alt=button.dataset.alt||'Zrzut ekranu aplikacji Excel';
+          title.textContent=button.dataset.title||'Zrzut aplikacji';
+          dialog.showModal();
+        });
+      });
+      dialog.querySelector('[data-portfolio-close]')?.addEventListener('click',()=>dialog.close());
+      dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
+      dialog.addEventListener('close',()=>{photo.removeAttribute('src');});
+    }
+  </script>
 </BaseLayout>

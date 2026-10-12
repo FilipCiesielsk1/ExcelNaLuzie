@@ -198,6 +198,44 @@ for (const route of ['/realizacje/','/realizacje/sales-performance-dashboard/'])
   if (/projekt fikcyjny|fikcyjna realizacja|zrealizowano dla klienta/i.test(html))
     errors.push('Portfolio: unsupported client attribution or description on '+route);
 }
+// Portfolio media: verify every uploaded asset is included in the publish artifact.
+const portfolioMedia='/media/realizacje/sales-performance-dashboard/';
+const mediaImages=[
+ '01_dashboard_glowny.webp','02_dashboard_filtry.webp','03_dashboard_wykresy.webp',
+ '04_dane_sprzedazy.webp','05_cele_sprzedazowe.webp','06_import_csv.webp','07_raport_pdf.webp'
+];
+const mediaClips=[
+ '01_zmiana_miesiaca.webm','02_zmiana_regionu.webm','03_import_csv.webm','04_eksport_pdf.webm'
+];
+for(const name of [...mediaImages,...mediaClips]){
+  const full=path.join(root,portfolioMedia,name);
+  if(!fs.existsSync(full)){errors.push('Portfolio: brak pliku medialnego '+name);continue;}
+  const head=fs.readFileSync(full).subarray(0,12);
+  if(name.endsWith('.webp')&&(head.toString('ascii',0,4)!=='RIFF'||head.toString('ascii',8,12)!=='WEBP'))
+    errors.push('Portfolio: uszkodzony WebP '+name);
+  if(name.endsWith('.webm')&&(head[0]!==0x1a||head[1]!==0x45||head[2]!==0xdf||head[3]!==0xa3))
+    errors.push('Portfolio: nieprawidłowy WebM '+name);
+  if(name.endsWith('.webm')&&fs.statSync(full).size>750000)
+    errors.push('Portfolio: film przekracza budżet 750 kB '+name);
+}
+const caseHtml=fs.readFileSync(pageFile('/realizacje/sales-performance-dashboard/'),'utf8');
+const catalogHtml=fs.readFileSync(pageFile('/realizacje/'),'utf8');
+for(const name of [...mediaImages,...mediaClips]){
+  if(!caseHtml.includes(name)) errors.push('Portfolio: brak referencji do '+name+' na stronie realizacji');
+}
+if(!catalogHtml.includes('01_dashboard_glowny.webp'))
+  errors.push('Portfolio: katalog nie pokazuje prawdziwego dashboardu');
+if(caseHtml.includes('portfolio-dashboard-filters')||catalogHtml.includes('portfolio-dashboard-filters'))
+  errors.push('Portfolio: pozostał syntetyczny podgląd HTML dashboardu');
+if((caseHtml.match(/<video\b/g)||[]).length!==4)
+  errors.push('Portfolio: oczekiwano 4 filmów z kontrolkami');
+if((caseHtml.match(/<button\b[^>]*data-portfolio-open\b/g)||[]).length<7)
+  errors.push('Portfolio: oczekiwano co najmniej 7 przycisków powiększenia zrzutów');
+if(!caseHtml.includes('portfolio-lightbox')||!caseHtml.includes('data-portfolio-close'))
+  errors.push('Portfolio: brak dostępnej galerii z zamykaniem');
+if(caseHtml.includes('download')&&caseHtml.includes('.xlsm'))
+  errors.push('Portfolio: nie wolno publikować XLSM przed dostarczeniem wersji demo');
+
 const csvPortfolio=path.join(root,'downloads/realizacje/sales-performance-import.csv');
 if (!fs.existsSync(csvPortfolio)) errors.push('Portfolio: supplied CSV is missing');
 else {
