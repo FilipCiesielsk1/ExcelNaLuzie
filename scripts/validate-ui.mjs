@@ -229,8 +229,8 @@ if(caseHtml.includes('portfolio-dashboard-filters')||catalogHtml.includes('portf
   errors.push('Portfolio: pozostał syntetyczny podgląd HTML dashboardu');
 if((caseHtml.match(/<video\b/g)||[]).length!==4)
   errors.push('Portfolio: oczekiwano 4 filmów z kontrolkami');
-if((caseHtml.match(/data-portfolio-open\b/g)||[]).length!==7)
-  errors.push('Portfolio: oczekiwano 7 zrzutów z powiększeniem');
+if((caseHtml.match(/<button\b[^>]*data-portfolio-open\b/g)||[]).length<7)
+  errors.push('Portfolio: oczekiwano co najmniej 7 przycisków powiększenia zrzutów');
 if(!caseHtml.includes('portfolio-lightbox')||!caseHtml.includes('data-portfolio-close'))
   errors.push('Portfolio: brak dostępnej galerii z zamykaniem');
 if(caseHtml.includes('download')&&caseHtml.includes('.xlsm'))
