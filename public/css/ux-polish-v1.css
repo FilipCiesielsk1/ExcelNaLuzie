@@ -678,3 +678,11 @@
   .site-header .mobile-menu-panel a:focus-visible{outline:3px solid #4eb47b;outline-offset:2px}
 }
 
+
+
+/* Szablony: tymczasowa blokada pobierania, zachowujemy podglądy i strony SEO. */
+.template-pause-notice{max-width:780px;margin:17px 0 19px;padding:14px 17px;border:1px solid #e3c98d;border-left:4px solid #b77817;border-radius:11px;background:#fff8e8;color:#644918;font-size:.9rem;line-height:1.65}
+.template-pause-notice strong{color:#71460c;font-weight:900}
+.template-download-disabled,.template-bottom-paused{display:inline-flex;align-items:center;justify-content:center;min-height:47px;padding:12px 19px;border:1px solid #d2dbd5;border-radius:11px;background:#edf1ee;color:#607267;cursor:not-allowed;font-weight:850;font-size:.85rem;line-height:1.4;text-align:center;user-select:none}
+.template-bottom-paused{border-color:#a2bdae;background:rgba(255,255,255,.16);color:#fff}
+@media(max-width:600px){.template-detail-actions .template-download-disabled{width:100%}.template-bottom-paused{width:100%}}
