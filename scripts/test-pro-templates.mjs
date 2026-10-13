@@ -15,7 +15,7 @@ const templates=[
 const xml=(file,sheetIndex)=>execFileSync('unzip',['-p',file,'xl/worksheets/sheet'+sheetIndex+'.xml'],{encoding:'utf8',maxBuffer:5_000_000});
 for(const [slug,expectedSheets] of templates){
  test('PRO XLSX: '+slug+' has meaningful data, formulas, validation and no corruption',async()=>{
-  const file='public/downloads/szablony/'+slug+'.xlsx';
+  const file='drafts/szablony-pro/'+slug+'.xlsx';
   const meta=await stat(file);
   assert.ok(meta.size>4500,'file too small');
   execFileSync('unzip',['-t',file],{stdio:'pipe'});

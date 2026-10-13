@@ -152,7 +152,7 @@ if (!functionsMarkup.includes('<a class="function-card"') ||
 if (vbaMarkup.includes('Standard poradników') || toolsMarkup.includes('Od pól do gotowej formuły')) errors.push('Feedback: zbędna sekcja nadal widoczna');
 if (toolsMarkup.includes('Bez instalacji i bez przesyłania danych na serwer.') ||
     toolsMarkup.includes('Wszystko liczy się lokalnie w przeglądarce.')) errors.push('Feedback: zbędne komunikaty na Narzędziach');
-if (!templatesMarkup.includes('templateCatalog.filter(t=>t.pro).length') || !templatesMarkup.includes('zaawansowanych szablonów PRO jest również całkowicie darmowych.')) errors.push('Feedback: nieaktualny opis biblioteki szablonów');
+if (!templatesMarkup.includes('templateCatalog.filter(t=>t.pro).length') || !templatesMarkup.includes('pobieranie wszystkich plików XLSX jest tymczasowo wyłączone.')) errors.push('Feedback: brak aktualnego komunikatu o wstrzymaniu pobierania szablonów');
 if (serviceMarkup.includes('Nie musisz znać nazw funkcji ani technologii.') ||
     serviceMarkup.includes('Bez konta i bez załączników') ||
     serviceMarkup.includes('Zapytania z formularza będą kierowane automatycznie na ten adres.')) errors.push('Feedback: nieusunięte komunikaty usługi');
@@ -273,6 +273,33 @@ const mobileCss=fs.readFileSync('public/css/ux-polish-v1.css','utf8');
 if(!mobileCss.includes('.site-header .mobile-menu-panel a.nav-item-featured')||
    !mobileCss.includes('.site-header .mobile-menu-panel a.nav-item-collab'))
   errors.push('Menu mobilne: brak stylów wyróżnienia ważnych linków');
+
+// Download pause: none of the unfinished Excel templates may be reachable on Pages.
+const publicTemplateDir=path.join(root,'downloads/szablony');
+if(fs.existsSync(publicTemplateDir)){
+  const exposed=walk(publicTemplateDir).filter(file=>/\.(xlsx|xlsm|xls|xlsb)$/i.test(file));
+  if(exposed.length) errors.push('Bezpieczeństwo: opublikowano niedopracowane szablony: '+exposed.map(x=>path.basename(x)).join(', '));
+}
+for(const file of htmlFiles){
+  const html=fs.readFileSync(file,'utf8');
+  if(/href=["'][^"']*\/downloads\/szablony\/[^"']+\.(?:xlsx|xlsm|xls|xlsb)/i.test(html)||
+     /contentUrl["']?\s*:\s*["']https?:\/\/[^"']*\/downloads\/szablony\//i.test(html))
+    errors.push('Szablony: aktywny odnośnik do zablokowanego pliku w '+path.relative(root,file));
+}
+const libraryHtml=fs.readFileSync(pageFile('/szablony/'),'utf8');
+if(!libraryHtml.includes('Szablony są chwilowo niedostępne do pobrania'))
+  errors.push('Szablony: brak komunikatu o wstrzymaniu pobierania w bibliotece');
+const {templateCatalog}=await import('../src/data/templateCatalog.js');
+if(templateCatalog.length!==9)errors.push('Szablony: nieoczekiwana zmiana katalogu');
+for(const template of templateCatalog){
+  const page=pageFile('/szablony/'+template.slug+'/');
+  if(!fs.existsSync(page)){errors.push('Szablony: brak podstrony '+template.slug);continue;}
+  const html=fs.readFileSync(page,'utf8');
+  if(!html.includes('Pobieranie szablonów jest tymczasowo wstrzymane')||
+     !html.includes('template-download-disabled')||
+     /href=["'][^"']*\/downloads\/szablony\//i.test(html))
+    errors.push('Szablony: podstrona '+template.slug+' nie ma skutecznej blokady');
+}
 
 const csvPortfolio=path.join(root,'downloads/realizacje/sales-performance-import.csv');
 if (!fs.existsSync(csvPortfolio)) errors.push('Portfolio: supplied CSV is missing');

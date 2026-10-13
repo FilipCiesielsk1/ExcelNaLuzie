@@ -25,6 +25,15 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 
 ---
 
+## Tymczasowa blokada pobierania szablonów — 13.10.2026
+
+- [x] Wyłączyć pobieranie **wszystkich 9 szablonów XLSX** z biblioteki `/szablony/` i ich stron szczegółowych; zachować opisy i podglądy.
+- [x] Usunąć trzy istniejące pliki XLSX z publicznego katalogu pobrań, przenosząc oryginalne binaria do `drafts/szablony/`.
+- [x] Wyłączyć generowanie 6 szablonów PRO w pipeline produkcyjnym; zachować generator i testy w `drafts/szablony-pro/`, poza publicznym katalogiem.
+- [x] Usunąć linki do XLSX i metadane `contentUrl` z podstron szablonów; dodać wyraźny komunikat o wstrzymaniu pobierania.
+- [x] Dodać test blokujący wdrożenie, jeżeli którykolwiek arkusz pojawi się ponownie w `dist/downloads/szablony/` lub zostanie podlinkowany na stronie.
+- [ ] **Weryfikacja jakości przed wznowieniem pobierania:** osobno przetestować wszystkie 9 plików w desktopowym Excelu (formuły, walidacje, przykłady, wygląd, instrukcje, zgodność) i dopiero po akceptacji przywrócić konkretne XLSX, nie wszystkie automatycznie.
+
 ## Status projektu
 
 ### Fundament techniczny

@@ -13,28 +13,21 @@ export function getStaticPaths() {
 const { template } = Astro.props;
 const canonical = '/szablony/' + template.slug + '/';
 const absoluteUrl = 'https://excelnaluzie.pl' + canonical;
-const downloadUrl = 'https://excelnaluzie.pl' + template.file;
 const suggestions = templateCatalog.filter(item => item.slug !== template.slug && (item.type === template.type || item.pro)).slice(0,3);
 
 const schema = {
   '@context':'https://schema.org',
   '@graph':[
     {
-      '@type':'DigitalDocument',
+      '@type':'WebPage',
       '@id': absoluteUrl + '#template',
       name: template.title,
       description: template.description,
       url: absoluteUrl,
       inLanguage:'pl-PL',
-      isAccessibleForFree:true,
       author:{'@type':'Person',name:'Filip Ciesielski',url:'https://excelnaluzie.pl/o-serwisie/'},
       publisher:{'@type':'Organization',name:'ExcelNaLuzie.pl',url:'https://excelnaluzie.pl/'},
-      about:{'@type':'SoftwareApplication',name:'Microsoft Excel',applicationCategory:'BusinessApplication'},
-      encoding:{
-        '@type':'MediaObject',
-        contentUrl: downloadUrl,
-        encodingFormat:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }
+      about:{'@type':'SoftwareApplication',name:'Microsoft Excel',applicationCategory:'BusinessApplication'}
     },
     ...(template.faq ? [{
       '@type':'FAQPage',
@@ -56,8 +49,8 @@ const schema = {
 
 <BaseLayout
   navSection="szablony"
-  title={template.title + ' — darmowy szablon Excel XLSX | ExcelNaLuzie'}
-  description={template.description}
+  title={template.title + ' — podgląd szablonu Excel | ExcelNaLuzie'}
+  description={'Sprawdź funkcje i podgląd szablonu Excel: ' + template.title + '. Pobieranie XLSX jest chwilowo wstrzymane.'}
   canonical={canonical}
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
@@ -76,18 +69,17 @@ const schema = {
         <div class="template-detail-copy">
           <div class="template-badges">
             <span>XLSX</span>
-            <span>Darmowy</span>
+            <span>Podgląd</span>
             {template.pro && <span>PRO</span>}
             <span>{template.version}</span>
           </div>
           <h1>{template.title}</h1>
           <p>{template.description}</p>
           {template.audience && <p class="pro-template-audience">{template.audience}</p>}
+          <p class="template-pause-notice" role="status"><strong>Pobieranie szablonów jest tymczasowo wstrzymane.</strong> Plik przechodzi przegląd jakości. Opis funkcji i podgląd nadal możesz obejrzeć.</p>
           <div class="template-detail-actions">
-            <a class="template-download-primary" href={link(template.file)} download>
-              Pobierz XLSX <span>↓</span>
-            </a>
-            <a class="template-detail-secondary" href="#instrukcja">Jak użyć?</a>
+            <span class="template-download-disabled" aria-disabled="true">Pobieranie chwilowo niedostępne</span>
+            <a class="template-detail-secondary" href="#instrukcja">Zobacz instrukcję</a>
           </div>
         </div>
 
@@ -112,7 +104,7 @@ const schema = {
               ))}
             </div>
           </div>
-          <p class="xlsx-preview-note">Wartości w tym podglądzie są ilustracyjne. Pobierany XLSX zawiera własne dane przykładowe i formuły.</p>
+          <p class="xlsx-preview-note">Wartości w tym podglądzie są ilustracyjne. Plik XLSX zostanie udostępniony po zakończeniu przeglądu jakości.</p>
           <div class="xlsx-preview-tabs">
             {template.sheets.map((sheet, index) => <span class:list={{active:index===0}}>{sheet}</span>)}
           </div>
@@ -122,7 +114,7 @@ const schema = {
       <section class="template-detail-section">
         <div class="template-detail-heading">
           <span class="section-kicker">W środku</span>
-          <h2>Co dostajesz?</h2>
+          <h2>Co zawiera projekt?</h2>
         </div>
         <div class="template-feature-grid">
           {template.features.map((feature, index) => (
@@ -150,7 +142,7 @@ const schema = {
       </section>
 
       {template.faq && <section class="template-detail-section pro-template-faq" aria-labelledby="template-faq-title">
-        <div class="template-detail-heading"><span class="section-kicker">Najczęstsze pytania</span><h2 id="template-faq-title">Przed pobraniem</h2></div>
+        <div class="template-detail-heading"><span class="section-kicker">Najczęstsze pytania</span><h2 id="template-faq-title">Pytania o szablon</h2></div>
         <div class="pro-template-faq-list">{template.faq.map(([question,answer])=>(
           <details><summary>{question}</summary><p>{answer}</p></details>
         ))}</div>
@@ -158,7 +150,7 @@ const schema = {
       {template.pro && <section class="template-detail-section pro-template-related">
         <div class="template-detail-heading"><span class="section-kicker">Może Ci się przydać</span><h2>Podobne szablony Excel</h2></div>
         <div class="pro-template-related-grid">{suggestions.map(other=>(
-          <a href={link('/szablony/'+other.slug+'/')}><strong>{other.title}</strong><span>Podgląd i pobranie →</span></a>
+          <a href={link('/szablony/'+other.slug+'/')}><strong>{other.title}</strong><span>Zobacz podgląd →</span></a>
         ))}</div>
       </section>}
 
@@ -176,17 +168,17 @@ const schema = {
         <div>
           <span>Dane przykładowe</span>
           <strong>Tak</strong>
-          <p>Możesz je usunąć i od razu wprowadzić własne dane.</p>
+          <p>W docelowym pliku będzie można zastąpić je własnymi danymi.</p>
         </div>
       </section>
 
       <section class="template-bottom-download">
         <div>
-          <span class="section-kicker light">Gotowe do użycia</span>
+          <span class="section-kicker light">Biblioteka szablonów</span>
           <h2>{template.title}</h2>
-          <p>Pobierz plik, otwórz instrukcję w skoroszycie i zastąp przykładowe dane własnymi.</p>
+          <p>Podgląd i instrukcja są dostępne. Pobieranie XLSX zostanie włączone po zakończeniu dopracowywania szablonu.</p>
         </div>
-        <a href={link(template.file)} download>Pobierz XLSX <span>↓</span></a>
+        <span class="template-bottom-paused" aria-disabled="true">Pobieranie wstrzymane</span>
       </section>
     </div>
   </div>

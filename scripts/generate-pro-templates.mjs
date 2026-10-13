@@ -3,7 +3,8 @@ import dataValidation from '@onparallel/write-excel-file-data-validation';
 import { mkdir, stat } from 'node:fs/promises';
 import { join } from 'node:path';
 
-const DIR='public/downloads/szablony';
+// Kept for offline development only; never create public downloadable templates.
+const DIR='drafts/szablony-pro';
 await mkdir(DIR,{recursive:true});
 const GREEN='#107C41', DARK='#0A4528', PALE='#E7F4EB', BLUE='#E9F2FF', AMBER='#FFF1D0', RED='#FCE5E5';
 const HEADER={backgroundColor:GREEN,textColor:'#FFFFFF',fontWeight:'bold',height:32,wrap:true};

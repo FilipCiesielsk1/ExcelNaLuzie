@@ -10,7 +10,7 @@ const schema = {
       '@type':'CollectionPage',
       '@id':'https://excelnaluzie.pl/szablony/#collection',
       name:'Darmowe szablony Excel',
-      description:'Darmowe szablony Excel XLSX do codziennej pracy.',
+      description:'Podglądy szablonów Excel do codziennej pracy. Pobieranie tymczasowo niedostępne.',
       url:'https://excelnaluzie.pl/szablony/',
       inLanguage:'pl-PL',
       mainEntity:{
@@ -36,8 +36,8 @@ const schema = {
 
 <BaseLayout
   navSection="szablony"
-  title="Szablony Excel — darmowe pliki XLSX | ExcelNaLuzie"
-  description="Darmowe szablony Excel XLSX: dashboard sprzedaży, Gantt, magazyn, faktury, CRM, kalkulator ofert i inne. Podgląd, instrukcja i pobieranie."
+  title="Szablony Excel — podglądy arkuszy | ExcelNaLuzie"
+  description="Przeglądaj podglądy i funkcje szablonów Excel: dashboardy, Gantt, magazyn, faktury i CRM. Pobieranie plików jest tymczasowo niedostępne."
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
 
@@ -45,9 +45,10 @@ const schema = {
     <div class="wrap hub-hero-grid">
       <div>
         <nav class="hub-breadcrumbs"><a href={link("/")}>ExcelNaLuzie</a><span>›</span><strong>Szablony</strong></nav>
-        <span class="hub-kicker">Gotowe pliki XLSX</span>
+        <span class="hub-kicker">Biblioteka szablonów Excel</span>
         <h1>Nie buduj arkusza<br/><em>od zera.</em></h1>
-        <p>{templateCatalog.length} darmowych skoroszytów do codziennej pracy: od prostych planów po rozbudowane dashboardy i automatyzację obliczeń. Sprawdź zawartość i pobierz XLSX.</p>
+        <p>Przeglądaj {templateCatalog.length} projektów szablonów do codziennej pracy: od planów po dashboardy i narzędzia obliczeniowe. Pobieranie wstrzymaliśmy do zakończenia dopracowywania plików.</p>
+        <p class="template-pause-notice" role="status"><strong>Szablony są chwilowo niedostępne do pobrania.</strong> Podglądy i opisy pozostają dostępne, a pliki wrócą po przeglądzie jakości.</p>
         <div class="hub-actions">
           <a class="hub-primary" href="#biblioteka">Zobacz {templateCatalog.length} szablony <span>↓</span></a>
           <a class="hub-secondary" href={link("/narzedzia/")}>Narzędzia online</a>
@@ -57,7 +58,7 @@ const schema = {
       <div class="file-showcase" aria-hidden="true">
         <div class="file-card back"><span class="file-type">XLSX</span><strong>Budżet domowy</strong><small>Finanse</small></div>
         <div class="file-card middle"><span class="file-type">XLSX</span><strong>Ewidencja czasu</strong><small>Czas pracy</small></div>
-        <div class="file-card front"><div class="file-preview-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="file-type">XLSX</span><strong>Lista zadań</strong><small>Gotowy do pobrania</small></div>
+        <div class="file-card front"><div class="file-preview-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><span class="file-type">XLSX</span><strong>Lista zadań</strong><small>Podgląd szablonu</small></div>
       </div>
     </div>
   </section>
@@ -65,8 +66,8 @@ const schema = {
   <section class="hub-section" id="biblioteka">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Biblioteka</span><h2>Darmowe szablony Excel</h2></div>
-        <p>Wybierz gotowy arkusz i sprawdź szczegółowy opis, podgląd danych oraz instrukcję. {templateCatalog.filter(t=>t.pro).length} zaawansowanych szablonów PRO jest również całkowicie darmowych.</p>
+        <div><span class="section-kicker">Biblioteka</span><h2>Przegląd szablonów Excel</h2></div>
+        <p>Poznaj funkcje, przykładowe dane i instrukcje. Aktualnie pokazujemy {templateCatalog.filter(t=>t.pro).length} projektów PRO; pobieranie wszystkich plików XLSX jest tymczasowo wyłączone.</p>
       </div>
 
       <div class="template-grid template-grid-live">
@@ -86,8 +87,8 @@ const schema = {
             <h3>{template.title}</h3>
             <p>{template.description}</p>
             <div class="template-card-footer">
-              <span>XLSX · Darmowy</span>
-              <strong>Podgląd i pobieranie →</strong>
+              <span>XLSX · Podgląd</span>
+              <strong>Zobacz szczegóły →</strong>
             </div>
           </a>
         ))}
@@ -98,20 +99,20 @@ const schema = {
   <section class="hub-section hub-section-alt">
     <div class="wrap">
       <div class="hub-section-head">
-        <div><span class="section-kicker">Każdy plik</span><h2>Wiesz, co pobierasz</h2></div>
-        <p>Nie wrzucamy anonimowych plików bez opisu. Każdy szablon ma stronę z podglądem, zawartością oraz instrukcją.</p>
+        <div><span class="section-kicker">Każdy projekt</span><h2>Zobacz, co zawiera szablon</h2></div>
+        <p>Każdy projekt szablonu ma opis funkcji, podgląd i instrukcję. Linki do pobierania włączymy dopiero po sprawdzeniu plików.</p>
       </div>
       <div class="reference-steps">
-        <div><span>01</span><strong>Podgląd przed pobraniem</strong><p>Zobaczysz układ dashboardu, arkusze i najważniejsze elementy pliku.</p></div>
-        <div><span>02</span><strong>Instrukcja w pliku i na stronie</strong><p>Wiesz, gdzie wpisywać dane i co aktualizuje się automatycznie.</p></div>
-        <div><span>03</span><strong>Wersja Excela</strong><p>Pierwsze pliki działają w Excelu 2016 lub nowszym i nie wymagają VBA.</p></div>
+        <div><span>01</span><strong>Podgląd interfejsu</strong><p>Zobaczysz układ dashboardu, arkusze i najważniejsze elementy pliku.</p></div>
+        <div><span>02</span><strong>Opis sposobu użycia</strong><p>Wiesz, gdzie wpisywać dane i co aktualizuje się automatycznie.</p></div>
+        <div><span>03</span><strong>Zgodność z Excelem</strong><p>Docelowe szablony przewidziano do pracy w Excelu 2016 lub nowszym, bez VBA.</p></div>
       </div>
     </div>
   </section>
 
   <section class="hub-cta-section">
     <div class="wrap hub-cta">
-      <div><span class="section-kicker light">Potrzebujesz czegoś innego?</span><h2>Biblioteka będzie rosnąć.</h2><p>Możesz skorzystać z gotowca lub znaleźć poradnik i zbudować własną wersję.</p></div>
+      <div><span class="section-kicker light">Potrzebujesz czegoś innego?</span><h2>Skorzystaj z narzędzi i poradników.</h2><p>Podczas przerwy w udostępnianiu plików możesz korzystać z bezpłatnych narzędzi online i poradników.</p></div>
       <button type="button" data-global-search-open aria-haspopup="dialog">Szukaj rozwiązania <span>→</span></button>
     </div>
   </section>

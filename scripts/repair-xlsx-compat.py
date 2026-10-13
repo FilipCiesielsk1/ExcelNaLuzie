@@ -103,7 +103,7 @@ def validate_xlsx(path: Path):
         raise RuntimeError(f"invalid ZIP container: {exc}") from exc
 
 def main():
-    root = Path("public/downloads/szablony")
+    root = Path("drafts/szablony")
     files = sorted(root.glob("*.xlsx"))
 
     if not files:
