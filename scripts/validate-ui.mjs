@@ -233,8 +233,20 @@ if((caseHtml.match(/<button\b[^>]*data-portfolio-open\b/g)||[]).length<7)
   errors.push('Portfolio: oczekiwano co najmniej 7 przycisków powiększenia zrzutów');
 if(!caseHtml.includes('portfolio-lightbox')||!caseHtml.includes('data-portfolio-close'))
   errors.push('Portfolio: brak dostępnej galerii z zamykaniem');
-if(caseHtml.includes('download')&&caseHtml.includes('.xlsm'))
-  errors.push('Portfolio: nie wolno publikować XLSM przed dostarczeniem wersji demo');
+// Demo is now supplied. Verify the actual downloadable XLSM, not just a visible CTA.
+const dashboardDemoFilename='Sales_Performance_Dashboard_demo.xlsm';
+const dashboardDemoPath=path.join(root,'downloads/realizacje',dashboardDemoFilename);
+const dashboardDemoUrl='/downloads/realizacje/'+dashboardDemoFilename;
+if(fs.existsSync(dashboardDemoPath)){
+  const demoStat=fs.statSync(dashboardDemoPath);
+  const demoSignature=fs.readFileSync(dashboardDemoPath).subarray(0,4);
+  if(demoStat.size<10000||demoSignature.toString('hex')!=='504b0304')
+    errors.push('Portfolio: demo XLSM jest puste lub nie jest prawidłowym archiwum Office');
+  if(!caseHtml.includes(dashboardDemoUrl)||!caseHtml.includes('Pobierz wersję demo (.xlsm)'))
+    errors.push('Portfolio: demo XLSM nie ma działającego odnośnika na stronie realizacji');
+}else if(caseHtml.includes(dashboardDemoUrl)||caseHtml.includes('Pobierz wersję demo (.xlsm)')){
+  errors.push('Portfolio: aktywny link do nieistniejącego demo XLSM');
+}
 
 // Portfolio v4: four complete-looking cards, no placeholder CTAs or dead links.
 const catalogue=fs.readFileSync(pageFile('/realizacje/'),'utf8');
