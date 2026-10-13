@@ -1,10 +1,15 @@
 ---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { withBase as link } from '../../../utils/paths.js';
 import '../../../styles/portfolio.css';
 
 const root='/media/realizacje/sales-performance-dashboard/';
 const media=(name)=>link(root+name);
+const demoFilename='Sales_Performance_Dashboard_demo.xlsm';
+const demoDownload='/downloads/realizacje/'+demoFilename;
+const demoFileAvailable=existsSync(join(process.cwd(),'public','downloads','realizacje',demoFilename));
 const site='https://excelnaluzie.pl';
 const url=site+'/realizacje/sales-performance-dashboard/';
 const schema={
@@ -73,6 +78,7 @@ const features=[
         <p class="portfolio-data-disclaimer" role="note"><strong>Informacja o danych:</strong> Wszystkie dane wykorzystane w tej realizacji są demonstracyjne. Nazwy firm i klientów, transakcje oraz prezentowane wyniki służą wyłącznie pokazaniu możliwości aplikacji.</p>
         <div class="portfolio-actions">
           <a class="primary" href="#zobacz-dashboard">Zobacz aplikację ↓</a>
+          {demoFileAvailable && <a class="secondary" href="#demo">Pobierz demo ↓</a>}
           <a class="secondary" href={link('/uslugi/excel-vba/')+'#zapytanie'}>Zamów podobny dashboard →</a>
         </div>
       </div>
@@ -199,6 +205,20 @@ const features=[
         </div>
       </div>
     </section>
+
+    {demoFileAvailable && (
+      <section class="portfolio-section" id="demo" aria-labelledby="dashboard-demo-heading">
+        <div class="wrap">
+          <span class="portfolio-eyebrow">Wersja demonstracyjna</span>
+          <h2 class="portfolio-heading" id="dashboard-demo-heading">Pobierz Sales Performance Dashboard demo</h2>
+          <p class="portfolio-subheading">Sprawdź aplikację samodzielnie w programie Microsoft Excel. Plik zawiera przykładowe dane, panel wskaźników i funkcje oparte na VBA.</p>
+          <div class="portfolio-actions">
+            <a class="primary" href={link(demoDownload)} download={demoFilename} type="application/vnd.ms-excel.sheet.macroEnabled.12" aria-label="Pobierz wersję demo dashboardu, plik XLSM">Pobierz wersję demo (.xlsm) ↓</a>
+          </div>
+          <p class="portfolio-note"><strong>Ważne:</strong> plik XLSM zawiera makra VBA. Otwórz go w klasycznym Microsoft Excel na komputerze. Program Excel może blokować makra pobrane z Internetu — włączaj je tylko po zweryfikowaniu źródła i zawartości pliku.</p>
+        </div>
+      </section>
+    )}
 
     <section class="portfolio-section">
       <div class="wrap">
