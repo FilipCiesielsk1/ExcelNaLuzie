@@ -26,3 +26,7 @@ Dla wartości ujemnych od zera oznacza wynik bardziej ujemny, nie większy algeb
 ## Sprawdź na konkretnych danych
 
 Dla A2 = **-12,341** otrzymasz `=ZAOKR.GÓRA(A2;2)` → **-12,35** oraz `=ZAOKR.GÓRA(A2;0)` → **-13**. Dla dodatniego **12,341** wynikiem będzie **12,35** oraz **13**.
+
+## Zastosowanie w praktyce
+
+ZAOKR.GÓRA bywa przydatne, gdy wynik ma zostać podniesiony do pełnej jednostki, na przykład przy określaniu liczby opakowań potrzebnych do realizacji zamówienia. Jednak dla wartości ujemnych zaokrągla od zera, czyli w kierunku bardziej ujemnych liczb. Nie należy mylić tej zasady z matematycznym sufitem, który wybiera najmniejszą liczbę całkowitą nie mniejszą niż argument. Przy dodatnich ilościach oba podejścia mogą dawać zgodne wyniki, ale w danych obejmujących korekty i zwroty różnica jest istotna. Jeśli jednostką jest karton, najpierw podziel liczbę sztuk przez pojemność kartonu, a dopiero potem zaokrąglij zgodnie z zasadami operacyjnymi. Nie stosuj zaokrąglania wyłącznie dla poprawienia wyglądu tabeli.

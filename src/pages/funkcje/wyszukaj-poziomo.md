@@ -26,3 +26,7 @@ Numer wiersza liczony jest wewnątrz wskazanego zakresu, a nie od początku arku
 ## Sprawdź na konkretnych danych
 
 Wstaw do B1:D1 nagłówki `Sty`, `Lut`, `Mar`, a w B2:D2 sprzedaż **10**, **20**, **30**. Dla F2 = `Lut` formuła `=WYSZUKAJ.POZIOMO(F2;B1:D2;2;FAŁSZ)` zwróci **20**. Bez `FAŁSZ` dopasowanie może być przybliżone.
+
+## Zastosowanie w praktyce
+
+Raporty z miesiącami ułożonymi w kolumnach często korzystają z WYSZUKAJ.POZIOMO do pobrania konkretnej wartości. Funkcja zakłada, że szukany nagłówek znajduje się w pierwszym wierszu wskazanej tablicy. Jeśli nagłówki są powtarzalne, otrzymasz pierwszy pasujący wynik, co nie zawsze odpowiada zamierzonemu okresowi. W raportach wieloletnich do nazwy miesiąca warto dodać rok albo użyć pełnej daty okresu. Trzeci argument wskazuje numer wiersza od górnej krawędzi zakresu i łatwo o błąd, gdy ktoś wstawi kolejny wiersz danych. Przy rozbudowanych zestawieniach rozważ bardziej elastyczne rozwiązanie oparte na INDEKS i PODAJ.POZYCJĘ. Dla zwykłego wyszukiwania nagłówków wybierz dokładne dopasowanie.

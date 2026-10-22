@@ -26,3 +26,7 @@ Zmiana formatowania liczby na dwie cyfry po przecinku nie jest tym samym co obli
 ## Sprawdź na konkretnych danych
 
 Dla A2 = **123,456** `=ZAOKR(A2;2)` zwróci **123,46**, a `=ZAOKR(A2;-1)` zwróci **120**. Dla **125** z argumentem `-1` otrzymasz **130**. Zwracaj uwagę, w którym momencie zaokrąglasz kwoty w rozliczeniach.
+
+## Zastosowanie w praktyce
+
+Przy fakturach i raportach kosztowych rozróżniaj wynik obliczeniowy od sposobu wyświetlania wartości. Format dwóch miejsc dziesiętnych jedynie ukrywa dodatkowe cyfry, natomiast ZAOKR faktycznie zmienia wartość przekazywaną do kolejnych działań. Jeśli wiele pozycji rozliczasz osobno, suma wcześniej zaokrąglonych pozycji może różnić się od zaokrąglenia całej sumy. To niekoniecznie błąd Excela, lecz skutek różnych reguł rachunkowych. Zanim zbudujesz raport, ustal czy wymagane jest zaokrąglenie każdej ceny jednostkowej, wartości pozycji, czy dopiero końcowej kwoty. W przypadku wartości ujemnych i połówek jednostki sprawdź oczekiwane zachowanie. Zachowuj oryginalne dane, aby później wyjaśnić rozbieżności między sumami.

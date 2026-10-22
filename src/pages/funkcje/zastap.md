@@ -26,3 +26,7 @@ Trzeci argument określa długość usuwanego fragmentu, a nie długość nowego
 ## Sprawdź na konkretnych danych
 
 Jeżeli A2 = `ABC12345`, `=ZASTĄP(A2;1;3;"XXX")` zwróci **XXX12345**, a `=ZASTĄP(A2;4;2;"-")` zwróci **ABC-345**. Do zamiany konkretnych znaków lub wyrazów niezależnie od pozycji służy PODSTAW.
+
+## Zastosowanie w praktyce
+
+ZASTĄP może maskować część identyfikatora albo zmieniać fragment kodu w stałym miejscu. Jeśli numer klienta ma zawsze trzy znaki prefiksu, łatwo zastąpić je symbolem `XXX` bez edytowania dalszej części tekstu. Problem pojawia się wtedy, gdy długość prefiksów nie jest stała. ZASTĄP nie rozpoznaje znaczenia separatorów: operuje wyłącznie na wskazanej pozycji i liczbie znaków. W takim przypadku lepiej najpierw znaleźć położenie separatora lub użyć PODSTAW, jeśli zamieniasz określoną frazę. Pamiętaj, że wynik jest nowym tekstem, a źródłowe dane pozostają bez zmian. Do maskowania informacji poufnych sam wygląd tekstu w arkuszu może jednak nie wystarczyć, jeśli oryginalna kolumna nadal jest dostępna.

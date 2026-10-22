@@ -26,3 +26,7 @@ Bez argumentu FAŁSZ Excel może używać dopasowania przybliżonego i zwrócić
 ## Sprawdź na konkretnych danych
 
 Przy tabeli A2:C4 z kodami w A, nazwami w B i cenami w C oraz kodzie szukanym w F2 formuła z numerem kolumny **3** zwróci cenę. Użyj `FAŁSZ`, by wymusić dokładne dopasowanie. Jeśli kopiujesz formułę, zablokuj tabelę: `=WYSZUKAJ.PIONOWO(F2;$A$2:$C$100;3;FAŁSZ)`.
+
+## Zastosowanie w praktyce
+
+Jeśli budujesz katalog produktów, wartość szukana powinna być unikatowym kodem, a nie luźną nazwą, którą kilka pozycji może dzielić. WYSZUKAJ.PIONOWO przeszukuje pierwszą kolumnę wskazanego zakresu, a wynik pobiera z kolumny o numerze przekazanym w trzecim argumencie. Gdy wstawisz dodatkową kolumnę wewnątrz tabeli, numer kolumny zwracanej może wymagać aktualizacji. Dodatkowo dopasowanie przybliżone bez argumentu FAŁSZ jest częstą przyczyną błędnych wyników. Jeśli po imporcie identyfikatory liczbowe stały się tekstem, sprawdź typy danych w obu zakresach. Zastosowanie JEŻELI.BŁĄD do ukrycia komunikatu o braku produktu powinno być świadome, aby nie przeoczyć błędów w samej formule.

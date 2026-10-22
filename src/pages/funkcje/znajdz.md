@@ -26,3 +26,7 @@ Brak frazy skutkuje błędem, a nie zerem. ZNAJDŹ rozróżnia wielkość liter,
 ## Sprawdź na konkretnych danych
 
 W A2 wpisz `PL-123`. `=ZNAJDŹ("-";A2)` zwróci **3**, a `=LEWY(A2;ZNAJDŹ("-";A2)-1)` da **PL**. Dla `PL123` bez separatora otrzymasz błąd. Do wyszukiwania bez rozróżniania wielkości liter użyj SZUKAJ.TEKST.
+
+## Zastosowanie w praktyce
+
+W bazach produktów często potrzebujesz wydzielić prefiks identyfikatora przed myślnikiem. ZNAJDŹ zwraca pozycję separatora, którą można przekazać do LEWY, PRAWY albo FRAGMENT.TEKSTU. Zwróć uwagę, że wyszukiwanie zaczyna się od pierwszego znaku i rozróżnia wielkość liter. Gdy w kodzie jest kilka myślników, podstawowa formuła znajdzie pierwszy z nich, więc pobieranie końcowego segmentu może wymagać innego podejścia. Dodatkowo brak szukanego tekstu powoduje błąd. W arkuszu służącym do oczyszczania danych przygotuj osobny komunikat albo oznaczenie problematycznych rekordów. Jeśli wielkość liter nie ma znaczenia, zastosuj SZUKAJ.TEKST zamiast ZNAJDŹ; obie funkcje różnią się także obsługą wieloznaczników.
