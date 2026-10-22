@@ -19,10 +19,6 @@ Ujemny numer wystąpienia rozpoczyna liczenie od końca:
 
 Dla `FV-2026-001` wynikiem będzie `001`.
 
-## Co jeśli separatora nie ma?
-
-Możesz użyć opcjonalnego argumentu odpowiadającego za brak dopasowania zamiast zwracać #N/D.
-
 ## Starsze wersje Excela
 
 TEKST.PO jest funkcją nowszą. Jeżeli pracujesz w starszej wersji Excela, podobny rezultat można zbudować za pomocą PRAWY, DŁ i ZNAJDŹ.
@@ -36,14 +32,6 @@ Dla danych typu `Kod | Opis` możesz użyć:
 <div class="formula">=TEKST.PO(A1;" | ")</div>
 
 Uwzględnienie spacji w separatorze pozwala od razu dostać czysty wynik.
-
-## Ostatnie wystąpienie separatora
-
-Ujemny numer wystąpienia liczy od końca:
-
-<div class="formula">=TEKST.PO(A1;"-";-1)</div>
-
-Dla `PL-2026-00125` wynikiem będzie `00125`.
 
 ## Brak separatora
 

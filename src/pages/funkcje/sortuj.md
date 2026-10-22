@@ -19,14 +19,6 @@ Wartość -1 oznacza kolejność malejącą.
 
 SORTUJ tworzy dynamiczny wynik i nie zmienia kolejności danych źródłowych. To wygodne w raportach i pomocniczych zestawieniach.
 
-## SORTUJ + FILTRUJ
-
-Funkcje dynamiczne można zagnieżdżać:
-
-<div class="formula">=SORTUJ(FILTRUJ(A2:C100;A2:A100=F2;"");3;-1)</div>
-
-Najpierw zostają wybrane pasujące rekordy, a następnie wynik jest sortowany.
-
 ## Numer kolumny dotyczy zwracanej tablicy
 
 W formule:
@@ -36,20 +28,6 @@ W formule:
 liczba 3 oznacza trzecią kolumnę zakresu A2:C100, a nie koniecznie kolumnę C całego arkusza.
 
 To ważne, gdy sortujesz zakres zaczynający się w innej kolumnie.
-
-## Kierunek sortowania
-
-Wartość 1 oznacza sortowanie rosnące, a -1 malejące:
-
-<div class="formula">=SORTUJ(A2:C100;3;-1)</div>
-
-Dla liczb oznacza to od największej do najmniejszej, a dla tekstu odwrotną kolejność alfabetyczną.
-
-## SORTUJ nie zmienia danych źródłowych
-
-Funkcja tworzy dynamiczny wynik w innym miejscu arkusza. Oryginalna tabela pozostaje w swojej kolejności.
-
-To duża różnica względem przycisku Sortuj, który fizycznie przestawia wiersze w zaznaczonym zakresie.
 
 ## Połączenie z UNIKATOWE
 

@@ -37,14 +37,6 @@ wynikiem będzie `Produkt`.
 
 Nie musisz później osobno usuwać spacji, jeśli uwzględnisz je w separatorze.
 
-## Pierwszy i ostatni separator
-
-Domyślnie funkcja pracuje na pierwszym wystąpieniu. Ujemna wartość pozwala liczyć od końca:
-
-<div class="formula">=TEKST.PRZED(A1;"-";-1)</div>
-
-Dla `ABC-2026-001` wynikiem będzie `ABC-2026`.
-
 ## Obsługa brakującego separatora
 
 Przy niejednolitych danych użyj:
