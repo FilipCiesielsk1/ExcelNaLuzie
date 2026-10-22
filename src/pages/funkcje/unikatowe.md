@@ -41,9 +41,13 @@ Otrzymujesz dynamiczną listę bez duplikatów od razu w uporządkowanej kolejno
 
 Możesz połączyć UNIKATOWE z FILTRUJ:
 
-<div class="formula">=UNIKATOWE(FILTRUJ(B2:B100;A2:A100=F2;""))</div>
+<div class="formula">=JEŻELI.BŁĄD(UNIKATOWE(FILTRUJ(B2:B100;A2:A100=F2));"Brak wyników")</div>
 
-Dzięki temu dostaniesz np. listę unikalnych produktów tylko dla regionu wybranego w F2.
+Dzięki temu dostaniesz np. listę różnych produktów tylko dla regionu wybranego w F2. Gdy nie ma żadnego pasującego wiersza, otrzymasz czytelny komunikat „Brak wyników”. Unikaj przekazywania `""` jako wyniku FILTRUJ, jeśli później ma działać UNIKATOWE: pojedynczy pusty tekst może zostać potraktowany jako element listy, mimo że nie znaleziono rekordów. W trakcie testów sprawdź też samą formułę bez JEŻELI.BŁĄD, ponieważ ta funkcja może ukryć inne błędy.
+
+## Puste komórki w danych źródłowych
+
+Brak dopasowanych wierszy i dopasowany wiersz z pustą wartością produktu to dwie różne sytuacje. Jeśli nie chcesz pokazywać pustych nazw, dodaj do FILTRUJ drugi warunek, np. `(A2:A100=F2)*(B2:B100<>"")`.
 
 ## Wynik jest dynamiczny
 

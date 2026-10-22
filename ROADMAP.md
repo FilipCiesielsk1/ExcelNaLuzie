@@ -84,6 +84,8 @@ Serwis ma pomagać użytkownikowi rozwiązać konkretny problem w Excelu możliw
 - [x] rozbudowane 30 poradników o praktyczne przykłady, pułapki i warianty
 - [x] rozbudowane strony 9 funkcji o praktyczne użycie
 - [x] 22.10.2026: przegląd redakcyjny wszystkich 53 opisów funkcji, konkretne wyniki i testy brzegowe, usunięcie szablonowej treści oraz powtórzonych sekcji — dokument: `docs/AUDYT_FUNKCJI_2026-10-22.md`.
+- [x] 22.10.2026: dodatkowy audyt 53/53 stron — poprawka obsługi braku dopasowania w SORTUJ + FILTRUJ oraz UNIKATOWE + FILTRUJ; testy regresyjne i uzupełniona dokumentacja.
+- [ ] Po audycie statycznym sprawdzić w desktopowym Excelu (2021/365) szczególnie wynik pustego FILTRUJ, obsługę JEŻELI.BŁĄD i warianty dat/formatów tekstowych.
 - [x] Dodać audyt spójności 53 opisów funkcji do CI (zgodność katalogu, niepowtarzalność nagłówków, minimum przykładów, brak wklejonych znaczników cytowań i typowego wypełniacza).
 - [ ] Przed wydaniem ewentualnych skoroszytów XLSX zweryfikować przykłady w desktopowym Excelu 2016/2021/365 i poprawność obliczeń dla danych brzegowych; audyt statyczny treści nie zastępuje tych testów.
 

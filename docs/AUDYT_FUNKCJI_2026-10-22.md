@@ -89,3 +89,25 @@
 - [Microsoft — DATA.RÓŻNICA](https://support.microsoft.com/pl-pl/excel/functions/datedif-function)
 - [Microsoft — DNI.ROBOCZE](https://support.microsoft.com/pl-pl/excel/functions/networkdays-function)
 - [Microsoft — SZUKAJ.TEKST / ZNAJDŹ: obsługa braku dopasowania](https://support.microsoft.com/pl-pl/excel/how-to-correct-a-value-error-in-find-findb-and-search-searchb-functions)
+
+## Uzupełnienie audytu — przypadki brzegowe funkcji dynamicznych
+
+Ponowna weryfikacja wszystkich 53 plików wykazała dwa przykłady, w których połączenie funkcji nie rozróżniało wystarczająco czytelnie **braku pasujących rekordów** od poprawnego wyniku:
+
+| Strona | Przed | Po | Istotna uwaga |
+|---|---|---|---|
+| `/funkcje/sortuj/` | `SORTUJ(FILTRUJ(...;"");3;-1)` | `JEŻELI.BŁĄD(SORTUJ(FILTRUJ(...);3;-1);"Brak wyników")` | Brak rekordów nie daje 3-kolumnowej tablicy do sortowania; nie wolno traktować `""` jak pustej tabeli. |
+| `/funkcje/unikatowe/` | `UNIKATOWE(FILTRUJ(...;""))` | `JEŻELI.BŁĄD(UNIKATOWE(FILTRUJ(...));"Brak wyników")` | Pojedynczy pusty tekst z FILTRUJ nie powinien być prezentowany jako rzeczywiście znaleziony element listy. |
+
+Obie strony wyjaśniają również, że `JEŻELI.BŁĄD` maskuje nie tylko brak wyników, lecz także błędy konstrukcji formuł; przed publikacją złożonego modelu należy sprawdzić jego etapy bez obsługi błędów. Dodano sprawdzenie regresyjne do `scripts/audit-functions-content.mjs`.
+
+### Ocena całej biblioteki po ponownej kontroli
+
+- **53/53** opisów przeczytane i zestawione z przykładami, błędami oraz ostrzeżeniami o zachowaniu funkcji.
+- Nie znaleziono dowodów na systemowy błąd w polskim nazewnictwie całej biblioteki; istnieją jednak przypadki, których nie zweryfikowano w rzeczywistym Excelu.
+- Treści poprawiane w poprzednim przeglądzie zachowano, bez masowego przepisywania stron, aby nie wprowadzać zbędnych zmian SEO.
+- Następna weryfikacja ręczna: `FILTRUJ`, `SORTUJ`, `UNIKATOWE`, `TEKST` i `DATA.RÓŻNICA` w Excelu 2021/Microsoft 365 na prawdziwych przypadkach brzegowych. Starszy Excel nie obsługuje wszystkich funkcji tablic dynamicznych.
+
+**Ważne ograniczenie:** aktualny audyt statyczny i testy CI potwierdzają spójność kodu strony i zapisanych przykładów, ale nie wykonują samych formuł w Microsoft Excel. Nie stanowią gwarancji poprawności wszystkich 53 funkcji w każdej obsługiwanej wersji programu.
+
+Źródła dodatkowe: [Microsoft — FILTRUJ](https://support.microsoft.com/pl-pl/excel/functions/filter-function), [Microsoft — funkcje CZY](https://support.microsoft.com/pl-pl/excel/functions/is-functions).

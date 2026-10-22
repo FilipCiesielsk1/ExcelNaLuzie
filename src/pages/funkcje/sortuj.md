@@ -41,9 +41,13 @@ Taki zestaw świetnie nadaje się do list pomocniczych i prostych raportów.
 
 Najpierw możesz wybrać tylko potrzebne rekordy, a później je posortować:
 
-<div class="formula">=SORTUJ(FILTRUJ(A2:C100;A2:A100=F2;"");3;-1)</div>
+<div class="formula">=JEŻELI.BŁĄD(SORTUJ(FILTRUJ(A2:C100;A2:A100=F2);3;-1);"Brak wyników")</div>
 
-Obie funkcje zwracają tablice dynamiczne, dlatego wynik automatycznie zmieni rozmiar wraz z danymi.
+Obie funkcje zwracają tablice dynamiczne, dlatego wynik automatycznie zmieni rozmiar wraz z danymi. Jeśli żaden rekord nie spełni warunku, formuła wyświetli „Brak wyników”. Bez takiej obsługi argument `""` przekazany do FILTRUJ dawałby pojedynczy pusty tekst zamiast tablicy z trzema kolumnami, którą SORTUJ ma sortować według kolumny numer 3.
+
+## Uwaga na obsługę błędów
+
+JEŻELI.BŁĄD przechwytuje również inne błędy niż brak dopasowania (np. nieprawidłowe zakresy). Podczas budowania i testowania raportu uruchom najpierw samą kombinację SORTUJ + FILTRUJ, aby nie maskować błędów konstrukcyjnych. Dopiero po sprawdzeniu składni dodaj komunikat dla użytkownika.
 
 ## Zastosowanie w praktyce
 
