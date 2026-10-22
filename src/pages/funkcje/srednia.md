@@ -26,3 +26,7 @@ Zera liczą się do średniej, puste komórki nie. Jeśli nie ma żadnej liczby 
 ## Sprawdź na konkretnych danych
 
 W B2:B5 umieść liczby **10**, **20**, **0** oraz tekst `brak`. `=ŚREDNIA(B2:B5)` zwróci **10** (30 podzielone przez trzy liczby). Jeśli zakres nie zawiera żadnej liczby, funkcja zwraca błąd **#DZIEL/0!**; przed publikacją KPI sprawdź taki przypadek.
+
+## Zastosowanie w praktyce
+
+ŚREDNIA jest przydatna w raportach jakości, sprzedaży i czasów realizacji, ale dobór danych wejściowych jest równie ważny jak sama funkcja. Jeśli jedna pozycja reprezentuje duże zamówienie, a druga niewielką transakcję, zwykła średnia kwot z obu wierszy nie opisze wartości przypadającej na pojedynczą sztukę produktu. Do tego potrzebna może być średnia ważona. W dodatku zera i braki danych mają różne znaczenie: zero może oznaczać realny wynik, a pusta komórka brak pomiaru. ŚREDNIA wliczy zero, lecz pominie pustą komórkę. Przed podaniem wyniku w dashboardzie zdefiniuj więc, które rekordy kwalifikują się do obliczeń i jak traktować pomiary niekompletne.

@@ -26,3 +26,7 @@ Wielkość liter ma znaczenie. Bez argumentu nr_wystąpienia Excel zamieni wszys
 ## Sprawdź na konkretnych danych
 
 Jeżeli w A2 znajduje się `AB-12-34`, `=PODSTAW(A2;"-";"/")` zwróci **AB/12/34**. Zapis `=PODSTAW(A2;"-";"/";1)` podmieni tylko **pierwszy** myślnik. Parametr numeru wystąpienia pozwala uniknąć masowej zamiany.
+
+## Zastosowanie w praktyce
+
+W pracy z kodami produktów często trzeba zamienić jeden separator na drugi, na przykład myślnik na ukośnik. PODSTAW wykonuje zamianę zgodnie z treścią, a nie pozycją znaków. To wygodne, gdy kody mają różną długość. Zwróć jednak uwagę, czy znak zamieniany nie występuje również w nazwach lub komentarzach, gdzie pełni inne znaczenie. Jeśli w tekstach występują zwykłe spacje i twarde spacje, traktuj je jako odrębne znaki. W takim przypadku jedna zamiana może nie wystarczyć. Dla czyszczenia nazw klientów częściej potrzebujesz zachować pojedyncze odstępy między wyrazami, zamiast usuwać wszystkie. Zanim zastosujesz masową konwersję, porównaj kilka wyników z oryginalnymi danymi i zapisz regułę w dokumentacji importu.

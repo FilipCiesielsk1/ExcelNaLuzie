@@ -26,3 +26,7 @@ Funkcja nie usuwa wszystkich białych znaków, w tym spacji nierozdzielających 
 ## Sprawdź na konkretnych danych
 
 Dla A2 = `  Jan   Kowalski  ` funkcja `=USUŃ.ZBĘDNE.ODSTĘPY(A2)` zwróci **Jan Kowalski**. Gdy w danych występują twarde spacje, zastosuj `=USUŃ.ZBĘDNE.ODSTĘPY(PODSTAW(A2;ZNAK(160);" "))`. Możesz porównać `=DŁ(A2)` i długość oczyszczonej wartości.
+
+## Zastosowanie w praktyce
+
+Dane skopiowane z systemu ERP, strony internetowej czy pliku CSV mogą zawierać różne rodzaje odstępów. USUŃ.ZBĘDNE.ODSTĘPY pomaga ujednolicić zwykłe spacje, dzięki czemu wyszukiwanie klienta po nazwie jest bardziej przewidywalne. Nie zamieni jednak wszystkich znaków niewidocznych na odstęp. W szczególności twarda spacja może pozostać w komórce i powodować brak dopasowania. Przy diagnostyce porównaj długość tekstu przed czyszczeniem i po nim, a wynik obejrzyj na kilku typowych oraz nietypowych rekordach. Nie usuwaj spacji mechanicznie z kodów, w których mogą być znaczące. Najbezpieczniej zachować oryginalną kolumnę, a oczyszczoną wartość obliczać osobno, aby móc wrócić do danych źródłowych.

@@ -26,3 +26,7 @@ Wpis tekstowy udający datę może nie zostać rozpoznany. Nie odczytuj roku z f
 ## Sprawdź na konkretnych danych
 
 Dla A2 = **31.12.2026** formuła `=ROK(A2)` zwróci **2026**, a `=DATA(ROK(A2)+1;1;1)` zwróci **01.01.2027**. W raportach wieloletnich łącz rok i miesiąc; sam numer miesiąca nie wystarcza jako unikatowy okres.
+
+## Zastosowanie w praktyce
+
+W zestawieniach firmowych funkcja ROK pozwala przygotować kolumnę pomocniczą dla danych z wielu okresów. Jeśli obliczasz przychód roczny, grupuj rzeczywiste daty transakcji, a nie wyłącznie tekstowe fragmenty numerów dokumentów. Rok kalendarzowy to jednak nie zawsze rok obrachunkowy: gdy firma ma niestandardowy początek roku finansowego, proste ROK nie wystarczy do przypisania operacji do okresu raportowego. W przypadku granicznych dat, np. 31 grudnia i 1 stycznia, przetestuj działanie filtrów i formuł. Pamiętaj również, że samo ROK nie zwraca miesiąca ani dnia. Jeżeli potrzebujesz szczegółowej osi czasu, korzystaj z pełnych dat albo łącz ROK i MIESIĄC w jednoznaczny klucz okresu.

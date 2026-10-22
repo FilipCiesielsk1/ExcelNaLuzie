@@ -26,3 +26,7 @@ Funkcja zwraca pozycję, nie samą frazę. Rozpoznaje wieloznaczniki i nie rozr�
 ## Sprawdź na konkretnych danych
 
 Dla A2 = `Raport miesięczny` formuła `=CZY.LICZBA(SZUKAJ.TEKST("raport";A2))` zwróci **PRAWDA**, mimo wielkiej litery na początku. Dla tekstu `Zestawienie` zwróci **FAŁSZ**. Gdy potrzebujesz wyszukiwania z rozróżnianiem wielkości liter, użyj ZNAJDŹ.
+
+## Zastosowanie w praktyce
+
+W analizie opisów zgłoszeń możesz chcieć oznaczyć te, które zawierają określone słowo niezależnie od wielkości liter. Połączenie SZUKAJ.TEKST z CZY.LICZBA nadaje się do zbudowania takiej kolumny kontrolnej. Pamiętaj jednak, że funkcja sprawdza fragment tekstu: szukając `raport`, znajdziesz także dłuższy zapis zawierający te litery. Nie jest to mechanizm rozpoznawania całych słów ani odmian językowych. Jeśli ważne są granice wyrazów, zaplanuj dodatkową normalizację lub bardziej precyzyjne reguły. SZUKAJ.TEKST obsługuje również wieloznaczniki, więc znaki gwiazdki i pytajnika w szukanej frazie mogą mieć specjalne znaczenie. Takie przypadki trzeba świadomie uwzględnić przy kontroli danych.

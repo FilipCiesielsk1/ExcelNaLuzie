@@ -26,3 +26,7 @@ Jeśli część liczb została zaimportowana jako tekst, suma może je pominąć
 ## Sprawdź na konkretnych danych
 
 W B2:B4 wpisz **10**, **0** oraz tekst `'15`. `=SUMA(B2:B4)` zwróci **10**, ponieważ tekst w komórce nie jest liczbą. Aby znaleźć pozycje problematyczne po imporcie CSV, możesz sprawdzić ich typ przez CZY.LICZBA.
+
+## Zastosowanie w praktyce
+
+W raporcie finansowym samo dodanie wszystkich liczb nie zawsze jest właściwym podsumowaniem. Jeśli kolumna zawiera zarówno wartości pozycji, jak i wiersze podsumowania, SUMA może policzyć te same kwoty dwukrotnie. Przed określeniem zakresu ustal, czy są to surowe transakcje, agregaty czy wartości już przeliczone. W przypadku danych importowanych z CSV zadbaj także o typ liczbowy. Tekst zapisany jako kwota może wyglądać prawidłowo, ale zostać pominięty przy sumowaniu. Jeżeli chcesz dodać wyłącznie rekordy z jednego regionu lub statusu, nie filtruj ręcznie tabeli przed każdym raportem — rozważ SUMA.JEŻELI lub SUMA.WARUNKÓW. Pozwoli to zachować powtarzalny i możliwy do kontroli wynik.
