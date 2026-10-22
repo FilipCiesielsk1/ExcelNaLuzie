@@ -39,15 +39,13 @@ Jeżeli premia ma przysługiwać dopiero po spełnieniu dwóch kryteriów:
 
 Jeżeli wystarczy spełnienie jednego z kilku kryteriów, użyj LUB.
 
-## Pusta komórka to nie zawsze zero
+## Brak danych a prawidłowy wynik zero
 
-Formuła:
+W raportach nie należy traktować zera jak pustego pola. Możesz rozróżnić trzy przypadki:
 
-<div class="formula">=JEŻELI(A2="";"";A2*1,23)</div>
+<div class="formula">=JEŻELI(A2="";"Brak danych";JEŻELI(A2=0;"Zero";"Inna wartość"))</div>
 
-najpierw sprawdza, czy A2 jest puste. Dzięki temu arkusz nie pokazuje zer w wierszach, w których użytkownik nie wpisał jeszcze danych.
-
-W raportach warto świadomie rozróżniać pustą wartość, zero i tekst „Brak”, bo każde z nich może mieć inne znaczenie.
+Dla rzeczywiście pustego A2 zobaczysz „Brak danych”, dla liczby 0 — „Zero”, a dla innej wartości — „Inna wartość”. To przydatne np. w zestawieniach sprzedaży, gdzie zerowy wynik jest rzeczywistą informacją.
 
 ## Nie zagnieżdżaj bez końca
 
