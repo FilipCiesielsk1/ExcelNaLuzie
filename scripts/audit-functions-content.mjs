@@ -56,6 +56,19 @@ for (const filename of markdown) {
     errors.push(slug + ': pozostał tymczasowy znacznik cytowania');
 }
 
+// Regresja scenariuszy: brak pasujących wierszy w formule dynamicznej.
+// Pojedynczy tekst "" nie powinien udawać tabeli wejściowej dla SORTUJ/UNIKATOWE.
+for (const [slug, expectedFragment] of [
+  ['sortuj', '=JEŻELI.BŁĄD(SORTUJ(FILTRUJ('],
+  ['unikatowe', '=JEŻELI.BŁĄD(UNIKATOWE(FILTRUJ(']
+]) {
+  const source = fs.readFileSync(path.join(directory, slug + '.md'), 'utf8');
+  if (!source.includes(expectedFragment))
+    errors.push(slug + ': brak obsługi pustego wyniku po FILTRUJ');
+  if (/FILTRUJ\([^\n]*;\s*""\)\s*;\s*3\s*;/.test(source))
+    errors.push(slug + ': sortowanie tekstu zamiast tablicy przy braku dopasowania');
+}
+
 for (const item of functionCatalog)
   if (!markdown.includes(item.slug + '.md'))
     errors.push(item.slug + ': metadane nie mają strony Markdown');
