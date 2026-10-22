@@ -17,14 +17,12 @@ Z daty 15 października funkcja zwróci 15. Drugi przykład sprawdza, czy wpis p
 
 <div class="formula">=JEŻELI(DZIEŃ(A2)=1;"Pierwszy dzień";"Inny dzień")</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji DZIEŃ. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+DZIEŃ zwraca dzień miesiąca jako liczbę 1–31. Jeśli chcesz wykryć pierwszy dzień miesiąca, porównaj wynik z 1; nazwy dni tygodnia sprawdzaj oddzielną funkcją DZIEŃ.TYG.
 
 ## Najczęstsze pułapki
 
 DZIEŃ nie oznacza dnia tygodnia. Aby uzyskać poniedziałek, wtorek itd., użyj DZIEŃ.TYG z odpowiednim wariantem numerowania.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
-
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+Dla daty **15.10.2026** wpisanej do A2 wynik `=DZIEŃ(A2)` to **15**, a test z JEŻELI zwróci **Inny dzień**. Zmień datę na **01.11.2026**: otrzymasz **1** i **Pierwszy dzień**.

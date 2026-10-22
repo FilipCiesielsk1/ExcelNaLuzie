@@ -17,14 +17,12 @@ Wynik to PRAWDA dla prawdziwej liczby oraz FAŁSZ dla tekstu przypominającego l
 
 <div class="formula">=CZY.LICZBA(SZUKAJ.TEKST("excel";A2))</div>
 
-Drugi zapis łączy funkcję CZY.LICZBA z innymi elementami formuły. Wybieraj taki wariant tylko wtedy, gdy rozumiesz, które komórki zawierają dane wejściowe, a które parametry. Zastąp przykładowe adresy adresami z własnego arkusza.
+Połączenie z SZUKAJ.TEKST sprawdza, czy fragment tekstu występuje w komórce. Jeżeli wyszukiwanie znajdzie frazę, zwróci numer pozycji, więc CZY.LICZBA da PRAWDA. Gdy frazy nie ma, SZUKAJ.TEKST zwraca błąd, ale CZY.LICZBA sprawdza jego typ i zwraca FAŁSZ — nie trzeba dodawać JEŻELI.BŁĄD.
 
 ## Na co uważać?
 
 Daty są przechowywane jako liczby, więc również mogą dawać PRAWDA. Nie oznacza to jednak, że data jest prawidłowa w sensie biznesowym.
 
-## Sprawdzanie wyniku na własnych danych
+## Sprawdź na konkretnych danych
 
-Przy pierwszym użyciu wstaw formułę do komórki obok danych testowych. Nie zaczynaj od całej tabeli: wybierz rekord, dla którego potrafisz przewidzieć wynik, a następnie porównaj go z Excelem. Sprawdź także brak danych oraz sytuację graniczną, np. wartość spoza słownika albo nietypowy format tekstu. Pozwoli to szybciej zidentyfikować błędne odwołanie.
-
-Jeśli kopiujesz obliczenia na kolejne wiersze, dopilnuj odpowiednich adresów komórek. Zakresy stałe można zablokować znakami dolara, a odwołania do danych bieżącego rekordu pozostawić względne. Zwróć też uwagę na format wyniku: data, tekst i liczba mogą wyglądać podobnie, lecz różnie zachowują się podczas dalszego obliczania. W raportach zachowuj kolumny źródłowe, aby móc prześledzić skąd wziął się wynik.
+Wpisz do A2 tekst `Raport Excel`, a następnie użyj `=CZY.LICZBA(SZUKAJ.TEKST("excel";A2))`: wynikiem jest **PRAWDA**. Zmień A2 na `Raport roczny`: otrzymasz **FAŁSZ**. Dla porównania `=CZY.LICZBA("123")` zwróci **FAŁSZ**, ponieważ liczba została ujęta w cudzysłów.
