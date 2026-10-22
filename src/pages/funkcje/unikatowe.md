@@ -48,3 +48,7 @@ Dzięki temu dostaniesz np. listę unikalnych produktów tylko dla regionu wybra
 ## Wynik jest dynamiczny
 
 Lista może rosnąć i maleć razem ze źródłem. Zostaw wolne komórki pod formułą, aby Excel miał miejsce na rozlanie wyników.
+
+## Zastosowanie w praktyce
+
+W raporcie magazynowym UNIKATOWE pomoże uzyskać listę kategorii lub produktów bez ręcznego usuwania duplikatów z tabeli źródłowej. Trzeba jednak odróżnić dwa scenariusze: listę różnych nazw oraz listę pozycji, które występują dokładnie raz. Pierwszy wariant jest przydatny do tworzenia filtrów, a drugi do kontroli wyjątków. Jeśli podasz kilka kolumn, funkcja porównuje całe rekordy, więc dwie pozycje z tym samym produktem i różnymi cenami nie będą uznane za identyczne wiersze. Wynik rozlewa się na sąsiednie komórki, dlatego nie powinno być w nich ręcznie wpisanych wartości. Przy braku danych lub po filtrowaniu sprawdź także, czy puste wartości mają pojawiać się na wygenerowanej liście.

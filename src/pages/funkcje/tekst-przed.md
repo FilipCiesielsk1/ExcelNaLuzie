@@ -54,3 +54,7 @@ W Microsoft 365 i Excelu 2024 TEKST.PRZED jest zwykle łatwiejsze do przeczytani
 ## Gdzie się przydaje?
 
 Najczęściej przy rozdzielaniu kodów, nazw plików, danych importowanych i pól zawierających kilka informacji rozdzielonych stałym separatorem.
+
+## Zastosowanie w praktyce
+
+Przy pracy z identyfikatorami dokumentów wybór pierwszego lub ostatniego separatora daje odmienne wyniki. Dla kodu `FV-2026-001` tekst przed pierwszym myślnikiem to `FV`, a przed ostatnim — `FV-2026`. Parametr wystąpienia jest więc częścią reguły biznesowej, a nie wyłącznie technicznym dodatkiem. Jeśli nazwy plików mają różną liczbę segmentów, przygotuj kilka reprezentatywnych przykładów i sprawdź, czy dzielenie zawsze odbywa się w poprawnym miejscu. W starszych wersjach Excela funkcja może być niedostępna; wtedy odpowiednik można zbudować za pomocą LEWY i ZNAJDŹ. Jeżeli dane pochodzą z importu, zachowaj również oryginalny tekst, aby łatwo prześledzić błędne podziały i nie utracić ważnych fragmentów.

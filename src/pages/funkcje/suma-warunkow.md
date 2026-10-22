@@ -44,3 +44,7 @@ Dwa kryteria mogą dotyczyć tego samego zakresu. Na przykład suma kwot od wart
 Dla jednego prostego warunku SUMA.JEŻELI wystarcza.
 
 Jeśli dane mają być sumowane po kilku kryteriach — np. regionie, produkcie i statusie — SUMA.WARUNKÓW jest naturalnym wyborem i zwykle czytelniejszym rozwiązaniem niż rozbudowane formuły tablicowe.
+
+## Zastosowanie w praktyce
+
+W raportowaniu miesięcznej sprzedaży zakres sumowania powinien odpowiadać dokładnie tym samym rekordom, do których odnoszą się warunki. Jeśli w jednym miejscu uwzględniasz wiersze 2–100, a w drugim wiersze 3–101, obliczenia mogą być błędne nawet wtedy, gdy Excel nie zgłosi jednoznacznego ostrzeżenia. Kryterium daty wymaga odrębnej uwagi: aby zsumować wartości za cały miesiąc, zwykle używa się dwóch ograniczeń na tej samej kolumnie dat, od pierwszego dnia miesiąca włącznie do pierwszego dnia następnego miesiąca bez włączania tej granicy. Taka reguła działa również wtedy, gdy daty zawierają godzinę. Nie polegaj na porównywaniu samych nazw miesięcy, jeśli dane obejmują kilka lat.
