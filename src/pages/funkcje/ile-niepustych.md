@@ -26,3 +26,7 @@ Komórka zawierająca formułę zwracającą pusty napis jest zliczana, choć wy
 ## Sprawdź na konkretnych danych
 
 W A2 wpisz `Klient A`, w A3 wstaw formułę `=""`, a A4 pozostaw rzeczywiście pustą. `=ILE.NIEPUSTYCH(A2:A4)` da **2**, ponieważ formuła zwracająca pusty tekst jest mimo wszystko zawartością komórki. Gdy liczysz osoby lub zamówienia, sprawdzaj, czy jedna komórka odpowiada jednemu rekordowi.
+
+## Zastosowanie w praktyce
+
+W formularzu zgłoszeń użytkownik może pozostawić puste pola albo wstawić formułę zwracającą pusty napis. Dla ILE.NIEPUSTYCH to dwa różne przypadki. Jeśli potrzebujesz zliczyć rzeczywiście uzupełnione zgłoszenia, najlepiej wybierz jedną obowiązkową kolumnę z unikatowym identyfikatorem i zlicz jej wartości. Nie sumuj liczby wypełnionych pól z kilku kolumn, bo wtedy pojedynczy rekord może zostać policzony wielokrotnie. Pamiętaj też o komórkach ze spacjami: wizualnie wydają się puste, lecz zawierają tekst. Do wykrywania takich sytuacji przydaje się kontrola po oczyszczeniu tekstu. Odróżniaj całkowicie niewypełniony wiersz od wpisu częściowo uzupełnionego, który należy oznaczyć do poprawy.

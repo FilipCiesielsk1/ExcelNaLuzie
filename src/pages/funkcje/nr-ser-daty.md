@@ -26,3 +26,7 @@ Dla dat leżących pod koniec miesiąca wynik może zostać dostosowany do ostat
 ## Sprawdź na konkretnych danych
 
 Dla A2 równego **31.01.2026** formuła `=NR.SER.DATY(A2;1)` zwróci **28.02.2026**. Dla **31.01.2024** wynik to **29.02.2024**, bo rok jest przestępny. Takie przypadki przetestuj przed użyciem do terminów umów i faktur.
+
+## Zastosowanie w praktyce
+
+Przy planowaniu terminów odnawiania umów NR.SER.DATY zachowuje logikę pełnych miesięcy, ale nie wszystkie daty mają swój odpowiednik w każdym kolejnym miesiącu. Umowa zawarta 31 stycznia po przesunięciu o jeden miesiąc może zakończyć się 28 lub 29 lutego. Jeśli oczekujesz zawsze ostatniego dnia miesiąca, rozważ osobno NR.SER.OST.DN.MIES i ustal regułę biznesową przed tworzeniem arkusza. Daty przesuwane o dwanaście miesięcy również warto sprawdzać w latach przestępnych. Funkcja jest praktyczna do umów i subskrypcji, ale samo wyliczenie daty nie przesądza, czy termin powinien uwzględniać weekendy lub święta. Te zasady mogą wymagać dodatkowej korekty.

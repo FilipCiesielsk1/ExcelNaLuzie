@@ -26,3 +26,7 @@ Wynik nie mówi, z którego wiersza pochodzi rekord. Jeśli potrzebujesz powiąz
 ## Sprawdź na konkretnych danych
 
 Dla liczb **10**, **25**, **-3** w B2:B4 i **40**, **5** w D2:D3 formuła `=MAX(B2:B4;D2:D3)` zwróci **40**. Jeśli w obu zakresach nie ma liczb, MAX zwraca **0**, co w raporcie może wymagać odrębnego oznaczenia braku danych.
+
+## Zastosowanie w praktyce
+
+W raporcie sprzedaży MAX może służyć do wykrywania największej wartości faktury, najwyższej dziennej sprzedaży lub maksymalnego czasu realizacji. Sama funkcja nie określa, którego klienta dotyczy ten wynik. Jeśli chcesz wyświetlić również nazwę kontrahenta, połącz maksimum z odpowiednim wyszukiwaniem, pamiętając o sytuacji remisu. Przy danych z dwóch miesięcy wartości możesz analizować wspólnie, ale upewnij się, że zakresy są porównywalne i wyrażone w tych samych jednostkach. Tekst udający liczbę może zostać pominięty, dlatego sprawdzaj jakość danych przed obliczeniem KPI. Dodatkowo warto wyróżnić brak obserwacji od prawdziwego maksimum równego zero, zwłaszcza w raportach zarządczych.

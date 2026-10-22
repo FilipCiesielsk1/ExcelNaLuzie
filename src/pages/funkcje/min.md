@@ -26,3 +26,7 @@ Teksty i puste pola we wskazanych zakresach są pomijane. Jeśli potrzebujesz na
 ## Sprawdź na konkretnych danych
 
 Dla liczb **10**, **25**, **-3** w B2:B4 i **40**, **5** w D2:D3 formuła `=MIN(B2:B4;D2:D3)` zwróci **-3**. Jeśli wszystkie komórki zawierają tekst lub są puste, MIN może zwrócić **0** — nie traktuj tego automatycznie jako rzeczywistej wartości pomiaru.
+
+## Zastosowanie w praktyce
+
+MIN pomaga znaleźć najtańszą ofertę, najmniejszy pomiar lub najniższy stan dostępności w zestawieniu. Przy porównywaniu cen z różnych źródeł najpierw upewnij się, że wszystkie kwoty są podane w tej samej walucie i w tej samej jednostce. Wynik będący minimum nie mówi, z której oferty pochodzi wartość. Jeśli kilku dostawców ma tę samą cenę, samo wyszukiwanie pierwszego dopasowania może nie wystarczyć. Zwróć także uwagę na liczby ujemne: w danych finansowych mogą reprezentować korekty, przez co minimum niekoniecznie oznacza najtańszy produkt. Dla kontroli jakości warto osobno sprawdzić liczbę wartości numerycznych i odróżniać puste zestawienie od rzeczywistego minimum równego zero.

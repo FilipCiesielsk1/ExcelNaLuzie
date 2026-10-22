@@ -26,3 +26,7 @@ Samo MIESIĄC(A2) nie rozróżnia lat. Październik 2025 i 2026 daje 10, więc d
 ## Sprawdź na konkretnych danych
 
 W A2 wpisz **31.12.2026**. `=MIESIĄC(A2)` zwróci **12**, a `=DATA(ROK(A2);MIESIĄC(A2);1)` zwróci **01.12.2026**. Gdy używasz miesiąca do grupowania transakcji z kilku lat, dodaj również ROK.
+
+## Zastosowanie w praktyce
+
+Przy analizie sezonowości sprzedaży MIESIĄC przydaje się do porównania stycznia, lutego czy marca w różnych latach. Jednak jeśli chcesz sporządzić zwykły miesięczny raport, sam numer miesiąca może połączyć wyniki ze stycznia 2025 i stycznia 2026. Lepszym kluczem będzie para ROK oraz MIESIĄC lub pełna data pierwszego dnia danego miesiąca. W przypadku błędnych danych wejściowych nie zakładaj, że tekst wyglądający jak data jest przechowywany jako data Excela. Najpierw sprawdź typ i sposób importu. Wynik MIESIĄC jest liczbą od 1 do 12; jeżeli potrzebujesz nazwy miesiąca w nagłówku raportu, zastosuj odpowiedni format daty zamiast traktować tę liczbę jak nazwę.

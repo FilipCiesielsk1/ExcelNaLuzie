@@ -26,3 +26,7 @@ Daty w Excelu są zapisane jako liczby i również będą zliczane. Liczby zapis
 ## Sprawdź na konkretnych danych
 
 W zakresie B2:B5 wpisz kolejno: **10**, **0**, tekst `'12` i pozostaw ostatnią komórkę pustą. `=ILE.LICZB(B2:B5)` zwróci **2**. Wartość `0` to liczba, ale tekst `'12` nie zostanie policzony. Do liczenia wypełnionych rekordów niezależnie od typu danych służy ILE.NIEPUSTYCH.
+
+## Zastosowanie w praktyce
+
+Przy kontroli importu nie utożsamiaj liczby wierszy tabeli z liczbą pól zawierających prawdziwe wartości liczbowe. Na przykład w kolumnie kosztów możesz mieć 100 rekordów, ale tylko 96 wartości rozpoznanych jako liczby. ILE.LICZB pomoże zauważyć tę rozbieżność. Z drugiej strony poprawna wartość zero również zwiększa wynik licznika, co jest właściwe przy rejestrze kosztów. Funkcja nie weryfikuje, czy liczba jest ujemna, za duża lub zgodna z jednostką miary. Jeśli analizujesz dane finansowe, wykonaj osobne kontrole zakresów i typów. Przy zestawieniu dwóch kolumn nie zakładaj, że wynik odpowiada liczbie kompletnych rekordów — ta sama transakcja może zostać policzona w obu kolumnach.
