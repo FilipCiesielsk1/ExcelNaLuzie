@@ -26,3 +26,7 @@ Daty są przechowywane jako liczby, więc również mogą dawać PRAWDA. Nie ozn
 ## Sprawdź na konkretnych danych
 
 Wpisz do A2 tekst `Raport Excel`, a następnie użyj `=CZY.LICZBA(SZUKAJ.TEKST("excel";A2))`: wynikiem jest **PRAWDA**. Zmień A2 na `Raport roczny`: otrzymasz **FAŁSZ**. Dla porównania `=CZY.LICZBA("123")` zwróci **FAŁSZ**, ponieważ liczba została ujęta w cudzysłów.
+
+## Zastosowanie w praktyce
+
+W formularzu przyjmującym wartości z plików CSV osobno przechowuj oryginalny tekst i kolumnę kontrolną. Jeśli komórka zawiera `1200`, a Excel rozpoznaje ją jako liczbę, CZY.LICZBA zwróci PRAWDA. Jeśli plik zawiera napis `1 200 zł`, sam wygląd wartości nie gwarantuje poprawnego typu — wynik może być FAŁSZ. Nie poprawiaj takich rekordów przez masowe mnożenie wszystkich pól przez jeden: dane z błędnym formatem waluty wymagają świadomej normalizacji. Funkcja jest testem typu, a nie walidacją zakresu. Osobno sprawdź, czy kwota jest dodatnia, czy mieści się w limicie i czy powinna mieć grosze. Tak unikniesz mylenia poprawnie zapisanej liczby z prawidłową wartością biznesową.

@@ -26,3 +26,7 @@ Miesiąc 13 może zostać znormalizowany do stycznia następnego roku, zamiast z
 ## Sprawdź na konkretnych danych
 
 Ustaw A2 na **31.12.2026**. Formuła `=DATA(ROK(A2);MIESIĄC(A2)+1;1)` zwróci **01.01.2027**. Jeśli widzisz dużą liczbę zamiast daty, zmień format komórki wynikowej na datę; sam wynik jest liczbową datą Excela.
+
+## Zastosowanie w praktyce
+
+W harmonogramie faktur przechowuj rok, miesiąc i dzień jako odrębne liczby, ale datę raportową twórz funkcją DATA. Dzięki temu Excel może odejmować terminy i sortować rekordy chronologicznie. Wpisanie tekstu `01.02.2027` do komórki nie zawsze oznacza, że arkusz przechowuje rzeczywistą datę; zależy to od sposobu importu i lokalizacji. DATA przyjmuje składniki liczbowe i tworzy prawidłową wartość daty. Zwróć jednak uwagę, że funkcja normalizuje także niektóre nietypowe argumenty, np. miesiąc 13 przechodzi do nowego roku. Jeżeli użytkownik wpisuje miesiąc w formularzu, sprawdź wcześniej, czy mieści się w przedziale 1–12. Nie traktuj normalizacji jako walidacji błędnych danych wejściowych.

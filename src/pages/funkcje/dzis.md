@@ -26,3 +26,7 @@ Funkcja jest zmienna: po przeliczeniu skoroszytu może zwrócić inną datę. Ni
 ## Sprawdź na konkretnych danych
 
 Sprawdź trzy przypadki: A2 z datą wczorajszą → **Po terminie**, A2 z datą jutrzejszą → **W terminie**, A2 puste → użyj bezpieczniejszej formuły `=JEŻELI(A2="";"Brak daty";JEŻELI(A2<DZIŚ();"Po terminie";"W terminie"))`.
+
+## Zastosowanie w praktyce
+
+DZIŚ świetnie nadaje się do raportu bieżących zaległości, ponieważ każdego dnia porównuje terminy z aktualną datą. Nie jest jednak dobrym sposobem na zapisanie daty złożenia zamówienia: po ponownym przeliczeniu arkusza taka data może się zmienić. Jeśli potrzebujesz trwałego znacznika zdarzenia, zapisz wartość daty raz, zamiast pozostawiać w komórce formułę zmienną. W przypadku płatności ustaw także jednoznaczną zasadę, czy dokument jest przeterminowany już w dniu terminu czy dopiero następnego dnia. Porównanie `A2<DZIŚ()` i `A2<=DZIŚ()` daje różne wyniki właśnie na granicy terminu. W plikach udostępnianych innym użytkownikom uwzględnij również ustawienia aktualizacji i przeliczania formuł.

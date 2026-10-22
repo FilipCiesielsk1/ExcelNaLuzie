@@ -26,3 +26,7 @@ Przy pominięciu typu Excel liczy domyślnie od niedzieli, dlatego sprawdzenie >
 ## Sprawdź na konkretnych danych
 
 Wpisz w A2 datę **17.10.2026** (sobota). `=DZIEŃ.TYG(A2;2)` zwróci **6**, a formuła z JEŻELI — **Weekend**. Dla **19.10.2026** (poniedziałek) otrzymasz **1** i **Dzień roboczy**. Święto przypadające w tygodniu nie jest tu uwzględniane.
+
+## Zastosowanie w praktyce
+
+Wyobraź sobie grafik dyżurów, w którym weekendy trzeba wyróżnić innym kolorem. DZIEŃ.TYG z argumentem 2 pomaga jednoznacznie oznaczyć sobotę i niedzielę. Nie jest jednak kalendarzem wszystkich dni wolnych w Polsce: święta wypadające w poniedziałek lub czwartek nadal otrzymają numer od 1 do 5. Do wyliczania rzeczywistych dni roboczych firmy potrzebujesz osobnej listy świąt i informacji o indywidualnym harmonogramie pracy. Jeśli arkusz ma być używany w kilku krajach, zapisuj przyjęty system numerowania w instrukcji. Warto też pamiętać, że wynik funkcji jest liczbą, więc do prezentacji nazw dni możesz zastosować odpowiedni format daty lub osobne mapowanie etykiet.

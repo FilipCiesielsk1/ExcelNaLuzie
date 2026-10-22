@@ -26,3 +26,7 @@ Spacje na początku, w środku i na końcu również się liczą. Poprawna dług
 ## Sprawdź na konkretnych danych
 
 Wstaw do A2 `ABC123456`: `=DŁ(A2)` zwróci **9**, a sprawdzenie z JEŻELI — **Poprawny**. Dodaj spację na końcu: długość wzrośnie do **10**, więc otrzymasz **Sprawdź**. Jeżeli dane pochodzą z CSV, rozważ wcześniejsze oczyszczenie niepożądanych odstępów.
+
+## Zastosowanie w praktyce
+
+Kontrola numerów zamówień wymaga zwykle więcej niż sprawdzenia długości. Jeśli identyfikator powinien mieć postać `ABC-12345`, funkcja DŁ pomoże odrzucić zbyt krótkie i zbyt długie wpisy, ale nie potwierdzi istnienia myślnika ani poprawności cyfr. Do kompletnej weryfikacji dołóż osobny test separatora i dozwolonych znaków. Liczba znaków obejmuje również znaki niewidoczne na pierwszy rzut oka, dlatego po imporcie z innego systemu wynik może być większy, niż oczekujesz. Jeśli wykrywasz rozbieżność między wyglądem tekstu a DŁ, porównaj ciąg znak po znaku albo najpierw skopiuj go do pomocniczej kolumny. Nie usuwaj automatycznie spacji z numerów, jeśli w danym systemie mogą być znaczące.

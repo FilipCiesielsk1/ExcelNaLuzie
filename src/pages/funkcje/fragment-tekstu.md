@@ -26,3 +26,7 @@ Pozycje są liczone od 1, nie od zera. Jeśli liczba pobieranych znaków jest uj
 ## Sprawdź na konkretnych danych
 
 W A2 wpisz `PL-ABC-09`. Formuła `=FRAGMENT.TEKSTU(A2;ZNAJDŹ("-";A2)+1;3)` zwróci **ABC**. Zmień A2 na `PLABC09`: formuła zgłosi błąd, ponieważ myślnika nie ma. Dla kodów o zmiennej długości segmentu nie zakładaj zawsze trzech znaków.
+
+## Zastosowanie w praktyce
+
+W plikach magazynowych część kodu produktu może wskazywać serię, oddział albo numer dostawy. FRAGMENT.TEKSTU ułatwia pobranie tego elementu, jeśli jego pozycja jest znana lub można ją znaleźć za pomocą innej funkcji. W przeciwieństwie do zamiany znanych znaków wynik zależy od podanej liczby pozycji i długości. Gdy kod ma nietypową budowę, pobranie sztywnych trzech znaków może być poprawne składniowo, ale błędne biznesowo. Przed zastosowaniem w całej tabeli przetestuj co najmniej kod standardowy, kod krótszy, kod bez myślnika i wpis z dodatkowym separatorem. Zachowaj kolumnę z pełnym identyfikatorem, aby w razie pomyłki móc sprawdzić, jaka część tekstu została wydzielona.

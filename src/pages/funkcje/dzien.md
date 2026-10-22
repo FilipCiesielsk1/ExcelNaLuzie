@@ -26,3 +26,7 @@ DZIEŃ nie oznacza dnia tygodnia. Aby uzyskać poniedziałek, wtorek itd., użyj
 ## Sprawdź na konkretnych danych
 
 Dla daty **15.10.2026** wpisanej do A2 wynik `=DZIEŃ(A2)` to **15**, a test z JEŻELI zwróci **Inny dzień**. Zmień datę na **01.11.2026**: otrzymasz **1** i **Pierwszy dzień**.
+
+## Zastosowanie w praktyce
+
+W raportach rozliczeniowych numer dnia miesiąca bywa potrzebny do wykrywania płatności z pierwszego lub ostatniego dnia okresu. DZIEŃ zwraca jedynie fragment daty, nie kompletny termin. Dwie transakcje z 15 stycznia i 15 lipca mają ten sam wynik 15, choć dotyczą innych miesięcy. Jeśli chcesz identyfikować unikatowy dzień w danych sprzedaży, grupuj pełne daty zamiast samego numeru dnia. Warto też odróżniać zwykłą datę od tekstu wyglądającego jak data. Po imporcie z CSV sprawdź, czy wartości w kolumnie są liczbami daty Excela. Zastosowanie DZIEŃ do niepoprawnie sparsowanego tekstu może dać błąd lub nieoczekiwany wynik, nawet gdy komórka wygląda poprawnie.
