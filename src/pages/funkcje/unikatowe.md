@@ -9,26 +9,6 @@ slug: "unikatowe"
 
 Formuła tworzy listę wartości bez duplikatów i automatycznie rozlewa wynik na kolejne komórki.
 
-## Unikatowe całe wiersze
-
-Możesz podać zakres składający się z kilku kolumn:
-
-<div class="formula">=UNIKATOWE(A2:C100)</div>
-
-Excel potraktuje wtedy cały wiersz jako rekord.
-
-## Tylko wartości występujące dokładnie raz
-
-Trzeci argument pozwala odróżnić „lista bez duplikatów” od wartości, które w źródle pojawiają się dokładnie jeden raz.
-
-## Połącz z SORTUJ
-
-Bardzo częsty wzorzec to automatyczna, uporządkowana lista:
-
-<div class="formula">=SORTUJ(UNIKATOWE(A2:A100))</div>
-
-Po dopisaniu nowych danych lista może aktualizować się automatycznie.
-
 ## Unikatowe wartości a wartości występujące dokładnie raz
 
 Domyślnie UNIKATOWE zwraca po jednej pozycji dla każdej różnej wartości:
@@ -68,3 +48,7 @@ Dzięki temu dostaniesz np. listę unikalnych produktów tylko dla regionu wybra
 ## Wynik jest dynamiczny
 
 Lista może rosnąć i maleć razem ze źródłem. Zostaw wolne komórki pod formułą, aby Excel miał miejsce na rozlanie wyników.
+
+## Zastosowanie w praktyce
+
+W raporcie magazynowym UNIKATOWE pomoże uzyskać listę kategorii lub produktów bez ręcznego usuwania duplikatów z tabeli źródłowej. Trzeba jednak odróżnić dwa scenariusze: listę różnych nazw oraz listę pozycji, które występują dokładnie raz. Pierwszy wariant jest przydatny do tworzenia filtrów, a drugi do kontroli wyjątków. Jeśli podasz kilka kolumn, funkcja porównuje całe rekordy, więc dwie pozycje z tym samym produktem i różnymi cenami nie będą uznane za identyczne wiersze. Wynik rozlewa się na sąsiednie komórki, dlatego nie powinno być w nich ręcznie wpisanych wartości. Przy braku danych lub po filtrowaniu sprawdź także, czy puste wartości mają pojawiać się na wygenerowanej liście.

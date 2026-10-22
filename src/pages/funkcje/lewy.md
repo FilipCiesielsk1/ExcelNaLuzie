@@ -17,14 +17,16 @@ Pierwszy przykład zwraca trzy początkowe znaki kodu z A2. Drugi pobiera fragme
 
 <div class="formula">=LEWY(A2;ZNAJDŹ("-";A2)-1)</div>
 
-Ten wariant pokazuje zastosowanie funkcji LEWY w bardziej rozbudowanym obliczeniu. Sprawdź, czy podane odwołania do komórek pasują do układu Twojej tabeli; przykładowych adresów nie trzeba używać dosłownie.
+ZNAJDŹ zwraca numer pozycji myślnika, a odjęcie jedynki pomija separator. Dzięki temu LEWY wydziela prefiks niezależnie od liczby znaków przed myślnikiem.
 
 ## Typowe błędy
 
 Liczba znaków nie może być ujemna. Jeżeli w napisie brak myślnika, połączona funkcja ZNAJDŹ zwróci błąd. W takiej sytuacji warto użyć JEŻELI.BŁĄD.
 
-## Jak sprawdzić działanie w swoim arkuszu?
+## Sprawdź na konkretnych danych
 
-Zacznij od pojedynczego przykładu, którego poprawny wynik potrafisz ustalić bez formuły. Wpisz dane wejściowe do wskazanej komórki, a obok wstaw formułę i porównaj rezultat. Następnie przetestuj przypadek nietypowy: pustą wartość, krótszy napis lub brak separatora. Dzięki temu szybciej rozpoznasz, czy problem leży w składni funkcji, czy w danych.
+Jeżeli A2 to `REGION-2026`, `=LEWY(A2;ZNAJDŹ("-";A2)-1)` zwróci **REGION**. Dla `REGION2026` wystąpi błąd, bo myślnika nie ma. Jeśli rekordy bywają niekompletne, użyj `=JEŻELI.BŁĄD(LEWY(A2;ZNAJDŹ("-";A2)-1);A2)`.
 
-Przy kopiowaniu w dół tabeli zwróć uwagę na to, które odwołania do komórek powinny się przesuwać. Jeżeli odwołujesz się do stałego słownika, rozważ adres bezwzględny ze znakami dolara. Warto również zachować oryginalną kolumnę przed czyszczeniem danych: łatwiej porównasz wynik i wykryjesz przypadkowo usunięte znaki. Tekst i liczby bywają wyświetlane podobnie, ale zachowują się inaczej w obliczeniach.
+## Zastosowanie w praktyce
+
+Jeżeli numery produktów rozpoczynają się od dwuliterowego symbolu kraju lub oddziału, LEWY może szybko utworzyć dodatkową kolumnę do grupowania. Dla stałej długości prefiksu podaj konkretną liczbę znaków. Gdy oddziały używają identyfikatorów o różnej długości, lepiej szukać separatora, tak jak w drugim przykładzie. Jeśli separator pojawia się również w samym prefiksie, taka reguła nie będzie jednoznaczna. Przed podziałem danych warto więc ustalić formalny schemat kodu i sprawdzić rekordy odstające. LEWY zwraca tekst, a nie liczbę. Dzięki temu zachowuje zera wiodące, co jest szczególnie ważne dla oznaczeń magazynowych i kodów produktów. Nie konwertuj takich identyfikatorów na liczby bez potrzeby.

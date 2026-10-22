@@ -17,14 +17,16 @@ Pierwsza formuła zmienia wszystkie myślniki na ukośniki. Druga usuwa zwykłe 
 
 <div class="formula">=PODSTAW(A2;" ";"")</div>
 
-Ten wariant pokazuje zastosowanie funkcji PODSTAW w bardziej rozbudowanym obliczeniu. Sprawdź, czy podane odwołania do komórek pasują do układu Twojej tabeli; przykładowych adresów nie trzeba używać dosłownie.
+PODSTAW(A2;" ";"") usuwa każde zwykłe odstępy, także te między słowami. To dobre rozwiązanie dla kodów, ale może zepsuć zwykłe nazwy. W przypadku opisów lepiej użyć USUŃ.ZBĘDNE.ODSTĘPY.
 
 ## Typowe błędy
 
 Wielkość liter ma znaczenie. Bez argumentu nr_wystąpienia Excel zamieni wszystkie wystąpienia wskazanego tekstu, co nie zawsze jest oczekiwane.
 
-## Jak sprawdzić działanie w swoim arkuszu?
+## Sprawdź na konkretnych danych
 
-Zacznij od pojedynczego przykładu, którego poprawny wynik potrafisz ustalić bez formuły. Wpisz dane wejściowe do wskazanej komórki, a obok wstaw formułę i porównaj rezultat. Następnie przetestuj przypadek nietypowy: pustą wartość, krótszy napis lub brak separatora. Dzięki temu szybciej rozpoznasz, czy problem leży w składni funkcji, czy w danych.
+Jeżeli w A2 znajduje się `AB-12-34`, `=PODSTAW(A2;"-";"/")` zwróci **AB/12/34**. Zapis `=PODSTAW(A2;"-";"/";1)` podmieni tylko **pierwszy** myślnik. Parametr numeru wystąpienia pozwala uniknąć masowej zamiany.
 
-Przy kopiowaniu w dół tabeli zwróć uwagę na to, które odwołania do komórek powinny się przesuwać. Jeżeli odwołujesz się do stałego słownika, rozważ adres bezwzględny ze znakami dolara. Warto również zachować oryginalną kolumnę przed czyszczeniem danych: łatwiej porównasz wynik i wykryjesz przypadkowo usunięte znaki. Tekst i liczby bywają wyświetlane podobnie, ale zachowują się inaczej w obliczeniach.
+## Zastosowanie w praktyce
+
+W pracy z kodami produktów często trzeba zamienić jeden separator na drugi, na przykład myślnik na ukośnik. PODSTAW wykonuje zamianę zgodnie z treścią, a nie pozycją znaków. To wygodne, gdy kody mają różną długość. Zwróć jednak uwagę, czy znak zamieniany nie występuje również w nazwach lub komentarzach, gdzie pełni inne znaczenie. Jeśli w tekstach występują zwykłe spacje i twarde spacje, traktuj je jako odrębne znaki. W takim przypadku jedna zamiana może nie wystarczyć. Dla czyszczenia nazw klientów częściej potrzebujesz zachować pojedyncze odstępy między wyrazami, zamiast usuwać wszystkie. Zanim zastosujesz masową konwersję, porównaj kilka wyników z oryginalnymi danymi i zapisz regułę w dokumentacji importu.

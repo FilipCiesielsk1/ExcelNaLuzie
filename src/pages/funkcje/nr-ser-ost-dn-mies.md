@@ -17,14 +17,16 @@ Argument zero oznacza ostatni dzień miesiąca z daty A2. Wartość 1 zwraca ost
 
 <div class="formula">=NR.SER.OST.DN.MIES(A2;1)</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji NR.SER.OST.DN.MIES. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+Argument `1` wybiera koniec następnego miesiąca, a `0` koniec miesiąca wskazanej daty. To nie jest operacja dodania stałej liczby dni.
 
 ## Najczęstsze pułapki
 
 Nie myl przesunięcia końca miesiąca z dodaniem pełnych miesięcy do tej samej daty. Do drugiego zadania służy NR.SER.DATY.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
+Dla A2 równego **15.02.2024** `=NR.SER.OST.DN.MIES(A2;0)` zwróci **29.02.2024**, a z argumentem `1` — **31.03.2024**. W roku nieprzestępnym luty ma 28 dni. Ustaw format daty na komórce wynikowej.
 
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+## Zastosowanie w praktyce
+
+Przy zamykaniu miesiąca księgowego często potrzebujesz zawsze jego ostatniego dnia, niezależnie od tego, czy miesiąc ma 28, 29, 30 czy 31 dni. NR.SER.OST.DN.MIES nadaje się do tego lepiej niż dodawanie stałej liczby dni. Możesz dzięki niej wyznaczyć granicę miesięcznego zestawienia, przygotować zakres dat do raportu lub oznaczyć termin zamknięcia okresu. Pamiętaj jednak, że ostatni dzień kalendarzowy nie musi być dniem roboczym. Jeśli faktura ma być wystawiona najpóźniej w ostatnim dniu pracy, potrzebujesz dodatkowej reguły wykorzystującej kalendarz dni wolnych. Przetestuj szczególnie luty w latach przestępnych oraz przejście z grudnia do stycznia następnego roku.

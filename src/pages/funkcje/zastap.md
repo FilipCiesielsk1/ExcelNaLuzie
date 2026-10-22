@@ -17,14 +17,16 @@ Pierwszy przykład maskuje pierwsze trzy znaki. Drugi usuwa dwa znaki od czwarte
 
 <div class="formula">=ZASTĄP(A2;4;2;"-")</div>
 
-Ten wariant pokazuje zastosowanie funkcji ZASTĄP w bardziej rozbudowanym obliczeniu. Sprawdź, czy podane odwołania do komórek pasują do układu Twojej tabeli; przykładowych adresów nie trzeba używać dosłownie.
+ZASTĄP wymienia fragment na podstawie pozycji i długości, a nie na podstawie wyszukiwanego tekstu. Jeżeli długość kodów różni się między wierszami, sztywne numery znaków mogą modyfikować niewłaściwy fragment.
 
 ## Typowe błędy
 
 Trzeci argument określa długość usuwanego fragmentu, a nie długość nowego napisu. Gdy struktura kodu jest zmienna, sztywne pozycje nie są bezpieczne.
 
-## Jak sprawdzić działanie w swoim arkuszu?
+## Sprawdź na konkretnych danych
 
-Zacznij od pojedynczego przykładu, którego poprawny wynik potrafisz ustalić bez formuły. Wpisz dane wejściowe do wskazanej komórki, a obok wstaw formułę i porównaj rezultat. Następnie przetestuj przypadek nietypowy: pustą wartość, krótszy napis lub brak separatora. Dzięki temu szybciej rozpoznasz, czy problem leży w składni funkcji, czy w danych.
+Jeżeli A2 = `ABC12345`, `=ZASTĄP(A2;1;3;"XXX")` zwróci **XXX12345**, a `=ZASTĄP(A2;4;2;"-")` zwróci **ABC-345**. Do zamiany konkretnych znaków lub wyrazów niezależnie od pozycji służy PODSTAW.
 
-Przy kopiowaniu w dół tabeli zwróć uwagę na to, które odwołania do komórek powinny się przesuwać. Jeżeli odwołujesz się do stałego słownika, rozważ adres bezwzględny ze znakami dolara. Warto również zachować oryginalną kolumnę przed czyszczeniem danych: łatwiej porównasz wynik i wykryjesz przypadkowo usunięte znaki. Tekst i liczby bywają wyświetlane podobnie, ale zachowują się inaczej w obliczeniach.
+## Zastosowanie w praktyce
+
+ZASTĄP może maskować część identyfikatora albo zmieniać fragment kodu w stałym miejscu. Jeśli numer klienta ma zawsze trzy znaki prefiksu, łatwo zastąpić je symbolem `XXX` bez edytowania dalszej części tekstu. Problem pojawia się wtedy, gdy długość prefiksów nie jest stała. ZASTĄP nie rozpoznaje znaczenia separatorów: operuje wyłącznie na wskazanej pozycji i liczbie znaków. W takim przypadku lepiej najpierw znaleźć położenie separatora lub użyć PODSTAW, jeśli zamieniasz określoną frazę. Pamiętaj, że wynik jest nowym tekstem, a źródłowe dane pozostają bez zmian. Do maskowania informacji poufnych sam wygląd tekstu w arkuszu może jednak nie wystarczyć, jeśli oryginalna kolumna nadal jest dostępna.

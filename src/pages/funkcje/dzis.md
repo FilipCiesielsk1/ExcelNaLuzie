@@ -17,14 +17,16 @@ Pierwszy przykład daje aktualną datę. Drugi oznacza terminy wcześniejsze ni�
 
 <div class="formula">=JEŻELI(A2&lt;DZIŚ();"Po terminie";"W terminie")</div>
 
-Drugi zapis łączy funkcję DZIŚ z innymi elementami formuły. Wybieraj taki wariant tylko wtedy, gdy rozumiesz, które komórki zawierają dane wejściowe, a które parametry. Zastąp przykładowe adresy adresami z własnego arkusza.
+DZIŚ zwraca aktualną datę przy przeliczeniu arkusza, a JEŻELI porównuje ją z terminem w A2. Uwaga na puste A2: w takim porównaniu Excel może potraktować brak daty jak zero i oznaczyć pusty rekord jako zaległy.
 
 ## Na co uważać?
 
 Funkcja jest zmienna: po przeliczeniu skoroszytu może zwrócić inną datę. Nie nadaje się do utrwalania daty zdarzenia na zawsze.
 
-## Sprawdzanie wyniku na własnych danych
+## Sprawdź na konkretnych danych
 
-Przy pierwszym użyciu wstaw formułę do komórki obok danych testowych. Nie zaczynaj od całej tabeli: wybierz rekord, dla którego potrafisz przewidzieć wynik, a następnie porównaj go z Excelem. Sprawdź także brak danych oraz sytuację graniczną, np. wartość spoza słownika albo nietypowy format tekstu. Pozwoli to szybciej zidentyfikować błędne odwołanie.
+Sprawdź trzy przypadki: A2 z datą wczorajszą → **Po terminie**, A2 z datą jutrzejszą → **W terminie**, A2 puste → użyj bezpieczniejszej formuły `=JEŻELI(A2="";"Brak daty";JEŻELI(A2<DZIŚ();"Po terminie";"W terminie"))`.
 
-Jeśli kopiujesz obliczenia na kolejne wiersze, dopilnuj odpowiednich adresów komórek. Zakresy stałe można zablokować znakami dolara, a odwołania do danych bieżącego rekordu pozostawić względne. Zwróć też uwagę na format wyniku: data, tekst i liczba mogą wyglądać podobnie, lecz różnie zachowują się podczas dalszego obliczania. W raportach zachowuj kolumny źródłowe, aby móc prześledzić skąd wziął się wynik.
+## Zastosowanie w praktyce
+
+DZIŚ świetnie nadaje się do raportu bieżących zaległości, ponieważ każdego dnia porównuje terminy z aktualną datą. Nie jest jednak dobrym sposobem na zapisanie daty złożenia zamówienia: po ponownym przeliczeniu arkusza taka data może się zmienić. Jeśli potrzebujesz trwałego znacznika zdarzenia, zapisz wartość daty raz, zamiast pozostawiać w komórce formułę zmienną. W przypadku płatności ustaw także jednoznaczną zasadę, czy dokument jest przeterminowany już w dniu terminu czy dopiero następnego dnia. Porównanie `A2<DZIŚ()` i `A2<=DZIŚ()` daje różne wyniki właśnie na granicy terminu. W plikach udostępnianych innym użytkownikom uwzględnij również ustawienia aktualizacji i przeliczania formuł.

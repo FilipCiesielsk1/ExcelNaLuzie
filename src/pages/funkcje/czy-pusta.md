@@ -17,14 +17,16 @@ Dla komórki całkowicie pustej otrzymasz PRAWDA. Drugi przykład zwróci Brak d
 
 <div class="formula">=JEŻELI(CZY.PUSTA(A2);"Brak";"Uzupełniono")</div>
 
-Drugi zapis łączy funkcję CZY.PUSTA z innymi elementami formuły. Wybieraj taki wariant tylko wtedy, gdy rozumiesz, które komórki zawierają dane wejściowe, a które parametry. Zastąp przykładowe adresy adresami z własnego arkusza.
+Połączenie z JEŻELI pozwala przypisać etykietę do całkowicie pustego pola. Nie myl zera z brakiem wpisu: `0` to zawartość komórki, więc CZY.PUSTA zwróci FAŁSZ.
 
 ## Na co uważać?
 
 Komórka z formułą zwracającą pusty tekst nie jest technicznie pusta i daje FAŁSZ. Do wykrywania także takiego stanu użyj porównania A2 z pustym napisem.
 
-## Sprawdzanie wyniku na własnych danych
+## Sprawdź na konkretnych danych
 
-Przy pierwszym użyciu wstaw formułę do komórki obok danych testowych. Nie zaczynaj od całej tabeli: wybierz rekord, dla którego potrafisz przewidzieć wynik, a następnie porównaj go z Excelem. Sprawdź także brak danych oraz sytuację graniczną, np. wartość spoza słownika albo nietypowy format tekstu. Pozwoli to szybciej zidentyfikować błędne odwołanie.
+Wyczyść zawartość A2: `=CZY.PUSTA(A2)` da **PRAWDA**. Wpisz `0`: wynik zmieni się na **FAŁSZ**. Gdy A2 zawiera formułę `=""`, również dostaniesz **FAŁSZ**, bo w komórce jest formuła. Jeśli chcesz traktować wynik pustego tekstu jak brak wartości, rozważ `=A2=""`.
 
-Jeśli kopiujesz obliczenia na kolejne wiersze, dopilnuj odpowiednich adresów komórek. Zakresy stałe można zablokować znakami dolara, a odwołania do danych bieżącego rekordu pozostawić względne. Zwróć też uwagę na format wyniku: data, tekst i liczba mogą wyglądać podobnie, lecz różnie zachowują się podczas dalszego obliczania. W raportach zachowuj kolumny źródłowe, aby móc prześledzić skąd wziął się wynik.
+## Zastosowanie w praktyce
+
+Załóżmy, że tworzysz listę zamówień, a kolumna A zawiera numer dokumentu. Całkowicie niewypełniona komórka różni się od pola, w którym ktoś wprowadził zero albo pojedynczą spację. CZY.PUSTA wykryje tylko rzeczywistą pustkę: spacja także jest zawartością. Jeśli numer dokumentu powstaje z formuły i chwilowo zwraca pusty napis, taka komórka również nie jest pusta w rozumieniu CZY.PUSTA. W raportach kontrolnych warto rozdzielić dwa pytania: czy komórka ma jakąkolwiek zawartość oraz czy użytkownik wpisał znaczącą wartość. Drugie pytanie może wymagać usunięcia zbędnych spacji lub porównania wyniku z pustym tekstem. Pozwala to uniknąć fałszywych informacji, że wszystkie pola zostały uzupełnione.

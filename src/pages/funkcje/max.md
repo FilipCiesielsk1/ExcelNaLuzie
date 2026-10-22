@@ -17,14 +17,16 @@ Pierwszy przykład wybiera największą wartość z kolumny B. Drugi porównuje 
 
 <div class="formula">=MAX(B2:B100;D2:D100)</div>
 
-Druga formuła przedstawia kolejny wariant tego samego działania. Przed skopiowaniem zamień przykładowe odwołania do komórek na własne zakresy. W razie wątpliwości sprawdź dokładną składnię i opis poszczególnych argumentów na początku tej strony.
+Porównanie dwóch zakresów może być przydatne, gdy dane z dwóch działów są przechowywane w odrębnych kolumnach. MAX zwraca wartość liczbową, a nie nazwę działu ani identyfikator wiersza, w którym znajduje się maksimum.
 
 ## Najważniejsza pułapka
 
 Wynik nie mówi, z którego wiersza pochodzi rekord. Jeśli potrzebujesz powiązanej nazwy produktu, zastosuj osobno odpowiednią funkcję wyszukującą.
 
-## Jak sprawdzić i skopiować formułę?
+## Sprawdź na konkretnych danych
 
-Na początku przetestuj obliczenie na małym zestawie liczb, dla którego możesz łatwo wyznaczyć oczekiwany wynik samodzielnie. Potem sprawdź przypadki szczególne: zero, wartość ujemną, pustą komórkę oraz komórkę z liczbą zapisaną jako tekst. Różne funkcje mają inne zasady traktowania takich danych, dlatego nie warto sprawdzać tylko typowych przykładów.
+Dla liczb **10**, **25**, **-3** w B2:B4 i **40**, **5** w D2:D3 formuła `=MAX(B2:B4;D2:D3)` zwróci **40**. Jeśli w obu zakresach nie ma liczb, MAX zwraca **0**, co w raporcie może wymagać odrębnego oznaczenia braku danych.
 
-Jeżeli zamierzasz kopiować formułę do wielu wierszy, zwróć uwagę, czy zakresy źródłowe mają pozostać stałe. Adresy bezwzględne z dolarem pomagają zachować ten sam zakres przy kopiowaniu. Wyniki prezentuj z odpowiednim formatem liczbowym; pamiętaj jednak, że samo formatowanie nie zmienia wartości używanej w późniejszych obliczeniach. W raportach liczbowych dobrze jest zachować surowe dane i pokazać osobno wynik przetwarzania, aby możliwa była szybka kontrola poprawności.
+## Zastosowanie w praktyce
+
+W raporcie sprzedaży MAX może służyć do wykrywania największej wartości faktury, najwyższej dziennej sprzedaży lub maksymalnego czasu realizacji. Sama funkcja nie określa, którego klienta dotyczy ten wynik. Jeśli chcesz wyświetlić również nazwę kontrahenta, połącz maksimum z odpowiednim wyszukiwaniem, pamiętając o sytuacji remisu. Przy danych z dwóch miesięcy wartości możesz analizować wspólnie, ale upewnij się, że zakresy są porównywalne i wyrażone w tych samych jednostkach. Tekst udający liczbę może zostać pominięty, dlatego sprawdzaj jakość danych przed obliczeniem KPI. Dodatkowo warto wyróżnić brak obserwacji od prawdziwego maksimum równego zero, zwłaszcza w raportach zarządczych.

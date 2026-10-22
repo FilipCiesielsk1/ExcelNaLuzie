@@ -17,14 +17,16 @@ Typ 2 oznacza numerowanie od poniedziałku jako 1 do niedzieli jako 7. Druga for
 
 <div class="formula">=JEŻELI(DZIEŃ.TYG(A2;2)&gt;5;"Weekend";"Dzień roboczy")</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji DZIEŃ.TYG. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+Przy drugim argumencie równym `2` poniedziałek ma numer 1, a sobota i niedziela odpowiednio 6 i 7. Dzięki temu warunek `>5` rzeczywiście oznacza weekend. Dla innego typu numerowania reguła wymaga zmiany.
 
 ## Najczęstsze pułapki
 
 Przy pominięciu typu Excel liczy domyślnie od niedzieli, dlatego sprawdzenie >5 nie oznacza wtedy tylko weekendu. W raportach ustal jeden standard.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
+Wpisz w A2 datę **17.10.2026** (sobota). `=DZIEŃ.TYG(A2;2)` zwróci **6**, a formuła z JEŻELI — **Weekend**. Dla **19.10.2026** (poniedziałek) otrzymasz **1** i **Dzień roboczy**. Święto przypadające w tygodniu nie jest tu uwzględniane.
 
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+## Zastosowanie w praktyce
+
+Wyobraź sobie grafik dyżurów, w którym weekendy trzeba wyróżnić innym kolorem. DZIEŃ.TYG z argumentem 2 pomaga jednoznacznie oznaczyć sobotę i niedzielę. Nie jest jednak kalendarzem wszystkich dni wolnych w Polsce: święta wypadające w poniedziałek lub czwartek nadal otrzymają numer od 1 do 5. Do wyliczania rzeczywistych dni roboczych firmy potrzebujesz osobnej listy świąt i informacji o indywidualnym harmonogramie pracy. Jeśli arkusz ma być używany w kilku krajach, zapisuj przyjęty system numerowania w instrukcji. Warto też pamiętać, że wynik funkcji jest liczbą, więc do prezentacji nazw dni możesz zastosować odpowiedni format daty lub osobne mapowanie etykiet.

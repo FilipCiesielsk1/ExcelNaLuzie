@@ -17,14 +17,16 @@ Pierwsza formuła zwraca numer, np. 10 dla października. Druga wykorzystuje ten
 
 <div class="formula">=DATA(ROK(A2);MIESIĄC(A2);1)</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji MIESIĄC. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+Połączenie MIESIĄC z ROK i DATA pozwala stworzyć prawdziwą datę pierwszego dnia miesiąca — przydatną jako klucz miesięcznego zestawienia. Sama liczba miesiąca nie odróżnia różnych lat.
 
 ## Najczęstsze pułapki
 
 Samo MIESIĄC(A2) nie rozróżnia lat. Październik 2025 i 2026 daje 10, więc do grupowania okresów uwzględnij również ROK.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
+W A2 wpisz **31.12.2026**. `=MIESIĄC(A2)` zwróci **12**, a `=DATA(ROK(A2);MIESIĄC(A2);1)` zwróci **01.12.2026**. Gdy używasz miesiąca do grupowania transakcji z kilku lat, dodaj również ROK.
 
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+## Zastosowanie w praktyce
+
+Przy analizie sezonowości sprzedaży MIESIĄC przydaje się do porównania stycznia, lutego czy marca w różnych latach. Jednak jeśli chcesz sporządzić zwykły miesięczny raport, sam numer miesiąca może połączyć wyniki ze stycznia 2025 i stycznia 2026. Lepszym kluczem będzie para ROK oraz MIESIĄC lub pełna data pierwszego dnia danego miesiąca. W przypadku błędnych danych wejściowych nie zakładaj, że tekst wyglądający jak data jest przechowywany jako data Excela. Najpierw sprawdź typ i sposób importu. Wynik MIESIĄC jest liczbą od 1 do 12; jeżeli potrzebujesz nazwy miesiąca w nagłówku raportu, zastosuj odpowiedni format daty zamiast traktować tę liczbę jak nazwę.

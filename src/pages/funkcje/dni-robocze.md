@@ -33,7 +33,7 @@ Jeżeli weekend w Twojej organizacji nie przypada na sobotę i niedzielę, użyj
 
 ## Czy daty graniczne są uwzględniane?
 
-Funkcja oblicza pełne dni robocze pomiędzy wskazanymi datami według reguł Excela. Przy raportach SLA i terminach zawsze warto przetestować konkretny przypadek graniczny, np. okres zaczynający się lub kończący w weekend.
+DNI.ROBOCZE uwzględnia **oba końce przedziału**, jeśli przypadają w dni robocze. Dla poniedziałku 19.10.2026 i piątku 23.10.2026 funkcja zwróci **5**, nie 4. Gdy początek i koniec oznaczają ten sam poniedziałek, wynikiem jest **1**. Jeśli data wypada w weekend lub została podana na liście świąt, nie jest wliczana.
 
 ## Kiedy funkcja jest najlepszym wyborem?
 

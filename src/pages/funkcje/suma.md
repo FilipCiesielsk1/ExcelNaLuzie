@@ -17,14 +17,16 @@ Pierwszy przykład sumuje wartości w jednej kolumnie, a drugi łączy dwie rozd
 
 <div class="formula">=SUMA(B2:B100;D2:D100)</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji SUMA. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+SUMA(B2:B100;D2:D100) dodaje liczby z dwóch zakresów. Jeśli w kolumnach są powiązane miary, upewnij się, że nie podliczasz dwukrotnie tej samej transakcji.
 
 ## Najczęstsze pułapki
 
 Jeśli część liczb została zaimportowana jako tekst, suma może je pominąć. Do sumowania tylko wierszy spełniających kryterium wybierz SUMA.JEŻELI lub SUMA.WARUNKÓW.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
+W B2:B4 wpisz **10**, **0** oraz tekst `'15`. `=SUMA(B2:B4)` zwróci **10**, ponieważ tekst w komórce nie jest liczbą. Aby znaleźć pozycje problematyczne po imporcie CSV, możesz sprawdzić ich typ przez CZY.LICZBA.
 
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+## Zastosowanie w praktyce
+
+W raporcie finansowym samo dodanie wszystkich liczb nie zawsze jest właściwym podsumowaniem. Jeśli kolumna zawiera zarówno wartości pozycji, jak i wiersze podsumowania, SUMA może policzyć te same kwoty dwukrotnie. Przed określeniem zakresu ustal, czy są to surowe transakcje, agregaty czy wartości już przeliczone. W przypadku danych importowanych z CSV zadbaj także o typ liczbowy. Tekst zapisany jako kwota może wyglądać prawidłowo, ale zostać pominięty przy sumowaniu. Jeżeli chcesz dodać wyłącznie rekordy z jednego regionu lub statusu, nie filtruj ręcznie tabeli przed każdym raportem — rozważ SUMA.JEŻELI lub SUMA.WARUNKÓW. Pozwoli to zachować powtarzalny i możliwy do kontroli wynik.

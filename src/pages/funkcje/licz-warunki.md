@@ -15,16 +15,6 @@ Wynik mówi, ile rekordów ma jednocześnie wartość F2 w kolumnie A i G2 w kol
 
 <div class="formula">=LICZ.WARUNKI(C2:C100;">=100")</div>
 
-## Kryterium z komórki
-
-<div class="formula">=LICZ.WARUNKI(C2:C100;">="&amp;F2)</div>
-
-Operator musi zostać połączony z odwołaniem za pomocą znaku &.
-
-## Ważne ograniczenie
-
-Wszystkie zakresy kryteriów powinny mieć takie same wymiary. Jeżeli jeden zakres ma inną liczbę wierszy niż pozostałe, formuła może zwrócić błąd.
-
 ## Wszystkie zakresy muszą mieć ten sam rozmiar
 
 W formule z kilkoma warunkami każdy zakres kryteriów powinien obejmować odpowiadające sobie wiersze.

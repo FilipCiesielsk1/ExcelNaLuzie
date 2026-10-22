@@ -17,14 +17,16 @@ Pierwszy przykład analizuje jeden zakres, drugi bierze pod uwagę dwie odrębne
 
 <div class="formula">=MIN(B2:B100;D2:D100)</div>
 
-Druga formuła przedstawia kolejny wariant tego samego działania. Przed skopiowaniem zamień przykładowe odwołania do komórek na własne zakresy. W razie wątpliwości sprawdź dokładną składnię i opis poszczególnych argumentów na początku tej strony.
+MIN może porównywać wartości z wielu zakresów, np. najniższą cenę z dwóch magazynów. Nie podaje pozycji rekordu; jeśli potrzebujesz nazwy produktu, użyj dodatkowego wyszukiwania.
 
 ## Najważniejsza pułapka
 
 Teksty i puste pola we wskazanych zakresach są pomijane. Jeśli potrzebujesz najmniejszej wartości spełniającej warunki, zwykła MIN nie wystarczy.
 
-## Jak sprawdzić i skopiować formułę?
+## Sprawdź na konkretnych danych
 
-Na początku przetestuj obliczenie na małym zestawie liczb, dla którego możesz łatwo wyznaczyć oczekiwany wynik samodzielnie. Potem sprawdź przypadki szczególne: zero, wartość ujemną, pustą komórkę oraz komórkę z liczbą zapisaną jako tekst. Różne funkcje mają inne zasady traktowania takich danych, dlatego nie warto sprawdzać tylko typowych przykładów.
+Dla liczb **10**, **25**, **-3** w B2:B4 i **40**, **5** w D2:D3 formuła `=MIN(B2:B4;D2:D3)` zwróci **-3**. Jeśli wszystkie komórki zawierają tekst lub są puste, MIN może zwrócić **0** — nie traktuj tego automatycznie jako rzeczywistej wartości pomiaru.
 
-Jeżeli zamierzasz kopiować formułę do wielu wierszy, zwróć uwagę, czy zakresy źródłowe mają pozostać stałe. Adresy bezwzględne z dolarem pomagają zachować ten sam zakres przy kopiowaniu. Wyniki prezentuj z odpowiednim formatem liczbowym; pamiętaj jednak, że samo formatowanie nie zmienia wartości używanej w późniejszych obliczeniach. W raportach liczbowych dobrze jest zachować surowe dane i pokazać osobno wynik przetwarzania, aby możliwa była szybka kontrola poprawności.
+## Zastosowanie w praktyce
+
+MIN pomaga znaleźć najtańszą ofertę, najmniejszy pomiar lub najniższy stan dostępności w zestawieniu. Przy porównywaniu cen z różnych źródeł najpierw upewnij się, że wszystkie kwoty są podane w tej samej walucie i w tej samej jednostce. Wynik będący minimum nie mówi, z której oferty pochodzi wartość. Jeśli kilku dostawców ma tę samą cenę, samo wyszukiwanie pierwszego dopasowania może nie wystarczyć. Zwróć także uwagę na liczby ujemne: w danych finansowych mogą reprezentować korekty, przez co minimum niekoniecznie oznacza najtańszy produkt. Dla kontroli jakości warto osobno sprawdzić liczbę wartości numerycznych i odróżniać puste zestawienie od rzeczywistego minimum równego zero.

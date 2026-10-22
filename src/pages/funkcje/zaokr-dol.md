@@ -17,14 +17,16 @@ Pierwszy przykład sprowadza liczbę do całych jednostek w kierunku zera. Drugi
 
 <div class="formula">=ZAOKR.DÓŁ(A2;2)</div>
 
-Druga formuła przedstawia kolejny wariant tego samego działania. Przed skopiowaniem zamień przykładowe odwołania do komórek na własne zakresy. W razie wątpliwości sprawdź dokładną składnię i opis poszczególnych argumentów na początku tej strony.
+ZAOKR.DÓŁ zaokrągla **w kierunku zera**, więc przy liczbach ujemnych nie jest to matematyczne zaokrąglenie w dół. Argument `2` zachowuje dwa miejsca po przecinku, a `0` część całkowitą.
 
 ## Najważniejsza pułapka
 
 Dla wartości ujemnych kierunek do zera oznacza wynik mniej ujemny. Funkcja nie działa identycznie jak zaokrąglanie w dół na osi liczbowej.
 
-## Jak sprawdzić i skopiować formułę?
+## Sprawdź na konkretnych danych
 
-Na początku przetestuj obliczenie na małym zestawie liczb, dla którego możesz łatwo wyznaczyć oczekiwany wynik samodzielnie. Potem sprawdź przypadki szczególne: zero, wartość ujemną, pustą komórkę oraz komórkę z liczbą zapisaną jako tekst. Różne funkcje mają inne zasady traktowania takich danych, dlatego nie warto sprawdzać tylko typowych przykładów.
+Dla A2 = **-12,349** otrzymasz `=ZAOKR.DÓŁ(A2;2)` → **-12,34** oraz `=ZAOKR.DÓŁ(A2;0)` → **-12**. Dla dodatniej liczby **12,349** wyniki będą **12,34** oraz **12**. Porównaj z ZAOKR.GÓRA, które zaokrągla od zera.
 
-Jeżeli zamierzasz kopiować formułę do wielu wierszy, zwróć uwagę, czy zakresy źródłowe mają pozostać stałe. Adresy bezwzględne z dolarem pomagają zachować ten sam zakres przy kopiowaniu. Wyniki prezentuj z odpowiednim formatem liczbowym; pamiętaj jednak, że samo formatowanie nie zmienia wartości używanej w późniejszych obliczeniach. W raportach liczbowych dobrze jest zachować surowe dane i pokazać osobno wynik przetwarzania, aby możliwa była szybka kontrola poprawności.
+## Zastosowanie w praktyce
+
+W kosztorysach i rozliczeniach ZAOKR.DÓŁ może służyć do obcięcia wyniku do określonej liczby miejsc dziesiętnych. Ważne, aby rozumieć kierunek działania tej funkcji: przy dodatniej liczbie obniża wynik, ale przy ujemnej przesuwa go w stronę zera, więc matematycznie zwiększa wartość. Jeśli chcesz zawsze znaleźć największą liczbę całkowitą nieprzekraczającą danej wartości, to inne działanie i wymaga odrębnej reguły. Przy obliczeniach finansowych nie mieszaj bez uzasadnienia ZAOKR, ZAOKR.DÓŁ i ZAOKR.GÓRA w jednym procesie. Ustal miejsce zaokrąglenia — osobno dla pozycji, sum i podatku — oraz porównaj kilka przypadków granicznych, zwłaszcza z liczbami ujemnymi i wieloma miejscami po przecinku.

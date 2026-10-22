@@ -35,7 +35,7 @@ Data początkowa powinna być wcześniejsza od końcowej. Odwrotna kolejność p
 
 ## Uważaj na jednostkę MD
 
-Microsoft ostrzega, że wariant MD może w określonych sytuacjach zwracać niedokładne wyniki. Jeżeli potrzebujesz reszty dni po odjęciu pełnych miesięcy, warto dokładnie przetestować przypadki graniczne. citeturn610710search0
+Microsoft ostrzega, że wariant MD może w określonych sytuacjach zwracać niedokładne wyniki. Jeżeli potrzebujesz reszty dni po odjęciu pełnych miesięcy, warto dokładnie przetestować przypadki graniczne. [Źródło: dokumentacja Microsoft o DATA.RÓŻNICA](https://support.microsoft.com/pl-pl/excel/functions/datedif-function).
 
 ## Kiedy używać DATA.RÓŻNICA?
 
