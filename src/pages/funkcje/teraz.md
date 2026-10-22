@@ -17,14 +17,12 @@ Pierwszy przykład zwraca datę i godzinę. Druga formuła odejmuje początek bi
 
 <div class="formula">=TERAZ()-DZIŚ()</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji TERAZ. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+`TERAZ()-DZIŚ()` pozostawia ułamek doby, czyli samą godzinę zapisaną jako liczbę. Wynik warto sformatować jako czas, inaczej możesz zobaczyć np. `0,5` zamiast `12:00`.
 
 ## Najczęstsze pułapki
 
 Funkcja aktualizuje się przy przeliczeniu i nie utrwala chwili wpisu. Format komórki decyduje, czy widzisz godzinę, datę czy obie informacje.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
-
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+Gdy zegar wskazuje **12:00**, `=TERAZ()-DZIŚ()` jest bliskie **0,5**, co po formatowaniu `gg:mm` wyświetli się jako **12:00**. Funkcja TERAZ aktualizuje wynik przy przeliczeniu arkusza; nie nadaje się do trwałego zapisywania momentu utworzenia rekordu.

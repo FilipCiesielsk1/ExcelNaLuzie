@@ -17,14 +17,12 @@ Pierwszy wariant pobiera cztery ostatnie znaki, zachowując zera wiodące jako c
 
 <div class="formula">=PRAWY(A2;DŁ(A2)-ZNAJDŹ("-";A2))</div>
 
-Ten wariant pokazuje zastosowanie funkcji PRAWY w bardziej rozbudowanym obliczeniu. Sprawdź, czy podane odwołania do komórek pasują do układu Twojej tabeli; przykładowych adresów nie trzeba używać dosłownie.
+Drugi przykład oblicza długość fragmentu po pierwszym myślniku. Najpierw DŁ ustala długość całego tekstu, a ZNAJDŹ podaje pozycję separatora. Bez separatora formuła zgłosi błąd.
 
 ## Typowe błędy
 
 Jeśli podasz więcej znaków niż ma komórka, otrzymasz cały tekst. Dla ujemnej liczby znaków pojawi się błąd; drugi wariant wymaga obecności separatora.
 
-## Jak sprawdzić działanie w swoim arkuszu?
+## Sprawdź na konkretnych danych
 
-Zacznij od pojedynczego przykładu, którego poprawny wynik potrafisz ustalić bez formuły. Wpisz dane wejściowe do wskazanej komórki, a obok wstaw formułę i porównaj rezultat. Następnie przetestuj przypadek nietypowy: pustą wartość, krótszy napis lub brak separatora. Dzięki temu szybciej rozpoznasz, czy problem leży w składni funkcji, czy w danych.
-
-Przy kopiowaniu w dół tabeli zwróć uwagę na to, które odwołania do komórek powinny się przesuwać. Jeżeli odwołujesz się do stałego słownika, rozważ adres bezwzględny ze znakami dolara. Warto również zachować oryginalną kolumnę przed czyszczeniem danych: łatwiej porównasz wynik i wykryjesz przypadkowo usunięte znaki. Tekst i liczby bywają wyświetlane podobnie, ale zachowują się inaczej w obliczeniach.
+Dla A2 = `PL-00125` formuła `=PRAWY(A2;DŁ(A2)-ZNAJDŹ("-";A2))` zwróci **00125** jako tekst, zachowując zera wiodące. Dla krótszego kodu `PL-12` otrzymasz **12**, a dla `PL12` bez myślnika potrzebna jest obsługa błędu.

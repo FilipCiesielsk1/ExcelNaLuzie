@@ -17,14 +17,12 @@ W pierwszym przykładzie otrzymujesz pozycję pierwszej litery szukanego wyrazu.
 
 <div class="formula">=CZY.LICZBA(SZUKAJ.TEKST("raport";A2))</div>
 
-Drugi zapis łączy funkcję SZUKAJ.TEKST z innymi elementami formuły. Wybieraj taki wariant tylko wtedy, gdy rozumiesz, które komórki zawierają dane wejściowe, a które parametry. Zastąp przykładowe adresy adresami z własnego arkusza.
+SZUKAJ.TEKST zwraca pozycję znalezionego fragmentu, a przy braku frazy błąd. CZY.LICZBA zamienia te dwa przypadki w logiczne PRAWDA lub FAŁSZ — prawidłowo obsługuje też błąd wyszukiwania, bez dodatkowego JEŻELI.BŁĄD.
 
 ## Na co uważać?
 
 Funkcja zwraca pozycję, nie samą frazę. Rozpoznaje wieloznaczniki i nie rozróżnia wielkości liter; przy ścisłym dopasowaniu użyj ZNAJDŹ.
 
-## Sprawdzanie wyniku na własnych danych
+## Sprawdź na konkretnych danych
 
-Przy pierwszym użyciu wstaw formułę do komórki obok danych testowych. Nie zaczynaj od całej tabeli: wybierz rekord, dla którego potrafisz przewidzieć wynik, a następnie porównaj go z Excelem. Sprawdź także brak danych oraz sytuację graniczną, np. wartość spoza słownika albo nietypowy format tekstu. Pozwoli to szybciej zidentyfikować błędne odwołanie.
-
-Jeśli kopiujesz obliczenia na kolejne wiersze, dopilnuj odpowiednich adresów komórek. Zakresy stałe można zablokować znakami dolara, a odwołania do danych bieżącego rekordu pozostawić względne. Zwróć też uwagę na format wyniku: data, tekst i liczba mogą wyglądać podobnie, lecz różnie zachowują się podczas dalszego obliczania. W raportach zachowuj kolumny źródłowe, aby móc prześledzić skąd wziął się wynik.
+Dla A2 = `Raport miesięczny` formuła `=CZY.LICZBA(SZUKAJ.TEKST("raport";A2))` zwróci **PRAWDA**, mimo wielkiej litery na początku. Dla tekstu `Zestawienie` zwróci **FAŁSZ**. Gdy potrzebujesz wyszukiwania z rozróżnianiem wielkości liter, użyj ZNAJDŹ.

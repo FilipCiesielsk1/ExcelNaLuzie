@@ -17,14 +17,12 @@ Pierwszy wariant usuwa spacje z brzegów i pozostawia pojedyncze między słowam
 
 <div class="formula">=DŁ(USUŃ.ZBĘDNE.ODSTĘPY(A2))</div>
 
-Ten wariant pokazuje zastosowanie funkcji USUŃ.ZBĘDNE.ODSTĘPY w bardziej rozbudowanym obliczeniu. Sprawdź, czy podane odwołania do komórek pasują do układu Twojej tabeli; przykładowych adresów nie trzeba używać dosłownie.
+Połączenie z DŁ mierzy długość już oczyszczonego tekstu. Nie wystarczy jednak do usunięcia twardej spacji (znak 160), często występującej w danych skopiowanych z internetu.
 
 ## Typowe błędy
 
 Funkcja nie usuwa wszystkich białych znaków, w tym spacji nierozdzielających o kodzie 160. W niektórych plikach trzeba najpierw zamienić te znaki.
 
-## Jak sprawdzić działanie w swoim arkuszu?
+## Sprawdź na konkretnych danych
 
-Zacznij od pojedynczego przykładu, którego poprawny wynik potrafisz ustalić bez formuły. Wpisz dane wejściowe do wskazanej komórki, a obok wstaw formułę i porównaj rezultat. Następnie przetestuj przypadek nietypowy: pustą wartość, krótszy napis lub brak separatora. Dzięki temu szybciej rozpoznasz, czy problem leży w składni funkcji, czy w danych.
-
-Przy kopiowaniu w dół tabeli zwróć uwagę na to, które odwołania do komórek powinny się przesuwać. Jeżeli odwołujesz się do stałego słownika, rozważ adres bezwzględny ze znakami dolara. Warto również zachować oryginalną kolumnę przed czyszczeniem danych: łatwiej porównasz wynik i wykryjesz przypadkowo usunięte znaki. Tekst i liczby bywają wyświetlane podobnie, ale zachowują się inaczej w obliczeniach.
+Dla A2 = `  Jan   Kowalski  ` funkcja `=USUŃ.ZBĘDNE.ODSTĘPY(A2)` zwróci **Jan Kowalski**. Gdy w danych występują twarde spacje, zastosuj `=USUŃ.ZBĘDNE.ODSTĘPY(PODSTAW(A2;ZNAK(160);" "))`. Możesz porównać `=DŁ(A2)` i długość oczyszczonej wartości.
