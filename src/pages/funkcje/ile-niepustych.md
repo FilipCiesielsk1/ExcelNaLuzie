@@ -17,14 +17,12 @@ Pierwszy przykład zlicza wypełnione komórki jednej kolumny. Drugi analizuje d
 
 <div class="formula">=ILE.NIEPUSTYCH(A2:A100;C2:C100)</div>
 
-Druga formuła przedstawia kolejny wariant tego samego działania. Przed skopiowaniem zamień przykładowe odwołania do komórek na własne zakresy. W razie wątpliwości sprawdź dokładną składnię i opis poszczególnych argumentów na początku tej strony.
+Przy dwóch zakresach wynikiem jest suma niepustych komórek z obu zakresów. To nie to samo co liczba rekordów, w których oba pola są wypełnione — jeden wiersz może zwiększyć wynik dwukrotnie.
 
 ## Najważniejsza pułapka
 
 Komórka zawierająca formułę zwracającą pusty napis jest zliczana, choć wygląda na pustą. Jeśli interesują Cię wyłącznie liczby, użyj ILE.LICZB.
 
-## Jak sprawdzić i skopiować formułę?
+## Sprawdź na konkretnych danych
 
-Na początku przetestuj obliczenie na małym zestawie liczb, dla którego możesz łatwo wyznaczyć oczekiwany wynik samodzielnie. Potem sprawdź przypadki szczególne: zero, wartość ujemną, pustą komórkę oraz komórkę z liczbą zapisaną jako tekst. Różne funkcje mają inne zasady traktowania takich danych, dlatego nie warto sprawdzać tylko typowych przykładów.
-
-Jeżeli zamierzasz kopiować formułę do wielu wierszy, zwróć uwagę, czy zakresy źródłowe mają pozostać stałe. Adresy bezwzględne z dolarem pomagają zachować ten sam zakres przy kopiowaniu. Wyniki prezentuj z odpowiednim formatem liczbowym; pamiętaj jednak, że samo formatowanie nie zmienia wartości używanej w późniejszych obliczeniach. W raportach liczbowych dobrze jest zachować surowe dane i pokazać osobno wynik przetwarzania, aby możliwa była szybka kontrola poprawności.
+W A2 wpisz `Klient A`, w A3 wstaw formułę `=""`, a A4 pozostaw rzeczywiście pustą. `=ILE.NIEPUSTYCH(A2:A4)` da **2**, ponieważ formuła zwracająca pusty tekst jest mimo wszystko zawartością komórki. Gdy liczysz osoby lub zamówienia, sprawdzaj, czy jedna komórka odpowiada jednemu rekordowi.

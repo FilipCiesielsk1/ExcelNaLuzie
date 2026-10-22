@@ -17,14 +17,12 @@ Pierwszy przykład przesuwa datę o trzy miesiące do przodu. Drugi cofa ją o j
 
 <div class="formula">=NR.SER.DATY(A2;-1)</div>
 
-Druga formuła pokazuje dodatkowy sposób użycia funkcji NR.SER.DATY. Dopasuj adresy komórek i zakresy do własnego arkusza. Jeśli przykład korzysta z innych funkcji, sprawdź osobno ich argumenty i upewnij się, że otrzymują dane w wymaganym formacie.
+Ujemny drugi argument cofa datę o pełne miesiące kalendarzowe. Funkcja pilnuje długości docelowego miesiąca, dlatego wynik dla 31. dnia może przypaść na 30., 29. lub 28. dzień.
 
 ## Najczęstsze pułapki
 
 Dla dat leżących pod koniec miesiąca wynik może zostać dostosowany do ostatniego istniejącego dnia miesiąca docelowego. Nie zakładaj, że każdy miesiąc ma 30 dni.
 
-## Jak używać funkcji w rzeczywistych danych?
+## Sprawdź na konkretnych danych
 
-Zacznij od komórki testowej i porównaj wynik z obliczeniem wykonanym samodzielnie. Potem przetestuj przypadek graniczny: pustą komórkę, początek lub koniec okresu albo brak wartości. To ważne, bo poprawna składnia nie gwarantuje jeszcze, że dane mają oczekiwany format. Dopiero po takiej próbie skopiuj formułę w dół lub użyj jej w całym raporcie.
-
-Przy kopiowaniu sprawdzaj adresy względne i bezwzględne. Jeśli odwołujesz się do stałych parametrów w oddzielnych komórkach, zablokuj je znakiem dolara, aby nie przesuwały się wraz z kopiowaniem. Zwracaj też uwagę na format liczby: rzeczywista data jest przechowywana jako liczba seryjna, ale zwykle prezentowana w postaci czytelnej daty. Zachowuj dane źródłowe do kontroli, zwłaszcza po imporcie z zewnętrznego systemu.
+Dla A2 równego **31.01.2026** formuła `=NR.SER.DATY(A2;1)` zwróci **28.02.2026**. Dla **31.01.2024** wynik to **29.02.2024**, bo rok jest przestępny. Takie przypadki przetestuj przed użyciem do terminów umów i faktur.
