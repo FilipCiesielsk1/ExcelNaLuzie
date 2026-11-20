@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/ArticleLayout.astro
-title: "Formatowanie warunkowe dat — terminy na najbliższe 7 dni"
+title: "Formatowanie warunkowe dat — terminy w ciągu 7 dni"
 description: "Jak automatycznie wyróżniać terminy nadchodzące w ciągu tygodnia za pomocą DZIŚ()."
 slug: "formatowanie-warunkowe-dat"
 category: "Formatowanie i formatowanie warunkowe"

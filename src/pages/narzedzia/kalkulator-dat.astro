@@ -34,18 +34,18 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     <div class="date-fields" data-two-date-fields>
       <div class="generator-field">
         <label for="date-start">Data początkowa</label>
-        <input id="date-start" data-start type="date" value="2026-10-01"/>
+        <input id="date-start" data-start type="date" min="1900-01-01" max="9999-12-31" value="2026-10-01"/>
       </div>
       <div class="generator-field">
         <label for="date-end">Data końcowa</label>
-        <input id="date-end" data-end type="date" value="2026-10-06"/>
+        <input id="date-end" data-end type="date" min="1900-01-01" max="9999-12-31" value="2026-10-06"/>
       </div>
     </div>
 
     <div class="date-fields hidden" data-one-date-fields>
       <div class="generator-field">
         <label for="date-single">Data</label>
-        <input id="date-single" data-single type="date" value="2026-10-06"/>
+        <input id="date-single" data-single type="date" min="1900-01-01" max="9999-12-31" value="2026-10-06"/>
       </div>
       <div class="generator-field hidden" data-months-field>
         <label for="date-months">Liczba miesięcy</label>
@@ -57,7 +57,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       <div class="generator-field">
         <label for="date-holidays">Święta / dodatkowe dni wolne</label>
         <textarea id="date-holidays" data-holidays rows="4" placeholder="2026-11-11&#10;2026-12-25"></textarea>
-        <small>Jedna data w wierszu, format RRRR-MM-DD. W formule Excel zakładamy listę świąt w E2:E20.</small>
+        <small>Jedna data w wierszu, format RRRR-MM-DD. W arkuszu wklej tę samą listę od komórki E2.</small>
       </div>
     </div>
 
@@ -82,6 +82,8 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
   </div>
 
   <script>
+    import { fullMonthsBetween, workdaysBetween } from '../../utils/dataTools.js';
+
     const root = document.querySelector('[data-date-calculator]');
     const operation = root.querySelector('[data-operation]');
     const startInput = root.querySelector('[data-start]');
@@ -101,9 +103,10 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     const DAY = 86400000;
 
     const parseDate = (value) => {
-      if (!value) return null;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || value < '1900-01-01') return null;
       const [year, month, day] = value.split('-').map(Number);
-      return new Date(Date.UTC(year, month - 1, day));
+      const date = new Date(Date.UTC(year, month - 1, day));
+      return isoDate(date) === value ? date : null;
     };
 
     const formatDate = (date) => {
@@ -113,16 +116,6 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     };
 
     const daysBetween = (start, end) => Math.round((end - start) / DAY);
-
-    const fullMonthsBetween = (start, end) => {
-      if (end < start) return null;
-      let months = (end.getUTCFullYear() - start.getUTCFullYear()) * 12
-        + end.getUTCMonth() - start.getUTCMonth();
-
-      const anchor = addMonths(start, months);
-      if (anchor > end) months -= 1;
-      return months;
-    };
 
     const addMonths = (date, months) => {
       const sourceDay = date.getUTCDate();
@@ -138,7 +131,7 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
         .map((value) => value.trim())
         .filter(Boolean);
 
-      return new Set(values.filter((value) => /^\d{4}-\d{2}-\d{2}$/.test(value)));
+      return values.every((value) => parseDate(value)) ? values : null;
     };
 
     const isoDate = (date) => {
@@ -146,22 +139,6 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       const m = String(date.getUTCMonth() + 1).padStart(2, '0');
       const d = String(date.getUTCDate()).padStart(2, '0');
       return `${y}-${m}-${d}`;
-    };
-
-    const workdaysBetween = (start, end) => {
-      const holidays = parseHolidays();
-      const direction = end >= start ? 1 : -1;
-      let current = new Date(start);
-      let count = 0;
-
-      while ((direction === 1 && current <= end) || (direction === -1 && current >= end)) {
-        const day = current.getUTCDay();
-        const working = day !== 0 && day !== 6 && !holidays.has(isoDate(current));
-        if (working) count += direction;
-        current = new Date(current.getTime() + direction * DAY);
-      }
-
-      return count;
     };
 
     const isoWeek = (date) => {
@@ -175,6 +152,15 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     };
 
     const show = (element, visible) => element.classList.toggle('hidden', !visible);
+
+    const copyButton = root.querySelector('[data-copy]');
+    const showError = (message) => {
+      result.textContent = '—';
+      resultNote.textContent = message;
+      formula.textContent = '';
+      formulaNote.textContent = '';
+      copyButton.disabled = true;
+    };
 
     const update = () => {
       const mode = operation.value;
@@ -191,8 +177,11 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       const end = parseDate(endInput.value);
       const single = parseDate(singleInput.value);
 
+      if (needsTwoDates ? !start || !end : !single) {
+        return showError('Uzupełnij daty z zakresu 1900–9999.');
+      }
+      copyButton.disabled = false;
       if (mode === 'days') {
-        if (!start || !end) return;
         const value = daysBetween(start, end);
         result.textContent = `${value} ${Math.abs(value) === 1 ? 'dzień' : 'dni'}`;
         resultNote.textContent = 'Wynik dodatni oznacza późniejszą datę końcową.';
@@ -201,7 +190,6 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       }
 
       if (mode === 'months') {
-        if (!start || !end) return;
         const value = fullMonthsBetween(start, end);
         result.textContent = value === null ? 'Błąd kolejności dat' : `${value} pełnych miesięcy`;
         resultNote.textContent = value === null
@@ -212,22 +200,27 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       }
 
       if (mode === 'workdays') {
-        if (!start || !end) return;
-        const value = workdaysBetween(start, end);
+        const holidays = parseHolidays();
+        if (!holidays) return showError('Sprawdź listę dni wolnych. Wpisz poprawne daty w formacie RRRR-MM-DD.');
+        const value = workdaysBetween(start, end, holidays);
         result.textContent = `${value} dni roboczych`;
         resultNote.textContent = 'Weekend = sobota i niedziela. Wpisane dni wolne są pomijane.';
-        formula.textContent = holidaysInput.value.trim()
-          ? '=DNI.ROBOCZE(A2;B2;E2:E20)'
+        const range = `E2:E${holidays.length + 1}`;
+        formula.textContent = holidays.length
+          ? `=DNI.ROBOCZE(A2;B2;${range})`
           : '=DNI.ROBOCZE(A2;B2)';
-        formulaNote.textContent = holidaysInput.value.trim()
-          ? 'A2/B2 = daty, E2:E20 = lista świąt.'
+        formulaNote.textContent = holidays.length
+          ? `A2/B2 = daty, ${range} = lista świąt.`
           : 'A2 = data początkowa, B2 = data końcowa.';
       }
 
       if (mode === 'addmonths') {
-        if (!single) return;
-        const months = Number.parseInt(monthsInput.value || '0', 10);
-        const calculated = addMonths(single, Number.isFinite(months) ? months : 0);
+        const months = monthsInput.valueAsNumber;
+        if (!Number.isSafeInteger(months)) return showError('Wpisz całkowitą liczbę miesięcy.');
+        const calculated = addMonths(single, months);
+        if (!Number.isFinite(calculated.getTime()) || calculated.getUTCFullYear() < 1900 || calculated.getUTCFullYear() > 9999) {
+          return showError('Data wynikowa musi mieścić się w zakresie 1900–9999.');
+        }
         result.textContent = formatDate(calculated);
         resultNote.textContent = months >= 0
           ? `Data przesunięta o ${months} mies.`
@@ -237,7 +230,6 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       }
 
       if (mode === 'firstday') {
-        if (!single) return;
         const calculated = new Date(Date.UTC(single.getUTCFullYear(), single.getUTCMonth(), 1));
         result.textContent = formatDate(calculated);
         resultNote.textContent = 'Pierwszy dzień miesiąca wskazanej daty.';
@@ -246,7 +238,6 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       }
 
       if (mode === 'lastday') {
-        if (!single) return;
         const calculated = new Date(Date.UTC(single.getUTCFullYear(), single.getUTCMonth() + 1, 0));
         result.textContent = formatDate(calculated);
         resultNote.textContent = 'Excel uwzględnia długość miesiąca i lata przestępne.';
@@ -255,7 +246,6 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       }
 
       if (mode === 'week') {
-        if (!single) return;
         const week = isoWeek(single);
         result.textContent = `Tydzień ${week}`;
         resultNote.textContent = 'Numeracja zgodna z ISO 8601 — tydzień zaczyna się w poniedziałek.';
@@ -267,13 +257,14 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     root.addEventListener('input', update);
     root.addEventListener('change', update);
 
-    root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+    copyButton.addEventListener('click', async (event) => {
+      const button = event.currentTarget;
       try {
         await navigator.clipboard.writeText(formula.textContent || '');
-        event.currentTarget.textContent = 'Skopiowano ✓';
-        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+        button.textContent = 'Skopiowano ✓';
+        setTimeout(() => button.textContent = 'Kopiuj formułę', 1500);
       } catch {
-        event.currentTarget.textContent = 'Zaznacz ręcznie';
+        button.textContent = 'Zaznacz ręcznie';
       }
     });
 

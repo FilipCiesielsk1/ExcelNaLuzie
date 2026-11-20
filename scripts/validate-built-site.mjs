@@ -52,6 +52,12 @@ const textOf = (html, tag) =>
 const attr = (tag, name) =>
   tag.match(new RegExp("\\b" + name + "=[\"']([^\"']+)[\"']", "i"))?.[1] ?? '';
 
+const descriptionsOfRobots = (html) =>
+  [...html.matchAll(/<meta\b[^>]+>/gi)]
+    .map(([tag]) => tag)
+    .filter((tag) => attr(tag, 'name') === 'robots')
+    .map((tag) => attr(tag, 'content').toLowerCase());
+
 const resolveInternalTarget = (href) => {
   if (!href || href.startsWith('#') || /^(mailto:|tel:|javascript:|data:)/i.test(href)) return null;
 
@@ -88,6 +94,15 @@ for (const file of htmlFiles) {
 
   if (!/<main\b[^>]*id=["']main-content["']/i.test(html)) {
     errors.push(page + ': brak głównego regionu #main-content');
+  }
+
+  if ((html.match(/<main\b/gi) || []).length !== 1) {
+    errors.push(page + ': oczekiwano dokładnie jednego regionu main');
+  }
+  const noindex = descriptionsOfRobots(html).some((content) => content.split(/[,\s]+/).includes('noindex'));
+  const searchBodies = (html.match(/<[a-z][^>]*\sdata-pagefind-body(?=[\s=>])/gi) || []).length;
+  if (searchBodies !== (noindex ? 0 : 1)) {
+    errors.push(page + ': niepoprawna liczba obszarów treści w indeksie Pagefind');
   }
 
   if (!/<a\b[^>]*class=["'][^"']*skip-link[^"']*["'][^>]*href=["']#main-content["']/i.test(html)) {

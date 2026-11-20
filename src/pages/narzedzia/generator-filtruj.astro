@@ -183,12 +183,13 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     root.addEventListener('input', update);
     root.addEventListener('change', update);
     root.querySelector('[data-copy]').addEventListener('click', async (event) => {
+      const button = event.currentTarget;
       try {
         await navigator.clipboard.writeText(root.querySelector('[data-output]').textContent || '');
-        event.currentTarget.textContent = 'Skopiowano ✓';
-        setTimeout(() => event.currentTarget.textContent = 'Kopiuj formułę', 1500);
+        button.textContent = 'Skopiowano ✓';
+        setTimeout(() => button.textContent = 'Kopiuj formułę', 1500);
       } catch {
-        event.currentTarget.textContent = 'Zaznacz ręcznie';
+        button.textContent = 'Zaznacz ręcznie';
       }
     });
     update();

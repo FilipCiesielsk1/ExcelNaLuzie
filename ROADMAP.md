@@ -1,5 +1,18 @@
 # ExcelNaLuzie.pl — ROADMAP
 
+## Kolejność działań po audycie z 20 listopada 2026
+
+Kolejność uwzględnia ryzyko utraty zapytania, koszt utrwalenia błędnych przykładów i dopiero potem rozwój oferty. Podany czas to szacunek pracy jednej osoby.
+
+| Kolejność | Zadanie | Jak sprawdzić wykonanie | Szacunek |
+|---|---|---|---|
+| 1 · P1 | Sprawdzić doręczenie formularza na produkcji. Test w przeglądarce obejmuje walidację, potwierdzenie, awarię operatora i ponowienie. | Właściciel wysyła jedno oznaczone zgłoszenie testowe, odnajduje je w skrzynce i potwierdza adres odpowiedzi. | 10–15 min |
+| 2 · P1 | Zweryfikować przykłady w polskim Excelu. Rozpocząć od 10 najczęściej odwiedzanych poradników oraz przykładów FILTRUJ i UNIKATOWE bez pasujących danych. | Dla każdej próby zapisać wersję Excela, dane wejściowe, oczekiwany i rzeczywisty wynik. Oznaczyć wyłącznie faktycznie sprawdzone przykłady. | 2–3 godz. na pierwszą partię |
+| 3 · P2 | Utrwalić testy interakcji w GitHub Actions i ustalić wersje zależności w pliku blokady npm. Obecny build kontroluje głównie dane i wygenerowany HTML. | Czysta instalacja przez npm ci. Test w Chromium znajduje kontakt, kopiuje formułę, pobiera raport XLSX i wykrywa przewijanie całej strony w poziomie na telefonie. | 0,5–1 dnia |
+| 4 · P2 | Wybrać następną aktualizację treści na podstawie Google Search Console. | Porównać poradniki, funkcje i narzędzia z ostatnich 28 dni. Wybrać trzy pary zapytanie–strona z wyświetleniami i zapisać datę kolejnego pomiaru. | 1–2 godz. |
+| 5 · P2 | Dokończyć jeden przypadek użycia w portfolio, zaczynając od Transport Planner PRO. | Wersja demonstracyjna przechodzi test konfliktów zasobów i tygodni ISO. Opis realizacji pokazuje wynik na danych demonstracyjnych i prowadzi do formularza. | Wycenić po przeglądzie aktualnego skoroszytu |
+| 6 · P3 | Przeprowadzić odbiór plików przed przywróceniem pobierania w katalogu szablonów. | Dla każdego udostępnianego pliku sprawdzić otwarcie, edycję i ponowny zapis w deklarowanych wersjach Excela. Włączyć pobieranie po decyzji właściciela. | 15–30 min na plik |
+
 ## Cel projektu
 Zbudować szybki, statyczny portal o Excelu nastawiony na ruch organiczny z Google.
 

@@ -161,8 +161,8 @@ const items = [
     if (!loadPromise) {
       loadPromise = import(/* @vite-ignore */ '/pagefind/pagefind.js')
         .then(async (module) => {
+          if (typeof module.init === 'function') await module.init();
           pagefind = module;
-          if (typeof pagefind.init === 'function') await pagefind.init();
           return pagefind;
         })
         .catch((error) => {
@@ -219,7 +219,7 @@ const items = [
     });
   };
 
-  const renderResults = (items, query) => {
+  const renderResults = (items, query, total) => {
     if (!searchResults || !searchStatus || !searchHints) return;
 
     searchResults.replaceChildren();
@@ -232,7 +232,9 @@ const items = [
       return;
     }
 
-    searchStatus.textContent = 'Znaleziono ' + items.length + (items.length === 1 ? ' wynik.' : ' wyników.');
+    searchStatus.textContent = total > items.length
+      ? `Wyświetlono ${items.length} z ${total} wyników.`
+      : `Liczba wyników: ${total}.`;
     searchHints.hidden = true;
 
     for (const item of items) {
@@ -293,7 +295,7 @@ const items = [
       );
 
       if (localRequest !== requestNumber) return;
-      renderResults(data, query);
+      renderResults(data, query, search.results.length);
     } catch (error) {
       if (localRequest !== requestNumber) return;
       console.error(error);
@@ -361,9 +363,6 @@ const items = [
       resultLinks[activeIndex].click();
     }
 
-    if (event.key === 'Escape') {
-      setOpen(false);
-    }
   });
 
   document.addEventListener('keydown', (event) => {

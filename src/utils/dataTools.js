@@ -76,8 +76,9 @@ export function detectDelimiter(input) {
       if(ch===','&&/\d/.test(sample[i-1]??'')&&/\d/.test(sample[i+1]??'')) decimalCommas++;
     }
   }
-  // Polish numeric values use decimal commas even when fields are separated by semicolons.
-  if(scores.get(';')>0&&decimalCommas>0) scores.set(',',Math.max(0,scores.get(',')-decimalCommas));
+  // Polish numeric values use decimal commas inside tab, pipe and semicolon delimited tables.
+  const hasOtherSeparator = [';', '\t', '|'].some((separator) => scores.get(separator) > 0);
+  if(hasOtherSeparator && decimalCommas > 0) scores.set(',',Math.max(0,scores.get(',')-decimalCommas));
   const ranked=[...scores.entries()].sort((a,b)=>b[1]-a[1]);
   return ranked[0][1]>0?ranked[0][0]:'\t';
 }
@@ -137,11 +138,35 @@ export function calculateShift({start,end,breakMinutes=0,standardHours=8}) {
     hours:minutes/60,
     overtime:Math.max(0,minutes-standardHours*60)/60,
     formula:'=MOD(B2-A2;1)*24-C2/60',
-    overtimeFormula:'=MAKS(0;MOD(B2-A2;1)*24-C2/60-D2)'
+    overtimeFormula:'=MAX(0;MOD(B2-A2;1)*24-C2/60-D2)'
   };
 }
 
 export function formatMinutes(minutes) {
   if(!Number.isFinite(minutes)||minutes<0) throw new Error('Niepoprawny czas.');
   return Math.floor(minutes/60)+' godz. '+String(Math.round(minutes%60)).padStart(2,'0')+' min';
+}
+
+export function fullMonthsBetween(start, end) {
+  if (end < start) return null;
+  let months = (end.getUTCFullYear() - start.getUTCFullYear()) * 12
+    + end.getUTCMonth() - start.getUTCMonth();
+
+  if (end.getUTCDate() < start.getUTCDate()) months -= 1;
+  return months;
+}
+
+export function workdaysBetween(start, end, holidays) {
+  const [first, last] = start <= end ? [start, end] : [end, start];
+  const days = Math.round((last - first) / 86400000) + 1;
+  let count = Math.floor(days / 7) * 5;
+  for (let offset = 0; offset < days % 7; offset++) {
+    const weekday = (first.getUTCDay() + offset) % 7;
+    if (weekday !== 0 && weekday !== 6) count++;
+  }
+  for (const value of new Set(holidays)) {
+    const date = new Date(value + 'T00:00:00Z');
+    if (date >= first && date <= last && date.getUTCDay() !== 0 && date.getUTCDay() !== 6) count--;
+  }
+  return end >= start ? count : -count;
 }

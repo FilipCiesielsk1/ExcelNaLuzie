@@ -48,6 +48,7 @@ const schema = {
 ---
 
 <BaseLayout
+  scopedSearchBody
   navSection="narzedzia"
   title={`${title} | ExcelNaLuzie`}
   description={description}
@@ -72,9 +73,9 @@ const schema = {
       </header>
 
       <div class="tool-page-layout">
-        <main class="tool-generator-panel">
+        <div class="tool-generator-panel">
           <slot/>
-        </main>
+        </div>
 
         <aside class="tool-page-sidebar">
           <div class="tool-side-card">

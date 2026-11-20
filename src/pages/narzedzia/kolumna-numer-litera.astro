@@ -18,8 +18,8 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
   <div class="column-converter" data-column-converter>
     <div class="column-converter-grid">
       <div class="column-converter-card">
-        <span class="column-converter-label">Numer kolumny</span>
-        <input data-column-number type="number" min="1" max="16384" value="28" inputmode="numeric"/>
+        <label class="column-converter-label" for="column-number">Numer kolumny</label>
+        <input id="column-number" data-column-number type="number" min="1" max="16384" value="28" inputmode="numeric"/>
         <small>Zakres Excela: 1–16384</small>
         <div class="column-converter-result">
           <span>Litera</span>
@@ -31,8 +31,8 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       <div class="column-converter-swap" aria-hidden="true">↔</div>
 
       <div class="column-converter-card">
-        <span class="column-converter-label">Litera kolumny</span>
-        <input data-column-letter type="text" value="AB" maxlength="3" spellcheck="false" autocomplete="off"/>
+        <label class="column-converter-label" for="column-letter">Litera kolumny</label>
+        <input id="column-letter" data-column-letter type="text" value="AB" maxlength="3" spellcheck="false" autocomplete="off"/>
         <small>Zakres Excela: A–XFD</small>
         <div class="column-converter-result">
           <span>Numer</span>
@@ -91,9 +91,17 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       message.classList.toggle('error', error);
     };
 
+    const copyButtons = root.querySelectorAll('[data-copy-number], [data-copy-letter]');
+    const setCopyEnabled = (enabled) => {
+      copyButtons.forEach((button) => { button.disabled = !enabled; });
+    };
+
     const updateFromNumber = () => {
       const letters = numberToLetters(numberInput.value);
+      setCopyEnabled(Boolean(letters));
       if (!letters) {
+        letterInput.value = '';
+        numberResult.textContent = '—';
         letterResult.textContent = '—';
         setMessage('Wpisz liczbę od 1 do 16384.', true);
         return;
@@ -108,7 +116,10 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
       const normalized = letterInput.value.toUpperCase().replace(/[^A-Z]/g, '').slice(0, 3);
       letterInput.value = normalized;
       const number = lettersToNumber(normalized);
+      setCopyEnabled(Boolean(number));
       if (!number) {
+        numberInput.value = '';
+        letterResult.textContent = '—';
         numberResult.textContent = '—';
         setMessage('Wpisz oznaczenie kolumny od A do XFD.', true);
         return;

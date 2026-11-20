@@ -3817,3 +3817,18 @@ button.sidebar-search {
 .service-tool-cta{background:#f3f9f4}
 @media(min-width:761px) and (max-width:1000px){.menu{display:none}.mobile-menu{display:block}.header-search{margin-left:auto}}
 @media(max-width:760px){.service-home-strip-inner{align-items:stretch;flex-direction:column}.service-home-strip a{align-self:flex-start}}
+
+.article-header h1,
+.function-detail-header h1,
+.tool-page-header h1,
+.article-content :not(pre) > code {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .article-content th,
+  .article-content td {
+    overflow-wrap: anywhere;
+    padding: 9px 7px;
+  }
+}
