@@ -42,6 +42,7 @@ test('delimiter detection ignores quoted delimiters',()=>{
       ['12,50', '11,20'].join(separator) + '\n' + ['0,01', '3,10'].join(separator);
     assert.deepEqual(parseDelimited(input).rows[2], ['0,01', '3,10']);
   }
+  assert.equal(detectDelimiter('1,2,3\n4,5,6|notes'), ',');
   assert.equal(detectDelimiter('a|b|c\n1|2|3'),'|');
   assert.equal(detectDelimiter('a\tb\n1\t2'),'\t');
   assert.equal(detectDelimiter('A;B;C\n1,20;2,30;3,40\n4,50;5,60;6,70'),';');

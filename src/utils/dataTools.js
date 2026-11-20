@@ -62,25 +62,43 @@ export function parseDelimited(input,delimiter='auto') {
 }
 
 export function detectDelimiter(input) {
-  const sample=String(input ?? '').slice(0,10000);
-  const scores=new Map(Object.values(DELIMITERS).map(sep=>[sep,0]));
-  let quoted=false,lines=0,decimalCommas=0;
-  for(let i=0;i<sample.length&&lines<6;i++){
-    const ch=sample[i];
-    if(ch==='"'){
-      if(quoted&&sample[i+1]==='"') {i++;continue;}
-      quoted=!quoted;
-    } else if(!quoted){
-      if(ch==='\n') lines++;
-      if(scores.has(ch)) scores.set(ch,scores.get(ch)+1);
-      if(ch===','&&/\d/.test(sample[i-1]??'')&&/\d/.test(sample[i+1]??'')) decimalCommas++;
+  const source = String(input ?? '');
+  const sample = source.slice(0, 10000);
+  const separators = Object.values(DELIMITERS);
+  const totals = new Map(separators.map((sep) => [sep, 0]));
+  const records = [];
+  let row = new Map();
+  let quoted = false;
+  let decimalCommas = 0;
+
+  for (let i = 0; i < sample.length && records.length < 6; i++) {
+    const ch = sample[i];
+    if (ch === '"') {
+      if (quoted && sample[i + 1] === '"') i++;
+      else quoted = !quoted;
+    } else if (!quoted && ch === '\n') {
+      if (row.size) records.push(row);
+      row = new Map();
+    } else if (!quoted && totals.has(ch)) {
+      totals.set(ch, totals.get(ch) + 1);
+      row.set(ch, (row.get(ch) || 0) + 1);
+      if (ch === ',' && /\d/.test(sample[i - 1] ?? '') && /\d/.test(sample[i + 1] ?? '')) {
+        decimalCommas++;
+      }
     }
   }
-  // Polish numeric values use decimal commas inside tab, pipe and semicolon delimited tables.
-  const hasOtherSeparator = [';', '\t', '|'].some((separator) => scores.get(separator) > 0);
-  if(hasOtherSeparator && decimalCommas > 0) scores.set(',',Math.max(0,scores.get(',')-decimalCommas));
-  const ranked=[...scores.entries()].sort((a,b)=>b[1]-a[1]);
-  return ranked[0][1]>0?ranked[0][0]:'\t';
+  if (row.size && sample.length === source.length && !quoted) records.push(row);
+
+  // Prefer separators with the same field count across the sampled records.
+  const consistent = separators.filter((sep) =>
+    records.length > 1 && records[0].has(sep) &&
+    records.every((record) => record.get(sep) === records[0].get(sep))
+  );
+  const candidates = consistent.length ? consistent : separators;
+  if (candidates.some((sep) => sep !== ',' && totals.get(sep) > 0)) {
+    totals.set(',', totals.get(',') - decimalCommas);
+  }
+  return candidates.reduce((best, sep) => totals.get(sep) > totals.get(best) ? sep : best);
 }
 
 export function neutralizeSpreadsheetFormula(value) {
