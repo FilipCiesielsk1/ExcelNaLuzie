@@ -17,4 +17,4 @@ npm run build
 Push na `main` uruchamia GitHub Actions i wdraża `dist/` na GitHub Pages.
 
 ## Nowy artykuł
-Dodaj plik Markdown do `src/content/poradniki/` używając istniejących artykułów jako wzoru.
+Dodaj plik Markdown w `src/pages/poradniki/`, korzystając ze wzoru `templates/article-seo.md`.

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   cleanCell,cleanLines,cleaningFormula,parseDelimited,detectDelimiter,
   serializeDelimited,neutralizeSpreadsheetFormula,removeDuplicates,
-  calculateShift,formatMinutes
+  calculateShift,formatMinutes,fullMonthsBetween,workdaysBetween
 } from '../src/utils/dataTools.js';
 
 test('cleaning preserves lines while removing NBSP, controls and repeated spaces',()=>{
@@ -37,6 +37,12 @@ test('CSV parser handles semicolon, quotes, escaped quotes and embedded line bre
 });
 test('delimiter detection ignores quoted delimiters',()=>{
   assert.equal(detectDelimiter('a;b;"c,d"\n1;2;3'),';');
+  for (const separator of ['\t', '|']) {
+    const input = ['Kwota', 'Saldo'].join(separator) + '\n' +
+      ['12,50', '11,20'].join(separator) + '\n' + ['0,01', '3,10'].join(separator);
+    assert.deepEqual(parseDelimited(input).rows[2], ['0,01', '3,10']);
+  }
+  assert.equal(detectDelimiter('1,2,3\n4,5,6|notes'), ',');
   assert.equal(detectDelimiter('a|b|c\n1|2|3'),'|');
   assert.equal(detectDelimiter('a\tb\n1\t2'),'\t');
   assert.equal(detectDelimiter('A;B;C\n1,20;2,30;3,40\n4,50;5,60;6,70'),';');
@@ -80,6 +86,7 @@ test('work time handles normal shifts, overnight and breaks',()=>{
   assert.equal(b.overnight,true);
   assert.equal(b.hours,8);
   assert.equal(b.overtime,1);
+  assert.equal(b.overtimeFormula, '=MAX(0;MOD(B2-A2;1)*24-C2/60-D2)');
   assert.equal(calculateShift({start:'08:00',end:'08:00'}).minutes,0);
   assert.equal(formatMinutes(485),'8 godz. 05 min');
 });
@@ -88,4 +95,22 @@ test('work time rejects invalid times, negative breaks and break longer than shi
   assert.throws(()=>calculateShift({start:'09:00',end:'10:00',breakMinutes:90}),/dłuższa/);
   assert.throws(()=>calculateShift({start:'09:00',end:'10:00',breakMinutes:-1}),/Przerwa/);
   assert.throws(()=>calculateShift({start:'09:00',end:'10:00',standardHours:30}),/Norma/);
+});
+
+test('full months use the day of month, including February and leap years', () => {
+  const jan31 = new Date('2024-01-31');
+  assert.equal(fullMonthsBetween(jan31, new Date('2024-02-29')), 0);
+  assert.equal(fullMonthsBetween(jan31, new Date('2024-03-30')), 1);
+  assert.equal(fullMonthsBetween(jan31, new Date('2024-03-31')), 2);
+  assert.equal(fullMonthsBetween(new Date('2024-03-31'), jan31), null);
+});
+
+test('working days include both endpoints and skip each weekday holiday once', () => {
+  const monday = new Date('2026-11-09');
+  const sunday = new Date('2026-11-15');
+  const holidays = ['2026-11-11', '2026-11-11', '2026-11-14', '2026-12-25'];
+  assert.equal(workdaysBetween(monday, sunday, holidays), 4);
+  assert.equal(workdaysBetween(sunday, monday, holidays), -4);
+  assert.equal(workdaysBetween(monday, monday, []), 1);
+  assert.equal(workdaysBetween(sunday, sunday, []), 0);
 });

@@ -82,9 +82,13 @@ Jan;Kraków;"Powiedział ""cześć"""</textarea>
     };
     root.addEventListener('input',render);
     root.addEventListener('change',render);
-    root.querySelector('[data-copy]').addEventListener('click',async e=>{
+    root.querySelector('[data-copy]').addEventListener('click',async (event) => {
+      const button = event.currentTarget;
       const value=serializeDelimited(rows,'\t');
-      try {await navigator.clipboard.writeText(value);e.currentTarget.textContent='Skopiowano ✓';}
+      try {
+        await navigator.clipboard.writeText(value);
+        button.textContent = 'Skopiowano ✓';
+      }
       catch {error.textContent='Przeglądarka zablokowała schowek. Użyj przycisku Pobierz CSV.';error.hidden=false;}
     });
     root.querySelector('[data-download]').addEventListener('click',()=>{

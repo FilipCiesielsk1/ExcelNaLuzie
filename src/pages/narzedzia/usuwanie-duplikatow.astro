@@ -110,8 +110,12 @@ import ToolLayout from '../../layouts/ToolLayout.astro';
     };
     root.addEventListener('input',render);
     root.addEventListener('change',render);
-    root.querySelector('[data-copy]').addEventListener('click',async e=>{
-      try{await navigator.clipboard.writeText(serializeDelimited(unique,'\t'));e.currentTarget.textContent='Skopiowano ✓';}
+    root.querySelector('[data-copy]').addEventListener('click',async (event) => {
+      const button = event.currentTarget;
+      try {
+        await navigator.clipboard.writeText(serializeDelimited(unique,'\t'));
+        button.textContent = 'Skopiowano ✓';
+      }
       catch{error.textContent='Nie można użyć schowka. Pobierz CSV.';error.hidden=false;}
     });
     root.querySelector('[data-download]').addEventListener('click',()=>{

@@ -11,6 +11,7 @@ const {
   ogType='website',
   image=null,
   noindex=false,
+  scopedSearchBody=false,
   navSection=null,
   articlePublishedTime=null,
   articleModifiedTime=null,
@@ -86,7 +87,7 @@ const inferredNavSection = navSection || currentPath.split('/')[0] || null;
   <body>
     <a class="skip-link" href="#main-content">Przejdź do treści</a>
     <Header activeSection={inferredNavSection}/>
-    <main id="main-content" tabindex="-1"><slot/></main>
+    <main id="main-content" tabindex="-1" data-pagefind-body={!noindex && !scopedSearchBody ? true : undefined}><slot/></main>
     <Footer/>
     <script
       is:inline
